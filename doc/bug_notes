@@ -1,8 +1,4 @@
-- bad display when login password is null or wrong...
 - when no address book is set (global or private), there is still a button for
   address books (-> CPS error)
-- sorting on colums (subject, from, etc...) cannot be done on a search result
-  (it redirects to the INBOX mails)
-- no graphic information (icon) about forwarded mails
 - use "read messages" to get last received messages ("reload")
 - "Acknowledgement of read" is not working on the webmail platform.
