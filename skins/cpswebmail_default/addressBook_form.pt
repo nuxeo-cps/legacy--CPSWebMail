@@ -130,15 +130,14 @@
                   </a>
                 </p>
               </th>
-              <td width="1%">&nbsp;</td>
               <th align="center" width="16%">
                 <p>
                   <b>
                     <i tal:define="ltool here/portal_layouts;
                                    layoutid current_addressbook/layout;
                                    layoutob ltool/?layoutid;
-                                   widget python:(layoutob[title_field]);
-                                   disp_title widget/label|string:;"
+                                   widget python:layoutob.has_key(title_field) and layoutob[title_field] or None;
+                                   disp_title widget/label|string:label_name;"
                        tal:content="python:mcat(disp_title)">
                       Display Prop Name
                     </i>
@@ -248,7 +247,6 @@
                       <td width="1%" nowrap>&nbsp;</td>
                     </tal:block>
                   </tal:block>
-                  <td width="1%" align="center">&nbsp;</td>
                   <td valign="middle" align="left" nowrap>
                     <i tal:content="python:entry.get(title_field, '')">
                       Fullname
