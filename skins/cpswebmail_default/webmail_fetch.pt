@@ -200,8 +200,15 @@
               <td colspan="3">
                 <input tal:attributes="
                   type string:submit;
+                  value python:mcat('_Empty_Trash_');
+                  name string:empty_trash:method;
+                  onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), );"
+                  tal:condition="python:trashName == IMAPName"/>
+                <input tal:attributes="
+                  type string:submit;
                   value python:mcat('_Delete_');
-                  name string:delete_messages:method" />
+                  name string:delete_messages:method;
+                  onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), );" />
               </td>
               <td colspan="4" align="right">
                 <input tal:attributes="
@@ -379,7 +386,8 @@
                 <input tal:attributes="
                   type string:submit;
                   value python:mcat('_Delete_');
-                  name string:delete_messages:method" />
+                  name string:delete_messages:method;
+                  onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), );" />
               </td>
               <td colspan="4" align="right">
                 <input tal:attributes="
