@@ -300,10 +300,13 @@ How to setup address books
       like the 'addressbook' layout, except that:
       - All widgets, except 'id', should be hidden in layout modes create
         and edit.
-      - The better way to set the id widget is to set it as a 'Select
-        Widget', using a vocabulary with type 'CPS Directory Vocabulary',
-        that would only present the ids available in the original
-        directory. It should also be read only to prevent errors.
+      - The better way to set the widget storing the id is to set it as a
+        'CPS Directory Entry Widget', using a vocabulary with type 'CPS Indirect
+        Directory Vocabulary', with the name of the indirect directory in the
+        'directory' property, and with popup mode 'seach'. This widget will
+        present the entries accepted in the directory. It should also
+        be 'read only' in edit mode to prevent errors - there is no point in
+        editing a reference to the actual entry.
 
       The addressbook_links vocabulary is set to list all the available
       entries that can be added to the personal address book with links.
