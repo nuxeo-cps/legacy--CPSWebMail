@@ -266,16 +266,16 @@ msgid "_Trash_folder_"
 msgstr "Trash"
 
 msgid "_IMAP_Access_Error_Message_Title"
-msgstr "There is an error while accessing to IMAP account"
+msgstr "Unable to connect to your mailbox"
 
 msgid "_IMAP_Access_Error_Caution_"
-msgstr "Please look your IMAP connexion configuration in "
+msgstr "Please verify your IMAP connection configuration in "
 
 msgid "_directories_"
 msgstr "directories"
 
 msgid "_IMAP_Access_Error_note_"
-msgstr "This is your own parameters and they can be change by you only."
+msgstr "This is your own parameters and they can only be changed by you."
 
 msgid "_header_date_mailview_on_%m/%d/%Y at %H:%M"
 msgstr "%Y/%m/%d at %H:%M"
