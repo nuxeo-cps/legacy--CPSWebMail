@@ -1,3 +1,0 @@
-- when no address book is set (global or private), there is still a button for
-  address books (-> CPS error)
-- use "read messages" to get last received messages ("reload")
