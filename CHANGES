@@ -3,20 +3,10 @@ Requires:
 -
 New features:
 ~~~~~~~~~~~~~
-- Added new properties 'IMAPLoginField' and 'IMAPLoginPassword'
-  to be able to chose another field than imap_login and imap_password
-  to get IMAP login and password.
-  WARNING: passwords may be protected in some directories, and CPSWebMail
-  may not be able to access them.
-- Added a new property 'EnableSaveAttachments' to be able chose whether users
-  will be able to export attachments to their personal workspace.
+-
 Bug fixes:
 ~~~~~~~~~~
-- SMTP port set in portal_webMail was not taken into account.
-- Crash when saving attachments to personal workspace without selecting any
-  attachment.
-- Attachment pieces managment was not behaving properly when dealing with
-  several pieces.
+-
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
