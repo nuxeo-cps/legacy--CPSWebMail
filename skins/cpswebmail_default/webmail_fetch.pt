@@ -188,7 +188,7 @@
                   name string:move_selected_messages_to:method;
                   value python:mcat('_Move_To_')" />
                 <select name="move_to_folder">
-                  <option value="--Dossiers--">Choisir un dossier</option>
+                  <option value="--Dossiers--" tal:content="python:mcat('_Choose_A_Folder_')"/>
                   <tal:block repeat="imap_folder imap_folders">
                     <option tal:attributes="value imap_folder/getImapName"
                       tal:condition="python:imap_folder.getImapName() not in [
@@ -367,7 +367,7 @@
                   name string:move_selected_messages_to:method;
                   value python:mcat('_Move_To_')" />
                 <select name="move_to_folder1">
-                  <option value="--Dossiers--">Choisir un dossier</option>
+                  <option value="--Dossiers--" tal:content="python:mcat('_Choose_A_Folder_')"/>
                   <tal:block repeat="imap_folder imap_folders">
                     <option tal:attributes="
                       value imap_folder/getImapName"
