@@ -689,7 +689,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
 
         try:
             quota = self.getQuota()
-        except error:
+        except:
             # GETQUOTAROOT command not supported by IMAP server
             quota = None
 
@@ -697,7 +697,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         # copy = 0 if delete message from trash or quota exceed for
         # moving to trash
         #
-        if IMAPName == self.getTrashFolder().getImapName() or quota is None or quota > 999:
+        if IMAPName == (self.getTrashFolder().getImapName() or
+                         (quota is not None and quota > 999)):
             _copy = 0
 
         f = self.getFolder(IMAPName)
