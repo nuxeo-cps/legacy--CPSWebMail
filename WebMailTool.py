@@ -244,24 +244,20 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             return 1
 
     security.declareProtected(UseWebMailPermission, "createIMAPFolder")
-    def createIMAPFolder(self, REQUEST):
+    def createIMAPFolder(self, title, folder):
         """Create a new Folder on IMAP Server"""
         con = self.getConnection()
 
         res_create = ''
-        title = REQUEST.get('title', '')
         if title != '':
-            if REQUEST.form.has_key('IMAPName'):
-                folder = REQUEST.form['IMAPName']
-                if folder == 'INBOX':
-                    res_create = con.createFolder(title)
-                elif folder.startswith('INBOX.'):
-                    folder = folder[6:]
-                    res_create = con.createFolder(folder+'.'+title)
-                else:
-                    res_create = con.createFolder(folder+'.'+title)
+            folder = str(folder)
+            if folder == 'INBOX':
+                res_create = con.createFolder(title)
+            elif folder.startswith('INBOX.'):
+                folder = folder[6:]
+                res_create = con.createFolder(folder+'.'+title)
             else:
-                res_create = "NO"
+                res_create = con.createFolder(folder+'.'+title)
         else:
             res_create = "NO"
 
@@ -275,18 +271,26 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             return 1
 
     security.declareProtected(UseWebMailPermission, "deleteIMAPFolders")
-    def deleteIMAPFolders(self, REQUEST):
+    def deleteIMAPFolders(self, IMAPNames):
         """Delete an IMAP Folder"""
         con = self.getConnection()
 
-        if REQUEST.form.has_key('IMAPNames'):
-            IMAPNames = REQUEST.form['IMAPNames']
-            for folder_name in IMAPNames:
-                folder = self.getFolder(folder_name)
-                messages_headers = folder.getIMAPMessagesHeaders(start=0, sortmail="date", listing_size = 999)
-                imap_ids = [x['imap_id'] for x in messages_headers]
+        for folder_name in IMAPNames:
+            folder = self.getFolder(folder_name)
+            messages_headers = folder.getIMAPMessagesHeaders(start=0, sortmail="date", listing_size = 999)
+            imap_ids = [x['imap_id'] for x in messages_headers]
+
+            trash_name = folder.getWebMail().getTrashFolder().getImapName()
+            folder_title = folder_name.split('.')[-1]
+            res_create = self.createIMAPFolder(folder_title, trash_name)
+            if res_create == 0:
+                # creation successfull : moving messages in that folder in trash box
+                folder_new_name = trash_name+'.'+folder_title
+                folder.moveIMAPMessages(folderdest=folder_new_name, imapids=imap_ids, copy=1)
+            else:
+                # creation unsuccessfull : moving messages directly to trash box
                 folder.moveIMAPMessages(folderdest="deleting", imapids=imap_ids, copy=1)
-                con.deleteFolder(wmail=self, name=folder_name)
+            con.deleteFolder(wmail=self, name=folder_name)
         con.logout()
         return 0
 
