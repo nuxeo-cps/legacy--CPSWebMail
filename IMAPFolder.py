@@ -179,7 +179,7 @@ class IMAPFolder:
                 hour = int(hm[0])
                 minutes = int(hm[1])
                 res = DateTime(year, month, day, hour, minutes)
-            except:
+            except ValueError, IndexError:
                 res = DateTime(datetime)
             return res
 

@@ -87,7 +87,7 @@ class IMAPGateway:
                     val =string.split(vl, ' ', 2)[2]
                     val=string.strip(string.replace(val,'"', ''))
                     IMAPFolders.append(val)
-                except:
+                except IndexError:
                     IMAPFolders.append("folder error")
                 ##i=string.find(item, "INBOX")
 ##                if i!= -1:
@@ -148,7 +148,7 @@ class IMAPGateway:
                 return 1
             else:
                 return 0
-        except:
+        except IndexError:
             return 0
 
 
@@ -291,12 +291,12 @@ class IMAPGateway:
 
         try:
             direct_body=self.connection.uid('FETCH',str(IMAPId), '(BODY.PEEK[1])')[-1][0][-1]
-        except:
+        except IndexError:
             pass
 
         try:
             message = self.connection.uid('FETCH',str(IMAPId), 'RFC822') [-1][0][1]
-       	except:
+       	except IndexError:
             return 'DELETED', direct_body, flags
 
         try:
@@ -314,7 +314,7 @@ class IMAPGateway:
 
         try:
             index=res.index(int(IMAPId))
-        except:
+        except ValueError:
             return None, None
 
         index_next=index+1
@@ -327,7 +327,7 @@ class IMAPGateway:
 
         try:
             next=res[index_next]
-        except:
+        except IndexError:
             next=None
 
         return prev, next
@@ -343,7 +343,7 @@ class IMAPGateway:
             try:
                 if _res[1][0]=="Over quota":
                     copy_ok=2
-            except:
+            except IndexError:
                 pass
             res=_res[0]
             if res == "OK" :
@@ -356,8 +356,12 @@ class IMAPGateway:
         """ return % used quota on mailbox """
 
         res=self.connection.get_quota_root()
-        tab=string.split(res[0])
-        return (100*int(tab[-2]))/int(string.replace(tab[-1], ")", ""))
+        try:
+            tab=string.split(res[0])
+            res = (100*int(tab[-2]))/int(string.replace(tab[-1], ")", ""))
+        except IndexError:
+            res = -1
+        return res
 
     def getNumberOfMessage(self, folderName, search=""):
         """ return the number of message in a folder """
@@ -415,7 +419,7 @@ class IMAPGateway:
         res=self.connection.append(folderName, None , None, raw_message)
         try:
             return string.replace(string.split(res[1][0])[2], ']', '')
-        except:
+        except IndexError:
             return ""
 
     def getBodyStructure(self, IMAPId):
@@ -494,6 +498,6 @@ class IMAPGateway:
         try:
             if s[0]==s[-1]=='"':
                 s = s[1:-1]
-        except:
+        except IndexError:
             pass
         return s

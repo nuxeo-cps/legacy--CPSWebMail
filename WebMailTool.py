@@ -228,7 +228,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         else:
             res = con.login(login, password)
         if res == 'LOG_FAILED':
-            raise 'Incorrect login or password'
+            raise ValueError('Incorrect login or password')
         return con
 
     # XXX Hack du jeudi, ennuis !
@@ -236,7 +236,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     def verifyConnection(self):
         try:
             self.getConnection()
-        except:
+        except ValueError:
             return None
         return 1
 
@@ -578,7 +578,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
 
         try:
             res = con.getQuota()
-        except:
+        except IndexError:
             res = -1
 
         con.logout()
