@@ -31,6 +31,8 @@ from DateTime import DateTime
 from cStringIO import StringIO
 import cStringIO
 
+from RFC822MessagesTools import parse_RFCMessage
+
 class Attachment:
     """ an attachment of a mail """
 
@@ -99,13 +101,9 @@ class Attachment:
     def render_mail_attachment(self):
         """render readable mail passed as attachment"""
 
-        import Products
-        from Products.WebMail import *
-        
-        ref_message =  Products.WebMail.RFC822MessagesTools.parse_RFCMessage(mess=self.getData(), direct_body=" ", flags="", imapid="temp")
-
+        ref_message =  parse_RFCMessage(mess=self.getData(), direct_body=" ", flags="", imapid="temp")
         return ref_message
-        
+
 
     def download(self, REQUEST=None, RESPONSE=None):
         """
