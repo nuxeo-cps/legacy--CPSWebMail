@@ -98,6 +98,9 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         {'id': 'PrivAddressbookLinksEmailProp', 'type': 'string', 'mode':'w', 'label':'PrivAddressbookLinksEmailProp'},
         {'id': 'Mailing_list_name', 'type': 'string', 'mode':'w', 'label':'Mailing_list_name'},
         {'id': 'MailingEmailsProp', 'type': 'string', 'mode':'w', 'label':'MailingEmailsProp'},
+        {'id': 'EnableMembersMailing', 'type': 'boolean', 'mode':'w', 'label':'EnableMembersMailing'},
+        {'id': 'EnableGroupsMailing', 'type': 'boolean', 'mode':'w', 'label':'EnableGroupsMailing'},
+        {'id': 'EnableWorkspaceMembersMailing', 'type': 'boolean', 'mode':'w', 'label':'EnableWorkspaceMembersMailing'},
     )
 
     _properties = _basic_properties
@@ -107,6 +110,9 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     PrivAddressbookEmailProp = "email"
     PrivAddressbookLinks_name = ".addressbook_links"
     PrivAddressbookLinksEmailProp = "email"
+    EnableMembersMailing = 0
+    EnableGroupsMailing = 0
+    EnableWorkspaceMembersMailing = 0
 
     def __init__(self):
         """WebMail Tool Constructor"""
@@ -125,6 +131,9 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         self.PrivAddressbookLinksEmailProp = "email"
         self.Mailing_list_name             = "mailinglists"
         self.MailingEmailsProp             = "emails"
+        self.EnableMembersMailing          = 0
+        self.EnableGroupsMailing           = 0
+        self.EnableWorkspaceMembersMailing = 0
 
     security.declareProtected(UseWebMailPermission, "getVersion")
     def getVersion(self):
@@ -190,6 +199,18 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     def getMailingListsEmailProperty(self):
         """Return the property for use in mailinglists"""
         return self.MailingEmailsProp
+
+    security.declareProtected(UseWebMailPermission, "getEnableMembersMailing")
+    def getEnableMembersMailing(self):
+        return self.EnableMembersMailing
+
+    security.declareProtected(UseWebMailPermission, "getEnableGroupsMailing")
+    def getEnableGroupsMailing(self):
+        return self.EnableGroupsMailing
+
+    security.declareProtected(UseWebMailPermission, "getEnableWorkspaceMembersMailing")
+    def getEnableWorkspaceMembersMailing(self):
+        return self.EnableWorkspaceMembersMailing
 
     # XXX Hack du jeudi, soucis !
     security.declareProtected(UseWebMailPermission, "getConnection")
@@ -1159,6 +1180,18 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         if entry:
             REQUEST.SESSION['search_results'] = entry[email_prop]
 
+    security.declareProtected(UseWebMailPermission, "setGroupSearch")
+    def setGroupSearch(self, group, id_group, REQUEST):
+        """Init of a session object with the list of emails"""
+
+        # Destruction of an older session if exists
+        REQUEST.SESSION['search_results'] = ()
+
+        entry = group.getEntry(id_group)
+        # Update Search Session
+        if entry:
+            REQUEST.SESSION['search_results'] = entry['members']
+
     security.declareProtected(UseWebMailPermission, "getCurrentAddressBookName")
     def getCurrentAddressBookName(self, addressbook_name='', REQUEST=None):
         """Get the ID of the addressbook in request"""
@@ -1172,8 +1205,31 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             bookname = self.getMailingListName()
         elif addressbook_name  == '_global':
             bookname = self.getAddressBookName()
+        elif addressbook_name  == '_members':
+            bookname = 'members'
+        elif addressbook_name  == '_groups':
+            bookname = 'groups'
         else:
             bookname = self.getPrivAddressBookName()
+        return bookname
+
+    security.declareProtected(UseWebMailPermission, "getCurrentAddressBookEmailProp")
+    def getCurrentAddressBookEmailProperty(self, addressbook_name='', REQUEST=None):
+        """Get the email property of the addressbook in request"""
+        if not addressbook_name:
+            addressbook_name = REQUEST.get('addressbook_name', None)
+        if addressbook_name  == '_private':
+            bookname = self.getPrivAddressBookEmailProperty()
+        elif addressbook_name  == '_private_links':
+            bookname = self.getPrivAddressBookLinksEmailProperty()
+        elif addressbook_name  == '_mailing':
+            bookname = self.getMailingListsEmailProperty()
+        elif addressbook_name  == '_global':
+            bookname = self.getAddressBookEmailProperty()
+        elif addressbook_name  in ['_members', '_groups']:
+            bookname = 'email'
+        else:
+            bookname = self.getPrivAddressBookEmailProperty()
         return bookname
 
     security.declareProtected(UseWebMailPermission, "getCurrentAddressBook")
