@@ -1,4 +1,24 @@
 *******************************************
+** CPSWebMail V0.9.0 [R1 build 2004/09/22-15:29 by anahide]
+
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+- better error handling when imap or smtp seetings are not correct
+- new properties added to be able to specify the members directory used in
+  addressbooks (for members mailing and groups mailing)
+Bug fixes:
+~~~~~~~~~~
+- it was not possible to copy entries from the groups pages in the address
+  books pages into personal address book and personal address book with links.
+- "delete entry" button at the bottom of address book pages was broken.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
 ** CPSWebMail V0.8.2 [R1 build 2004/09/17-16:59 by anahide]
 
 Requires:
