@@ -63,7 +63,8 @@
                 </tal:block>
                 <input type="submit"
                        name="to_addressbook:method"
-                       tal:attributes="value python:mcat('_Choose_recipients_')" />
+                       tal:attributes="value python:mcat('_Choose_recipients_')"
+                       tal:condition="wmtool/hasAddressBookSupport" />
               </nobr>
             </metal:block>
           </metal:block>
