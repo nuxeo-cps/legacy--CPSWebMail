@@ -13,6 +13,7 @@ except:
 # Redirection to the directory edit entry
 #
 portal_url  = context.portal_url()
-addressbook = context.portal_webMail.getCurrentAddressBookName(REQUEST=REQUEST)
+addressbook_name = REQUEST.get('addressbook_name', '')
+addressbook = context.portal_webMail.getCurrentAddressBookName(addressbook_name, REQUEST=REQUEST)
 url = portal_url + '/cpsdirectory_entry_create_form?dirname=' + addressbook
 REQUEST.RESPONSE.redirect(url)
