@@ -450,3 +450,13 @@ msgstr "Pas de pièces jointes"
 
 msgid "label_name"
 msgstr "Nom"
+
+msgid "cpswebmail_no_attachment_selected"
+msgstr "Aucun fichier attaché n'a été sélectionné"
+
+msgid "cpswebmail_attachments_saved"
+msgstr "Fichier(s) attaché(s) exporté(s)"
+
+msgid "cpswebmail_error_export_attachments"
+msgstr "Erreur lors de l'export de fichier(s) attaché(s)"
+
