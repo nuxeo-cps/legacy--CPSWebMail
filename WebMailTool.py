@@ -815,7 +815,6 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         if err_msg:
             err = 1
 
-        LOG("addPiece", DEBUG, "err_msg=%s"%(err_msg,))
         return (err, err_msg)
 
     security.declareProtected(UseWebMailPermission, "removeOnePieces")
