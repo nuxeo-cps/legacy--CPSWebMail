@@ -185,9 +185,6 @@ class IMAPFolder:
         sorted_keys.sort()
         sorted_parsed_res = [x[2] for x in sorted_keys]
 
-        LOG("getIMAPMessagesHeaders", DEBUG, "DateTime('28/05/04 17:54') = %s" %(str(DateTime(04,05,28 ,17,54)),))
-        LOG("getIMAPMessagesHeaders", DEBUG, "DateTime('02/06/04 14:50') = %s" %(DateTime('02/06/04 14:50'),))
-
         # order
         if order == 'desc':
             sorted_parsed_res.reverse()
