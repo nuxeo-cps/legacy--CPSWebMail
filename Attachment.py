@@ -152,8 +152,8 @@ class Attachment:
 
                 if not satisfiable:
                     RESPONSE.setHeader('Content-Id', self.filename)
-                    RESPONSE.setHeader('Content-Range', 
-                        'bytes */%d' % self.size)
+                    RESPONSE.setHeader('Content-Range',
+                                       'bytes */%d' % self.size)
                     RESPONSE.setHeader('Accept-Ranges', 'bytes')
 ##                    RESPONSE.setHeader('Last-Modified',
 ##                        rfc1123_date(self._p_mtime))
@@ -164,12 +164,12 @@ class Attachment:
 
                 # Can we optimize?
                 ranges = HTTPRangeSupport.optimizeRanges(ranges, self.size)
-                                
+
                 if len(ranges) == 1:
                     # Easy case, set extra header and return partial set.
                     start, end = ranges[0]
                     size = end - start
-                    
+
 ##                    RESPONSE.setHeader('Last-Modified',
 ##                        rfc1123_date(self._p_mtime))
                     RESPONSE.setHeader('Message-id', self.filename)
@@ -177,8 +177,8 @@ class Attachment:
                     RESPONSE.setHeader('Content-Type', self.content_type)
                     RESPONSE.setHeader('Content-Length', size)
                     RESPONSE.setHeader('Accept-Ranges', 'bytes')
-                    RESPONSE.setHeader('Content-Range', 
-                        'bytes %d-%d/%d' % (start, end - 1, self.size))
+                    RESPONSE.setHeader('Content-Range', 'bytes %d-%d/%d' %
+                                       (start, end - 1, self.size))
                     RESPONSE.setStatus(206) # Partial content
 
                     data = self.data
@@ -194,12 +194,13 @@ class Attachment:
                             # We are within the range
                             lstart = l - (pos - start)
 
-                            if lstart < 0: lstart = 0
-                            
+                            if lstart < 0:
+                                lstart = 0
+
                             # find the endpoint
                             if end <= pos:
                                 lend = l - (pos - end)
-                                
+
                                 # Send and end transmission
                                 RESPONSE.write(data[lstart:lend])
                                 break
@@ -209,22 +210,22 @@ class Attachment:
 
                         data = data.next
                     return ''
-                    
+
                 else:
                     # When we get here, ranges have been optimized, so they are
                     # in order, non-overlapping, and start and end values are
                     # positive integers.
                     boundary = choose_boundary()
-                    
+
                     # Calculate the content length
                     size = (8 + len(boundary) + # End marker length
-                        len(ranges) * (         # Constant lenght per set
-                            49 + len(boundary) + len(self.content_type) + 
-                            len('%d' % self.size)))
+                            len(ranges) * # Constant lenght per set
+                            (49 + len(boundary) + len(self.content_type) +
+                             len('%d' % self.size)))
                     for start, end in ranges:
                         # Variable length per set
-                        size = (size + len('%d%d' % (start, end - 1)) + 
-                            end - start)
+                        size = (size + len('%d%d' % (start, end - 1)) +
+                                end - start)
                     RESPONSE.setHeader('Message-id', self.filename)
                     RESPONSE.setHeader('Content-Id', self.filename)
                     RESPONSE.setHeader('Content-Length', size)
@@ -244,7 +245,7 @@ class Attachment:
                             self.content_type)
                         RESPONSE.write(
                             'Content-Range: bytes %d-%d/%d\r\n\r\n' % (
-                                start, end - 1, self.size)) 
+                            start, end - 1, self.size))
 
                         if type(data) is StringType:
                             RESPONSE.write(data[start:end])
@@ -258,12 +259,13 @@ class Attachment:
                                     # We are within the range
                                     lstart = l - (pos - start)
 
-                                    if lstart < 0: lstart = 0
-                                    
+                                    if lstart < 0:
+                                        lstart = 0
+
                                     # find the endpoint
                                     if end <= pos:
                                         lend = l - (pos - end)
-                                        
+
                                         # Send and loop to next range
                                         RESPONSE.write(data[lstart:lend])
                                         # Back up the position marker, it will
@@ -288,10 +290,16 @@ class Attachment:
         RESPONSE.setHeader('Content-Length', self.size)
         RESPONSE.setHeader('Accept-Ranges', 'bytes')
 
-##        hdr_name = "content-disposition"
-##        hdr_value = 'attachment; filename="eek.zip" '
-##        RESPONSE.setHeader(hdr_name, hdr_value)
-        
+        # this sets the name that will be used when saving or downloading the
+        # file
+        RESPONSE.setHeader('Content-Disposition', 'filename=' +
+                           self.getCleanFilename())
+
+        # XXX this is commented because we do not want to force download for
+        # the attachment & bugs with IE...
+##         hdr_name = "content-disposition"
+##         hdr_value = 'attachment; filename="'+self.filename+'" '
+##         RESPONSE.setHeader(hdr_name, hdr_value)
 
         data=self.data
         if type(data) is type(''):
