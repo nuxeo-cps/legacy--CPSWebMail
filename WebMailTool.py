@@ -38,6 +38,7 @@ allow_class(Attachment)
 
 import timeoutsocket
 timeoutsocket.setDefaultSocketTimeout(60) # Something to move somewhere else
+from socket import gaierror, error
 
 import smtplib
 import string
@@ -119,10 +120,16 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
          'label':'Name of the field used to store the list of emails in the mailing list directory'},
         {'id': 'EnableMembersMailing', 'type': 'boolean', 'mode':'w',
          'label':'Enable members mailing'},
+        {'id': 'MembersDirectory_name', 'type': 'string', 'mode':'w',
+         'label':'Name of the members directory to use in address books'},
+        {'id': 'MembersDirectoryEmailProp', 'type': 'string', 'mode':'w',
+         'label':'Name of the field used to store the email in the members directory'},
         {'id': 'EnableGroupsMailing', 'type': 'boolean', 'mode':'w',
          'label':'Enable groups mailing'},
         {'id': 'GroupsDirectory_name', 'type': 'string', 'mode':'w',
          'label':'Name of the groups directory'},
+        {'id': 'GroupsDirectoryMembersProp', 'type': 'string', 'mode':'w',
+         'label':'Name of the field used to store the members in the groups directory'},
         {'id': 'EnableWorkspaceMembersMailing', 'type': 'boolean', 'mode':'w',
          'label':'Enable workspace members mailing'},
         {'id': 'EnableSaveAttachments', 'type': 'boolean', 'mode':'w',
@@ -138,7 +145,10 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     PrivAddressbookLinksEmailProp = "email"
     EnableMembersMailing = 0
     EnableGroupsMailing = 0
+    MembersDirectory_name = 'members'
+    MembersDirectoryEmailProp = "email"
     GroupsDirectory_name = 'groups'
+    GroupsDirectoryMembersProp = 'members'
     EnableWorkspaceMembersMailing = 0
     IMAPLoginField = "imap_login"
     IMAPPasswordField = "imap_password"
@@ -246,6 +256,16 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     def getEnableMembersMailing(self):
         return self.EnableMembersMailing
 
+    security.declareProtected(UseWebMailPermission, "getMembersDirectoryName")
+    def getMembersDirectoryName(self):
+        """Return the members directory name"""
+        return self.MembersDirectory_name
+
+    security.declareProtected(UseWebMailPermission, "getMembersDirectoryEmailProperty")
+    def getMembersDirectoryEmailProperty(self):
+        """Return the property for use in members directory"""
+        return self.MembersDirectoryEmailProp
+
     security.declareProtected(UseWebMailPermission, "getEnableGroupsMailing")
     def getEnableGroupsMailing(self):
         return self.EnableGroupsMailing
@@ -254,6 +274,11 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     def getGroupsDirectoryName(self):
         """Return the groups directory name"""
         return self.GroupsDirectory_name
+
+    security.declareProtected(UseWebMailPermission, "getGroupsDirectoryMembersProperty")
+    def getGroupsdirectoryMembersProperty(self):
+        """Return the property string members in groups directory"""
+        return self.GroupsDirectoryMembersProp
 
     security.declareProtected(UseWebMailPermission, "getEnableWorkspaceMembersMailing")
     def getEnableWorkspaceMembersMailing(self):
@@ -267,7 +292,10 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     security.declareProtected(UseWebMailPermission, "getConnection")
     def getConnection(self):
         con = IMAPGateway()
-        con.connect(self, server=self.getIMAPServer(), port=self.getIMAPPort())
+        try:
+            con.connect(self, server=self.getIMAPServer(), port=self.getIMAPPort())
+        except (gaierror, error):
+            raise ValueError('IMAP connection error')
         login = self.getIMAPLogin()
         password = self.getIMAPPassword()
         if login == '':
@@ -917,7 +945,11 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
                              raw_message=raw_message)
             con.logout()
 
-        smtp_connection = smtplib.SMTP(self.getSMTPServer(), self.getSMTPPort())
+        try:
+            smtp_connection = smtplib.SMTP(self.getSMTPServer(), self.getSMTPPort())
+        except (gaierror, error):
+            raise 'SMTP_connection_error'
+
         _recipients = []
         for item in ['to', 'cc', 'bcc']:
             for address in message.recipients[item]:
@@ -1009,7 +1041,10 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         #
         # SMTP Sending
         #
-        smtp_connection = smtplib.SMTP(self.getSMTPServer(), self.getSMTPPort())
+        try:
+            smtp_connection = smtplib.SMTP(self.getSMTPServer(), self.getSMTPPort())
+        except (gaierror, error):
+            raise 'SMTP_connection_error'
 
         smtp_connection.sendmail(
             from_addr=self.getIdentity() + ' <' + self.getMailFrom() + '>',
@@ -1183,7 +1218,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             privbook = self.getCurrentAddressBook('_private')
             if addressbook.hasEntry(entry_id):
                 entry = addressbook.getEntry(entry_id, default=None)
-                privbook.createEntry(entry)
+                if not privbook.hasEntry(entry_id):
+                    privbook.createEntry(entry)
 
     security.declareProtected(UseWebMailPermission, "addressbookAddContactsLinksToPrivBook")
     def addressbookAddContactsLinksToPrivBook(self, directory, list_to_add):
@@ -1196,7 +1232,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
                 # directory => modifying the id
                 entry_id = entry[directory.id_field]
                 entry[directory.id_field] = directory.id+'/'+entry_id
-                privbooklinks.createEntry(entry)
+                if not privbooklinks.hasEntry(directory.id+'/'+entry_id):
+                    privbooklinks.createEntry(entry)
 
     security.declareProtected(UseWebMailPermission, "deleteAllEntries")
     def deleteAllEntries(self, addressbook):
@@ -1246,7 +1283,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         elif addressbook_name  == '_global':
             bookname = self.getAddressBookName()
         elif addressbook_name  in ['_members', '_wsmembers']:
-            bookname = 'members'
+            bookname = self.getMembersDirectoryName()
         elif addressbook_name  == '_groups':
             bookname = self.getGroupsDirectoryName()
         else:
@@ -1261,18 +1298,18 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         if addressbook_name is None:
             addressbook_name = self.getFirstAddressBookName()
         if addressbook_name  == '_private':
-            bookname = self.getPrivAddressBookEmailProperty()
+            email_prop = self.getPrivAddressBookEmailProperty()
         elif addressbook_name  == '_private_links':
-            bookname = self.getPrivAddressBookLinksEmailProperty()
+            email_prop = self.getPrivAddressBookLinksEmailProperty()
         elif addressbook_name  == '_mailing':
-            bookname = self.getMailingListsEmailProperty()
+            email_prop = self.getMailingListsEmailProperty()
         elif addressbook_name  == '_global':
-            bookname = self.getAddressBookEmailProperty()
+            email_prop = self.getAddressBookEmailProperty()
         elif addressbook_name  in ['_members', '_groups', '_wsmembers']:
-            bookname = 'email'
+            email_prop = self.getMembersDirectoryEmailProperty()
         else:
             raise 'No addressbook support'
-        return bookname
+        return email_prop
 
     security.declareProtected(UseWebMailPermission, "getCurrentAddressBook")
     def getCurrentAddressBook(self, addressbook_name='', REQUEST=None):
