@@ -20,10 +20,10 @@ msgid "_Your_mail_"
 msgstr "Votre courrier :"
 
 msgid "_mail(s)_in_"
-msgstr "messages(s) dans le dossier "
+msgstr "message(s) dans le dossier "
 
 msgid "_unread_mail(s)_"
-msgstr "messages(s) non lu(s)"
+msgstr "message(s) non lu(s)"
 
 msgid "_Change_folder_to_"
 msgstr "Changer de dossier pour"
