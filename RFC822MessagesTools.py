@@ -45,10 +45,10 @@ def parse_RFCHeaders(header, nbCharSubject=25):
     flags = header['flags']
     imapId = header['imapId']
 
-##    f=open("mess.txt", 'w')
-##    f.write(message)
-##    f.close()
-##    fp=open("mess.txt", 'r')
+    # f=open("mess.txt", 'w')
+    # f.write(message)
+    # f.close()
+    # fp=open("mess.txt", 'r')
 
     fp = StringIO.StringIO(message)
 
@@ -121,13 +121,13 @@ def parse_RFCHeaders(header, nbCharSubject=25):
         size = "%.2f MB" % (size / 1024.0 / 1024)
     else:
         size = "%.2f KB" % (size / 1024.0)
-    
+
     head= {}
 
     try:
         ddate = render_date(val.getheader("Date"))
     except:
-        ddate = " format error " 
+        ddate = " format error "
 
     try:
         head = {'imap_id': imapId, 'sender': string.capitalize(sender[0:25]), 'mail_sender': Exp[1], 'to': string.capitalize(to), 'size': size,
@@ -152,6 +152,7 @@ def parse_RFCHeaders(header, nbCharSubject=25):
         head["forwarded"] = 0
 
     return head
+
 
 def parse_RFCMessage(mess, direct_body, flags, imapid):
     """ return message instance of IMAPMessage
@@ -193,7 +194,7 @@ def parse_RFCMessage(mess, direct_body, flags, imapid):
 
     msg.seek(message.startofbody)
 
-    #get and parse attachments if exist 
+    #get and parse attachments if exist
     if boundary:
         try:
             multi_message = multifile.MultiFile(msg)
@@ -204,7 +205,7 @@ def parse_RFCMessage(mess, direct_body, flags, imapid):
                 parsed_attachment = mime_message.mime_part_parse(multi_message)
                 parts.append(parsed_attachment)
                 liste_media.append(parsed_attachment.media_type)
-                
+
             multi_message.pop()
 
             if parts[0].media_type == 'text':
@@ -222,7 +223,7 @@ def parse_RFCMessage(mess, direct_body, flags, imapid):
             elif len(body) == 0 and (parts[1].media_type == 'text' or parts[0].media_type == 'multipart'):
 
                 val = parts[0].data
-                
+
                 comp = re.compile('Content-Transfer-Encoding: base64', re.I)
                 if comp.search(val):
                     body_base64 = 1
@@ -423,4 +424,3 @@ def render_subject(subject):
         subject = mimify.mime_decode(subject)
 
     return subject
-

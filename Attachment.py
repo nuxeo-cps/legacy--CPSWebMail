@@ -3,7 +3,7 @@
 #
 # WebMail, a IMAP Webmail for Zope
 #
-# This software is governed by a license. See 
+# This software is governed by a license. See
 # LICENSE.txt for the terms of this license.
 #
 # Developped by: Université de Savoie, France (http://www.univ-savoie.fr)
@@ -31,7 +31,7 @@ from DateTime import DateTime
 from cStringIO import StringIO
 import cStringIO
 
-from RFC822MessagesTools import parse_RFCMessage
+from RFC822MessagesTools import *
 
 class Attachment:
     """ an attachment of a mail """
@@ -101,7 +101,7 @@ class Attachment:
     def render_mail_attachment(self):
         """render readable mail passed as attachment"""
 
-        ref_message =  parse_RFCMessage(mess=self.getData(), direct_body=" ", flags="", imapid="temp")
+        ref_message = parse_RFCMessage(mess=self.getData(), direct_body=" ", flags="", imapid="temp")
         return ref_message
 
 
