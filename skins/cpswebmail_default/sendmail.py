@@ -10,8 +10,15 @@ context.portal_webMail.createMailSession(REQUEST)
 #
 # Sending message...
 #
+x = 0
 read_flag = int(REQUEST.form.get('ack_read', 0))
-x = context.portal_webMail.sendMail(REQUEST, read_flag)
+try:
+    x = context.portal_webMail.sendMail(REQUEST, read_flag)
+except 'SMTP_connection_error':
+    msg = "smtp_connection_error"
+    portal_url = context.portal_url()
+    return REQUEST.RESPONSE.redirect(portal_url + '/webmail_error?error_message=' + msg)
+
 
 if x == 0:
     # All is good
