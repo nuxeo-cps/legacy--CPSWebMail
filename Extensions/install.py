@@ -133,7 +133,7 @@ class CPSWebMailInstaller(CPSInstaller):
         privaddressbook_directory = {
             'type': ' CPS Local Directory',
             'data': {
-                'title': 'label_private_address_book',
+                'title': 'label_personal_addressbook',
                 'schema': 'addressbook',
                 'layout': 'addressbook',
                 'layout_search': 'addressbook_search',
