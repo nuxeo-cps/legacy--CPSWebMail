@@ -223,8 +223,8 @@ msgstr "Tous les éléments du champs"
 msgid "_Subject_message_title_"
 msgstr "Sujet du message :"
 
-msgid "_ack_confirmation" 
-msgstr "L'émetteur demande un accusé de lecture de ce message. Voulez vous lui transmettre un accusé de réception ?"
+msgid "_ack_confirmation_"
+msgstr "L'émetteur demande un accusé de lecture de ce message.\\nSouhaitez-vous l'envoyer ?"
 
 msgid "_Reply_"
 msgstr "Répondre"
@@ -327,3 +327,21 @@ msgstr "Reçu depuis le :"
 
 msgid "_Received_Before_"
 msgstr "Reçu avant le :"
+
+msgid "_Address_books_"
+msgstr "Carnets d'adresses"
+
+msgid "_Choose_A_Folder_"
+msgstr "Choisir un dossier"
+
+msgid "_This_is_the_acknowledgment_sent_to_"
+msgstr "Ce message est l'accusé réception du message envoyé à "
+
+msgid "_the_"
+msgstr " le "
+
+msgid "_This_message_tells_email_displayed_on_recipients_computer_on_"
+msgstr "Ce message vous informe que le message s'est affiché sur l'ordinateur du destinataire le "
+
+msgid "_Read:_"
+msgstr "Lu : "

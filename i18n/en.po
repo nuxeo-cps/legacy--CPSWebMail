@@ -220,8 +220,8 @@ msgstr "All elements in field"
 msgid "_Subject_message_title_"
 msgstr "Message subject:"
 
-msgid "_ack_confirmation"
-msgstr "The message sender ask an ackwonledgment of read. Do you want to send it ?"
+msgid "_ack_confirmation_"
+msgstr "The message sender asked for an acknowledgment of read.\\nDo you want to send it?"
 
 msgid "_Reply_"
 msgstr "Reply"
@@ -324,3 +324,21 @@ msgstr "Received since:"
 
 msgid "_Received_Before_"
 msgstr "Received before:"
+
+msgid "_Address_books_"
+msgstr "Address books"
+
+msgid "_Choose_A_Folder_"
+msgstr "Choose a folder"
+
+msgid "_This_is_the_acknowledgment_sent_to_"
+msgstr "This is the acknowledgment sent to "
+
+msgid "_the_"
+msgstr " on "
+
+msgid "_This_message_tells_email_displayed_on_recipients_computer_on_"
+msgstr "This message tells that the email was displayed on the recipient's computer on "
+
+msgid "_Read:_"
+msgstr "Read: "
