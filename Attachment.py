@@ -30,8 +30,11 @@ from ZPublisher import HTTPRangeSupport
 from DateTime import DateTime
 from cStringIO import StringIO
 import cStringIO
+from OFS.Image import File
 
 from RFC822MessagesTools import *
+from Products.CMFCore.utils import getToolByName
+from zLOG import LOG, DEBUG
 
 class Attachment:
     """ an attachment of a mail """
@@ -276,4 +279,42 @@ class Attachment:
             RESPONSE.write(data.data)
             data=data.next
         return ''
-        
+
+    def exportToHomeFolder(self, context):
+        mtool = getToolByName(context, 'portal_membership')
+        home_folder = mtool.getHomeFolder()
+
+        if home_folder is not None:
+            file_name = self.getFilename()
+
+            # create a document object into private area
+            doc_id = home_folder.computeId(compute_from=file_name)
+            data_file = self.getData()
+            content_type = self.getContentType()
+
+            # create file to attach to document
+            file_to_attach = File(file_name, file_name, data_file)
+            registry = getToolByName(context, 'mimetypes_registry')
+            mimetype = registry.lookupExtension(file_name.lower())
+            if mimetype and file_to_attach.content_type != mimetype.normalized():
+                LOG('exportToHomeFolder', DEBUG,
+                    'Fixing mimetype from %s to %s' % (
+                    file_to_attach.content_type, mimetype.normalized()))
+                file_to_attach.manage_changeProperties(
+                    content_type=mimetype.normalized())
+
+            # create document
+            kw = {
+                'Title': file_name,
+                'file': file_to_attach,
+                }
+            home_folder.invokeFactory(type_name='File', id=doc_id, kw=kw)
+            proxy = getattr(home_folder, doc_id)
+            doc = proxy.getContent()
+            LOG('exportToHomeFolder', DEBUG,
+                'file = %s' % `file_to_attach`)
+            doc.edit(**kw)
+
+            return 1
+
+        return 0
