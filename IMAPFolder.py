@@ -114,6 +114,20 @@ class IMAPFolder:
 
         return res
 
+    def getNumberOfNotReadIMAPMessage(self, REQUEST=None):
+        """ return the number of not read mails in this mailbox
+        """
+        con = IMAPGateway.IMAPGateway()
+        con.connect(self.getWebMail(),
+                    server = self.getWebMail().getIMAPServer(),
+                    port = self.getWebMail().getIMAPPort())
+        con.login(self.getWebMail().getIMAPLogin(),
+                  self.getWebMail().getIMAPPassword())
+        res = con.getNumberOfNotReadMessage(self.getImapName())
+        con.logout()
+
+        return res
+
     def getIMAPMessagesHeaders(self, sortmail="", sort="date", order='desc', start=1, end=0, listing_size=0, REQUEST=None, RESPONSE=None):
         """ return the liste of headers
             between start and end
