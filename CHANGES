@@ -6,8 +6,7 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
-- Incorrect username and pasword gave non-sensical error messages,
-  because the actual login errors were lost on the way.(Mantis #453)
+-
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
