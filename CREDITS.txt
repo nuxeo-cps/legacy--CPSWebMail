@@ -1,0 +1,6 @@
+This program contains scripts originally made by:
+
+# Developped by: Université de Savoie, France (http://www.univ-savoie.fr)
+# Main developper : Maxime RAFFIN (ticeuds@chez.com)
+# Team : Benoit CHARLES, Steve GIRAUD, Eric BRUN
+# Thanks to : Bernard CARON, Christian MARTEL
