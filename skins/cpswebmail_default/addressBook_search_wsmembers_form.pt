@@ -27,19 +27,24 @@
   </metal:block>
 
   <metal:block fill-slot='main'>
-    <form tal:attributes="
-      action string:${here/absolute_url};
-      method string:post;
-      name   string:search_wsmembers_form">
 
       <table border="0" cellPadding="2" cellSpacing="0" width="100%">
         <tr>
           <td align="right" valign="middle">
-            <metal:block use-macro="here/webmail_lib/macros/select_addressbook"/>
+            <form tal:attributes="action here/absolute_url;
+                                  method string:post;
+                                  name   string:addressbook_form">
+              <metal:block use-macro="here/webmail_lib/macros/select_addressbook"/>
+            </form>
           </td>
         </tr>
       </table>
 
+      <form tal:attributes="action here/absolute_url;
+                            method string:post;
+                            name   string:search_wsmembers_form">
+      <input type="hidden" name="addressbook_name"
+        tal:attributes="value current_addressbook_name" />
       <metal:block use-macro="here/mail_widgets/macros/form">
         <metal:block fill-slot="content">
 
@@ -106,7 +111,7 @@
         </metal:block>
       </metal:block>
 
-    </form>
+      </form>
 
     <hr>
     <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>

@@ -64,10 +64,6 @@
 
     <metal:block fill-slot="main">
       <tal:block condition="valid_conn">
-        <form tal:attributes="
-          action string:${here/absolute_url};
-          method string:post;
-          name   string:form">
 
           <table border="0" cellpadding="1" cellspacing="0" width="100%">
             <tr>
@@ -79,6 +75,9 @@
                 </b>
               </td>
               <td align="left" valign="middle" width="28%">
+                <form tal:attributes="action string:change_folder;
+                                      method string:post;
+                                      name   string:form">
                 <select name="IMAPName">
                   <tal:block define="currentFolderName request/IMAPName;">
                     <tal:block repeat="imap_folder imap_folders">
@@ -113,8 +112,8 @@
                   </tal:block>
                 </select>
                 <input type="submit"
-                       name="change_folder:method"
                        value="Ok" />
+                </form>
               </td>
               <td align="right" valign="middle" width="4%">
                 <span tal:condition="nothing" content="just for some space" />
@@ -136,17 +135,28 @@
                 </b>
               </td>
               <td align="left" valign="middle" with="28%">
+                <form tal:attributes="action string:create_folders;
+                                      method string:post;
+                                      name   string:form">
                   <input type="text" name="title:string" size="14"/>
+                  <input type="hidden" name="IMAPName"
+                    tal:attributes="value IMAPName" />
                   <input tal:attributes="type  string:submit;
-                         value python:mcat('_Add_');
-                         name  string:create_folders:method"/>
+                         value python:mcat('_Add_');"/>
+                </form>
               </td>
             </tr>
           </table>
 
           <p> </p>
 
+          <form tal:attributes="action here/absolute_url;
+                                method string:post;
+                                name   string:form">
+          <input type="hidden" name="IMAPName"
+            tal:attributes="value IMAPName" />
           <metal:block use-macro="here/webmail_lib/macros/tools_menu_table"/>
+          </form>
 
           <table border="0" cellpadding="1" cellspacing="0" width="100%">
             <tr>
@@ -160,6 +170,11 @@
                 </p>
               </td>
               <td align="right">
+                <form tal:attributes="action here/absolute_url;
+                                      method string:post;
+                                      name   string:form">
+                <input type="hidden" name="IMAPName"
+                  tal:attributes="value IMAPName" />
                 <input tal:attributes="type string:submit;
                   value python:mcat('_button_show_');
                   name  string:change_listing_size:method"/>
@@ -174,9 +189,16 @@
                 <input type="text" name="listing_size:int" size="3" maxlength="3"
                   tal:attributes="value python:wmtool.getListingSize(request)"/>
                 <b tal:content="python:mcat('_mail(s)_per_page_')" />
+                </form>
               </td>
             </tr>
           </table>
+
+          <form tal:attributes="action here/absolute_url;
+                                method string:post;
+                                name   string:form">
+          <input type="hidden" name="IMAPName"
+            tal:attributes="value IMAPName" />
 
           <table border="0" cellpadding="1" cellspacing="0" width="100%" bgcolor="#c3cad9">
             <tr>
@@ -227,13 +249,10 @@
             </tr>
           </table>
 
+          <p> </p>
+
           <table border="0" cellpadding="2" cellspacing="2" width="100%"
                  bgcolor="#c3cad9">
-            <tr bgcolor="#FFFFFF">
-              <td colspan="8" >
-                <p> </p>
-              </td>
-            </tr>
             <tr>
               <th align="center" valign="middle" colspan="3">
                 <a href="javascript:SetReverse()">
@@ -423,6 +442,8 @@
             </tr>
           </table>
 
+          </form>
+
           <p>
             <b tal:content="batch_message" />
  
@@ -431,9 +452,13 @@
             </b>
           </p>
 
+          <form tal:attributes="action here/absolute_url;
+                                method string:post;
+                                name   string:form">
+          <input type="hidden" name="IMAPName"
+            tal:attributes="value IMAPName" />
           <metal:block use-macro="here/webmail_lib/macros/tools_menu_table"/>
-
-        </form>
+          </form>
 
       </tal:block>
 
@@ -449,7 +474,7 @@
         <p>
           <tal:block content="python:mcat('_IMAP_Access_Error_Caution_Admin_')" />
         </p>
-        <form action="" method="post">
+        <form method="post" tal:attributes="action here/absolute_url">
           <input type="button"
             tal:attributes="value python:mcat('button_back')"
             onclick="javascript:history.back()" />

@@ -42,27 +42,38 @@
   </metal:block>
 
   <metal:block fill-slot='main'>
-    <form tal:attributes="
-      action string:${here/absolute_url};
-      method string:post;
-      name   string:addressbook_form">
 
       <table border="0" cellPadding="2" cellSpacing="0" width="100%">
         <tr>
           <td valign="bottom">
+            <form tal:attributes="action here/absolute_url;
+                                 method string:post;
+                                 name   string:addressbook_form">
+            <input type="hidden" name="addressbook_name"
+              tal:attributes="value current_addressbook_name" />
             <input size="20" name="search_param" value="">
             <input tal:attributes="
               type  string:submit;
               value python:mcat('_Search_');
               name  string:addressBook_view_groups:method" />
+            </form>
           </td>
           <td align="right" valign="middle">
-            <metal:block use-macro="here/webmail_lib/macros/select_addressbook"/>
+            <form tal:attributes="action here/absolute_url;
+                                  method string:post;
+                                  name   string:form">
+              <metal:block use-macro="here/webmail_lib/macros/select_addressbook"/>
+            </form>
           </td>
         </tr>
         <tr>
           <td align="left" valign="middle">
             <tal:block condition="groups_found_by_search">
+              <form tal:attributes="action here/absolute_url;
+                                   method string:post;
+                                   name   string:addressbook_form">
+              <input type="hidden" name="addressbook_name"
+                tal:attributes="value current_addressbook_name" />
               <select size="1" name="group_name_after_search">
                 <tal:block define="
                     groups current_addressbook;
@@ -79,6 +90,7 @@
               <input type="submit"
                 name="groups_changelist_after_search:method"
                 value="Ok" />
+              </form>
             </tal:block>
           </td>
           <td align="right" valign="middle">
@@ -86,6 +98,11 @@
               <tr>
                 <td align="center" valign="middle">
                   <tal:block condition="python:wmtool.getEnableGroupsMailing() == 1">
+                    <form tal:attributes="action here/absolute_url;
+                                         method string:post;
+                                         name   string:addressbook_form">
+                    <input type="hidden" name="addressbook_name"
+                      tal:attributes="value current_addressbook_name" />
                     <select size="1" name="group_name">
                       <tal:block define="
                         groups current_addressbook;
@@ -102,16 +119,23 @@
                         </tal:block>
                       </tal:block>
                     </select>
+                    <input type="submit"
+                           name="groups_changelist:method"
+                           value="Ok" />
+                    </form>
                   </tal:block>
-                  <input type="submit"
-                         name="groups_changelist:method"
-                         value="Ok" />
                 </td>
               </tr>
             </table>
           </td>
         </tr>
       </table>
+
+    <form name="addressbook_form"
+      tal:attributes="action here/absolute_url;
+                      method string:post;">
+    <input type="hidden" name="addressbook_name"
+       tal:attributes="value current_addressbook_name" />
 
       <table width="100%" cellpadding=2 cellspacing=0 border=0>
         <tr bgcolor="#dcdcdc">
@@ -319,15 +343,15 @@
             </td>
          </tr>
         </table>
+      </form>
 
-        <p> </p>
-        <hr>
-        <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
-            </form>
-          </metal:block>
+      <p> </p>
+      <hr>
+      <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
+  </metal:block>
 
-        </body>
-     </html>
+</body>
+</html>
 </tal:block>
 
 

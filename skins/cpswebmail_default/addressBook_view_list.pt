@@ -37,27 +37,38 @@
   </metal:block>
 
   <metal:block fill-slot='main'>
-    <form tal:attributes="
-      action string:${here/absolute_url};
-      method string:post;
-      name   string:addressbook_form">
 
       <table border="0" cellPadding="2" cellSpacing="0" width="100%">
         <tr>
           <td valign="bottom">
+            <form tal:attributes="action here/absolute_url;
+                                 method string:post;
+                                 name   string:addressbook_form">
+            <input type="hidden" name="addressbook_name"
+              tal:attributes="value current_addressbook_name" />
             <input size="20" name="search_param" value="">
             <input tal:attributes="
               type  string:submit;
               value python:mcat('_Search_');
               name  string:addressBook_view_list:method" />
+            </form>
           </td>
           <td align="right" valign="middle">
-            <metal:block use-macro="here/webmail_lib/macros/select_addressbook"/>
+            <form tal:attributes="action here/absolute_url;
+                                  method string:post;
+                                  name   string:form">
+              <metal:block use-macro="here/webmail_lib/macros/select_addressbook"/>
+            </form>
           </td>
         </tr>
         <tr>
           <td align="left" valign="middle">
             <tal:block condition="lists_found_by_search">
+              <form tal:attributes="action here/absolute_url;
+                                   method string:post;
+                                   name   string:addressbook_form">
+              <input type="hidden" name="addressbook_name"
+                tal:attributes="value current_addressbook_name" />
               <select size="1" name="list_name_after_search">
                 <tal:block define="
                     lists current_addressbook;
@@ -73,6 +84,7 @@
               <input type="submit"
                 name="mailing_list_changelist_after_search:method"
                 value="Ok" />
+              </form>
             </tal:block>
           </td>
           <td align="right" valign="middle">
@@ -80,6 +92,11 @@
               <tr>
                 <td align="center" valign="middle">
                   <tal:block condition="python:lists_name">
+                    <form tal:attributes="action here/absolute_url;
+                                         method string:post;
+                                         name   string:addressbook_form">
+                    <input type="hidden" name="addressbook_name"
+                      tal:attributes="value current_addressbook_name" />
                     <select size="1" name="list_name">
                       <tal:block define="
                         lists_prop_name wmtool/getMailingListsEmailProperty;
@@ -96,16 +113,24 @@
                         </tal:block>
                       </tal:block>
                     </select>
+                    <input type="submit"
+                           name="mailing_list_changelist:method"
+                           value="Ok" />
+                    </form>
                   </tal:block>
-                  <input type="submit"
-                         name="mailing_list_changelist:method"
-                         value="Ok" />
                 </td>
               </tr>
             </table>
           </td>
         </tr>
       </table>
+
+
+    <form name="addressbook_form"
+      tal:attributes="action here/absolute_url;
+                      method string:post;">
+    <input type="hidden" name="addressbook_name"
+       tal:attributes="value current_addressbook_name" />
 
       <table width="100%" cellpadding=2 cellspacing=0 border=0>
         <tr bgcolor="#dcdcdc">
@@ -203,39 +228,41 @@
               </tal:block>
           </table>
 
-       <table cellpadding=3 cellspacing=0 border=0 width="100%">
-         <tr bgcolor="#dcdcdc">
-           <td colspan=2>
-             <input type="button"
-               tal:condition="python:current_addressbook.isCreateEntryAllowed()"
-               tal:attributes="value python:mcat('_New_list_');
-                               onclick string:javascript:popup_create_entry('addressbook_create_list', '${current_addressbook_name}');;"/>
-             <input type="button"
-               tal:condition="python:current_list_name and current_addressbook.isEditEntryAllowed()"
-               tal:attributes="value python:mcat('_Edit_');
-                               onclick string:javascript:popup_edit_entry('addressbook_edit_list', '${current_addressbook_name}', '${current_list_name}');;"/>
-            <input type="submit"
-               tal:condition="python:current_list_name and current_addressbook.isDeleteEntryAllowed()"
-               name="addressbook_delete_list:method"
-               tal:attributes="value python:mcat('_Delete_');
-                               onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), );" />
-           </td>
-           <td align="right" nowrap>
+        <table cellpadding=3 cellspacing=0 border=0 width="100%">
+          <tr bgcolor="#dcdcdc">
+            <td colspan=2>
+              <input type="button"
+                tal:condition="python:current_addressbook.isCreateEntryAllowed()"
+                tal:attributes="value python:mcat('_New_list_');
+                                onclick string:javascript:popup_create_entry('addressbook_create_list', '${current_addressbook_name}');;"/>
+              <input type="button"
+                tal:condition="python:current_list_name and current_addressbook.isEditEntryAllowed()"
+                tal:attributes="value python:mcat('_Edit_');
+                                onclick string:javascript:popup_edit_entry('addressbook_edit_list', '${current_addressbook_name}', '${current_list_name}');;"/>
              <input type="submit"
-                    name="mail_selected_one:method"
-                    tal:attributes="value python:mcat('_Send/Continue_a_mail_')" />
+                tal:condition="python:current_list_name and current_addressbook.isDeleteEntryAllowed()"
+                name="addressbook_delete_list:method"
+                tal:attributes="value python:mcat('_Delete_');
+                                onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), );" />
             </td>
-         </tr>
+            <td align="right" nowrap>
+              <input type="submit"
+                     name="mail_selected_one:method"
+                     tal:attributes="value python:mcat('_Send/Continue_a_mail_')" />
+            </td>
+          </tr>
         </table>
 
-        <p> </p>
-        <hr>
-        <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
-            </form>
-          </metal:block>
+      </form>
 
-        </body>
-     </html>
+      <p> </p>
+      <hr>
+      <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
+
+    </metal:block>
+
+</body>
+</html>
 </tal:block>
 
 

@@ -29,15 +29,7 @@
   </metal:block>
 
   <metal:block fill-slot='main'>
-    <form tal:attributes="
-      action string:${here/absolute_url};
-      method string:post;
-      name   string:addressbook_form">
 
-      <input type="hidden" name="search_role"
-             tal:attributes="value search_role"/>
-      <input type="hidden" name="search_workspace"
-             tal:attributes="value search_workspace"/>
       <table border="0" cellPadding="2" cellSpacing="0" width="100%">
         <tr>
           <td>
@@ -50,10 +42,24 @@
             <span tal:replace="search_workspace"/>
           </td>
           <td align="right" valign="middle">
-            <metal:block use-macro="here/webmail_lib/macros/select_addressbook"/>
+            <form tal:attributes="action here/absolute_url;
+                                  method string:post;
+                                  name   string:addressbook_form">
+              <metal:block use-macro="here/webmail_lib/macros/select_addressbook"/>
+            </form>
           </td>
         </tr>
       </table>
+
+      <form name="addressbook_form"
+        tal:attributes="action here/absolute_url;
+                        method string:post;">
+      <input type="hidden" name="addressbook_name"
+        tal:attributes="value current_addressbook_name" />
+      <input type="hidden" name="search_role"
+             tal:attributes="value search_role"/>
+      <input type="hidden" name="search_workspace"
+             tal:attributes="value search_workspace"/>
 
       <table width="100%" cellpadding=2 cellspacing=0 border=0>
         <tr bgcolor="#dcdcdc">
@@ -243,34 +249,36 @@
             </tal:block>
           </table>
 
-       <table cellpadding=3 cellspacing=0 border=0 width="100%">
-         <tr bgcolor="#dcdcdc">
-           <td colspan=2>
-             <input type="submit"
-               name="addressbook_add_contacts_to_privbook:method"
-               tal:condition="python:allow_copy_or_link and privbook_name"
-               tal:attributes="value python:mcat('_Add_to_private_addressbook_')"/>
-             <input type="submit"
-               name="addressbook_add_contacts_links_to_privbook:method"
-               tal:condition="python:allow_copy_or_link and privbooklinks_name"
-               tal:attributes="value python:mcat('_Add_link_to_private_addressbook_')"/>
-           </td>
-           <td align="right" nowrap>
-             <input type="submit"
-                    name="mail_selected_one:method"
-                    tal:attributes="value python:mcat('_Send/Continue_a_mail_')" />
+        <table cellpadding=3 cellspacing=0 border=0 width="100%">
+          <tr bgcolor="#dcdcdc">
+            <td colspan=2>
+              <input type="submit"
+                name="addressbook_add_contacts_to_privbook:method"
+                tal:condition="python:allow_copy_or_link and privbook_name"
+                tal:attributes="value python:mcat('_Add_to_private_addressbook_')"/>
+              <input type="submit"
+                name="addressbook_add_contacts_links_to_privbook:method"
+                tal:condition="python:allow_copy_or_link and privbooklinks_name"
+                tal:attributes="value python:mcat('_Add_link_to_private_addressbook_')"/>
             </td>
-         </tr>
+            <td align="right" nowrap>
+              <input type="submit"
+                     name="mail_selected_one:method"
+                     tal:attributes="value python:mcat('_Send/Continue_a_mail_')" />
+             </td>
+          </tr>
         </table>
 
-        <p> </p>
-        <hr>
-        <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
-            </form>
-          </metal:block>
+      </form>
 
-        </body>
-     </html>
+      <p> </p>
+      <hr>
+      <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
+
+  </metal:block>
+
+</body>
+</html>
 </tal:block>
 
 
