@@ -3,10 +3,21 @@ Requires:
 -
 New features:
 ~~~~~~~~~~~~~
--
+- Edition/creation of entries in address books is made using popups.
+  When the popup is closed, the opener page is reloaded, hence updating
+  the information added or edited.
+- Webmail now gives the number of emails not read in a folder (and not only
+  the total number of emails)
+- It is possible to chose the number of messages to dispaly per page. This
+  number default to 20 and is only kept for the session (it is a session
+  variable)
 Bug fixes:
 ~~~~~~~~~~
--
+- IMAP folders names were not filtered, and special characters could
+  produce an error.
+- Export mail attachments was not working when mail was not in the 'INBOX'
+  folder.
+- Better batch message when navigating through emails
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
