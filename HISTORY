@@ -1,4 +1,20 @@
 *******************************************
+** CPSWebMail V0.7.1 [R1 build 2004/08/30-15:11 by anahide]
+
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- Invalid connection due to incorrect login or password brougth to a crash page.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
 ** CPSWebMail V0.7.0 [R1 build 2004/08/19-16:16 by anahide]
 
 Requires:
