@@ -1,16 +1,12 @@
 Requires:
 ~~~~~~~~~
-- CPSDirectory > 1.13.0 to use personal address books.
+-
 New features:
 ~~~~~~~~~~~~~
-- It is now possible to store contacts in a personal address book
-  that are not real entries, but links towards entries of the global
-  address book: when an email address is updated in the global
-  directory, it is updated in the personal address book too.
+-
 Bug fixes:
 ~~~~~~~~~~
-- Instead of returning 1, redirect with an error message when no recipient
-  has been provided in the email
+-
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
