@@ -7,7 +7,10 @@ from zLOG import LOG, DEBUG
 # Take the default address book
 #
 addressbook_name = getattr(REQUEST, 'addressbook_name', '_global')
-addressbook  = context.portal_webMail.getCurrentAddressBook(addressbook_name)
+if addressbook_name == '_groups':
+    addressbook  = context.portal_webMail.getCurrentAddressBook('_members')
+else:
+    addressbook  = context.portal_webMail.getCurrentAddressBook(addressbook_name)
 list_to_add = getattr(REQUEST, 'to_add_to_privbook', [])
 
 #
