@@ -1,0 +1,8 @@
+--------------------------------------------------
+CPSWebMail TODO
+--------------------------------------------------
+
+$Id$
+
+1. Major refactoring
+2. See if there is something else to do :)
