@@ -417,3 +417,12 @@ msgstr "Afficher"
 
 msgid "_mail(s)_per_page_"
 msgstr "message(s) par page"
+
+msgid "_Empty_Trash_"
+msgstr "Vider la corbeille"
+
+msgid "_Chose_a_mailing_list_"
+msgstr "Choisissez une liste"
+
+msgid "_Chose_a_group_"
+msgstr "Choisissez un groupe"

@@ -414,3 +414,12 @@ msgstr "Show"
 
 msgid "_mail(s)_per_page_"
 msgstr "email(s) per page"
+
+msgid "_Empty_Trash_"
+msgstr "Empty Trash folder"
+
+msgid "_Chose_a_mailing_list_"
+msgstr "Chose a mailing list"
+
+msgid "_Chose_a_group_"
+msgstr "Chose a group"
