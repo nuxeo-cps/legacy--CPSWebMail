@@ -175,7 +175,6 @@
                      Unselect
                      </a>
                    </th>
-                   <th width="1%"> </th>
                    <th align="center" width="16%">
                      <b><i tal:content="email_prop_name">Email Property name</i></b>
                    </th>
@@ -192,8 +191,6 @@
                    <td width="1%" align="center" nowrap>
                      <input type="checkbox" name="pbcc:list" value="2" tal:attributes=" value entry" />
                    </td>
-
-                   <td width="1%" align="center"> </td>
                    <td valign="middle" align="center">
                      <a href="" tal:attributes="href string:write_addbook?to=${entry}">
                      <i tal:content="python:entry">
