@@ -18,8 +18,12 @@ Bug fixes:
 ~~~~~~~~~~
 - Incorrect username and pasword gave non-sensical error messages,
   because the actual login errors were lost on the way.(Mantis #453)
-- sorting on mails and search results (but only on messages displayed on the
+- Sorting on mails and search results (but only on messages displayed on the
   page, not on all mails or results)
+- Mailing lists facilities have been fixed : some scripts were still relying
+  on NuxMetaDirectories instead of CPSDirectory.
+- Aknowledgment of read now works on the webmail interface.
+- "Reply to all" now takes email addresses that were on the "cc" field.
 
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
