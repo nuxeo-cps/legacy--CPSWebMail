@@ -15,6 +15,7 @@ import os, time
 from re import compile
 from zLOG import LOG, DEBUG
 from MSOutlookImport import MSOutlookImporter
+from ZPublisher.HTTPRequest import FileUpload
 
 #=============================================
 # DEPENDENCES OF THE ORIGINAL WebMail Product
@@ -55,11 +56,17 @@ from WebMailSession import WebMailSession
 
 import OFS # sendMail method need this
 from OFS.Folder import Folder
+from OFS.Image import cookId
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 from Products.CMFCore.utils import UniqueObject, getToolByName
 from Products.CMFCore.CMFCorePermissions import setDefaultRoles
 
+#=======================
+# CPS DEPENDENCIES :)
+#=======================
+
+from Products.CPSSchemas.BasicWidgets import _isinstance
 
 #==========================
 #    ZOPE PERMISSIONS
@@ -738,13 +745,20 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     def addPiece(self, REQUEST):
         """Add a piece in mail session object"""
         attKey = "attachment"
+        err = 0
+        err_msg = ''
         #
         # Creation of an instance of Attachment
         #
-        if REQUEST.has_key(attKey):
-            if type(REQUEST[attKey]) is not type('') and REQUEST[attKey].filename:
-                att = REQUEST[attKey]
-                filename = os.path.split(att.filename)[1]
+        att = REQUEST.get(attKey)
+        if not _isinstance(att, FileUpload):
+            err_msg = 'cpswebmail_err_attachment'
+        else:
+            if att.read(1) == '':
+                err_msg = 'cpswebmail_error_attachment_empty'
+            else:
+                att.seek(0)
+                filename = cookId('', '', att)[0]
                 data = att.read()
                 content_type = OFS.content_types.guess_content_type(
                     name=filename, body=data,
@@ -762,6 +776,12 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
                 # Commit modifications on session object
                 #
                 REQUEST.SESSION['mail_session'] = mail
+
+        if err_msg:
+            err = 1
+
+        LOG("addPiece", DEBUG, "err_msg=%s"%(err_msg,))
+        return (err, err_msg)
 
     security.declareProtected(UseWebMailPermission, "removeOnePieces")
     def removeOnePieces(self, REQUEST):
