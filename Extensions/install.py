@@ -170,7 +170,7 @@ class CPSWebMailInstaller(CPSInstaller):
                 'id_field': 'id',
                 'title_field': 'id',
                 'search_substring_fields': ['id'],
-                'directory_id': 'addressbook',
+                'directory_id': 'addressbook members',
                 'directory_type': 'CPS Indirect Directory',
                 },
             }
@@ -344,7 +344,7 @@ class CPSWebMailInstaller(CPSInstaller):
         addressbook_search_layout = {
             'widgets': {
                 'id': {
-                    'type': 'User Identifier Widget',
+                    'type': 'String Widget',
                     'data': {
                         'fields': ('id',),
                         'is_required': 0,
@@ -352,8 +352,8 @@ class CPSWebMailInstaller(CPSInstaller):
                         'label_edit': 'label_user_name',
                         'is_i18n': 1,
                         'readonly_layout_modes': ('edit',),
-                        'display_width': 30,
-                        'size_max': 256,
+                        'display_width': 20,
+                        'size_max': 0,
                         },
                     },
                 'givenName': {
