@@ -426,3 +426,21 @@ msgstr "Choisissez une liste"
 
 msgid "_Chose_a_group_"
 msgstr "Choisissez un groupe"
+
+msgid "label_workspace_members"
+msgstr "Membres des espaces de travail"
+
+msgid "_Chose_workspace_role_"
+msgstr "Choisissez un rôle :"
+
+msgid "psm_cpswebmail_chose_role_error"
+msgstr "Vous devez sélectionner un rôle."
+
+msgid "psm_cpswebmail_chose_workspace_error"
+msgstr "Vous devez sélectionner un espace de travail."
+
+msgid "wsmembers_change_search_criteria"
+msgstr "Changer les critères de recherche :"
+
+msgid "wsmembers_search_in"
+msgstr "dans"

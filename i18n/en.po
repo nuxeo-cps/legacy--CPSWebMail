@@ -423,3 +423,21 @@ msgstr "Chose a mailing list"
 
 msgid "_Chose_a_group_"
 msgstr "Chose a group"
+
+msgid "label_workspace_members"
+msgstr "Workspace members"
+
+msgid "_Chose_workspace_role_"
+msgstr "Chose a role:"
+
+msgid "psm_cpswebmail_chose_role_error"
+msgstr "Please select a role."
+
+msgid "psm_cpswebmail_chose_workspace_error"
+msgstr "Please select a workspace."
+
+msgid "wsmembers_change_search_criteria"
+msgstr "Change search criteria:"
+
+msgid "wsmembers_search_in"
+msgstr "in"
