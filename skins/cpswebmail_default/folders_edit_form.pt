@@ -29,8 +29,9 @@
               <input type="checkbox" name="IMAPNames:list"
                      tal:attributes="value item/getImapName;
                                      id item/getImapName"/>
-              <label tal:content="item/getReadableName"
-                     tal:attributes="for item/getImapName"/>
+              <a href=""
+                 tal:attributes="href string:${here/absolute_url}/webmail_fetch?IMAPName=${item/getImapName}"
+                 tal:content="item/getReadableName"/>
               <br/>
             </tal:block>
         </tal:block>
