@@ -13,7 +13,7 @@ import string
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 from interfaces.IWebMailSession import WebMailSessionInterface
-from Products.WebMail import RFC822MessagesTools
+from RFC822MessagesTools import *
 from DateTime import *
 
 UseWebMailPermission = "Use WebMail"
@@ -286,7 +286,7 @@ class WebMailSession:
                 # dictionnary
                 if x not in res:
                     res = res + (x,)
-                    
+
         # Init of the results session
         REQUEST.SESSION['search_results'] = res
 
