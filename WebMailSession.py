@@ -281,45 +281,29 @@ class WebMailSession:
 
         REQUEST.SESSION['mail_session'] = mail_session
 
+
     security.declareProtected(UseWebMailPermission, "setSearchSession")
     def setSearchSession(self, addressbook, REQUEST):
         """Init of search result session"""
-
-        # Destruction of an older session if exists
-        REQUEST.SESSION['search_results'] = ()
-
-        visible = addressbook.getVisibleSchemaKeys()
-        search_param = REQUEST.form.get('search_param', '')
-
-        # Built of the dictionnary results of search on all visibles params
-        res = ()
-        for props in visible:
-            t = addressbook.searchEntry(**{props: search_param})
-            for x in t:
-                # dictionnary
-                if x not in res:
-                    res = res + (x,)
-
-        # Init of the results session
-        REQUEST.SESSION['search_results'] = res
-
-    security.declareProtected(UseWebMailPermission, "setSearchSessionCPS3")
-    def setSearchSessionCPS3(self, addressbook, REQUEST):
-        """Init of search result session for CPS3"""
         REQUEST.SESSION['search_results'] = ()
 
         widgets = addressbook._getLayout(search=1).objectItems()
         visible = [x.getWidgetId() for y, x in widgets]
         search_param = REQUEST.form.get('search_param', '')
 
-        # Built of the dictionnary results of search on all visibles params
-        res = ()
-        for props in visible:
-            t = addressbook.searchEntries(**{props : search_param})
-            for x in t:
-                # dictionnary
-                if x not in res:
-                    res = res + (x,)
+        # XXX not filtering these search parameters
+        # made the search crash when using an LDAP directory...
+        if search_param in ['', '*']:
+            res = self.addressBookSearch(REQUEST=REQUEST)
+        else:
+            # Built of the dictionnary results of search on all visibles params
+            res = ()
+            for props in visible:
+                t = addressbook.searchEntries(**{props : search_param})
+                for x in t:
+                    # dictionnary
+                    if x not in res:
+                        res = res + (x,)
 
         # Init of the results session
         REQUEST.SESSION['search_results'] = res
@@ -350,6 +334,32 @@ class WebMailSession:
 
         # Upgrade of the results session
         REQUEST.SESSION['search_results'] = res
+
+    security.declareProtected(UseWebMailPermission, "setListSearch")
+    def setListSearch(self, list, id_list, REQUEST):
+        """Init of a session object with the list of emails"""
+
+        # Destruction of an older session if exists
+        REQUEST.SESSION['search_results'] = ()
+
+        email_prop = self.getMailingListsEmailProperty()
+        entry = list.getEntry(id_list)
+
+        # Update Search Session
+        if entry:
+            REQUEST.SESSION['search_results'] = entry[email_prop]
+
+    security.declareProtected(UseWebMailPermission, "setGroupSearch")
+    def setGroupSearch(self, group, id_group, REQUEST):
+        """Init of a session object with the list of emails"""
+
+        # Destruction of an older session if exists
+        REQUEST.SESSION['search_results'] = ()
+
+        entry = group.getEntry(id_group)
+        # Update Search Session
+        if entry:
+            REQUEST.SESSION['search_results'] = entry['members']
 
     security.declareProtected(UseWebMailPermission, "setListingSizeSession")
     def setListingSizeSession(self, listing_size, REQUEST):
