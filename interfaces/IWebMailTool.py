@@ -28,10 +28,10 @@ class WebMailToolInterface(Base):
     def getMessage(self, IMAPName="INBOX", IMAPId=""):
         """Return the message instance"""
 
-    def createIMAPFolder(self, pIMAPName):
+    def createIMAPFolder(self, title, folder):
         """Create a new Folder on IMAP Server"""
 
-    def deleteIMAPFolders(self, pIMAPName, pIMAPNamesToDelete):
+    def deleteIMAPFolders(self, pIMAPNamesToDelete):
         """Delete an IMAP Folder"""
 
     def emptyTrash(self, pIMAPName):
