@@ -1,0 +1,506 @@
+# translation of CPSWebmail_en.po to Euskara
+# Copyright (C) 2004 Free Software Foundation, Inc.
+# Aitzol Naberan Burgaña <anaberan@codesyntax.com>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: CPSWebmail_en\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2004-09-24 09:50+0200\n"
+"Last-Translator: Aitzol Naberan Burgaña <anaberan@codesyntax.com>\n"
+"Language-Team: Euskara <eu@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-code: eu\n"
+"Language-name: Euskara\n"
+"X-Generator: KBabel 1.3\n"
+
+msgid "_Your_mail_"
+msgstr "Zure e-posta :"
+
+msgid "_mail(s)_in_"
+msgstr "mezua(k) karpetan"
+
+msgid "_unread_mail(s)_"
+msgstr "irakurri gabeko mezua(k)"
+
+msgid "_Change_folder_to_"
+msgstr "Karpetaren izen berria"
+
+msgid "_Read_messages_"
+msgstr "Irakurritako mezuak"
+
+msgid "_Compose_"
+msgstr "Idatzi"
+
+msgid "_Search_"
+msgstr "Bilatu"
+
+msgid "_Address_book_"
+msgstr "Helbide liburua"
+
+msgid "_Folders_"
+msgstr "Karpetak"
+
+#, fuzzy
+msgid "_Messages_from_"
+msgstr "Messages from"
+
+#, fuzzy
+msgid "_to_"
+msgstr "to"
+
+#, fuzzy
+msgid "_of_"
+msgstr "of"
+
+msgid "_Selected_messages_"
+msgstr "Aukeratutako mezuak"
+
+msgid "_All_"
+msgstr "Denak"
+
+msgid "_None_"
+msgstr "Bat ere ez"
+
+msgid "_Delete_"
+msgstr "Ezabatu"
+
+msgid "_Move_To_"
+msgstr "Hona eraman"
+
+msgid "_All/None_"
+msgstr "Denak/Baterez"
+
+msgid "_Subject_"
+msgstr "Gaia"
+
+msgid "_From_"
+msgstr "Nork"
+
+msgid "_Date_"
+msgstr "Data"
+
+msgid "_Size_"
+msgstr "Tamaina"
+
+msgid "_Compose_your_mail_"
+msgstr "Mezua idatzi"
+
+msgid "_Back_to_message_list_"
+msgstr "Mezu-zerrendara itzuli"
+
+#, fuzzy
+msgid "_Acknowledgement_of_read_"
+msgstr "Acknowledgement of read"
+
+msgid "_TO:_"
+msgstr "Nori:"
+
+msgid "_CC:_"
+msgstr "Cc:"
+
+msgid "_BCC:_"
+msgstr "Bcc:"
+
+msgid "_Subject:_"
+msgstr "Gaia:"
+
+msgid "_Send_"
+msgstr "Bidali"
+
+msgid "_Cancel_"
+msgstr "Utzi"
+
+msgid "_Save_as_draft_"
+msgstr "Save as draft"
+
+msgid "_Attachments_list_"
+msgstr "Erantsitakoak:"
+
+msgid "_Add_"
+msgstr "Gehitu"
+
+msgid "_Id_"
+msgstr "Id"
+
+msgid "_Name_"
+msgstr "Izena"
+
+msgid "_Type_"
+msgstr "Mota"
+
+msgid "_Remove_"
+msgstr "Kendu"
+
+#, fuzzy
+msgid "_Searching_tool_"
+msgstr "Searching tool"
+
+#, fuzzy
+msgid "_Searching_in_"
+msgstr "Searching in:"
+
+#, fuzzy
+msgid "_In_"
+msgstr "In"
+
+msgid "_In_message_body_"
+msgstr "Gorputzean"
+
+msgid "_In_subject_"
+msgstr "Gaian"
+
+msgid "_In_from_field_"
+msgstr "'Nork' lerroan"
+
+msgid "_In_to_field_"
+msgstr "'Nori' lerroan"
+
+#, fuzzy
+msgid "_Since_"
+msgstr "Since"
+
+#, fuzzy
+msgid "_Day_"
+msgstr "Day"
+
+#, fuzzy
+msgid "_Before_"
+msgstr "Before"
+
+msgid "_January_"
+msgstr "Urtarrila"
+
+msgid "_February_"
+msgstr "Otsaila"
+
+msgid "_March_"
+msgstr "Martxoa"
+
+msgid "_April_"
+msgstr "Apirila"
+
+msgid "_May_"
+msgstr "Maiatza"
+
+msgid "_Jun_"
+msgstr "Ekaina"
+
+msgid "_Jully_"
+msgstr "Uztaila"
+
+msgid "_August_"
+msgstr "Abuztua"
+
+msgid "_September_"
+msgstr "Iraila"
+
+msgid "_October_"
+msgstr "Urria"
+
+msgid "_November_"
+msgstr "Azaroa"
+
+msgid "_December_"
+msgstr "Abendua"
+
+#, fuzzy
+msgid "_Change_list_to_"
+msgstr "Change list to:"
+
+msgid "_Go_"
+msgstr "Ekin"
+
+msgid "_Import_from_MSOutlook_address_book_"
+msgstr "MSOutlook helbide liburutik inportatu"
+
+msgid "_New_contact_"
+msgstr "Kontaktu berria"
+
+msgid "_Send/Continue_a_mail_"
+msgstr "Bidali/Jarraitu mezu bat"
+
+msgid "_Edit_"
+msgstr "Editatu"
+
+msgid "_Select_"
+msgstr "Aukeratu"
+
+#, fuzzy
+msgid "_Unselect_"
+msgstr "Unselect"
+
+#, fuzzy
+msgid "_All_in_field_"
+msgstr "All elements in field"
+
+msgid "_Subject_message_title_"
+msgstr "Message subject:"
+
+msgid "_ack_confirmation_"
+msgstr ""
+"The message sender asked for an acknowledgment of read.\\n"
+"Do you want to send it?"
+
+msgid "_Reply_"
+msgstr "Erantzun"
+
+msgid "_Reply_all_"
+msgstr "Denei erantzun"
+
+#, fuzzy
+msgid "_Forward_"
+msgstr "Forward"
+
+msgid "_From:_"
+msgstr "Nork:"
+
+msgid "_Date:_"
+msgstr "Data:"
+
+#, fuzzy
+msgid "_New_IMAP_Folder_creation_"
+msgstr "New IMAP folder creation"
+
+#, fuzzy
+msgid "_Existing_IMAP_folders:_"
+msgstr "Existing IMAP folders:"
+
+msgid "_Folder_name:_"
+msgstr "Karpetaren izena:"
+
+#, fuzzy
+msgid "_Folder_creation_caution_"
+msgstr "Attention: dot . is for creating subfolders. ie.: to have subfolders like 'yellow' and 'red' of folder 'colors', you just have to name it 'colors.yellow' and 'colors.red' only if folder 'colors' is existing. Be carefull to the case"
+
+#, fuzzy
+msgid "_Inbox_Folder_"
+msgstr "Inbox folder"
+
+msgid "_Sent_element_folder_"
+msgstr "Bidalitakoak"
+
+#, fuzzy
+msgid "_Draft_folder_"
+msgstr "Drafts"
+
+msgid "_Trash_folder_"
+msgstr "Zakarrontzia"
+
+#, fuzzy
+msgid "_IMAP_Access_Error_Message_Title"
+msgstr "There is an error while accessing to IMAP account"
+
+#, fuzzy
+msgid "_IMAP_Access_Error_Caution_"
+msgstr "Please look your IMAP connexion configuration in "
+
+msgid "_directories_"
+msgstr "direktorioak"
+
+msgid "_IMAP_Access_Error_note_"
+msgstr "Hauek zure parametroak dira, eta zerorrek bakarrik alda ditzakezu."
+
+#, fuzzy
+msgid "_header_date_mailview_on_%m/%d/%Y at %H:%M"
+msgstr "%Y/%m/%d at %H:%M"
+
+#, fuzzy
+msgid "_header_date_maillist_on_%m/%d/%Y at %H:%M"
+msgstr "%Y/%m/%d %H:%M"
+
+msgid "_Addresses_"
+msgstr "Helbideak"
+
+msgid "_New_list_"
+msgstr "Zerrenda berria"
+
+#, fuzzy
+msgid "_export_to_private_"
+msgstr "Export to my area"
+
+#, fuzzy
+msgid "_attachment_export_notice_"
+msgstr "Exported documents are copied into private area of curent user."
+
+msgid "_add_contact_"
+msgstr "Kontaktua gehitu"
+
+#, fuzzy
+msgid "_list_mail_"
+msgstr "Open INBOX"
+
+msgid "label_personal_addressbook"
+msgstr "Personal Addressbook"
+
+msgid "_Add_Subfolder_"
+msgstr "Azpikarpeta gehitu"
+
+msgid "_Add_Subfolder_To:_"
+msgstr "Azpikarpeta gehitu hemen:"
+
+msgid "_Search_Body_"
+msgstr "Gorputza:"
+
+msgid "_Search_Subject_"
+msgstr "Gaia:"
+
+msgid "_Search_From_"
+msgstr "Bidaltzailea:"
+
+msgid "_Search_To_"
+msgstr "Hartzailea(k):"
+
+#, fuzzy
+msgid "_Received_Since_"
+msgstr "Received since:"
+
+#, fuzzy
+msgid "_Received_Before_"
+msgstr "Received before:"
+
+msgid "_Address_books_"
+msgstr "Helbide liburuak"
+
+msgid "_Choose_A_Folder_"
+msgstr "Karpeta aukeratu"
+
+#, fuzzy
+msgid "_This_is_the_acknowledgment_sent_to_"
+msgstr "This is the acknowledgment sent to "
+
+#, fuzzy
+msgid "_the_"
+msgstr " on "
+
+#, fuzzy
+msgid "_This_message_tells_email_displayed_on_recipients_computer_on_"
+msgstr "This message tells that the email was displayed on the recipient's computer on "
+
+#, fuzzy
+msgid "_Read:_"
+msgstr "Read: "
+
+msgid "_Mailing_Lists_"
+msgstr "Posta-zerrendak"
+
+msgid "label_mailinglists_directory"
+msgstr "Posta-zerrendak"
+
+msgid "label_mailinglist_name"
+msgstr "Posta-zerrendaren izena"
+
+msgid "label_emails"
+msgstr "Helbide elektronikoak"
+
+msgid "label_emails_help"
+msgstr "Lerro bakoitzeko helbide bakarra"
+
+#, fuzzy
+msgid "label_imap_login"
+msgstr "IMAP login"
+
+#, fuzzy
+msgid "label_imap_password"
+msgstr "IMAP password"
+
+#, fuzzy
+msgid "label_mailForwardingAddress"
+msgstr "Mail forwarding address"
+
+msgid "label_deliveryMode"
+msgstr "Banaketa modua"
+
+#, fuzzy
+msgid "deliveryMode_help"
+msgstr ""
+"The delivery mode specifies the way emails are delivered to the member:\n"
+"- No forward : emails are not forwarded to the eventual mail forwarding address\n"
+"- Forward only : emails are only delivered to the mail forwarding address\n"
+"- Local : emails are forwarded to the eventual mail forwarding address, and a copy is kept in the local mailbox."
+
+msgid "_Choose_recipients_"
+msgstr "Hartzaileak aukeratu"
+
+msgid "label_address_book"
+msgstr "Helbide liburua"
+
+msgid "_Add_to_private_addressbook_"
+msgstr "Zure helbide-liburura gehitu"
+
+msgid "cpswebmail_enter_recipient"
+msgstr "Hartzaile bat sartu, mesedez"
+
+#, fuzzy
+msgid "label_personal_addressbooklinks"
+msgstr "Personal address book links"
+
+#, fuzzy
+msgid "_Add_link_to_private_addressbook_"
+msgstr "Add to personal address book links"
+
+#, fuzzy
+msgid "imap_folder_creation_successfull"
+msgstr "New IMAP folder created."
+
+#, fuzzy
+msgid "imap_folder_creation_unsuccessfull"
+msgstr "Error while creating the new IMAP folder."
+
+#, fuzzy
+msgid "imap_folder_creation_rules"
+msgstr ""
+"The name can only contain alphanumeric caracters,\n"
+"spaces, hyphens and underscores."
+
+msgid "cpswebmail_folder_search_rules"
+msgstr "Bilaketa karpetan bakarrik egin daitek, ez azpikarpetetan"
+
+msgid "_No_Mails_In_Folder_"
+msgstr "Mezurik ez"
+
+msgid "_button_show_"
+msgstr "Erakutsi"
+
+#, fuzzy
+msgid "_mail(s)_per_page_"
+msgstr "email(s) per page"
+
+msgid "_Empty_Trash_"
+msgstr "Zakarrontzia Hustu"
+
+msgid "_Chose_a_mailing_list_"
+msgstr "Posta-zerrenda aukeratu"
+
+msgid "_Chose_a_group_"
+msgstr "Taldea aukeratu"
+
+#, fuzzy
+msgid "label_workspace_members"
+msgstr "Workspace members"
+
+msgid "_Chose_workspace_role_"
+msgstr "Rola aukeratu:"
+
+msgid "psm_cpswebmail_chose_role_error"
+msgstr "Rola aukeratu, mesedez."
+
+#, fuzzy
+msgid "psm_cpswebmail_chose_workspace_error"
+msgstr "Please select a workspace."
+
+msgid "wsmembers_change_search_criteria"
+msgstr "Bilaketarako irizpideak aldatu:"
+
+#, fuzzy
+msgid "wsmembers_search_in"
+msgstr "in"
+
+msgid "_No_Attachments_"
+msgstr "Fitxategi erantsirik ez"
+
+msgid "label_name"
+msgstr "Izena"
+
