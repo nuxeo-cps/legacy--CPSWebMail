@@ -12,6 +12,7 @@ tools = (WebMailTool.WebMailTool,)
 
 registerDirectory('skins/cpswebmail_default', globals())
 registerDirectory('skins/cpswebmail_images', globals())
+registerDirectory('skins/cpswebmail_javascript', globals())
 
 
 def initialize(registrar):

@@ -41,6 +41,7 @@ class CPSWebMailInstaller(CPSInstaller):
     SKINS = {
         'cpswebmail_default': 'Products/CPSWebMail/skins/cpswebmail_default',
         'cpswebmail_images': 'Products/CPSWebMail/skins/cpswebmail_images',
+        'cpswebmail_javascript': 'Products/CPSWebMail/skins/cpswebmail_javascript',
         }
 
     def install(self):
