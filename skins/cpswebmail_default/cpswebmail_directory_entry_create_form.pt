@@ -22,7 +22,7 @@
     </metal:block>
 
     <metal:block fill-slot="main">
-      <metal:block use-macro="here/generic_lib/macros/portal_message" />
+      <metal:block use-macro="here/generic_lib_portal_message/macros/portal_message" />
       <h1><span i18n:translate="" tal:content="dirtitle" />:
           <span i18n:translate="cpsdir_label_create_entry" /></h1>
 
