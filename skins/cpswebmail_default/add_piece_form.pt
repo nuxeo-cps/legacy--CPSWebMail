@@ -3,7 +3,6 @@
       folder python:wmtool.getInboxFolder(request);
       mail_struct python:request.SESSION.get('mail_session',{});
       mcat nocall:here/Localizer/default;
-      dtool here/portal_directories/members;
     ">
 
 <html metal:use-macro="here/main_template/macros/master">

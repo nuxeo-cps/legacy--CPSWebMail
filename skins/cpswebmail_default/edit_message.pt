@@ -4,8 +4,7 @@
                    IMAPName python:request.get('IMAPName', 'INBOX');
                    atts python:request.SESSION['mail_session'].get('att_list',[]);
                    mail_struct python:request.SESSION.get('mail_session',{});
-                   mcat nocall:here/Localizer/default;
-                   dtool here/portal_directories/members;">
+                   mcat nocall:here/Localizer/default;">
 
 <metal:html use-macro="here/main_template/macros/master">
   <body>

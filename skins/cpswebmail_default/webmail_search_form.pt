@@ -3,7 +3,6 @@
 <tal:block define="wmtool here/portal_webMail;
       folder python:wmtool.getInboxFolder(request);
       mcat nocall:here/Localizer/default;
-      dtool here/portal_directories/members;
       ">
 <html metal:use-macro="here/main_template/macros/master">
 <body>

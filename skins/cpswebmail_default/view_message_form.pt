@@ -10,7 +10,6 @@
                    the_view python:not int(vm_session['view']);
                    reception_flag python:message.is_reception_flag(raw_msg);
                    mcat nocall:here/Localizer/default;
-                   dtool here/portal_directories/members;
                    IMAPName vm_session/IMAPName|string:INBOX;
                    ">
 
