@@ -1,4 +1,22 @@
 *******************************************
+** CPSWebMail V0.9.2 [R1 build 2004/09/24-10:26 by anahide]
+
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- Changing the listing size (number of messages per page) did not
+  have the expected behavior when the listing was not starting from 0,
+  and the batch message and its links when sometimes wrong.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
 ** CPSWebMail V0.9.1 [R1 build 2004/09/23-12:20 by anahide]
 
 Requires:
