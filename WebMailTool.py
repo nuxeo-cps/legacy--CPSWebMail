@@ -1102,6 +1102,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             addressbook_name = REQUEST.get('addressbook_name', None)
         if addressbook_name  == '_private':
             bookname = self.getPrivAddressBookName()
+        elif addressbook_name  == '_mailing':
+            bookname = self.getMailingListName()
         else:
             bookname = self.getAddressBookName()
         return bookname
