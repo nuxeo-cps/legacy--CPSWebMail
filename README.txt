@@ -2,12 +2,14 @@ CPSWebMail
 
     This is a tool to support the reading of emails via IMAP and the sending of
 	mails via SMTP together with Nuxeo CPS system.
+
     It also provides address books support using the CPSDirectory product.
 
     Features:
 
     - Each user has a link in its personal box to open the webmail,
       provided that all users have accounts on the same mail server.
+
     - Messages handling:
       - Messages can be displayed in a table, sortable by subject, sender
         and date. The table has the following columns : an icon displaying
@@ -35,13 +37,17 @@ CPSWebMail
         possible to add or delete (sub)folders. Folders that are deleted are
         copied into the 'Trash' Folder, as well as the subfolders and
         messages they may contain.
+
     - Address books handling:
-      Address books are CPS Diretcories.
+
+      Address books are CPS Directories.
+
       It is possible to choose recipients to a message into four kinds of
       address books. Four default addressbooks are set up when installing
       the product, but it is possible to change them or to use existing
       directories, as long as these directories follow the requirements (see
       below how to set up proper address books).
+
       1. The global address book can be, for instance, the directory of all
          the members using the site.
          It is required to be able to use the address book general
@@ -55,6 +61,7 @@ CPSWebMail
          mailing lists, each mailing list being an entry of the directory.
          It is possible to set a list of email addresses attached to the
          mailing list name.
+
       All these address books are accessible through the 'Address book' link
       on the webmail pages, but they are also accessible through the
       'Directories' link on the site.
@@ -172,8 +179,10 @@ Installation
 How to setup address books
 
     The installer should have installed the four default address books.
+
     If you chose not to use these address books, you should better delete
     them.
+
     It is possible to change the schemas and layouts these address books
     use, but all the fields set on the default 'addressbook' schema are
     required for the address book feature to work properly.
