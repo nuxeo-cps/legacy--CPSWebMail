@@ -62,8 +62,6 @@ class IMAPProperties(SimpleItem):
         entry = self._getCurrentUserEntry()
         memberdir = self._getDirectory().members
         title_field = getattr(memberdir, 'title_field', None)
-        if not title_field:
-            title_field = getattr(memberdir, 'display_prop')
         return entry.get(title_field, None)
 
     def getSignature(self):
