@@ -1,4 +1,23 @@
 *******************************************
+** CPSWebMail V0.8.2 [R1 build 2004/09/17-16:59 by anahide]
+
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- Attachments filenames were not parsed: sometimes caused problems when
+  displaying them in a URL.
+- Attachments filenames were not parsed ok when loading the attachments
+  under Windows.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
 ** CPSWebMail V0.8.1 [R1 build 2004/09/15-15:22 by madarche]
 
 Requires:

@@ -6,10 +6,7 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
-- Attachments filenames were not parsed: sometimes caused problems when
-  displaying them in a URL.
-- Attachments filenames were not parsed ok when loading the attachments
-  under Windows.
+-
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
