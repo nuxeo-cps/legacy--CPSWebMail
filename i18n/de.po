@@ -1,0 +1,391 @@
+# translation of en.po to German
+# Georg Hennemann <georg.hennemann@dhl.com>, 2004.
+msgid ""
+msgstr ""
+"Project-Id-Version: de\n"
+"PO-Revision-Date: 2004-07-12 18:00default\n"
+"Last-Translator: Georg Hennemann <georg.hennemann@dhl.com>\n"
+"Language-Team: German <rheinland@dzug.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "_Your_mail_"
+msgstr "Ihre Email :"
+
+msgid "_mail(s)_in_"
+msgstr "EMail(s) in Folder"
+
+msgid "_Change_folder_to_"
+msgstr "Wechseln Folder zu"
+
+msgid "_Read_messages_"
+msgstr "Lesen"
+
+msgid "_Compose_"
+msgstr "Erstellen"
+
+msgid "_Search_"
+msgstr "Suchen"
+
+msgid "_Address_book_"
+msgstr "Adress Buch"
+
+msgid "_Folders_"
+msgstr "Folder"
+
+msgid "_Messages_from_"
+msgstr "Nachrichten von"
+
+msgid "_to_"
+msgstr "an"
+
+msgid "_of_"
+msgstr "von"
+
+msgid "_Selected_messages_"
+msgstr "Ausgewählte Nachrichten"
+
+msgid "_All_"
+msgstr "Alle"
+
+msgid "_None_"
+msgstr "Keine"
+
+msgid "_Delete_"
+msgstr "Löschen"
+
+msgid "_Move_To_"
+msgstr "Gehe zu"
+
+msgid "_All/None_"
+msgstr "Alle/Keine"
+
+msgid "_Subject_"
+msgstr "Subject"
+
+msgid "_From_"
+msgstr "Von"
+
+msgid "_Date_"
+msgstr "Datum"
+
+msgid "_Size_"
+msgstr "Grösse"
+
+msgid "_Compose_your_mail_"
+msgstr "Erstelle EMail"
+
+msgid "_Back_to_message_list_"
+msgstr "Zurück zur EMail Liste"
+
+msgid "_Acknowledgement_of_read_"
+msgstr "Bestätige Gelesen "
+
+msgid "_TO:_"
+msgstr "An:"
+
+msgid "_CC:_"
+msgstr "Cc:"
+
+msgid "_BCC:_"
+msgstr "Bcc:"
+
+msgid "_Subject:_"
+msgstr "Thema:"
+
+msgid "_Send_"
+msgstr "Senden" 
+
+msgid "_Cancel_"
+msgstr "Canceln"
+
+msgid "_Save_as_draft_"
+msgstr "Sichern als Draft"
+
+msgid "_Attachments_list_"
+msgstr "Anhang Liste:"
+
+msgid "_Add_"
+msgstr "Zufügen"
+
+msgid "_Id_"
+msgstr "Id"
+
+msgid "_Name_"
+msgstr "Name" 
+
+msgid "_Type_"
+msgstr "Typ"
+
+msgid "_Remove_"
+msgstr "Entfernen"
+
+msgid "_Searching_tool_"
+msgstr "Suchen"
+
+msgid "_Searching_in_"
+msgstr "Suchen in:"
+
+msgid "_In_"
+msgstr "In"
+
+msgid "_In_message_body_"
+msgstr "In Nachrichten Text"
+
+msgid "_In_subject_"
+msgstr "In Subject"
+
+msgid "_In_from_field_"
+msgstr "Im 'Von' Feld"
+
+msgid "_In_to_field_"
+msgstr "Im 'An' Feld"
+
+msgid "_Since_"
+msgstr "Seit"
+
+msgid "_Day_"
+msgstr "Tag"
+
+msgid "_Before_"
+msgstr "Bevor"
+
+msgid "_January_"
+msgstr "Januar"
+
+msgid "_February_"
+msgstr "Februar"
+
+msgid "_March_"
+msgstr "März"
+
+msgid "_April_"
+msgstr "April"
+
+msgid "_May_"
+msgstr "Mai"
+
+msgid "_Jun_"
+msgstr "Juni"
+
+msgid "_Jully_"
+msgstr "Juli"
+
+msgid "_August_"
+msgstr "August"
+
+msgid "_September_"
+msgstr "September"
+
+msgid "_October_"
+msgstr "Oktober"
+
+msgid "_November_"
+msgstr "November"
+
+msgid "_December_"
+msgstr "Dezember"
+
+msgid "_Change_list_to_"
+msgstr "Ãndere Liste in:"
+
+msgid "_Go_"
+msgstr "Los"
+
+msgid "_Import_from_MSOutlook_address_book_"
+msgstr "Importieren von MSOutlook Adress Buch"
+
+msgid "_New_contact_"
+msgstr "Neuer Kontakt"
+
+msgid "_Send/Continue_a_mail_"
+msgstr "Senden/Weiter mit der EMail"
+
+msgid "_Edit_"
+msgstr "Editeren"
+
+msgid "_Select_"
+msgstr "Auswählen"
+
+msgid "_Unselect_"
+msgstr "Abwählen"
+
+msgid "_All_in_field_"
+msgstr "Alle Elemente im Feld"
+
+msgid "_Subject_message_title_"
+msgstr "Nachricht Thema:"
+
+msgid "_ack_confirmation_"
+msgstr "Der Sender bittet um eine Lese Bestätigung. \\nWollen Sie diese übersenden?"
+
+msgid "_Reply_"
+msgstr "Antwort"
+
+msgid "_Reply_all_"
+msgstr "Antworten Alle"
+
+msgid "_Forward_"
+msgstr "Weiterleiten"
+
+msgid "_From:_"
+msgstr "Von:"
+
+msgid "_Date:_"
+msgstr "Datum:"
+
+msgid "_New_IMAP_Folder_creation_"
+msgstr "Neuer IMAP Folder"
+
+msgid "_Existing_IMAP_folders:_"
+msgstr "Existierende IMAP Folder:"
+
+msgid "_Folder_name:_"
+msgstr "Folder Name:"
+
+msgid "_Folder_creation_caution_"
+msgstr "Achtung: Punkt . ist zur Erstellung von Sub-Foldern. zB.: um Sub-Folder "
+"'gelb' und 'rot' von Folder 'Farben' anzulegen, benennt man sie einfach "
+"'colors.yellow' und 'colors.red', aber nur wenn Folder 'colors' existiert. Seien Sie daher vorsichtig."
+
+msgid "_Inbox_Folder_"
+msgstr "Eingang Folder"
+
+msgid "_Sent_element_folder_"
+msgstr "Versand Folder"
+
+msgid "_Draft_folder_"
+msgstr "Drafts"
+
+msgid "_Trash_folder_"
+msgstr "Trash"
+
+msgid "_IMAP_Access_Error_Message_Title"
+msgstr "Es gibt einen Fehler beim Zugriff auf den IMAP Account"
+
+msgid "_IMAP_Access_Error_Caution_"
+msgstr "Bitte schauen Sie in der IMAP Verbindungs Konfiguration in "
+
+msgid "_directories_"
+msgstr "Verzeichnisse"
+
+msgid "_IMAP_Access_Error_note_"
+msgstr "Dies sind Ihre eigenen Parameters und sie können nur von Ihnen geändert werden."
+
+msgid "_header_date_mailview_on_%m/%d/%Y at %H:%M"
+msgstr "%Y/%m/%d at %H:%M"
+
+msgid "_header_date_maillist_on_%m/%d/%Y at %H:%M"
+msgstr "%Y/%m/%d %H:%M"
+ 
+msgid "_Addresses_"
+msgstr "Adressen"
+
+msgid "_New_list_"
+msgstr "Neue Liste"
+
+msgid "_export_to_private_"
+msgstr "Exportiere in meinen Bereich"
+
+msgid "_attachment_export_notice_"
+msgstr "Exportierte Dokumente werden in den privaten Bereich des aktuellen Benutzers kopiert."
+
+msgid "_add_contact_"
+msgstr "Zufügen eines Kontakts"
+
+msgid "_list_mail_"
+msgstr "Öffnen der INBOX"
+
+msgid "label_personal_addressbook"
+msgstr "Privates Adressbuch"
+
+msgid "_Add_Subfolder_"
+msgstr "Hinzufügen eines SubFolders"
+
+msgid "_Add_Subfolder_To:_"
+msgstr "Hinzufügen eines SubFolders an:"
+
+msgid "_Search_Body_"
+msgstr "Email Nachricht:"
+
+msgid "_Search_Subject_"
+msgstr "Subject:"
+
+msgid "_Search_From_"
+msgstr "Sender:"
+
+msgid "_Search_To_"
+msgstr "Empfänger:"
+
+msgid "_Received_Since_"
+msgstr "Empfangen seit:"
+
+msgid "_Received_Before_"
+msgstr "Empfangen bevor:"
+
+msgid "_Address_books_"
+msgstr "Adress Bücher"
+
+msgid "_Choose_A_Folder_"
+msgstr "Wähle einen Folder"
+
+msgid "_This_is_the_acknowledgment_sent_to_"
+msgstr "Dies ist eine Bestätigung gesendet an "
+
+msgid "_the_"
+msgstr " auf "
+
+msgid "_This_message_tells_email_displayed_on_recipients_computer_on_"
+msgstr "Diese Nachricht bestätigt das die EMail auf dem Computer des Empfänger geöffnet und angezeigt wurde "
+
+msgid "_Read:_"
+msgstr "Lesen: "
+
+msgid "_Mailing_Lists_"
+msgstr "Mailing Listen"
+
+msgid "label_mailinglists_directory"
+msgstr "Mailing Listen"
+
+msgid "label_mailinglist_name"
+msgstr "Mailing Listen Name "
+
+msgid "label_emails"
+msgstr "Email Adressen"
+
+msgid "label_emails_help"
+msgstr "Eine Email Adresse pro Zeile eingeben"
+
+msgid "label_imap_login"
+msgstr "IMAP Login"
+
+msgid "label_imap_password"
+msgstr "IMAP Passwort"
+
+msgid "label_mailForwardingAddress"
+msgstr "EMail Weiterleiten Adresse"
+
+msgid "label_deliveryMode"
+msgstr "Auslieferungs Modus"
+
+msgid "deliveryMode_help"
+msgstr "Der Auslieferungs Modus spezifiziert wie die EMails an den Empfänger ausgeliefert werden:\n- Kein weiterleiten : EMails werden nicht weitergeleitet zur eventuell angegebenen Weiterleitungs-Adresse\n- Nur Weiterleiten : EMails werden nur weitergeleitet zur Weiterleitungs Adresse\n- Lokal : EMails werden weitergeleitet zur angegebenen Weiterleitungs Adresse und eine Kope verbleibt in der lokalen Mailbox."
+
+msgid "_Choose_recipients_"
+msgstr "Wähle die Empfänger"
+
+msgid "label_address_book"
+msgstr "Adress Buch"
+
+msgid "_Add_to_private_addressbook_"
+msgstr "Hinzufügen zum privaten Adressbuch"
+
+msgid "cpswebmail_enter_recipient"
+msgstr "Bitte geben Sie einen Empfänger an"
+
+msgid "label_personal_addressbooklinks"
+msgstr "Privates Adressbuch Links"
+
+msgid "_Add_link_to_private_addressbook_"
+msgstr "Hinzufügen zum privaten Adressbuch Links"
