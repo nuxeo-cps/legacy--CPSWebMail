@@ -345,3 +345,19 @@ msgstr "Ce message vous informe que le message s'est affiché sur l'ordinateur du
 
 msgid "_Read:_"
 msgstr "Lu : "
+
+msgid "_Mailing_Lists_"
+msgstr "Listes de diffusion"
+
+msgid "label_mailinglists_directory"
+msgstr "Listes de diffusion"
+
+msgid "label_mailinglist_name"
+msgstr "Nom de la liste de diffusion"
+
+msgid "label_emails"
+msgstr "Adresses de mél"
+
+msgid "label_emails_help"
+msgstr "Entrez une adresse par ligne"
+

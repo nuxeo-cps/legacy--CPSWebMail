@@ -342,3 +342,18 @@ msgstr "This message tells that the email was displayed on the recipient's compu
 
 msgid "_Read:_"
 msgstr "Read: "
+
+msgid "_Mailing_Lists_"
+msgstr "Mailing lists"
+
+msgid "label_mailinglists_directory"
+msgstr "Mailing lists"
+
+msgid "label_mailinglist_name"
+msgstr "Mailing List name"
+
+msgid "label_emails"
+msgstr "Email addresses"
+
+msgid "label_emails_help"
+msgstr "Enter one email address per line"
