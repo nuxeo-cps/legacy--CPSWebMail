@@ -1,0 +1,123 @@
+<tal:block define="wmtool here/portal_webMail;
+                   mcat nocall:here/Localizer/default;
+                   dirtool here/portal_directories;
+                   addressbook_name wmtool/getAddressBookName;
+                   privbook_name wmtool/getPrivAddressBookName;
+                   privbooklinks_name wmtool/getPrivAddressBookLinksName;
+                   lists_name wmtool/getMailingListName;
+                   current_addressbook_name request/addressbook_name|string:_wsmembers;
+                   current_addressbook python:wmtool.getCurrentAddressBook(current_addressbook_name, REQUEST=request);
+                   search_role request/search_role|nothing;
+                   search_workspace request/search_workspace|nothing;
+                   ">
+<html metal:use-macro="here/main_template/macros/master">
+<head>
+  <title i18n:translate="label_workspace_members" />
+</head>
+<body>
+  <metal:block fill-slot="javascript_head_slot">
+    <script type="text/javascript"
+      tal:attributes="src string:${base_url}cpswebmail_functions.js"></script>
+  </metal:block>
+  <metal:block fill-slot="header">
+    <b>
+      <tal:block i18n:translate="label_workspace_members" />
+    </b>
+    <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
+  </metal:block>
+
+  <metal:block fill-slot='main'>
+    <form tal:attributes="
+      action string:${here/absolute_url};
+      method string:post;
+      name   string:search_wsmembers_form">
+
+      <table border="0" cellPadding="2" cellSpacing="0" width="100%">
+        <tr>
+          <td align="right" valign="middle">
+            <metal:block use-macro="here/webmail_lib/macros/select_addressbook"/>
+          </td>
+        </tr>
+      </table>
+
+      <metal:block use-macro="here/mail_widgets/macros/form">
+        <metal:block fill-slot="content">
+
+          <metal:block use-macro="here/mail_widgets/macros/form_property">
+            <metal:block fill-slot="title">
+              <strong tal:content="python:mcat('_Chose_workspace_role_')">
+                Chose a workspace role:
+              </strong>
+            </metal:block>
+            <metal:block fill-slot="content">
+              <input type="radio" name="search_role"
+                     value="WorkspaceReader"
+                     id="WorkspaceReader"
+                     tal:attributes="checked python:search_role == 'WorkspaceReader'"/>
+              <label for="WorkspaceReader" i18n:translate="label_workspace_reader"></label>
+              <br>
+              <input type="radio" name="search_role"
+                     value="WorkspaceMember"
+                     id="WorkspaceMember"
+                     tal:attributes="checked python:search_role == 'WorkspaceMember'"/>
+              <label for="WorkspaceMember" i18n:translate="label_workspace_member"></label>
+              <br>
+              <input type="radio" name="search_role"
+                     value="WorkspaceManager"
+                     id="WorkspaceManager"
+                     tal:attributes="checked python:search_role == 'WorkspaceManager'"/>
+              <label for="WorkspaceManager" i18n:translate="label_workspace_manager"></label>
+            </metal:block>
+          </metal:block>
+
+          <metal:block use-macro="here/mail_widgets/macros/form_property">
+            <metal:block fill-slot="title">
+              <strong tal:content="python:mcat('_Searching_in_')">Searching in:</strong>
+            </metal:block>
+            <metal:block fill-slot="content">
+              <tal:block define="ttool here/portal_trees;
+                                 items python:ttool['workspaces'].getList(filter=1);">
+                <tal:block condition="items"
+                           repeat="item items">
+                  <div style="white-space:nowrap">
+                    <tal:block condition="item/visible">
+                      <span tal:replace="structure python:' '*4*item['depth']"></span>
+                      <input type="radio" name="search_workspace"
+                             tal:attributes="value item/rpath;
+                                             checked python:search_workspace == item['rpath']">
+                      <a href="." target="_blank"
+                         tal:attributes="href string:${base_url}${item/rpath}/">
+                        <b tal:content="structure string:${item/title_or_id}"
+                           tal:condition="python:item['depth'] == 0"/>
+                        <b tal:replace="structure string:${item/title_or_id}"
+                           tal:condition="python:item['depth'] != 0"/>
+                      </a>
+                    </tal:block>
+                  </div>
+                </tal:block>
+              </tal:block>
+
+             <input type="submit"
+                    name="addressbook_search_wsmembers:method"
+                    value="Ok" />
+
+            </metal:block>
+          </metal:block>
+        </metal:block>
+      </metal:block>
+
+    </form>
+
+    <hr>
+    <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
+
+  </metal:block>
+
+</body>
+</html>
+</tal:block>
+
+
+
+
+
