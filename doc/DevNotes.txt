@@ -1,3 +1,5 @@
+This information doesn't seem to be up to date (AT, May 8th 2004).
+     
 #
 # DevNotes for NuxWebMail
 #
