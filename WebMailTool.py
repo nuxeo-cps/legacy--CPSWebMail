@@ -833,17 +833,30 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             _recipients, raw_message)
         smtp_connection.quit()
 
-        if (REQUEST.has_key('IMAPName') and REQUEST.has_key('IMAPId')\
+        # deleting message if it was saved in Draft Box,
+        # as it is a standard to delete a draft message when sent in most
+        # of email clients
+        if (REQUEST.has_key('IMAPName')
+            and REQUEST['IMAPName'] == self.getDraftFolder().getImapName()
+            and REQUEST.has_key('IMAPId')):
+               folder = self.getFolder(REQUEST['IMAPName'])
+               # XXX AT: this call is kinda awkward but it is the best
+               # I could find for a minimal effort
+               folder.moveIMAPMessages("deleting", [REQUEST['IMAPId'],], copy=0)
+
+        # flagging answered and forwarded messages
+        if (REQUEST.has_key('IMAPName')
+            and REQUEST.has_key('IMAPId')
             and REQUEST.has_key('flag')):
-            con = self.getConnection()
-            flag2 = REQUEST.get('flag')
-            if flag2 == 'reply':
-                con.setFlag(folderName=REQUEST['IMAPName'],
-                            IMAPId=REQUEST['IMAPId'], flag="anwser")
-            elif flag2 == 'forward':
-                con.setFlag(folderName=REQUEST['IMAPName'],
-                            IMAPId=REQUEST['IMAPId'], flag="forwarded")
-            con.logout()
+               con = self.getConnection()
+               flag2 = REQUEST.get('flag')
+               if flag2 == 'reply':
+                   con.setFlag(folderName=REQUEST['IMAPName'],
+                               IMAPId=REQUEST['IMAPId'], flag="answer")
+               elif flag2 == 'forward':
+                   con.setFlag(folderName=REQUEST['IMAPName'],
+                               IMAPId=REQUEST['IMAPId'], flag="forwarded")
+               con.logout()
 
         return 0
 
