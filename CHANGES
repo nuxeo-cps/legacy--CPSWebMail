@@ -3,7 +3,8 @@ Requires:
 -
 New features:
 ~~~~~~~~~~~~~
--
+- italian translations are now available, thanks to Paolo Dina
+  (paolo [at] php3.it)
 Bug fixes:
 ~~~~~~~~~~
 -
