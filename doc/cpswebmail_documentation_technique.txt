@@ -73,7 +73,7 @@ produits CPS:
 Décompresser l'archive contenant le module dans le répertoire Products.
 Renommer "CPSWebMail" le dossier obtenu.
 Redémarrer Zope.
-Le fichier README contenu dans le dossier contient les informations
+Le fichier README contenu dans le produit contient les informations
 d'installation dans une instance de CPS.
 
 #############################
@@ -85,7 +85,8 @@ Il n'existe pas beaucoup de fonctionnalités supplémentaires par rapport aux
 fonctionnalités décrites dans le document pour la CNCC.
 La seule chose que l'on puisse ajouter est la possibilité de gérer des listes
 de diffusion personnelles.
-
+Le fichier README contenu dans le produit présente une description
+exhaustive des fonctionnalités.
 
 ############################
 # Fonctionnement du module #
