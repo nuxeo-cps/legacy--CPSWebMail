@@ -154,7 +154,7 @@ def parse_RFCHeaders(header, nbCharSubject=25):
     return head
 
 
-def parse_RFCMessage(mess, direct_body, flags, imapid):
+def parse_RFCMessage(mess, direct_body, flags, imapid, is_draft=0):
     """ return message instance of IMAPMessage
     """
 
@@ -299,12 +299,17 @@ def parse_RFCMessage(mess, direct_body, flags, imapid):
     if headers.has_key('cc'):
         _cc = headers['cc']
 
+    _bcc= []
+    # Give the bcc only when the message is in draft folder...
+    if headers.has_key('bcc') and is_draft:
+        _bcc = headers['bcc']
+
     _subject = "pas de sujet"
     if headers.has_key('subject'):
         _subject = headers['subject']
         _subject = render_subject(_subject)
 
-    _recipients={'to': _to, 'cc': _cc, 'bcc': []}
+    _recipients={'to': _to, 'cc': _cc, 'bcc': _bcc}
 
     _fromNom = " Expéditeur non spécifié "
     _fromMail = ''
