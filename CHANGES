@@ -6,7 +6,9 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
--
+- Changing the listing size (number of messages per page) did not
+  have the expected behavior when the listing was not starting from 0,
+  and the batch message and its links when sometimes wrong.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
