@@ -447,3 +447,6 @@ msgstr "dans"
 
 msgid "_No_Attachments_"
 msgstr "Pas de pièces jointes"
+
+msgid "label_name"
+msgstr "Nom"

@@ -392,3 +392,6 @@ msgstr "Hinzufügen zum privaten Adressbuch Links"
 
 msgid "_No_Attachments_"
 msgstr "No attachments"
+
+msgid "label_name"
+msgstr "Name"
