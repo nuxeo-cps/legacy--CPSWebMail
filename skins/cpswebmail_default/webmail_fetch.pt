@@ -9,45 +9,28 @@
   folder_name python:valid_conn and wmtool.getImapName(request);
   folder python:valid_conn and wmtool.getFolder(folder_name);
   nb_messages python:valid_conn and folder.getNumberOfIMAPMessage(request);
+  nb_not_read_messages python:valid_conn and folder.getNumberOfNotReadIMAPMessage(request);
+  IMAPName request/IMAPName;
   sortmail request/sortmail | python:wmtool.getSortMail(request);
+  is_a_search python:sortmail.startswith('search');
   sort request/sort | string:date;
   order request/order | string:desc;
   chgorder python:order=='asc' and 'desc' or 'asc';
   start python:int(request.get('start', 0));
-  navigation_string python:valid_conn and wmtool.rangeView(str(start), folder.getImapName(), nb_messages);
+  batch_message python:valid_conn and wmtool.batchMessage(start, nb_messages, request);
+  navigation_string python:valid_conn and wmtool.rangeView(str(start), folder.getImapName(), nb_messages, request);
   mcat nocall:here/Localizer/default;
   dtool here/portal_directories/members;
   ">
 <html metal:use-macro="here/main_template/macros/master">
   <body>
     <metal:block fill-slot="javascript_head_slot">
-      <script type="text/javascript">
-      <!--
-      function SetChecked(val) {
-          dml = document.form;
-          len = dml.elements.length;
-          var i = 0;
-          for(i=0 ; i<len ; i++) {
-              if (dml.elements[i].name == 'IMAPIds:list') {
-                  dml.elements[i].checked=val;
-              }
-          }
-      }
-      function SetReverse() {
-          dml = document.form;
-          len = dml.elements.length;
-          var i = 0;
-          for(i=0 ; i<len ; i++) {
-              if (dml.elements[i].name == 'IMAPIds:list') {
-                  dml.elements[i].checked=!dml.elements[i].checked;
-              }
-          }
-      }
-      //-->
-      </script>
+      <script type="text/javascript"
+        tal:attributes="src string:${base_url}cpswebmail_functions.js"></script>
     </metal:block>
 
     <metal:block fill-slot="header">
+
       <h1 condition="valid_conn">
         <tal:block replace="python:mcat('_Your_mail_')">
           Your mail :
@@ -64,6 +47,12 @@
         <tal:block content="python:mcat(folder.getReadableName())">
           Folder name
         </tal:block>
+
+        <tal:block condition="not:is_a_search"
+                   content="python:'('+str(nb_not_read_messages)+' '+mcat('_mail(s)_not_read_')+')'">
+          Number of not read messages
+        </tal:block>
+
       </h1>
 
       <h1 tal:condition="not:valid_conn">
@@ -133,6 +122,16 @@
               </td>
               <!-- Add subfolder -->
               <td align="center" valign="middle" width="20%">
+                <button type="button" class="tooltipControl"
+                  onclick="toggleElementVisibility('imap_folder_creation_rules')"> ? </button>
+                <div style="background: #ffffe1; border: 1px solid #000000;
+                 padding:0.8em;font-size: 80%; position: absolute;
+                 visibility: hidden; zIndex: 1000; text-align:left;"
+                     id="imap_folder_creation_rules"
+                     onclick="showElement(false, 'imap_folder_creation_rules')">
+                  <span style="white-space:pre;"
+                        tal:content="python:mcat('imap_folder_creation_rules')" />
+                </div>
                 <b>
                 <tal:block replace="python:mcat('_Add_Subfolder_')"/>
                 </b>
@@ -150,18 +149,35 @@
 
           <metal:block use-macro="here/webmail_lib/macros/tools_menu_table"/>
 
-          <p align="right">
-            <b tal:content="python:mcat('_Messages_from_') +
-                 ' %d' % (start+1) +' '+
-                 mcat('_to_') +' %d ' % (start+wmtool.getListingSize()) +
-                 mcat('_of_') + ' %s' % ( nb_messages)">
-              Message Infos
-            </b>
-             
-            <b tal:content="structure navigation_string">
-              Links for being able to look to the others messages
-            </b>
-          </p>
+          <table border="0" cellpadding="1" cellspacing="0" width="100%">
+            <tr>
+              <td align="left">
+                <p>
+                  <b tal:content="batch_message" />
+
+                  <b tal:content="structure navigation_string">
+                    Links for being able to look to the others messages
+                  </b>
+                </p>
+              </td>
+              <td align="right">
+                <input tal:attributes="type string:submit;
+                  value python:mcat('_button_show_');
+                  name  string:change_listing_size:method"/>
+                <input type="hidden" name="sortmail"
+                  tal:attributes="value sortmail"/>
+                <input type="hidden" name="sort"
+                  tal:attributes="value sort"/>
+                <input type="hidden" name="order"
+                  tal:attributes="value order"/>
+                <input type="hidden" name="start"
+                  tal:attributes="value start"/>
+                <input type="text" name="listing_size:int" size="3" maxlength="3"
+                  tal:attributes="value python:wmtool.getListingSize(request)"/>
+                <b tal:content="python:mcat('_mail(s)_per_page_')" />
+              </td>
+            </tr>
+          </table>
 
           <table border="0" cellpadding="1" cellspacing="0" width="100%" bgcolor="#c3cad9">
             <tr>
@@ -222,7 +238,7 @@
               </th>
               <th align="center" valign="middle">
                 <strong>
-                  <a tal:attributes="href string:webmail_show?IMAPName=${request/IMAPName}&sortmail=${sortmail}&sort=subject&order=${chgorder}&start=${start}"
+                  <a tal:attributes="href string:webmail_show?IMAPName=${IMAPName}&sortmail=${sortmail}&sort=subject&order=${chgorder}&start=${start}"
                     tal:content="python:mcat('_Subject_')">
                     href
                   </a>
@@ -230,7 +246,7 @@
               </th>
               <th align="center" valign="middle">
                 <strong>
-                  <a tal:attributes="href string:webmail_show?IMAPName=${request/IMAPName}&sortmail=${sortmail}&sort=from&order=${chgorder}&start=${start}"
+                  <a tal:attributes="href string:webmail_show?IMAPName=${IMAPName}&sortmail=${sortmail}&sort=from&order=${chgorder}&start=${start}"
                     tal:content="python:mcat('_From_')">
                     href
                   </a>
@@ -238,7 +254,7 @@
               </th>
               <th align="center" valign="middle">
                 <strong>
-                  <a tal:attributes="href string:webmail_show?IMAPName=${request/IMAPName}&sortmail=${sortmail}&sort=date&order=${chgorder}&start=${start}"
+                  <a tal:attributes="href string:webmail_show?IMAPName=${IMAPName}&sortmail=${sortmail}&sort=date&order=${chgorder}&start=${start}"
                     tal:content="python:mcat('_Date_')">
                     href
                   </a>
@@ -259,7 +275,7 @@
             <tal:block define="the_header
             python:folder.getIMAPMessagesHeaders(start=start,
             sortmail=sortmail, sort=sort, order=order,
-            listing_size=wmtool.getListingSize(), REQUEST=request,
+            listing_size=wmtool.getListingSize(request), REQUEST=request,
             RESPONSE=request.response)
             ">
               <!-- We now have the headers of messages -->
@@ -328,7 +344,7 @@
                           tal:content="sender"
                           tal:condition="python:condition_draft" />
                         <a href="" tal:attributes="
-                          href string:${here/absolute_url}/reply?to=${item/mail_sender}&IMAPName=${request/IMAPName}&IMAPId=${item/imap_id}"
+                          href string:${here/absolute_url}/reply?to=${item/mail_sender}&IMAPName=${IMAPName}&IMAPId=${item/imap_id}"
                           tal:content="sender"
                           tal:condition="python:not condition_draft" />
                       </tal:block>
@@ -400,14 +416,9 @@
             </tr>
           </table>
 
-          <p align="right">
-            <b tal:content="python:mcat('_Messages_from_') +
-              ' %d' % (start+1) +' '+
-              mcat('_to_') +' %d ' % (start+wmtool.getListingSize()) +
-              mcat('_of_') + ' %s' % (nb_messages)">
-              Message Infos
-            </b>
-             
+          <p>
+            <b tal:content="batch_message" />
+ 
             <b tal:content="structure navigation_string">
               Links for being able to look to the others messages
             </b>
