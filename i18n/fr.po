@@ -444,3 +444,6 @@ msgstr "Changer les critères de recherche :"
 
 msgid "wsmembers_search_in"
 msgstr "dans"
+
+msgid "_No_Attachments_"
+msgstr "Pas de pièces jointes"

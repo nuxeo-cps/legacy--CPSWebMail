@@ -441,3 +441,6 @@ msgstr "Change search criteria:"
 
 msgid "wsmembers_search_in"
 msgstr "in"
+
+msgid "_No_Attachments_"
+msgstr "No attachments"
