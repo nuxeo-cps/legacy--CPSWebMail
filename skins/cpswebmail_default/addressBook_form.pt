@@ -363,10 +363,10 @@ function popup_create_entry(method, addressbook_name) {
                     </strong>
                   </i>
                   <br>
-                  <a href="javascript:SetChecked_Link(1)"
+                  <a href="javascript:SetChecked_Links(1)"
                     tal:content="python:mcat('_All_')">
                     Select
-                  </a>/<a href="javascript:SetChecked_Link(0)"
+                  </a>/<a href="javascript:SetChecked_Links(0)"
                     tal:content="python:mcat('_None_')">
                     Unselect
                   </a>
