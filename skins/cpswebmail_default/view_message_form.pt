@@ -96,7 +96,7 @@
           <metal:block fill-slot="title"><tal:block content="python:mcat('_Date:_')"/></metal:block>
             <metal:block fill-slot="content">
               <strong>
-                <tal:block content="python:DateTime(message.getDate()).strftime(mcat('_header_date_mailview_on_%m/%d/%Y at %H:%M'))"> Date </tal:block>
+                <tal:block content="python:message.getDate()"> Date </tal:block>
               </strong>
             </metal:block>
           </metal:block>

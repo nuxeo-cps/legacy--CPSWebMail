@@ -334,7 +334,7 @@
                   <td align="right" valign="middle" bgcolor="#FFFFFF">
                     <p>
                       <nobr>
-                        <tal:block content="python:DateTime(item['date']).strftime(mcat('_header_date_maillist_on_%m/%d/%Y at %H:%M'))">Date</tal:block>
+                        <tal:block content="python:item['date']">Date</tal:block>
                       </nobr>
                     </p>
                   </td>
