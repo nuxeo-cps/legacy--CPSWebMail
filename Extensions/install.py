@@ -277,7 +277,7 @@ class CPSWebMailInstaller(CPSInstaller):
                     'type': 'String Widget',
                     'data': {
                         'fields': ('sn',),
-                        'is_required': 1,
+                        'is_required': 0,
                         'label': 'label_last_name',
                         'label_edit': 'label_last_name',
                         'is_i18n': 1,
