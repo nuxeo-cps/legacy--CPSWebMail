@@ -8,7 +8,9 @@ New features:
   addressbooks (for members mailing and groups mailing)
 Bug fixes:
 ~~~~~~~~~~
--
+- it was not possible to copy entries from the groups pages in the address
+  books pages into personal address book and personal address book with links.
+- "delete entry" button at the bottom of address book pages was broken.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
