@@ -384,3 +384,6 @@ msgstr "Carnet d'adresses"
 
 msgid "_Add_to_private_addressbook_"
 msgstr "Ajouter au carnet privé"
+
+msgid "cpswebmail_enter_recipient"
+msgstr "Veuillez saisir un destinataire"
