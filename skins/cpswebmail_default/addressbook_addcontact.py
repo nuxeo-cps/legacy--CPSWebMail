@@ -14,6 +14,5 @@ except:
 #
 portal_url  = context.portal_url()
 addressbook = context.portal_webMail.getCurrentAddressBookName(REQUEST=REQUEST)
-from zLOG import LOG
 url = portal_url + '/cpsdirectory_entry_create_form?dirname=' + addressbook
 REQUEST.RESPONSE.redirect(url)
