@@ -175,7 +175,7 @@ def parse_RFCMessage(mess, direct_body, flags, imapid, is_draft=0):
         headers[string.lower(key)] = subject
 
     # get body and parse attachments if exist
-    content_type = string.lower(headers['content-type'])
+    content_type = string.lower(headers.get('content-type', 'text/plain'))
     body, parts = make_body_and_parts(msg, message, content_type)
 
     attachments = []
