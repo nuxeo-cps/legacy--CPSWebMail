@@ -31,7 +31,7 @@
 
     <metal:block fill-slot="header">
 
-      <h1 condition="valid_conn">
+      <h1 tal:condition="valid_conn">
         <tal:block replace="python:mcat('_Your_mail_')">
           Your mail :
         </tal:block>
@@ -55,8 +55,8 @@
 
       </h1>
 
-      <h1 tal:condition="not:valid_conn">
-          content="python:mcat('_IMAP_Access_Error_Message_Title')">Impossible
+      <h1 tal:condition="not:valid_conn"
+          tal:content="python:mcat('_IMAP_Access_Error_Message_Title')">Impossible
           de se connecter à votre boîte-aux-lettres
       </h1>
     </metal:block>
