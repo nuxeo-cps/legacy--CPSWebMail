@@ -79,14 +79,14 @@
 
           <table border="0" cellpadding="1" cellspacing="0" width="100%">
             <tr>
-              <td align="right" valign="middle" width="75%">
+              <td align="right" valign="middle" width="25%">
                 <!-- INBOX SELECTOR -->
                 <b>
                 <tal:block replace="python:mcat('_Change_folder_to_')">Change folder
                   to  :</tal:block>
                 </b>
               </td>
-              <td align="left" valign="middle">
+              <td align="left" valign="middle" width="25%">
                 <select name="IMAPName"
                   tal:define="path string:this.options[this.selectedIndex].value"
                   tal:attributes="onChange string:location.href='${wmtool/absolute_url}/change_folder?IMAPName='+${path}">
@@ -122,6 +122,17 @@
                     </option>
                   </tal:block> <!-- end of definitions block -->
                 </select>
+              </td>
+              <td align="right" valign="middle" width="25%">
+                <b>
+                <tal:block replace="python:mcat('_Add_Subfolder_')"/>
+                </b>
+              </td>
+              <td align="left" valign="middle" with="25%">
+                  <input type="text" name="title:string" size="15"/>
+                  <input tal:attributes="type  string:submit;
+                         value python:mcat('_Add_');
+                         name  string:create_folders:method"/>
               </td>
             </tr>
           </table>
