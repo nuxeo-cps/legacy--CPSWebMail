@@ -6,7 +6,7 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
--
+- Invalid connection due to incorrect login or password brougth to a crash page.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
