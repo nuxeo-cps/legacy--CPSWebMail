@@ -117,20 +117,19 @@
                      Unselect
                      </a>
                    </th>
-                   <th width="1%"> </th>
                    <th align="center" width="16%">
                      <b>
                      <i tal:define="ltool here/portal_layouts;
                                     layoutid members_directory/layout;
                                     layoutob ltool/?layoutid;
-                                    widget python:(layoutob[members_directory.title_field]);
-                                    disp_title widget/label;"
+                                    members_dir_title_field members_directory/title_field;
+                                    widget python:layoutob.has_key(members_dir_title_field) and layoutob[members_dir_title_field] or None;
+                                    disp_title widget/label|string:label_name;"
                         tal:content="python:mcat(disp_title)">
                       Display Prop Name
                      </i>
                      </b>
                    </th>
-                   <th width="1%"> </th>
                    <th align="center" width="16%">
                      <b>
                      <i tal:define="email_prop_name string:email;
@@ -205,13 +204,11 @@
                     <td width="1%" nowrap> </td>
                     <td width="1%" nowrap> </td>
                   </tal:block>
-                  <td width="1%" align="center"> </td>
                   <td valign="middle" align="left" nowrap>
                     <i tal:content="python:entry.get(title_field, '')">
                       Fullname
                     </i>
                   </td>
-                  <td width="1%" align="center"> </td>
                   <td valign="middle" align="left" nowrap>
                     <a
                       tal:define="
