@@ -1,4 +1,25 @@
 *******************************************
+** CPSWebMail V0.8.0 [R1 build 2004/09/09-08:09 by anahide]
+
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+- text/html body parts are now displayed inline (was displayed in plain text
+  and attached html file), parsing is done using stripogram.
+Bug fixes:
+~~~~~~~~~~
+- renaming mailing lists directory into .mailinglists so that the local
+  directory in the users's home folder is not visible when listing folder
+  contents.
+- Multipart messages parts were not isolated correctly.
+- Attached files were not kept when forwarding a message.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
 ** CPSWebMail V0.7.1 [R1 build 2004/08/30-15:11 by anahide]
 
 Requires:
