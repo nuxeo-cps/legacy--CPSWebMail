@@ -1166,31 +1166,6 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         else:
             return 1
 
-    security.declareProtected(UseWebMailPermission, "setListSearch")
-    def setListSearch(self, list, id_list, REQUEST):
-        """Init of a session object with the list of emails"""
-
-        # Destruction of an older session if exists
-        REQUEST.SESSION['search_results'] = ()
-
-        email_prop = self.getMailingListsEmailProperty()
-        entry = list.getEntry(id_list)
-
-        # Update Search Session
-        if entry:
-            REQUEST.SESSION['search_results'] = entry[email_prop]
-
-    security.declareProtected(UseWebMailPermission, "setGroupSearch")
-    def setGroupSearch(self, group, id_group, REQUEST):
-        """Init of a session object with the list of emails"""
-
-        # Destruction of an older session if exists
-        REQUEST.SESSION['search_results'] = ()
-
-        entry = group.getEntry(id_group)
-        # Update Search Session
-        if entry:
-            REQUEST.SESSION['search_results'] = entry['members']
 
     security.declareProtected(UseWebMailPermission, "getCurrentAddressBookName")
     def getCurrentAddressBookName(self, addressbook_name='', REQUEST=None):
@@ -1205,7 +1180,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             bookname = self.getMailingListName()
         elif addressbook_name  == '_global':
             bookname = self.getAddressBookName()
-        elif addressbook_name  == '_members':
+        elif addressbook_name  in ['_members', '_wsmembers']:
             bookname = 'members'
         elif addressbook_name  == '_groups':
             bookname = 'groups'
@@ -1226,7 +1201,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             bookname = self.getMailingListsEmailProperty()
         elif addressbook_name  == '_global':
             bookname = self.getAddressBookEmailProperty()
-        elif addressbook_name  in ['_members', '_groups']:
+        elif addressbook_name  in ['_members', '_groups', '_wsmembers']:
             bookname = 'email'
         else:
             bookname = self.getPrivAddressBookEmailProperty()
