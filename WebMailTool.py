@@ -351,9 +351,6 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             if search_since_date == search_before_date:
                 sortmail_list.extend(["ON", search_since_date,])
             else:
-                # XXX AT: this doesn't work : the BEFORE will be ignored
-                # as it is not possible to get the mails between 2 dates
-                # in IMAP queries (not sure at all but looks like it)
                 sortmail_list.extend(["SINCE", search_since_date,])
                 sortmail_list.extend(["BEFORE", search_before_date,])
         else:
