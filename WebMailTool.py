@@ -271,7 +271,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             return 1
 
     security.declareProtected(UseWebMailPermission, "deleteIMAPFolders")
-    def deleteIMAPFolders(self, IMAPNames):
+    def deleteIMAPFolders(self, IMAPNames, parentFolder=None):
         """Delete an IMAP Folder"""
         con = self.getConnection()
 
@@ -280,16 +280,21 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             messages_headers = folder.getIMAPMessagesHeaders(start=0, sortmail="date", listing_size = 999)
             imap_ids = [x['imap_id'] for x in messages_headers]
 
-            trash_name = folder.getWebMail().getTrashFolder().getImapName()
             folder_title = folder_name.split('.')[-1]
-            res_create = self.createIMAPFolder(folder_title, trash_name)
+            if parentFolder is None:
+                parentFolder = folder.getWebMail().getTrashFolder().getImapName()
+            res_create = self.createIMAPFolder(folder_title, parentFolder)
+            subfolders = folder.getIMAPDirectSubFolders()
+            subfolders_names = [x.getImapName() for x in subfolders]
             if res_create == 0:
                 # creation successfull : moving messages in that folder in trash box
-                folder_new_name = trash_name+'.'+folder_title
+                folder_new_name = parentFolder+'.'+folder_title
                 folder.moveIMAPMessages(folderdest=folder_new_name, imapids=imap_ids, copy=1)
+                self.deleteIMAPFolders(subfolders_names, parentFolder = folder_new_name)
             else:
                 # creation unsuccessfull : moving messages directly to trash box
                 folder.moveIMAPMessages(folderdest="deleting", imapids=imap_ids, copy=1)
+                self.deleteIMAPFolders(subfolders_names)
             con.deleteFolder(wmail=self, name=folder_name)
         con.logout()
         return 0
