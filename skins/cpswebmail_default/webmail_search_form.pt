@@ -14,7 +14,7 @@
 
   <metal:block fill-slot='main'>
   <form tal:attributes="
-    action string:${here/absolute_url};
+    action here/absolute_url;
     method string:post;
     name   string:form">
 
