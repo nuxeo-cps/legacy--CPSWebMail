@@ -6,7 +6,7 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
--
+- SMTP port set in portal_webMail was not taken into account.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
