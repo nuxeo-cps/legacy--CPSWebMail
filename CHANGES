@@ -1,13 +1,18 @@
 Requires:
 ~~~~~~~~~
 -
+
 New features:
 ~~~~~~~~~~~~~
--
+- provides new imap folder management interface and facilities
+- provides a search on multiple fields
+- various custom changes
+
 Bug fixes:
 ~~~~~~~~~~
 - Incorrect username and pasword gave non-sensical error messages,
   because the actual login errors were lost on the way.(Mantis #453)
+
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
