@@ -18,6 +18,17 @@
 ######################################################################
 # $ Id: $
 
+# XXX AT: the IMAPMessage class could be based on the email and MIME
+# handling package (python 2.3) which also deals with attachments
+# (see fileAttachment.py)
+#
+# The email  package is a library for managing email messages, including MIME
+# and other RFC 2822-based message documents. Unlike smtplib and poplib  which
+# actually send and receive messages, the email package has a complete toolset
+# for building or decoding complex message structures (including attachments)
+# and for implementing internet encoding and header protocols.
+
+
 from IMAPGateway import *
 from IMAPMessage import *
 import cStringIO
@@ -28,6 +39,8 @@ import re
 import string
 from DocumentTemplate.DT_Util import html_quote
 from DocumentTemplate.DT_Var import newline_to_br
+
+from zLOG import LOG, DEBUG
 
 class IMAPMessage:
     """ IMAP message
@@ -63,6 +76,11 @@ class IMAPMessage:
         """ return the value of the flag Answered
         """
         return self.flags['answered']
+
+    def isForwarded(self):
+        """ return the value of the flag Forwarded
+        """
+        return self.flags['forwarded']
 
     def isDeleted(self):
         """ return the value of the flag Deleted
@@ -295,6 +313,11 @@ class IMAPMessage:
 
     def setAnswered(self, folderName):
         """ set Answered flag
+        """
+        pass
+
+    def setForwarded(self, folderName):
+        """ set Forwarded flag
         """
         pass
 
