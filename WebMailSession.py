@@ -15,6 +15,8 @@ from AccessControl import ClassSecurityInfo
 from RFC822MessagesTools import render_date
 from DateTime import *
 
+from zLOG import LOG, DEBUG
+
 UseWebMailPermission = "Use WebMail"
 
 class WebMailSession:
@@ -292,7 +294,7 @@ class WebMailSession:
         """Init of search result session for CPS3"""
         REQUEST.SESSION['search_results'] = ()
 
-        widgets = addressbook._getLayout().objectItems()
+        widgets = addressbook._getLayout(search=1).objectItems()
         visible = [x.getWidgetId() for y, x in widgets]
         search_param = REQUEST.form.get('search_param', '')
 
