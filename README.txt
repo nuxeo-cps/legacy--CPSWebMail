@@ -65,29 +65,62 @@ Features
 
       Address books are CPS Directories.
 
-      It is possible to choose recipients to a message into four kinds of
+      It is possible to chose recipients to a message into four kinds of
       address books. Four default addressbooks are set up when installing
       the product, but it is possible to change them or to use existing
       directories, as long as these directories follow the requirements (see
       below how to set up proper address books).
 
       1. The global address book can be, for instance, the directory of all
-         the members using the site.
-         It is required to be able to use the address book general
-         facility.
+         the members using the site, but it can be a different one.
+         This address book is required.
       2. The personal address book stores contacts that are only visible to
          the user: the user is able to add/delete/edit its own contacts.
+         This address book is personal and is not required: leave the
+         'PrivAddressbook_name' property blank if you do not want users to
+         have access to this directory.
       3. The personal address book with links stores links towards the
          global address book, so that the user can benefite from the updates
-         made on this address book. This directory is also personal.
+         made on this address book.
+         This directory is also personal and is not required: leave the
+         'PrivAddressbookLinks_name' property blank if you do not want users
+         to have access to this directory.
       4. The mailing lists address books is able to store several names of
          mailing lists, each mailing list being an entry of the directory.
          It is possible to set a list of email addresses attached to the
          mailing list name.
+         This directory is also personal and is not required: leave the
+         'Mailing_list_name' property blank if you do not want users to
+         have access to this directory.
 
       All these address books are accessible through the 'Address book' link
       on the webmail pages, but they are also accessible through the
       'Directories' link on the site.
+
+      If you do not want to use the address books that are set up during the
+      installation, you should delete manually these directories in the ZMI.
+      You should also delete the related schemas, layouts and vocabularies.
+      See below for more information on how to setup address books.
+
+    - Address books related features:
+
+      There are three other ways to chose recipients to a message, without
+      having to use new directories. These features are enabled if you check
+      the appropriate properties in the properties tab of the portal_webMail
+      tool in the ZMI.
+
+      1. Enable Members Mailing: users will have access to the members
+         directory. This is only useful if your global address book is not
+         the members directory.
+
+      2. Enable Groups Mailing: users will have access to the list of groups
+         defined on the site, and will be able to chose recipients from
+         their membership to a group.
+
+      3. Enable Workspace Members Mailing: users will have access to a
+         search interface and will be able to select all users havins a
+         given role in a given workspace (please note that they will not be
+         able to select workspaces if they do not have view permission on it).
 
 
 --------------------------------------------------
@@ -123,8 +156,15 @@ How to setup address books
        enable users to copy contacts from the global address book into the
        personal address book, and to add links into the personal address
        book with links, pointing towards entries of the global address
+       book.
+       This schema should also be similar to the members schema (at least
+       concerning the required fields) if you want to use the address books
+       related features (see the description of these fetaures above).
 
-    - Directories:
+
+    ---------------
+    - Directories -
+    ---------------
 
       Go to the cps root, and click on the portal_directories tool in the ZMI.
 
@@ -194,7 +234,7 @@ How to setup address books
       - Field for entry id: id
       - Field for entry title: id
       - Fields with substring search: id
-      - Id of local directory: addressbook
+      - Id of local directory: addressbook members
       - Type of local directory : CPS Indirect Directory (do not change)
 
       If a given user tries to access his private address book, a CPS
@@ -219,7 +259,9 @@ How to setup address books
          book. These features could break if you use a different schema.
 
 
-    - Schemas and layouts:
+    -------------------------------------
+    - Schemas, layouts and Vocabularies -
+    -------------------------------------
 
       Schemas can be handled by going to the cps root, and clicking on the
       portal_schemas tool in the ZMI.
@@ -261,6 +303,9 @@ How to setup address books
         Widget', using a vocabulary with type 'CPS Directory Vocabulary',
         that would only present the ids available in the original
         directory. It should also be read only to prevent errors.
+
+      The addressbook_links vocabulary is set to list all the available
+      entries that can be added to the personal address book with links.
 
       REMINDER:
       If you do not want to use the global address book directory named
