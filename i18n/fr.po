@@ -375,3 +375,12 @@ msgstr "Mode de distribution"
 
 msgid "deliveryMode_help"
 msgstr "Le mode de distribution spécifie la façon dont les méls seront délivrés à l'utilisateur.\n- No forward : les méls ne sont pas redirigés vers l'éventuelle adresse mél de redirection.\n- Forward only : les méls sont uniquement redirigés vers l'adresse mél de redirection.\n- Local : les méls sont transférés vers l'éventuelle adresse mél de redirection, et une copie est conservée dans la boîte mail locale."
+
+msgid "_Choose_recipients_"
+msgstr "Choisir les destinataires"
+
+msgid "label_address_book"
+msgstr "Carnet d'adresses"
+
+msgid "_Add_to_private_addressbook_"
+msgstr "Ajouter au carnet privé"
