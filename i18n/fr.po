@@ -393,3 +393,6 @@ msgstr "Carnet privé de liens"
 
 msgid "_Add_link_to_private_addressbook_"
 msgstr "Ajouter au carnet privé de liens"
+
+msgid "imap_folder_creation_successful"
+msgid "Nouveau dossier IMAP créé."

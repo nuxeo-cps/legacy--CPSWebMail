@@ -390,3 +390,6 @@ msgstr "Personal address book links"
 
 msgid "_Add_link_to_private_addressbook_"
 msgstr "Add to personal address book links"
+
+msgid "imap_folder_creation_successful"
+msgid "New IMAP folder created."
