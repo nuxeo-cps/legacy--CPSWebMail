@@ -854,7 +854,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
                              raw_message=raw_message)
             con.logout()
 
-        smtp_connection = smtplib.SMTP(self.getSMTPServer())
+        smtp_connection = smtplib.SMTP(self.getSMTPServer(), self.getSMTPPort())
         _recipients = []
         for item in ['to', 'cc', 'bcc']:
             for address in message.recipients[item]:
@@ -946,7 +946,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         #
         # SMTP Sending
         #
-        smtp_connection = smtplib.SMTP(self.getSMTPServer())
+        smtp_connection = smtplib.SMTP(self.getSMTPServer(), self.getSMTPPort())
 
         smtp_connection.sendmail(
             from_addr=self.getIdentity() + ' <' + self.getMailFrom() + '>',
