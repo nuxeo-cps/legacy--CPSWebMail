@@ -4,7 +4,6 @@ Requires:
 
 New features:
 ~~~~~~~~~~~~~
-- use of the WebMail product is no longer necessary
 - provides new imap folder management interface and facilities
 - provides a search on multiple fields
 - various custom changes
@@ -13,18 +12,21 @@ New features:
 - answered and forwarded messages are correctly flagged
 - an updater sets the LDAP schema, and the members schema and layout for a
   redirection facility.
+- the installer now adds a mailing lists directory
 
 Bug fixes:
 ~~~~~~~~~~
 - Incorrect username and pasword gave non-sensical error messages,
   because the actual login errors were lost on the way.(Mantis #453)
-- Sorting on mails and search results (but only on messages displayed on the
-  page, not on all mails or results)
+- Sorting on mails and search results fixed (but only on messages displayed on
+  the page, not on all mails or results)
 - Mailing lists facilities have been fixed : some scripts were still relying
   on NuxMetaDirectories instead of CPSDirectory.
 - Aknowledgment of read now works on the webmail interface.
 - "Reply to all" now takes email addresses that were on the "cc" field.
+- It is now possible to add a new entry to the mailing lists directory when the
+  directory is empty.
 
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
--
+- use of the WebMail product is no longer necessary

@@ -65,6 +65,20 @@ Installation
           Widget fullname
           Widget email
         Schemas and layouts related to address book directories added
+        Setting up default mailing lists directory
+         Directory mailinglists
+        Mailing lists directory added
+        Verifiying schemas
+         Adding schema mailinglists
+          Field emails.
+          Field id.
+         Adding layout mailinglists_search
+          Widget id
+          Widget emails
+         Adding layout mailinglists
+          Widget id
+          Widget emails
+        Schemas and layouts related to mailing lists directory added
         End of specific CPSWebmail updates
 
 	CPSWebMail is now installed.
@@ -168,4 +182,3 @@ Features
 - Delete facility
 - "Move to" facility
 - Mail icon to see if the message has been read or answered
-- 
