@@ -62,9 +62,9 @@ function SetChecked_Sup(val) {
 </script>
 </metal:block>
 
-<metal:block fill-slot="header"
-  tal:content="python:mcat('_Address_book_')">
-   Title
+<metal:block fill-slot="header">
+  <h1 tal:content="python:mcat('_Address_book_')">Address book</h1>
+  <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
 </metal:block>
 
 <metal:block fill-slot="header_plus" />
@@ -74,14 +74,8 @@ function SetChecked_Sup(val) {
         tal:attributes="
     action string:${here/absolute_url};
     method string:post;">
-    <h4>
-      <a
-        tal:attributes="href string:${here/absolute_url}/webmail_show"
-        tal:content="python:mcat('_Back_to_message_list_')">
-         Link to return to webmal_show view
-      </a>
-    </h4>
-     <table border="0" cellPadding="2" cellscpacing="0" width="100%">
+
+   <table border="0" cellPadding="2" cellscpacing="0" width="100%">
      <tr>
       <td align="left" valign="middle">
         <input size="20" name="search_param" value="" />
@@ -337,7 +331,7 @@ function SetChecked_Sup(val) {
                     define="can_delete python:addressbook.isDeleteEntryAllowed()">
                     <td width="1%" align="center" nowrap
                       tal:condition="can_delete">
-                      <input type="checkbox" name="to_delete:list"
+&sup2;                      <input type="checkbox" name="to_delete:list"
                         tal:attributes="value string:${entry/?entry_prop}">
                     </td>
                     <td width="1%" align="center" nowrap
@@ -454,14 +448,9 @@ function SetChecked_Sup(val) {
           </table>
           <p>&nbsp;</p>
           <hr />
-          <h4>
-            <a
-              tal:attributes="
-                href string:${here/absolute_url}/webmail_show"
-              tal:content="python:mcat('_Back_to_message_list_')">
-              Link to return to webmal_show view
-            </a>
-          </h4>
+
+          <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
+
         </td>
       </tr>
     </table>

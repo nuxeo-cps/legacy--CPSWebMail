@@ -56,6 +56,7 @@
         Title
       </h1>
     </b>
+    <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
   </metal:block>
 
   <metal:block fill-slot='main'>
@@ -63,14 +64,6 @@
       action string:${here/absolute_url};
       method string:post;
       name   string:form">
-
-      <h4>
-        <a href="" tal:attributes="
-          href string:${here/absolute_url}/webmail_show"
-          tal:content="python:mcat('_Back_to_message_list_')">
-    Link to return to webmal_show view
-        </a>
-      </h4>
 
       <table border="0" cellPadding="2" cellSpacing="0" width="100%">
         <tr>
@@ -233,13 +226,7 @@
 
         <p> </p>
         <hr>
-        <h4>
-          <a href="" tal:attributes="
-            href string:${here/absolute_url}/webmail_show"
-                  tal:content="python:mcat('_Back_to_message_list_')">
-            Link to return to webmal_show view
-              </a>
-        </h4>
+        <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
             </form>
           </metal:block>
 
