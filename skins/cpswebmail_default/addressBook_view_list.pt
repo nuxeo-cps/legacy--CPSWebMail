@@ -11,7 +11,7 @@
   <title>Liste de diffusion</title>
 </head>
 <body>
-  <metal:block fill-slot="script_plus">
+  <metal:block fill-slot="javascript_head_slot">
     <script type="text/javascript">
       <!--
         function SetChecked_To(val) {
