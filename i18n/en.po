@@ -19,6 +19,9 @@ msgstr "Your mail :"
 msgid "_mail(s)_in_"
 msgstr "mail(s) in folder"
 
+msgid "_mail(s)_not_read_"
+msgstr "mail(s) not read"
+
 msgid "_Change_folder_to_"
 msgstr "Change folder to"
 
@@ -98,7 +101,7 @@ msgid "_Subject:_"
 msgstr "Subject:"
 
 msgid "_Send_"
-msgstr "Send" 
+msgstr "Send"
 
 msgid "_Cancel_"
 msgstr "Cancel"
@@ -116,7 +119,7 @@ msgid "_Id_"
 msgstr "Id"
 
 msgid "_Name_"
-msgstr "Name" 
+msgstr "Name"
 
 msgid "_Type_"
 msgstr "Type"
@@ -279,7 +282,7 @@ msgstr "%Y/%m/%d at %H:%M"
 
 msgid "_header_date_maillist_on_%m/%d/%Y at %H:%M"
 msgstr "%Y/%m/%d %H:%M"
- 
+
 msgid "_Addresses_"
 msgstr "Adresses"
 
@@ -391,5 +394,23 @@ msgstr "Personal address book links"
 msgid "_Add_link_to_private_addressbook_"
 msgstr "Add to personal address book links"
 
-msgid "imap_folder_creation_successful"
-msgid "New IMAP folder created."
+msgid "imap_folder_creation_successfull"
+msgstr "New IMAP folder created."
+
+msgid "imap_folder_creation_unsuccessfull"
+msgstr "Error while creating the new IMAP folder."
+
+msgid "imap_folder_creation_rules"
+msgstr "The name can only contain alphanumeric caracters,\nspaces, hyphens and underscores."
+
+msgid "cpswebmail_folder_search_rules"
+msgstr "Search is only performed on the folder, and not on its subfolders"
+
+msgid "_No_Mails_In_Folder_"
+msgstr "No messages"
+
+msgid "_button_show_"
+msgstr "Show"
+
+msgid "_mail(s)_per_page_"
+msgstr "email(s) per page"

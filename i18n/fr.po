@@ -22,6 +22,9 @@ msgstr "Votre courrier :"
 msgid "_mail(s)_in_"
 msgstr "messages(s) dans le dossier "
 
+msgid "_mail(s)_not_read_"
+msgstr "messages(s) non lus"
+
 msgid "_Change_folder_to_"
 msgstr "Changer de dossier pour"
 
@@ -394,5 +397,23 @@ msgstr "Carnet privé de liens"
 msgid "_Add_link_to_private_addressbook_"
 msgstr "Ajouter au carnet privé de liens"
 
-msgid "imap_folder_creation_successful"
-msgid "Nouveau dossier IMAP créé."
+msgid "imap_folder_creation_successfull"
+msgstr "Nouveau dossier IMAP créé."
+
+msgid "imap_folder_creation_unsuccessfull"
+msgstr "Erreur lors de la création du nouveau dossier IMAP."
+
+msgid "imap_folder_creation_rules"
+msgstr "Le nom ne peut contenir que des caractères alphanumériques,\ndes espaces, des tirets et des tirets bas."
+
+msgid "cpswebmail_folder_search_rules"
+msgstr "La recherche s'effectue uniquement sur un dossier, et non sur ses sous-dossiers"
+
+msgid "_No_Mails_In_Folder_"
+msgstr "Pas de messages"
+
+msgid "_button_show_"
+msgstr "Afficher"
+
+msgid "_mail(s)_per_page_"
+msgstr "message(s) par page"
