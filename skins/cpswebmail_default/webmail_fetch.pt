@@ -9,7 +9,7 @@
   folder_name python:valid_conn and wmtool.getImapName(request);
   folder python:valid_conn and wmtool.getFolder(folder_name);
   nb_messages python:valid_conn and folder.getNumberOfIMAPMessage(request);
-  nb_not_read_messages python:valid_conn and folder.getNumberOfNotReadIMAPMessage(request);
+  nb_unread_messages python:valid_conn and folder.getNumberOfUnreadIMAPMessage(request);
   IMAPName request/IMAPName;
   sortmail request/sortmail | python:wmtool.getSortMail(request);
   is_a_search python:sortmail.startswith('search');
@@ -49,7 +49,7 @@
         </tal:block>
 
         <tal:block condition="not:is_a_search"
-                   content="python:'('+str(nb_not_read_messages)+' '+mcat('_mail(s)_not_read_')+')'">
+                   content="python:'('+str(nb_unread_messages)+' '+mcat('_unread_mail(s)_')+')'">
           Number of not read messages
         </tal:block>
 

@@ -19,8 +19,8 @@ msgstr "Your mail :"
 msgid "_mail(s)_in_"
 msgstr "mail(s) in folder"
 
-msgid "_mail(s)_not_read_"
-msgstr "mail(s) not read"
+msgid "_unread_mail(s)_"
+msgstr "unread mail(s)"
 
 msgid "_Change_folder_to_"
 msgstr "Change folder to"
