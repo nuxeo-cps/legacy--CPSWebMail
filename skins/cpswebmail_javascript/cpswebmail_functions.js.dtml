@@ -119,7 +119,7 @@ function SetChecked_Links(val) {
 function popup_create_entry(method, addressbook_name) {
     var args;
     args='?addressbook_name='+addressbook_name;
-    popup = window.open(method+args, '_blank', 'toolbar=0, scrollbars=1, location=0, statusbar=0, menubar=0, resizable=1, dependent=1, width=400, height=250');
+    popup = window.open(method+args, '_blank', 'toolbar=0, scrollbars=1, location=0, statusbar=0, menubar=0, resizable=1, dependent=1, width=400, height=300');
     if(!popup.opener)
         popup.opener = window;
 }
@@ -129,7 +129,7 @@ function popup_create_entry(method, addressbook_name) {
 function popup_edit_entry(method, addressbook_name, id) {
     var args;
     args='?addressbook_name='+addressbook_name+'&id='+id;
-    popup = window.open(method+args, '_blank', 'toolbar=0, scrollbars=1, location=0, statusbar=0, menubar=0, resizable=1, dependent=1, width=400, height=250');
+    popup = window.open(method+args, '_blank', 'toolbar=0, scrollbars=1, location=0, statusbar=0, menubar=0, resizable=1, dependent=1, width=400, height=300');
     if(!popup.opener)
         popup.opener = window;
 }
