@@ -55,7 +55,8 @@
   <metal:block fill-slot="header">
     <b>
       <tal:block replace="python:mcat('_Mailing_Lists_')"/> :
-      <tal:block replace="request/addressbook_name"/>
+      <tal:block condition="python:request.get('addressbook_name', '') != '_mailing'"
+                 replace="request/addressbook_name"/>
     </b>
     <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
   </metal:block>
@@ -136,6 +137,7 @@
                tal:attributes="value python:mcat('_New_list_')" />
         <input type="submit"
                name="addressbook_edit_list:method"
+               tal:condition="python:request.get('addressbook_name', '') != '_mailing'"
                tal:attributes="value python:mcat('_Edit_')" />
         <input type="hidden"
                name="id"
@@ -235,6 +237,7 @@
                     tal:attributes="value python:mcat('_New_list_')" />
              <input type="submit"
                     name="addressbook_edit_list:method"
+                    tal:condition="python:request.get('addressbook_name', '') != '_mailing'"
                     tal:attributes="value python:mcat('_Edit_')" />
            </td>
            <td align="right" nowrap>
