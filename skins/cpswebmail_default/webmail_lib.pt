@@ -1,0 +1,82 @@
+<!-- $Id$ -->
+
+<!-- ============================================================ -->
+<metal:block define-macro="view_message_actions">
+<tr bgcolor="#dcdcdc">
+  <td align="left">
+    <nobr>
+      <input tal:attributes="
+             type string:submit;
+             value python:mcat('_Reply_');
+             name string:reply:method">
+
+      <input tal:attributes="
+             type string:submit;
+             value python:mcat('_Reply_all_');
+             name string:reply_to_all:method">
+
+      <input tal:attributes="
+             type string:submit;
+             value python:mcat('_Forward_');
+             name string:forward:method">                    
+
+      <input tal:attributes="
+             type string:submit;
+             value python:mcat('_Compose_');
+             name string:edit_session_message:method">
+
+      <input type="submit" name="webmail_show:method"
+             tal:attributes="value python:mcat('_Read_messages_')">
+    </nobr>
+  </td>
+</tr>
+</metal:block>
+
+<!-- ============================================================ -->
+<metal:block define-macro="back_to_message_list">
+<p>
+  <strong>
+    <a tal:attributes="href string:${here/absolute_url}/webmail_show"
+       tal:content="python:mcat('_Back_to_message_list_')">
+      Link to return to webmal_show view
+    </a>
+  </strong>
+</p>
+</metal:block>
+
+<!-- ============================================================ -->
+<metal:block define-macro="tools_menu_table">
+<table border="0" cellpadding="1" cellspacing="0" width="100%" bgcolor="#c3cad9">
+  <tr>
+    <!-- BEGINNING OF TOOLS MENU -->
+    <td nowrap valign="middle" colspan="1">   </td>
+    <td valign="middle" align="center">
+      <input tal:attributes="type string:submit;
+                             value python:mcat('_Read_messages_');
+                             size string:10;
+                             name string:webmail_show:method" />
+    </td>
+    <td valign="middle" align="center">
+      <input tal:attributes="type string:submit;
+                             value python:mcat('_Compose_');
+                             name string:edit_session_message:method" />
+    </td>
+    <td valign="middle" align="center">
+      <input tal:attributes="type string:submit;
+                             value python:mcat('_Search_');
+                             name string:webmail_search:method" />
+    </td>
+    <td valign="middle" align="center">
+      <input tal:attributes="type string:submit;
+                             value python:mcat('_Address_book_');
+                             name string:address_book:method" />
+    </td>
+    <td valign="middle" align="center">
+      <input tal:attributes="type string:submit;
+                             value python:mcat('_Folders_');
+                             name string:folders:method">
+     </td>
+    <td nowrap valign="middle" colspan="1">   </td>
+  </tr>
+</table>
+</metal:block>
