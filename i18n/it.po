@@ -1,0 +1,455 @@
+# Gettext Message File for NuxWebMail.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: it\n"
+"POT-Creation-Date: 2003-11-19 16:42default\n"
+"PO-Revision-Date: 2004-09-14 09:12+0100\n"
+"Last-Translator: Paolo Dina <paolo@php3.it>\n"
+"Language-Team: Nuxeo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "_Your_mail_"
+msgstr "La tua posta :"
+
+msgid "_mail(s)_in_"
+msgstr "messaggio(i) nella cartella "
+
+msgid "_unread_mail(s)_"
+msgstr "messaggio(i) non letto(i)"
+
+msgid "_Change_folder_to_"
+msgstr "Vai a cartella "
+
+msgid "_Read_messages_"
+msgstr "Leggi i messaggi"
+
+msgid "_Compose_"
+msgstr "Componi"
+
+msgid "_Search_"
+msgstr "Cerca"
+
+msgid "_Address_book_"
+msgstr "Rubrica degli indirizzi"
+
+msgid "_Folders_"
+msgstr "Cartelle"
+
+msgid "_Messages_from_"
+msgstr "Messaggi da"
+
+msgid "_to_"
+msgstr "a"
+
+msgid "_of_"
+msgstr "di"
+
+msgid "_Selected_messages_"
+msgstr "Messaggi selezionati"
+
+msgid "_All_"
+msgstr "Tutti"
+
+msgid "_None_"
+msgstr "Nessuno"
+
+msgid "_Delete_"
+msgstr "Elimina"
+
+msgid "_Move_To_"
+msgstr "Sposta in"
+
+msgid "_All/None_"
+msgstr "Tutti/nessuno"
+
+msgid "_Subject_"
+msgstr "Oggetto"
+
+msgid "_From_"
+msgstr "Da"
+
+msgid "_Date_"
+msgstr "Data"
+
+msgid "_Size_"
+msgstr "Dimensione"
+
+msgid "_Compose_your_mail_"
+msgstr "Componi il messaggio"
+
+msgid "_Back_to_message_list_"
+msgstr "Torna alla lista dei messaggi"
+
+msgid "_Acknowledgement_of_read_"
+msgstr "Notifica di lettura"
+
+msgid "_TO:_"
+msgstr "A :"
+
+msgid "_CC:_"
+msgstr "Cc :"
+
+msgid "_BCC:_"
+msgstr "Bcc :"
+
+msgid "_Subject:_"
+msgstr "Oggetto :"
+
+msgid "_Send_"
+msgstr "Invia"
+
+msgid "_Cancel_"
+msgstr "Annulla"
+
+msgid "_Save_as_draft_"
+msgstr "Salva come bozza"
+
+msgid "_Attachments_list_"
+msgstr "Lista dei file allegati :"
+
+msgid "_Add_"
+msgstr "Aggiungi"
+
+msgid "_Id_"
+msgstr "Id"
+
+msgid "_Name_"
+msgstr "Nome"
+
+msgid "_Type_"
+msgstr "Typo"
+
+msgid "_Remove_"
+msgstr "Rimuovi"
+
+msgid "_Searching_tool_"
+msgstr "Interfaccia di ricerca"
+
+msgid "_Searching_in_"
+msgstr "Cerca in :"
+
+msgid "_In_"
+msgstr "In"
+
+msgid "_In_message_body_"
+msgstr "Dentro il corpo del messaggio"
+
+msgid "_In_subject_"
+msgstr "Dentro l'oggetto"
+
+msgid "_In_from_field_"
+msgstr "Nel campo 'Da'"
+
+msgid "_In_to_field_"
+msgstr "Nel campo'A'"
+
+msgid "_Since_"
+msgstr "Da"
+
+msgid "_Day_"
+msgstr "Giorno"
+
+msgid "_Before_"
+msgstr "Prima"
+
+msgid "_January_"
+msgstr "Gennaio"
+
+msgid "_February_"
+msgstr "Febbraio"
+
+msgid "_March_"
+msgstr "Marzo"
+
+msgid "_April_"
+msgstr "Aprile"
+
+msgid "_May_"
+msgstr "Maggio"
+
+msgid "_Jun_"
+msgstr "Giugno"
+
+msgid "_Jully_"
+msgstr "Luglio"
+
+msgid "_August_"
+msgstr "Agosto"
+
+msgid "_September_"
+msgstr "Settembre"
+
+msgid "_October_"
+msgstr "Ottobre"
+
+msgid "_November_"
+msgstr "Novembre"
+
+msgid "_December_"
+msgstr "Dicembre"
+
+msgid "_Change_list_to_"
+msgstr "Cambia la lista a :"
+
+msgid "_Go_"
+msgstr "Procedi"
+
+msgid "_Import_from_MSOutlook_address_book_"
+msgstr "Importa dalla rubrica di MSOutlook"
+
+msgid "_New_contact_"
+msgstr "Nuovo contatto"
+
+msgid "_Send/Continue_a_mail_"
+msgstr "Invia/continua un messaggio"
+
+msgid "_Edit_"
+msgstr "Modifica"
+
+msgid "_Select_"
+msgstr "Seleziona"
+
+msgid "_Unselect_"
+msgstr "Deseleziona"
+
+msgid "_All_in_field_"
+msgstr "Tutti gli elementi in un campo"
+
+msgid "_Subject_message_title_"
+msgstr "Oggetto del messaggio :"
+
+msgid "_ack_confirmation_"
+msgstr "Il mittente del messaggio ha richiesto una notifica di arrivo. Vuoi mandargliela?"
+
+msgid "_Reply_"
+msgstr "Rispondi"
+
+msgid "_Reply_all_"
+msgstr "Rispondi a tutti"
+
+msgid "_Forward_"
+msgstr "Inoltra"
+
+msgid "_From:_"
+msgstr "Da :"
+
+msgid "_Date:_"
+msgstr "Data :"
+
+msgid "_New_IMAP_Folder_creation_"
+msgstr "Crea una nuova cartella IMAP"
+
+msgid "_Existing_IMAP_folders:_"
+msgstr "Cartelle IMAP esistenti :"
+
+msgid "_Folder_name:_"
+msgstr "Nome della cartella :"
+
+msgid "_Folder_creation_caution_"
+msgstr "Attenzione: il punto . serve per creare sottocartelle. Ad esempio: per creare le sottocartelle 'giallo' e 'rosso' all'interno della cartella 'colori', devi specificarle come 'colori.giallo' e 'colori.rosso', soltanto se la cartella 'colori' esiste. Fai anche attenzione alle maiuscole e minuscole."
+
+msgid "_Inbox_Folder_"
+msgstr "Posta arrivata"
+
+msgid "_Sent_element_folder_"
+msgstr "Posta inviata"
+
+msgid "_Draft_folder_"
+msgstr "Bozze"
+
+msgid "_Trash_folder_"
+msgstr "Cestino"
+
+msgid "_IMAP_Access_Error_Message_Title"
+msgstr "Impossibile connettersi alla casella di posta"
+
+msgid "_IMAP_Access_Error_Caution_"
+msgstr "Verifica la configurazione IMAP negli "
+
+msgid "_directories_"
+msgstr "elenchi"
+
+msgid "_IMAP_Access_Error_note_"
+msgstr "Questi sono i tuoi parametri personali ed essi possono essere modificati solamente da te."
+
+msgid "_header_date_mailview_on_%m/%d/%Y at %H:%M"
+msgstr "%d/%m/%Y %H:%M"
+
+msgid "_header_date_maillist_on_%m/%d/%Y at %H:%M"
+msgstr "%d/%m/%Y %H:%M"
+
+msgid "_Addresses_"
+msgstr "Indirizzi"
+
+msgid "_New_list_"
+msgstr "Nuova lista"
+
+msgid "_export_to_private_"
+msgstr "Esporta nella mia area privata"
+
+msgid "_attachment_export_notice_"
+msgstr "I documenti sono copiati nell'area privata dell'utente corrente."
+
+msgid "_add_contact_"
+msgstr "Aggiungi un contatto"
+
+msgid "_list_mail_"
+msgstr "Leggi posta"
+
+msgid "label_personal_addressbook"
+msgstr "Rubrica personale"
+
+msgid "_Add_Subfolder_"
+msgstr "Aggiungi una sottocartella"
+
+msgid "_Add_Subfolder_To:_"
+msgstr "Aggiungi una sottocartella a :"
+
+msgid "_Search_Body_"
+msgstr "Corpo del messaggio :"
+
+msgid "_Search_Subject_"
+msgstr "Oggetto :"
+
+msgid "_Search_From_"
+msgstr "Mittente :"
+
+msgid "_Search_To_"
+msgstr "Destinatario(i) :"
+
+msgid "_Received_Since_"
+msgstr "Ricevuto dopo il :"
+
+msgid "_Received_Before_"
+msgstr "Ricevuto prima del :"
+
+msgid "_Address_books_"
+msgstr "Rubrica degli indirizzi"
+
+msgid "_Choose_A_Folder_"
+msgstr "Scegli una cartella"
+
+msgid "_This_is_the_acknowledgment_sent_to_"
+msgstr "Questa è la notifica spedita a "
+
+msgid "_the_"
+msgstr " il "
+
+msgid "_This_message_tells_email_displayed_on_recipients_computer_on_"
+msgstr "Questo messaggio indica che l'email è stata visualizzata dal destinatario il "
+
+msgid "_Read:_"
+msgstr "Leggi : "
+
+msgid "_Mailing_Lists_"
+msgstr "Liste di diffusione"
+
+msgid "label_mailinglists_directory"
+msgstr "Liste di diffusione"
+
+msgid "label_mailinglist_name"
+msgstr "Nome della lista di diffusione"
+
+msgid "label_emails"
+msgstr "Indirizzo email"
+
+msgid "label_emails_help"
+msgstr "Specifica un indirizzo di posta per riga"
+
+msgid "label_imap_login"
+msgstr "Nome utente IMAP"
+
+msgid "label_imap_password"
+msgstr "Password IMAP"
+
+msgid "label_mailForwardingAddress"
+msgstr "Indirizzo per l'inoltro delle mail"
+
+msgid "label_deliveryMode"
+msgstr "Modo di consegna"
+
+msgid "deliveryMode_help"
+msgstr ""
+"Il modo di consegna specifica il modo in cui le email vengono consegnate all'utilizzatore.\n"
+" - Non inoltrare: le mail non vengono inoltrate all'eventuale indirizzo specificato per l'inoltro.\n"
+" - Inoltra soltanto: le email vengono consegnate solamente all'indirizzo specificato per l'inoltro.\n"
+" - Locale: le email vengono inoltrate all'eventuale indirizzo specificato per l'inoltro, ma una copia viene mantenuta all'interno della casella."
+
+msgid "_Choose_recipients_"
+msgstr "Scegli il ricevente"
+
+msgid "label_address_book"
+msgstr "Rubrica degli indirizzi"
+
+msgid "_Add_to_private_addressbook_"
+msgstr "Aggiungi alla rubrica personale"
+
+msgid "cpswebmail_enter_recipient"
+msgstr "Inserisci un destinatario"
+
+msgid "label_personal_addressbooklinks"
+msgstr "Collegamenti rubrica personale"
+
+msgid "_Add_link_to_private_addressbook_"
+msgstr "Aggiungi ai collegamenti della rubrica personale"
+
+msgid "imap_folder_creation_successfull"
+msgstr "Nuova cartella IMAP creata con successo."
+
+msgid "imap_folder_creation_unsuccessfull"
+msgstr "Errore durante la creazione della nuova cartella IMAP."
+
+msgid "imap_folder_creation_rules"
+msgstr ""
+"Il nome può contenere solamente caratteri alfanumerici, \n"
+"spazi, virgolette e caratteri di sottolineatura."
+
+msgid "cpswebmail_folder_search_rules"
+msgstr "La ricerca viene eseguita unicamente su una cartella, non nelle sotto-cartelle"
+
+msgid "_No_Mails_In_Folder_"
+msgstr "Nessun messaggio"
+
+msgid "_button_show_"
+msgstr "Mostra"
+
+msgid "_mail(s)_per_page_"
+msgstr "messaggio(i) per pagina"
+
+msgid "_Empty_Trash_"
+msgstr "Vuota il cestino"
+
+msgid "_Chose_a_mailing_list_"
+msgstr "Scegli una lista"
+
+msgid "_Chose_a_group_"
+msgstr "Scegli un gruppo"
+
+msgid "label_workspace_members"
+msgstr "Collaboratore area di lavoro"
+
+msgid "_Chose_workspace_role_"
+msgstr "Scegli un ruolo :"
+
+msgid "psm_cpswebmail_chose_role_error"
+msgstr "Devi scegliere un ruolo."
+
+msgid "psm_cpswebmail_chose_workspace_error"
+msgstr "Devi scegliere un'area di lavoro."
+
+msgid "wsmembers_change_search_criteria"
+msgstr "Modifica i criteri di ricerca :"
+
+msgid "wsmembers_search_in"
+msgstr "dentro"
+
+msgid "_No_Attachments_"
+msgstr "Nessun allegato"
+
+msgid "label_name"
+msgstr "Nome"
+
