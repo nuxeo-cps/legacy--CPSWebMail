@@ -8,6 +8,8 @@ New features:
 - Now possible to use a "CPS Directory Entry Widget" to create new
   entries in the personal address book with links (instead of a
   select widget displaying all the possible entries)
+- Possible to view attachment without having to pass portal_webMail
+  in URL.
 Bug fixes:
 ~~~~~~~~~~
 - Call to attachment when viewing a message was made using default IMAP folder
