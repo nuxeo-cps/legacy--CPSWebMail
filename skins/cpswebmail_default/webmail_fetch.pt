@@ -16,7 +16,7 @@
   ">
 <html metal:use-macro="here/main_template/macros/master">
   <body>
-    <metal:block fill-slot="script_plus">
+    <metal:block fill-slot="javascript_head_slot">
       <script type="text/javascript">
       <!--
       function SetChecked(val) {
@@ -83,7 +83,7 @@
                 <!-- INBOX SELECTOR -->
                 <b>
                 <tal:block replace="python:mcat('_Change_folder_to_')">Change folder
-                  to &nbsp;:</tal:block>
+                  to  :</tal:block>
                 </b>
               </td>
               <td align="left" valign="middle">
@@ -126,12 +126,12 @@
             </tr>
           </table>
 
-          <p>&nbsp;</p>
+          <p> </p>
 
           <table border="0" cellpadding="1" cellspacing="0" width="100%" bgcolor="#c3cad9">
             <tr>
               <!-- BEGINNING OF TOOLS MENU -->
-              <td nowrap valign="middle" colspan="1"> &nbsp; </td>
+              <td nowrap valign="middle" colspan="1">   </td>
               <td valign="middle" align="center">
                 <input tal:attributes="
                   type string:submit;
@@ -163,7 +163,7 @@
                   value python:mcat('_Folders_');
                   name  string:folders:method">
               </td>
-              <td nowrap valign="middle" colspan="1"> &nbsp; </td>
+              <td nowrap valign="middle" colspan="1">   </td>
             </tr>
           </table>
 
@@ -174,7 +174,7 @@
                  mcat('_of_') + ' %s' % ( nb_messages)">
               Message Infos
             </b>
-            &nbsp;
+             
             <b tal:content="structure navigation_string">
               Links for being able to look to the others messages
             </b>
@@ -210,7 +210,7 @@
                   name string:move_selected_messages_to:method;
                   value python:mcat('_Move_To_')" />
                 <select name="move_to_folder">
-                  <option value="--Dossiers--" disabled>Choisir un dossier</option>
+                  <option value="--Dossiers--">Choisir un dossier</option>
                   <tal:block repeat="imap_folder imap_folders">
                     <option tal:attributes="value imap_folder/getImapName"
                       tal:condition="python:imap_folder.getImapName() not in [
@@ -228,7 +228,7 @@
                  bgcolor="#c3cad9">
             <tr bgcolor="#FFFFFF">
               <td colspan="8" >
-                <p>&nbsp;</p>
+                <p> </p>
               </td>
             </tr>
             <tr>
@@ -268,15 +268,13 @@
             </tr>
             <tr>
               <td colspan="8" bgcolor="#FFFFFF">
-                <p>&nbsp;</p>
+                <p> </p>
               </td>
             </tr>
 
             <tal:block define="sortmail request/sortmail | python:wmtool.getSortMail(request);
                  the_header python:folder.getIMAPMessagesHeaders(start=start, sortmail=sortmail, listing_size=wmtool.getListingSize(), REQUEST=request, RESPONSE=request.response)">
-
               <!-- We now have the headers of messages -->
-
               <tal:block repeat="item the_header"> <!-- Repeat on headers -->
                 <tr>
                   <td align="center" valign="middle" bgcolor="#FFFFFF">
@@ -364,7 +362,7 @@
             </tal:block>
           </table>
 
-          <p>&nbsp;</p>
+          <p> </p>
 
           <table border="0" cellpadding="1" cellspacing="0" width="100%"
                  bgcolor="#c3cad9">
@@ -381,7 +379,7 @@
                   name string:move_selected_messages_to:method;
                   value python:mcat('_Move_To_')" />
                 <select name="move_to_folder1">
-                  <option value="--Dossiers--" disabled>Choisir un dossier</option>
+                  <option value="--Dossiers--">Choisir un dossier</option>
                   <tal:block repeat="imap_folder imap_folders">
                     <option tal:attributes="
                       value imap_folder/getImapName"
@@ -419,7 +417,7 @@
               mcat('_of_') + ' %s' % (nb_messages)">
               Message Infos
             </b>
-            &nbsp;
+             
             <b tal:content="structure navigation_string">
               Links for being able to look to the others messages
             </b>
@@ -428,7 +426,7 @@
           <table border="0" cellpadding="1" cellspacing="0" width="100%" bgcolor="#c3cad9">
             <tr>
               <!-- BEGINNING OF TOOLS MENU -->
-              <td nowrap valign="middle" colspan="1"> &nbsp; </td>
+              <td nowrap valign="middle" colspan="1">   </td>
               <td valign="middle" align="center">
                 <input type="submit" name="webmail_show:method" size="10"
                   tal:attributes="value python:mcat('_Read_messages_')" />
@@ -449,7 +447,7 @@
                 <input type="submit" name="folders:method"
                   tal:attributes="value python:mcat('_Folders_')" />
               </td>
-              <td nowrap valign="middle" colspan="1">&nbsp;</td>
+              <td nowrap valign="middle" colspan="1"> </td>
             </tr>
           </table>
         </form>
