@@ -1,3 +1,4 @@
+
 CPSWebMail
 
     This is a tool to support the reading of emails via IMAP and the sending of
@@ -7,16 +8,12 @@ Requirements
 
   - Zope-2.5.1 or later.
 
-  - A special WebMail from Maxime Raffin (Included)
-
   - CPS3.1
 
 Installation
 
     Unpack the relase in the Products directory, and rename it from
-    CPSWebMail-<version> to CPSWebMail. Included in the release is the required
-    version of WebMail. Unpack this file in the Products directory as
-    well. Restart Zope.
+    CPSWebMail-<version> to CPSWebMail. Restart Zope.
 
     In the cps root, create an External Method object called cpswebmail_update
     or something similar. The settings should be:
