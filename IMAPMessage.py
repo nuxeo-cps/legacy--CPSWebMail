@@ -389,7 +389,6 @@ class IMAPMessage:
             'BDO',
             'BIG',
             'BLOCKQUOTE',
-            'BODY',
             'BR',
             'BUTTON',
             'CAPTION',
@@ -416,9 +415,7 @@ class IMAPMessage:
             'H4',
             'H5',
             'H6',
-            'HEAD',
             'HR',
-            'HTML',
             'I',
             'IFRAME',
             'IMG',
@@ -467,10 +464,12 @@ class IMAPMessage:
         body = mimify.mime_decode(body)
         # turn mailto: tags into http link
         body = self.match_url(body)
-        safe_body = html2safehtml(body, valid_tags=valid_tags)
-        if safe_body:
-            # no HTMLParseError
-            body = safe_body
+        # XXX stripogram is not a good HTML parser
+        # need to find another solution
+##         safe_body = html2safehtml(body, valid_tags=valid_tags)
+##         if safe_body:
+##             # no HTMLParseError
+##             body = safe_body
         return body
 
     def get_body_for_reply(self):
