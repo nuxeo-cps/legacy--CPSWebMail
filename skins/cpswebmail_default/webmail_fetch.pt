@@ -203,8 +203,11 @@
                 </a>
               </th>
               <th align="center" valign="middle">
-                <strong tal:content="python:mcat('_Subject_')">
-                  Sujet
+                <strong>
+                  <a tal:attributes="href string:webmail_show?IMAPName=${request/IMAPName}&sortmail=SUBJECT&start=${start}"
+                    tal:content="python:mcat('_Subject_')">
+                    href
+                  </a>
                 </strong>
               </th>
               <th align="center" valign="middle">
