@@ -6,7 +6,8 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
--
+- bcc field and acknoledgment of read where not kept when saving the message
+  as a draft.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
