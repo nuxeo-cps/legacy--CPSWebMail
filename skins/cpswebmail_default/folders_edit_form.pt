@@ -75,6 +75,9 @@
   <input tal:attributes="type  string:submit;
                          value python:mcat('_Cancel_');
                          name  string:webmail_show:method"/>
+
+  <br>
+  <span tal:content="python:mcat('imap_folder_creation_rules')"></span>
 </p>
 
         </form>
