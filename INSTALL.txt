@@ -22,7 +22,7 @@ Requirements
 
   - CPS3.1
 
-  - CPSDirectory > 1.15.1 to be able to use personal address books.
+  - CPSDirectory >= 1.16.0 to be able to use personal address books.
 
 --------------------------------------------------
 Installation notes

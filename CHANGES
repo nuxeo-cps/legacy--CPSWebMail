@@ -1,6 +1,6 @@
 Requires:
 ~~~~~~~~~
-- CPSDirectory > 1.15.1
+- CPSDirectory >= 1.16.0
 - Delete the 'addressbook' vocabulary: it has been replaced by the
   'addressbook_links' vocabulary.
 New features:
