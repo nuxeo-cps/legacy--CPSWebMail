@@ -206,7 +206,7 @@ class IMAPFolder:
 
         return sorted_parsed_res
 
-    def getIMAPMessage(self, imapid=""):
+    def getIMAPMessage(self, imapid="", is_draft=0):
         """ return the message from its imapid
         """
         con = IMAPGateway.IMAPGateway()
@@ -224,7 +224,8 @@ class IMAPFolder:
                            mess = res,
                            direct_body = direct_body,
                            flags = flags,
-                           imapid = imapid)
+                           imapid = imapid,
+                           is_draft = is_draft)
 
         return imap_message
 
