@@ -24,7 +24,7 @@
       <metal:block fill-slot="header_plus"/>
 
       <metal:block fill-slot='main'>
-        <tal:block define="not_trash_or_sent python:IMAPName not in [wmtool.getTrashFolder().getImapName(), wmtool.getSentMailFolder().getImapName()];"
+        <tal:block define="not_trash_or_sent python:IMAPName not in [wmtool.getTrashFolder().getImapName(), wmtool.getSentMailFolder().getImapName()]"
                    condition="python:the_view and reception_flag and not_trash_or_sent">
           <script language="javascript"
                   tal:define="confirm_message python:mcat('_ack_confirmation_');"
