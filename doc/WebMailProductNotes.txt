@@ -1,0 +1,11 @@
+Files coming from the WebMail product:
+
+Attachment.py
+IMAPFolder.py
+IMAPGateway.py
+IMAPMessage.py
+RFC822MessagesTools.py
+config.py
+imapLibLocal.py
+mime_message.py
+timeoutsocket.py
