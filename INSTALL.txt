@@ -139,6 +139,7 @@ Installation notes
   	- EnableMembersMailing: yes/no
     - EnableGroupsMailing: yes/no
     - EnableWorkspaceMembersMailing: yes/no
+    - EnableSaveAttachments: yes/no
 
     * this property is required
 

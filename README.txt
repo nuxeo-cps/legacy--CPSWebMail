@@ -73,7 +73,7 @@ Features
 
       1. The global address book can be, for instance, the directory of all
          the members using the site, but it can be a different one.
-         This address book is required.
+         This address book is not required since version 0.6.0.
       2. The personal address book stores contacts that are only visible to
          the user: the user is able to add/delete/edit its own contacts.
          This address book is personal and is not required: leave the
