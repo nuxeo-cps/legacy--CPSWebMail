@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-15 -*-
 ######################################################################
 #
 # RFC822MessagesTools, messages and headers parser for WebMail product

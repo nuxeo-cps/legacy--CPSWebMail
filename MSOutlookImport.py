@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-15 -*-
 #                                           
 # Copyright 2002 Nuxeo SARL <http://www.nuxeo.com/>
 # See LICENSE.txt for licensing information 

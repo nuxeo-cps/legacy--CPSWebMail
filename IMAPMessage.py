@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-15 -*-
 ######################################################################
 #
 # IMAPMessage, manage IMAP messages for Webmail product

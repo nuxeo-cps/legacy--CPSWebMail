@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-15 -*-
 ######################################################################
 #
 # IMAPFolder, manage IMAP Folders for Webmail product
