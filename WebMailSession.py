@@ -12,7 +12,6 @@ import string
 
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
-from interfaces.IWebMailSession import WebMailSessionInterface
 from RFC822MessagesTools import render_date
 from DateTime import *
 
@@ -23,9 +22,6 @@ class WebMailSession:
 
     It handles the users sessions behaviour.
     """
-
-    # This class implents the WebmailSession interface
-    __implements__ = WebMailSessionInterface
 
     security = ClassSecurityInfo()
 

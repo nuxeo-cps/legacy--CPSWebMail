@@ -48,7 +48,6 @@ from DateTime import DateTime
 #   SPECIAL WebMailTool
 #============================
 
-from interfaces.IWebMailTool import WebMailToolInterface
 from IMAPProperties import IMAPProperties
 from WebMailSession import WebMailSession
 
@@ -73,11 +72,8 @@ UseWebMailPermission = "Use WebMail"
 setDefaultRoles(UseWebMailPermission, ('Manager', 'Member'))
 
 class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
-    """ NuxWebMail Product (Portal Tool)
+    """ CPSWebMail Product (Portal Tool)
     """
-    # This class implents the NuxWebmail interface
-
-    __implements__ = WebMailToolInterface
 
     id = "portal_webMail"
     meta_type = "Portal WebMail Tool"
