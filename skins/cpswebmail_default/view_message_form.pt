@@ -38,6 +38,8 @@
         <table border="0" cellspacing="0" cellpadding="2" width="100%" cols="2">
           <form method="post" name="menu"
                 tal:attributes="action here/absolute_url">
+            <input type="hidden" name="IMAPName" tal:attributes="value python:'INBOX'">
+            <input type="hidden" name="IMAPId" tal:attributes="value python:the_id">
             <metal:block use-macro="here/webmail_lib/macros/view_message_actions"/>
             <tr>
               <td align="right" valign="top">
@@ -45,16 +47,10 @@
                   <p align="right"><tal:block content="python:mcat('_Move_To_')"/>
                   <select name="move_to_folder">
                     <tal:block repeat="item wmtool/getIMAPFolders">
-                      <tal:block define="condition0 python:wmtool.getImapName()
-                        not in [wmtool.getDraftIMAPName(),
-                                wmtool.getTrashIMAPName(),
-                                wmtool.getSentMailIMAPName()]">
-
                       <option tal:attributes="value item/getImapName"
-                          tal:content="python:mcat(item.getReadableName())">
-                          Folder readble Name
-                        </option>
-                      </tal:block>
+                        tal:content="python:mcat(item.getReadableName())">
+                        Folder readble Name
+                      </option>
                     </tal:block>
                   </select>
                   <input tal:attributes="
