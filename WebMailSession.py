@@ -93,6 +93,7 @@ class WebMailSession:
 
         if all:
             mail_structure['to'] = message.getTo()
+            mail_structure['cc'] = message.getCC()
         else:
             mail_structure['to'] = message.getSenderMail()
 
@@ -318,7 +319,7 @@ class WebMailSession:
         # Destruction of an older session if exists
         REQUEST.SESSION['search_results'] = ()
 
-        entry_prop = addressbook['entry_prop']
+        id_field = addressbook['id_field']
         title_field = addressbook['title_field']
 
         # Built of the dictionnary results of search on all Name Visible param
@@ -332,7 +333,7 @@ class WebMailSession:
         res = ()
         for x in t:
             if string.capitalize(x[title_field])[0] in lrange[begin] \
-               or string.capitalize(x[entry_prop])[0] in lrange[begin]:
+               or string.capitalize(x[id_field])[0] in lrange[begin]:
                 res += (x,)
 
         # Upgrade of the results session
