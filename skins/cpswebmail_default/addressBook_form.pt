@@ -13,85 +13,8 @@
 <html metal:use-macro="here/main_template/macros/master">
 
 <metal:block fill-slot="javascript_head_slot">
-<script type="text/javascript">
-<!--
-function SetChecked_To(val) {
-        dml=document.addressbook_form;
-        len = dml.elements.length;
-        var i=0;
-        for( i=0 ; i<len ; i++) {
-        if (dml.elements[i].name == 'pto:list') {
-                dml.elements[i].checked=val;
-                }
-        }
-}
-
-function SetChecked_Cc(val) {
-        dml=document.addressbook_form;
-        len = dml.elements.length;
-        var i=0;
-        for( i=0 ; i<len ; i++) {
-        if (dml.elements[i].name == 'pcc:list') {
-                dml.elements[i].checked=val;
-                }
-        }
-}
-
-function SetChecked_Bcc(val) {
-        dml=document.addressbook_form;
-        len = dml.elements.length;
-        var i=0;
-        for( i=0 ; i<len ; i++) {
-        if (dml.elements[i].name == 'pbcc:list') {
-                dml.elements[i].checked=val;
-                }
-        }
-}
-
-function SetChecked_Sup(val) {
-        dml=document.addressbook_form;
-        len = dml.elements.length;
-        var i=0;
-        for( i=0 ; i<len ; i++) {
-        if (dml.elements[i].name == 'to_delete:list') {
-                dml.elements[i].checked=val;
-                }
-        }
-}
-
-function SetChecked_Add(val) {
-        dml=document.addressbook_form;
-        len = dml.elements.length;
-        var i=0;
-        for( i=0 ; i<len ; i++) {
-        if (dml.elements[i].name == 'to_add_to_privbook:list') {
-                dml.elements[i].checked=val;
-                }
-        }
-}
-
-function SetChecked_Links(val) {
-        dml=document.addressbook_form;
-        len = dml.elements.length;
-        var i=0;
-        for( i=0 ; i<len ; i++) {
-        if (dml.elements[i].name == 'to_add_to_privbooklinks:list') {
-                dml.elements[i].checked=val;
-                }
-        }
-}
-
-function popup_create_entry(method, addressbook_name) {
-       var args
-       args='?addressbook_name='+addressbook_name;
-       popup = window.open(method+args, '_blank')
-       if(!popup.opener)
-         popup.opener = window;
-       return false;
-}
-
-//-->
-</script>
+  <script type="text/javascript"
+    tal:attributes="src string:${base_url}cpswebmail_functions.js"></script>
 </metal:block>
 
 <metal:block fill-slot="header">
@@ -444,10 +367,9 @@ function popup_create_entry(method, addressbook_name) {
                     <td width="1%" align="center" nowrap
                       tal:condition="can_edit">
                       <p>
-                        <a target="_blank"
-                          tal:attributes="
-                            href string:${portal_url}cpsdirectory_entry_edit_form?dirname=${addressbook_id}&id=${entry/?id_field}"
-                          tal:content="python:mcat('_Edit_')">
+                        <a tal:attributes="
+                             href string:javascript:popup_edit_entry('addressbook_editcontact', '${addressbook_id}', '${entry/?id_field}')"
+                           tal:content="python:mcat('_Edit_')">
                           Change Link
                         </a>
                       </p>
