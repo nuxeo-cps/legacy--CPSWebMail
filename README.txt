@@ -88,6 +88,7 @@ Installation
     After creating, open the External Method object and click the "Test" tab to
     run it. The output should look similar to this:
 
+
         Starting CPSWebMail update
 
          Checking available languages
@@ -96,55 +97,71 @@ Installation
             Importing en.po into 'en' locale
             Importing fr.po into 'fr' locale
         Verifying skins
-         FS Directory View 'cpswebmail_default'
-          Creating skin
          FS Directory View 'cpswebmail_images'
+          Creating skin
+         FS Directory View 'cpswebmail_default'
           Creating skin
          Fixup of skin Basic
         Resetting skin cache
         Verifying tool portal_webMail
          Adding
-         Setting up action
+         Verifying action webmail...added.
          Setting up schemas and layouts
          Setting up default address book directories
          Directory .addressbook
          Directory addressbook
+         Directory .addressbook_links
         Address book directories added
         Verifiying schemas
-         Adding schema addressbook
+         Adding schema addressbook_search
+          Field sn.
           Field givenName.
+          Field email.
+          Field id.
+         Adding schema addressbook
+          Field fullname.
+          Field givenName.
+          Field email.
           Field sn.
           Field id.
-          Field email.
-          Field fullname.
          Adding layout addressbook_search
-          Widget sn
-          Widget id
-          Widget givenName
-          Widget fullname
           Widget email
+          Widget givenName
+          Widget id
+          Widget sn
+         Adding layout addressbook_links
+          Widget email
+          Widget fullname
+          Widget givenName
+          Widget id
+          Widget sn
          Adding layout addressbook
-          Widget sn
-          Widget id
-          Widget givenName
-          Widget fullname
           Widget email
+          Widget fullname
+          Widget givenName
+          Widget id
+          Widget sn
         Schemas and layouts related to address book directories added
+        Setting up vocabulary needed in the id widget, in the addressbook_links layout
+         Adding vocabulary addressbook
+          Installing.
+        Vocabulary addressbook added
         Setting up default mailing lists directory
          Directory mailinglists
         Mailing lists directory added
         Verifiying schemas
          Adding schema mailinglists
-          Field emails.
           Field id.
-         Adding layout mailinglists_search
-          Widget id
-          Widget emails
+          Field emails.
          Adding layout mailinglists
-          Widget id
           Widget emails
+          Widget id
+         Adding layout mailinglists_search
+          Widget emails
+          Widget id
         Schemas and layouts related to mailing lists directory added
         End of specific CPSWebmail updates
+
 
 	CPSWebMail is now installed.
 
@@ -209,6 +226,7 @@ How to setup address books
       the 'members' directory, but you can use another one by adding a
       directory with this type and give it the name you provided for the
       Addressbook_name property in the portal_webMail tool.
+
       These default values can be used:
       - title: Address book
       - Schema: addressbook
@@ -229,6 +247,7 @@ How to setup address books
       ZODB directories in the users'home folders. Add a directory of
       this type and give it the name you provided for the
       PrivAddressbook_name property in the portal_webMail tool.
+
       These default values can be used:
       - title: Private address book
       - Schema: addressbook
@@ -245,6 +264,7 @@ How to setup address books
       - Fields with substring search: id givenName email sn fullname
       - Id of local directory:
       - Type of local directory : CPS ZODB Directory (do not change)
+
       If a given user tries to access his private address book, a CPS ZODB
       Directory will be created in its private area, with the same name and
       the given properties.
@@ -253,6 +273,7 @@ How to setup address books
       it creates CPS Indirect directories in the users' home folders. Add a
       directory of this type and give it the name you provided for the
       PrivAddressbookLinks_name property in the portal_webMail tool.
+
       These default values can be used:
       - title: Private address book with links
       - Schema: addressbook
@@ -269,6 +290,7 @@ How to setup address books
       - Fields with substring search: id
       - Id of local directory: addressbook
       - Type of local directory : CPS Indirect Directory (do not change)
+
       If a given user tries to access his private address book, a CPS
       Indirect Directory will be created in its private area, with the same
       name and the given properties.
