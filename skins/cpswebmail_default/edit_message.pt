@@ -29,12 +29,12 @@
       <table border="0" cellpadding="2" cellspacing="1">
         <tr>
           <td width="25%" align="center" valign="middle">
-            <tal:block define="has_a_read python:mail_struct.has_key('a_read') and mail_struct['a_read'] or 0">
-              <input type="checkbox" name="a_read:int" value="1"
+            <tal:block define="has_ack_read python:mail_struct.has_key('ack_read') and mail_struct['ack_read'] or 0">
+              <input type="checkbox" name="ack_read:int" value="1"
                      checked="checked"
-                     tal:condition="has_a_read" />
-              <input type="checkbox" name="a_read:int" value="1"
-                     tal:condition="not:has_a_read" />
+                     tal:condition="has_ack_read" />
+              <input type="checkbox" name="ack_read:int" value="1"
+                     tal:condition="not:has_ack_read" />
             </tal:block>
           </td>
           <td width="75%" align="left" valign="middle">
