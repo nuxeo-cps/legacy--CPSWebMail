@@ -26,7 +26,7 @@
       <tal:block define="item python:folder[0];
                          depth python:folder[1];
                          condition_Folders python:item.getImapName() not in [wmtool.getDraftIMAPName(), wmtool.getTrashIMAPName(), wmtool.getSentMailIMAPName(), wmtool.getInboxIMAPName(request)]">
-        <span tal:replace="structure python:'&nbsp;'*4*depth"/>
+        <span tal:replace="structure python:'&nbsp;'*8*depth"/>
         <input tal:condition="condition_Folders"
                type="checkbox" name="IMAPNames:list"
                tal:attributes="value item/getImapName;
