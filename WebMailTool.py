@@ -248,21 +248,26 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         """Create a new Folder on IMAP Server"""
         con = self.getConnection()
 
-        res_create = []
+        res_create = ''
         title = REQUEST.get('title', '')
         if title != '':
-            if REQUEST.form.has_key('IMAPNames'):
-                IMAPNames = REQUEST.form['IMAPNames']
-                for folder in IMAPNames:
-                    if folder.startswith('INBOX.'):
-                        folder = folder[6:]
-                    res_create.append(con.createFolder(folder+'.'+title))
+            if REQUEST.form.has_key('IMAPName'):
+                folder = REQUEST.form['IMAPName']
+                if folder == 'INBOX':
+                    res_create = con.createFolder(title)
+                elif folder.startswith('INBOX.'):
+                    folder = folder[6:]
+                    res_create = con.createFolder(folder+'.'+title)
+                else:
+                    res_create = con.createFolder(folder+'.'+title)
             else:
-                res_create.append(con.createFolder(title))
+                res_create = "NO"
+        else:
+            res_create = "NO"
 
         con.logout()
 
-        if "NO" not in res_create:
+        if res_create != "NO":
             # Creation sucessfull
             return 0
         else:
@@ -323,7 +328,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         search_to = self.searchMailDummy(REQUEST.search_to)
 
         sortmail_list = ["search",]
-        if search_subject != "zz20":
+        if search_body != "zz20":
             sortmail_list.extend(["BODY", search_body,])
         if search_subject != "zz20":
             sortmail_list.extend(["SUBJECT", search_subject,])
@@ -1067,13 +1072,13 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         entry = list.getEntry(id_list)
 
         # Update Search Session
-        REQUEST.SESSION['search_results'] = entry[email_prop]
+        if entry:
+            REQUEST.SESSION['search_results'] = entry[email_prop]
 
     def getCurrentAddressBookName(self, addressbook_name='', REQUEST=None):
         """Get the ID of the addressbook in request"""
         if not addressbook_name:
             addressbook_name = REQUEST.get('addressbook_name', None)
-            
         if addressbook_name  == '_private':
             bookname = self.getPrivAddressBookName()
         else:
@@ -1083,11 +1088,9 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     def getCurrentAddressBook(self, addressbook_name='', REQUEST=None):
         # This method is only called from the CPS3 scripts, so I will
         # completely ignore any CPS2 support here. Beware!
-        
         # Find the global adressbook:
         dtool = getToolByName(self, 'portal_directories')
         bookid = self.getCurrentAddressBookName(addressbook_name, REQUEST)
-        LOG("getCurrentAddressBook", DEBUG, "bookid = %s" %(bookid,))
         return dtool[bookid]
 
     security.declareProtected(UseWebMailPermission, "addressBookSearch")
