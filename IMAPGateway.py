@@ -264,7 +264,7 @@ class IMAPGateway:
 
         if flag=="delete":
             self.connection.uid('STORE',str(IMAPId),'+FLAGS','(\Deleted)')
-        if flag=="anwser":
+        if flag=="answer":
             self.connection.uid('STORE',str(IMAPId),'+FLAGS','(\Answered)')
         if flag=="+flagged":
             self.connection.uid('STORE',str(IMAPId),'+FLAGS','(\Flagged)')
