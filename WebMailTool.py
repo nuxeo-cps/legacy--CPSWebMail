@@ -90,17 +90,32 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         {'id': 'IMAPPort', 'type': 'string', 'mode':'w', 'label':'IMAPPort'},
         {'id': 'SMTPServer', 'type': 'string', 'mode':'w', 'label':'SMTPServer'},
         {'id': 'SMTPPort', 'type': 'string', 'mode':'w', 'label':'SMTPPort'},
-        {'id': 'Addressbook_name', 'type': 'string', 'mode':'w', 'label':'Addressbook_name'},
-        {'id': 'AddressbookEmailProp', 'type': 'string', 'mode':'w', 'label':'AddressbookEmailProp'},
-        {'id': 'PrivAddressbook_name', 'type': 'string', 'mode':'w', 'label':'PrivAddressbook_name'},
-        {'id': 'PrivAddressbookEmailProp', 'type': 'string', 'mode':'w', 'label':'PrivAddressbookEmailProp'},
-        {'id': 'PrivAddressbookLinks_name', 'type': 'string', 'mode':'w', 'label':'PrivAddressbookLinks_name'},
-        {'id': 'PrivAddressbookLinksEmailProp', 'type': 'string', 'mode':'w', 'label':'PrivAddressbookLinksEmailProp'},
-        {'id': 'Mailing_list_name', 'type': 'string', 'mode':'w', 'label':'Mailing_list_name'},
-        {'id': 'MailingEmailsProp', 'type': 'string', 'mode':'w', 'label':'MailingEmailsProp'},
-        {'id': 'EnableMembersMailing', 'type': 'boolean', 'mode':'w', 'label':'EnableMembersMailing'},
-        {'id': 'EnableGroupsMailing', 'type': 'boolean', 'mode':'w', 'label':'EnableGroupsMailing'},
-        {'id': 'EnableWorkspaceMembersMailing', 'type': 'boolean', 'mode':'w', 'label':'EnableWorkspaceMembersMailing'},
+        {'id': 'IMAPLoginField', 'type': 'string', 'mode':'w',
+         'label':"Field used to get the user's IMAP login in the members directory"},
+        {'id': 'IMAPPasswordField', 'type': 'string', 'mode':'w',
+         'label':"Field used to get the user's IMAP password in the members directory"},
+        {'id': 'Addressbook_name', 'type': 'string', 'mode':'w',
+         'label':'Name of the global address book directory'},
+        {'id': 'AddressbookEmailProp', 'type': 'string', 'mode':'w',
+         'label':'Name of the field used to store the email in the global address book'},
+        {'id': 'PrivAddressbook_name', 'type': 'string', 'mode':'w',
+         'label':'Name of the private address book directory'},
+        {'id': 'PrivAddressbookEmailProp', 'type': 'string', 'mode':'w',
+         'label':'Name of the field used to store the email in the private address book'},
+        {'id': 'PrivAddressbookLinks_name', 'type': 'string', 'mode':'w',
+         'label':'Name of the private address book storing links'},
+        {'id': 'PrivAddressbookLinksEmailProp', 'type': 'string', 'mode':'w',
+         'label':'Name of the field used to store the email in the private address book storing links'},
+        {'id': 'Mailing_list_name', 'type': 'string', 'mode':'w',
+         'label':'Name of the mailing list directory'},
+        {'id': 'MailingEmailsProp', 'type': 'string', 'mode':'w',
+         'label':'Name of the field used to store the list of emails in the mailing list directory'},
+        {'id': 'EnableMembersMailing', 'type': 'boolean', 'mode':'w',
+         'label':'Enable members mailing'},
+        {'id': 'EnableGroupsMailing', 'type': 'boolean', 'mode':'w',
+         'label':'Enable groups mailing'},
+        {'id': 'EnableWorkspaceMembersMailing', 'type': 'boolean', 'mode':'w',
+         'label':'Enable workspace members mailing'},
     )
 
     _properties = _basic_properties
@@ -113,6 +128,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     EnableMembersMailing = 0
     EnableGroupsMailing = 0
     EnableWorkspaceMembersMailing = 0
+    IMAPLoginField = "imap_login"
+    IMAPPasswordField = "imap_password"
 
     def __init__(self):
         """WebMail Tool Constructor"""
@@ -159,6 +176,16 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     def getSMTPPort(self):
         """Return the SMTP server port"""
         return self.SMTPPort
+
+    security.declareProtected(UseWebMailPermission, "getIMAPLoginField")
+    def getIMAPLoginField(self):
+        """Return the IMAP login field"""
+        return self.IMAPLoginField
+
+    security.declareProtected(UseWebMailPermission, "getIMAPPasswordField")
+    def getIMAPPasswordField(self):
+        """Return the IMAP password field"""
+        return self.IMAPPasswordField
 
     security.declareProtected(UseWebMailPermission, "getAddressBookName")
     def getAddressBookName(self):
