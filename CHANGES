@@ -1,6 +1,8 @@
 Requires:
 ~~~~~~~~~
 - CPSDirectory > 1.15.1
+- Delete the 'addressbook' vocabulary: it has been replaced by the
+  'addressbook_links' vocabulary.
 New features:
 ~~~~~~~~~~~~~
 - Enable members mailing : possible to view members directory in addressbooks
@@ -26,4 +28,5 @@ Bug fixes:
   of entries.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
--
+- javascript functions are now stored in the skins/cpswebmail_javascript/
+  folder.
