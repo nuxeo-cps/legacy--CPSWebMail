@@ -8,9 +8,7 @@ IMAPName = REQUEST.form.get('IMAPName', "INBOX")
 sortmail = REQUEST.form.get('sortmail', "date")
 start    = REQUEST.form.get('start', 0)
 sort     = REQUEST.form.get('sort', "date")
-order    = REQUEST.form.get('order', "asc")
-if order is None:
-    order = "asc"
+order    = REQUEST.form.get('order', "desc")
 
 #
 # Redirection to the fetching page
