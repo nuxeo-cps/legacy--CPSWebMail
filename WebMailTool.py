@@ -691,7 +691,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
 
         try:
             quota = self.getQuota()
-        except:
+        except IMAP4.error:
             # GETQUOTAROOT command not supported by IMAP server
             quota = None
 
