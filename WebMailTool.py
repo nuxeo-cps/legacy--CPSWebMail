@@ -152,7 +152,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         self.PrivAddressbookEmailProp      = "email"
         self.PrivAddressbookLinks_name     = ".addressbook_links"
         self.PrivAddressbookLinksEmailProp = "email"
-        self.Mailing_list_name             = "mailinglists"
+        self.Mailing_list_name             = ".mailinglists"
         self.MailingEmailsProp             = "emails"
         self.EnableMembersMailing          = 0
         self.EnableGroupsMailing           = 0

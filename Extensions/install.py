@@ -540,7 +540,7 @@ class CPSWebMailInstaller(CPSInstaller):
             }
 
         directories = {
-            'mailinglists': mailinglists_directory,
+            '.mailinglists': mailinglists_directory,
             }
 
         self.verifyDirectories(directories)
