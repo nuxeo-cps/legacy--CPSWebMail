@@ -364,7 +364,7 @@ class IMAPGateway:
 
         if not search:
             #number of messages in folder
-            return self.connection.select(folderName)[1][0]
+            return int(self.connection.select(folderName)[1][0])
         else:
             #number of messages from a search
             if folderName:
@@ -386,6 +386,22 @@ class IMAPGateway:
                 result=self.connection.uid('SORT', '('+sort+')','iso-8859-1', *keywords)
             nb=string.split(result[-1][0])
             return len(nb)
+
+    def getNumberOfReadMessage(self, folderName):
+        """ return the number of message in a folder """
+
+        res = 0
+        if folderName:
+            self.connection.select(folderName)
+            result = self.connection.uid('SEARCH', 'SEEN')
+            res=len(string.split(result[-1][0]))
+        return res
+
+    def getNumberOfNotReadMessage(self, folderName):
+        """ return the number of message in a folder """
+
+        res = self.getNumberOfMessage(folderName) - self.getNumberOfReadMessage(folderName)
+        return res
 
     def expunge(self):
         """ expunge ! """
