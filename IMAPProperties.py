@@ -77,9 +77,14 @@ class IMAPProperties(SimpleItem):
         """Return Nb characters display for message subject"""
         return 25
 
-    def getListingSize(self):
+    def getListingSize(self, REQUEST=None):
         """Return the number of messages diplay on one page view"""
-        return 20
+
+        # take value in session, or 20 (default value)
+        if REQUEST is not None:
+            return REQUEST.SESSION.get('listing_size', 20)
+        else:
+            return 20
 
     def getAutoViewAtt(self):
         """Return the autoViewAtt value"""
@@ -102,4 +107,3 @@ class IMAPProperties(SimpleItem):
                )
 
 InitializeClass(IMAPProperties)
-
