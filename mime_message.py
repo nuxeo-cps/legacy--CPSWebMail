@@ -30,6 +30,13 @@
 #
 ###########################################################################
 
+#
+# Copyright (c) 2004 Nuxeo SARL <http://www.nuxeo.com>
+# See LICENSE.TXT for licensing information
+#
+######################################################################
+# $ Id: $
+
 __author__ = '$Author$'
 __version__ = '$Revision$'
 

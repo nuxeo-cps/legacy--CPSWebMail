@@ -1,5 +1,4 @@
-
-####
+######################################################################
 # Copyright 2000,2001 by Timothy O'Malley <timo@alum.mit.edu>
 # 
 #                All Rights Reserved
@@ -22,7 +21,13 @@
 # ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 # PERFORMANCE OF THIS SOFTWARE. 
 #
-####
+######################################################################
+#
+# Copyright (c) 2004 Nuxeo SARL <http://www.nuxeo.com>
+# See LICENSE.TXT for licensing information
+#
+######################################################################
+# $ Id: $
 
 """Timeout Socket
 

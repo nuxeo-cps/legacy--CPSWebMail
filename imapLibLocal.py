@@ -8,6 +8,12 @@
 # Modified bu University of Savoie , januray 2002.
 #
 #####################################################################################
+#
+# Copyright (c) 2004 Nuxeo SARL <http://www.nuxeo.com>
+# See LICENSE.TXT for licensing information
+#
+######################################################################
+# $ Id: $
 
 """IMAP4 client.
 

@@ -6,6 +6,12 @@
 # LICENSE.txt for the terms of this license.
 #
 ######################################################################
+#
+# Copyright (c) 2004 Nuxeo SARL <http://www.nuxeo.com>
+# See LICENSE.TXT for licensing information
+#
+######################################################################
+# $ Id: $
 
 import rfc822
 import cStringIO

@@ -11,6 +11,12 @@
 # Thanks to : Bernard CARON, Christian MARTEL
 #
 ######################################################################
+#
+# Copyright (c) 2004 Nuxeo SARL <http://www.nuxeo.com>
+# See LICENSE.TXT for licensing information
+#
+######################################################################
+# $ Id: $
 
 import timeoutsocket
 
