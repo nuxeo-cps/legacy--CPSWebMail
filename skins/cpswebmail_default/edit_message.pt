@@ -17,6 +17,15 @@
     <metal:block fill-slot="main">
       <form name="form" method="POST" enctype="multipart/form-data"
             tal:attributes="action string:${here/absolute_url}/">
+
+      <input type="hidden" name="IMAPName" tal:attributes="value IMAPName"/>
+      <input type="hidden" name="IMAPId"
+             tal:condition="python:mail_struct.has_key('IMAPId')"
+             tal:attributes="value python:mail_struct['IMAPId']" />
+      <input type="hidden" name="flag"
+             tal:condition="python:mail_struct.has_key('flag')"
+             tal:attributes="value python:mail_struct['flag']" />
+
       <table border="0" cellpadding="2" cellspacing="1">
         <tr>
           <td width="25%" align="center" valign="middle">
@@ -29,8 +38,6 @@
           </td>
         </tr>
       </table>
-
-      <input type="hidden" name="IMAPName" tal:attributes="value IMAPName"/>
 
       <metal:block use-macro="here/mail_widgets/macros/form">
 
@@ -63,14 +70,10 @@
                 <input type="text" name="cc"
                        tal:attributes="value python:mail_struct['cc']"
                        tal:condition="conditionCC1"/>
-                <input tal:attributes="type string:text;
-                                       name string:cc;
-                                       size string:60;"
+                <input type="text" name="cc" size="60"
                        tal:condition="python:not conditionCC1" />
               </tal:block>
-              <input tal:attributes="type string:submit;
-                                     name string:to_addressbook:method;
-                                     value string:+" />
+              <input type="submit" name="to_addressbook:method" value="+"/>
             </metal:block>
           </metal:block>
 
@@ -80,19 +83,13 @@
             </metal:block>
             <metal:block fill-slot="content">
               <tal:block define="conditionCB1 python:mail_struct.has_key('bcc')">
-                <input tal:attributes="type string:text;
-                                       name string:bcc;
-                                       value python:mail_struct['bcc'];
-                                       size string:60;"
+                <input type="text" name="bcc" size="60"
+                       tal:attributes="value python:mail_struct['bcc']"
                        tal:condition="conditionCB1" />
-                <input tal:attributes="type string:text;
-                                       name string:bcc;
-                                       size string:60;"
+                <input type="text" name="bcc" size="60"
                        tal:condition="python:not conditionCB1" />
               </tal:block>
-            &nbsp; <input tal:attributes="type string:submit;
-                                     name string:to_addressbook:method;
-                                     value string:+" />
+              <input type="submit" name="to_addressbook:method" value="+"/>
             </metal:block>
           </metal:block>
 
@@ -102,14 +99,10 @@
             </metal:block>
             <metal:block fill-slot="content">
               <tal:block define="conditionS1 python:mail_struct.has_key('subject')">
-                <input tal:attributes="type string:text;
-                                       name string:subject;
-                                       value python:mail_struct['subject'];
-                                       size string:60;"
+                <input type="text" name="subject" size="60"
+                       tal:attributes="value python:mail_struct['subject']"
                        tal:condition="conditionS1" />
-                <input tal:attributes="type string:text;
-                                       name string:subject;
-                                       size string:60;"
+                <input type="text" name="subject" size="60"
                        tal:condition="python:not conditionS1" />
               </tal:block>
             </metal:block>
@@ -120,15 +113,16 @@
 
       <table border="0" width="100%">
         <tr>
-            <td align="left" width="80%">
-          <tal:block condition="python:mail_struct.has_key('body')">
-            <textarea name="body:text" cols="85%" rows="10" wrap="virtual"
-             tal:content="python:mail_struct['body']" />
-        </tal:block>
-        <tal:block condition="python:not mail_struct.has_key('body')">
-            <textarea name="body:text" cols="85%" rows="10" wrap="virtual"></textarea>
-        </tal:block>
-      </td>
+          <td align="left" width="80%">
+            <tal:block define="conditionB1 python:mail_struct.has_key('body')">
+              <textarea name="body:text" cols="85%" rows="10" wrap="virtual"
+                        tal:content="python:mail_struct['body']"
+                        tal:condition="conditionB1"/>
+              <textarea name="body:text" cols="85%" rows="10" wrap="virtual"
+                        tal:condition="python:not conditionB1">
+              </textarea>
+            </tal:block>
+          </td>
         </tr>
       </table>
 
