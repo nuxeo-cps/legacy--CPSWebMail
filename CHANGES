@@ -6,8 +6,7 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
-- mail without content-type declaration where not correctly handled
-- stripogram parsing was not ok
+-
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -

@@ -1,4 +1,21 @@
 *******************************************
+** CPSWebMail V0.9.3 [R1 build 2004/09/29-10:56 by anahide]
+
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- mail without content-type declaration where not correctly handled
+- stripogram parsing was not ok
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
 ** CPSWebMail V0.9.2 [R1 build 2004/09/24-10:26 by anahide]
 
 Requires:
