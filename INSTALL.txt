@@ -138,10 +138,12 @@ Installation notes
     - MailingEmailsProp: emails
   	- EnableMembersMailing: yes/no
     - EnableGroupsMailing: yes/no
+    - GroupsDirectory_name**: groups
     - EnableWorkspaceMembersMailing: yes/no
     - EnableSaveAttachments: yes/no
 
     * this property is required
+    ** required if EnableGroupsMailing is set to yes.
 
     Each user will have to set its "imap_login" and "imap_password" in its
     preferences stored in the members directory to have access to its

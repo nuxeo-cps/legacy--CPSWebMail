@@ -116,6 +116,7 @@ Features
       2. Enable Groups Mailing: users will have access to the list of groups
          defined on the site, and will be able to chose recipients from
          their membership to a group.
+         Groups directory choice is configurable.
 
       3. Enable Workspace Members Mailing: users will have access to a
          search interface and will be able to select all users havins a
