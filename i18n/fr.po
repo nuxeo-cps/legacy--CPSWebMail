@@ -465,3 +465,12 @@ msgstr "Erreur lors du chargement du fichier attaché"
 
 msgid "cpswebmail_error_attachment_empty"
 msgstr "Erreur : le fichier attaché est vide"
+
+msgid "cpswebmail_error"
+msgstr "Erreur CPSWebmail"
+
+msgid "smtp_connection_error"
+msgstr "Erreur de connection au serveur SMTP."
+
+msgid "_IMAP_Access_Error_Caution_Admin_"
+msgstr "Contactez l'administrateur du site si vous pensez que vos paramètres ne sont pas en cause."

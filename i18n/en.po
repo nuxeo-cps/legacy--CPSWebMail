@@ -459,3 +459,12 @@ msgstr "Error while loading the attachment"
 
 msgid "cpswebmail_error_attachment_empty"
 msgstr "Error: attachment file is empty"
+
+msgid "cpswebmail_error"
+msgstr "CPSWebmail error"
+
+msgid "smtp_connection_error"
+msgstr "Error while connecting to SMTP server."
+
+msgid "_IMAP_Access_Error_Caution_Admin_"
+msgstr "If you think your configuration is correct, contact the site maintainer."

@@ -410,3 +410,12 @@ msgstr ""
 
 msgid "cpswebmail_error_attachment_empty"
 msgstr ""
+
+msgid "cpswebmail_error"
+msgstr ""
+
+msgid "smtp_connection_error"
+msgstr ""
+
+msgid "_IMAP_Access_Error_Caution_Admin_"
+msgstr ""
