@@ -1,0 +1,463 @@
+# translation of es.po to Euskara
+# translation of en.po to Euskara
+# Copyright (C) 2005 Free Software Foundation, Inc.
+# Aitzol Naberan Burgaña, 2005.
+# Aitzol Naberan Burgaña, 2005.
+# Aitzol Naberan Burgaña, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: es\n"
+"PO-Revision-Date: 2005-02-10 13:08+0100\n"
+"Last-Translator: Aitzol Naberan Burgaña\n"
+"Language-Team: Euskara <en@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.3.1\n"
+
+msgid "_Your_mail_"
+msgstr "Tu correo :"
+
+msgid "_mail(s)_in_"
+msgstr "mensaje(s) en la carpeta"
+
+msgid "_unread_mail(s)_"
+msgstr "mensaje(s) sin leer"
+
+msgid "_Change_folder_to_"
+msgstr "Cambiar carpeta a"
+
+msgid "_Read_messages_"
+msgstr "Leer mensajes"
+
+msgid "_Compose_"
+msgstr "Escribir"
+
+msgid "_Search_"
+msgstr "Buscar"
+
+msgid "_Address_book_"
+msgstr "Libro de direcciones"
+
+msgid "_Folders_"
+msgstr "Carpetas"
+
+msgid "_Messages_from_"
+msgstr "Mensages desde"
+
+msgid "_to_"
+msgstr "para"
+
+msgid "_of_"
+msgstr "de"
+
+msgid "_Selected_messages_"
+msgstr "Mensajes seleccionados"
+
+msgid "_All_"
+msgstr "Todos"
+
+msgid "_None_"
+msgstr "Ninguno"
+
+msgid "_Delete_"
+msgstr "Borrar"
+
+msgid "_Move_To_"
+msgstr "Mover a"
+
+msgid "_All/None_"
+msgstr "Todos/Ninguno"
+
+msgid "_Subject_"
+msgstr "Tema"
+
+msgid "_From_"
+msgstr "De"
+
+msgid "_Date_"
+msgstr "Fecha"
+
+msgid "_Size_"
+msgstr "Tamaño"
+
+msgid "_Compose_your_mail_"
+msgstr "Escribe tu correo"
+
+msgid "_Back_to_message_list_"
+msgstr "Volver a la lista de mensajes"
+
+msgid "_Acknowledgement_of_read_"
+msgstr "Acuse de recibo"
+
+msgid "_TO:_"
+msgstr "Para:"
+
+msgid "_CC:_"
+msgstr "Cc:"
+
+msgid "_BCC:_"
+msgstr "Bcc:"
+
+msgid "_Subject:_"
+msgstr "Tema:"
+
+msgid "_Send_"
+msgstr "Enviar"
+
+msgid "_Cancel_"
+msgstr "Cancelar"
+
+msgid "_Save_as_draft_"
+msgstr "Guardar como borrador"
+
+msgid "_Attachments_list_"
+msgstr "Lista de adjuntos:"
+
+msgid "_Add_"
+msgstr "Añadir"
+
+msgid "_Id_"
+msgstr "Id"
+
+msgid "_Name_"
+msgstr "Nombre"
+
+msgid "_Type_"
+msgstr "Tipo"
+
+msgid "_Remove_"
+msgstr "Borrar"
+
+msgid "_Searching_tool_"
+msgstr "Busqueda"
+
+msgid "_Searching_in_"
+msgstr "Busacar en:"
+
+msgid "_In_"
+msgstr "En"
+
+msgid "_In_message_body_"
+msgstr "Cuerpo del mensaje"
+
+msgid "_In_subject_"
+msgstr "En tema"
+
+msgid "_In_from_field_"
+msgstr "En el campo 'De'"
+
+msgid "_In_to_field_"
+msgstr "En el campo 'Para'"
+
+msgid "_Since_"
+msgstr "Desde"
+
+msgid "_Day_"
+msgstr "Dia"
+
+msgid "_Before_"
+msgstr "Antes"
+
+msgid "_January_"
+msgstr "Enero"
+
+msgid "_February_"
+msgstr "Febrero"
+
+msgid "_March_"
+msgstr "Marzo"
+
+msgid "_April_"
+msgstr "Abril"
+
+msgid "_May_"
+msgstr "Mayo"
+
+msgid "_Jun_"
+msgstr "Junio"
+
+msgid "_Jully_"
+msgstr "Julio"
+
+msgid "_August_"
+msgstr "Agosto"
+
+msgid "_September_"
+msgstr "Septiembre"
+
+msgid "_October_"
+msgstr "Octubre"
+
+msgid "_November_"
+msgstr "Noviembre"
+
+msgid "_December_"
+msgstr "Diciembre"
+
+msgid "_Change_list_to_"
+msgstr "Cambiar lista a:"
+
+msgid "_Go_"
+msgstr "Ir"
+
+msgid "_Import_from_MSOutlook_address_book_"
+msgstr "Importar desde la libreta de direcciones de MS Outlook"
+
+msgid "_New_contact_"
+msgstr "Nuevo contacto"
+
+msgid "_Send/Continue_a_mail_"
+msgstr "Enviar/Continuar mensaje"
+
+msgid "_Edit_"
+msgstr "Editar"
+
+msgid "_Select_"
+msgstr "Seleccionar"
+
+msgid "_Unselect_"
+msgstr "Deseleccionar"
+
+msgid "_All_in_field_"
+msgstr "Todos los elementos en el campo"
+
+msgid "_Subject_message_title_"
+msgstr "Tema del mensaje:"
+
+msgid "_ack_confirmation_"
+msgstr ""
+"El emisor del mensaje requiere acuse de recibo. "
+"¿Desea enviarlo?"
+
+msgid "_Reply_"
+msgstr "Responder"
+
+msgid "_Reply_all_"
+msgstr "Responder a todos"
+
+msgid "_Forward_"
+msgstr "Reenviar"
+
+msgid "_From:_"
+msgstr "Desde:"
+
+msgid "_Date:_"
+msgstr "Fecha:"
+
+msgid "_New_IMAP_Folder_creation_"
+msgstr "Crear nueva carpeta IMAP"
+
+msgid "_Existing_IMAP_folders:_"
+msgstr "Carpetas IMAP:"
+
+msgid "_Folder_name:_"
+msgstr "Nobre de la carpeta:"
+
+msgid "_Folder_creation_caution_"
+msgstr ""
+"Atencion: el punto \".\" es para crear subcarpetas. ej: para tener carpetas del"
+" estilo 'amarillo' y 'rojo' en la carpeta 'colores', nombra estas carpetas como"
+"\"colores.amarillo\" y colores.rojo\". La carpeta \"colores\" debe existir."
+
+msgid "_Inbox_Folder_"
+msgstr "Bandeja de entrada"
+
+msgid "_Sent_element_folder_"
+msgstr "Enviados"
+
+msgid "_Draft_folder_"
+msgstr "Borradores"
+
+msgid "_Trash_folder_"
+msgstr "Papelera"
+
+msgid "_IMAP_Access_Error_Message_Title"
+msgstr "Error al acceder a la cuenta IMAP"
+
+msgid "_IMAP_Access_Error_Caution_"
+msgstr "Porfavor, comprueba tu cconexion IMAP"
+
+msgid "_directories_"
+msgstr "carpetas"
+
+msgid "_IMAP_Access_Error_note_"
+msgstr "This is your own parameters and they can be change by you only."
+
+msgid "_header_date_mailview_on_%m/%d/%Y at %H:%M"
+msgstr "%d/%m/%Y a las %H:%M"
+
+msgid "_header_date_maillist_on_%m/%d/%Y at %H:%M"
+msgstr "%d/%m/%Y %H:%M"
+
+msgid "_Addresses_"
+msgstr "Direcciones"
+
+msgid "_New_list_"
+msgstr "Nueva lista"
+
+msgid "_export_to_private_"
+msgstr "Exportar a mi espacio privado"
+
+msgid "_attachment_export_notice_"
+msgstr "Los documentos exportados se copian en el espacio privado del usuario."
+
+msgid "_add_contact_"
+msgstr "Añadir contacto"
+
+msgid "_list_mail_"
+msgstr "Bandeja de entrada"
+
+msgid "label_personal_addressbook"
+msgstr "Libro de direcciones personal"
+
+msgid "_Add_Subfolder_"
+msgstr "Añadir subcarpeta"
+
+msgid "_Add_Subfolder_To:_"
+msgstr "Añadir subcarpeta en:"
+
+msgid "_Search_Body_"
+msgstr "Cuerpo del mensaje:"
+
+msgid "_Search_Subject_"
+msgstr "Tema:"
+
+msgid "_Search_From_"
+msgstr "De:"
+
+msgid "_Search_To_"
+msgstr "Recipient(s):"
+
+msgid "_Received_Since_"
+msgstr "Recividos desde:"
+
+msgid "_Received_Before_"
+msgstr "Recividos antes de:"
+
+msgid "_Address_books_"
+msgstr "Libros de direcciones"
+
+msgid "_Choose_A_Folder_"
+msgstr "Selecciona una carpeta"
+
+msgid "_This_is_the_acknowledgment_sent_to_"
+msgstr "This is the acknowledgment sent to "
+
+msgid "_the_"
+msgstr " en "
+
+msgid "_This_message_tells_email_displayed_on_recipients_computer_on_"
+msgstr "El receptor del mensaje a recivido el mismo."
+
+msgid "_Read:_"
+msgstr "Leer: "
+
+msgid "_Mailing_Lists_"
+msgstr "Listas de correo"
+
+msgid "label_mailinglists_directory"
+msgstr "Listas de correo"
+
+msgid "label_mailinglist_name"
+msgstr "Nombre de la lista de correo"
+
+msgid "label_emails"
+msgstr "Direcciones de email"
+
+msgid "label_emails_help"
+msgstr "Un mensaje por linea"
+
+msgid "label_imap_login"
+msgstr "Login IMAP "
+
+msgid "label_imap_password"
+msgstr "Contraseña IMAP"
+
+msgid "label_mailForwardingAddress"
+msgstr "Mail forwarding address"
+
+msgid "label_deliveryMode"
+msgstr "Modo de entrega"
+
+msgid "deliveryMode_help"
+msgstr ""
+"El modo de entrega especifica como se entregaran los mensajes a los miembros: "
+"-\"No reenviar\": los mensajes no se reenviarÃ¡n a la direcciÃ³n eventual de re"
+"envio "
+"-\"Solo reenviar\":los mesajes son redirigidos a la direcciÃ³n de reenvio "
+"-\"Local\":los mensajes son redirigidos a la direcciÃ³n de reenvio, y una copia"
+
+msgid "_Choose_recipients_"
+msgstr "Choose the recipients"
+
+msgid "label_address_book"
+msgstr "Libro de direcciones"
+
+msgid "_Add_to_private_addressbook_"
+msgstr "Añadir al libro de direcciones personal"
+
+msgid "cpswebmail_enter_recipient"
+msgstr "Please enter a recipient"
+
+msgid "label_personal_addressbooklinks"
+msgstr "Libro de enlaces de contactos personal"
+
+msgid "_Add_link_to_private_addressbook_"
+msgstr "Añadir al libro de enlaces de contactos personal"
+
+msgid "imap_folder_creation_successfull"
+msgstr "Nueva carpeta IMAP creada."
+
+msgid "imap_folder_creation_unsuccessfull"
+msgstr "Error al crear la nueva carpeta IMAP."
+
+msgid "imap_folder_creation_rules"
+msgstr "El nombre solo puede contener caracteres alfanumericos,\nespacios, guiones y barras bajas."
+
+msgid "cpswebmail_folder_search_rules"
+msgstr "La busqueda solo se realiza solo en las carpetas, no en las subcarpetas"
+
+msgid "_No_Mails_In_Folder_"
+msgstr "No hay mensajes"
+
+msgid "_button_show_"
+msgstr "Mostrar"
+
+msgid "_mail(s)_per_page_"
+msgstr "mensajel(s) por página"
+
+msgid "_Empty_Trash_"
+msgstr "Vaciar la papelera"
+
+msgid "_Chose_a_mailing_list_"
+msgstr "Elegir lista de correo"
+
+msgid "_Chose_a_group_"
+msgstr "Elegir un grupo"
+
+msgid "label_workspace_members"
+msgstr "Miembros del espacio de trabajo"
+
+msgid "_Chose_workspace_role_"
+msgstr "Elige un rol:"
+
+msgid "psm_cpswebmail_chose_role_error"
+msgstr "Por favor elige un rol."
+
+msgid "psm_cpswebmail_chose_workspace_error"
+msgstr "Por favor selecciona un espacio de trabajo."
+
+msgid "wsmembers_change_search_criteria"
+msgstr "Cambiar criterio de busqueda:"
+
+msgid "wsmembers_search_in"
+msgstr "en"
+
+msgid "_No_Attachments_"
+msgstr "No hay adjuntos"
+
+msgid "label_name"
+msgstr "Nombre"
+
