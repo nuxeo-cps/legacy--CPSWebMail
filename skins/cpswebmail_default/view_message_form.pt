@@ -138,7 +138,8 @@
         </tr>
       </table>
 
-      <tal:block define="conditionPJ python:message.existAttachment()">
+      <tal:block define="conditionPJ python:message.existAttachment();
+                         conditionSaveAtt python:wmtool.getEnableSaveAttachments();">
         <form tal:attributes="action here/absolute_url; method string:post; name string:attachments_actions">
         <input type="hidden" name="IMAPName" tal:attributes="value IMAPName">
         <input type="hidden" name="IMAPId" tal:attributes="value python:the_id">
@@ -146,13 +147,13 @@
           <tr tal:condition="conditionPJ">
             <td colspan="2" >
               <p>
-                <strong>
-                  Pièces jointes
+                <strong tal:content="python:mcat('_Attachments_list_')">
+                  Attachments list:
                 </strong>
               </p>
               <table border="0" cellspacing="0" cellpadding="0" width="100%">
                 <tr bgcolor="#dcdcdc">
-                  <td></td>
+                  <td tal:condition="conditionSaveAtt"/>
                   <td><strong tal:content="python:mcat('_Id_')">Id</strong></td>
                   <td><strong tal:content="python:mcat('_Name_')">Name</strong></td>
                   <td><strong tal:content="python:mcat('_Size_')">Size</strong></td>
@@ -160,7 +161,7 @@
                 </tr>
                   <tal:block repeat="item python:message.getAttachments()">
                     <tr>
-                      <td>
+                      <td tal:condition="conditionSaveAtt">
                         <input type="checkbox" tal:attributes="value python:item.getId()" name="AttachIdlist:list">
                       </td>
                       <td tal:content="python:item.getId()">
@@ -188,19 +189,23 @@
             </tr>
             <tr tal:condition="not:conditionPJ">
               <td colspan="2">
-                <p>Pas de pièces jointes</p>
+                <p tal:content="python:mcat('_No_Attachments_')">
+                No attachments
+                </p>
               </td>
             </tr>
           </table>
-          <table tal:condition="conditionPJ">
-            <tr>
-              <td>
-                <input type="submit" tal:attributes="value python:mcat('_export_to_private_')" name="export_attachment:method">
-              </td>
-            </tr>
-          </table>
-          <tal:block tal:condition="conditionPJ" content="python:mcat('_attachment_export_notice_')">
-            Exported documents are copied into private space of curent user.
+          <tal:block condition="python:conditionPJ and conditionSaveAtt">
+            <table>
+              <tr>
+                <td>
+                  <input type="submit" tal:attributes="value python:mcat('_export_to_private_')" name="export_attachment:method">
+                </td>
+              </tr>
+            </table>
+            <span tal:replace="python:mcat('_attachment_export_notice_')">
+              Exported documents are copied into private space of curent user.
+            </span>
           </tal:block>
 
           </form>
