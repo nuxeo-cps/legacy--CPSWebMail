@@ -112,7 +112,7 @@ class IMAPFolder:
 
         return res
 
-    def getIMAPMessagesHeaders(self, sortmail="", sort="date", order='asc', start=1, end=0, listing_size=0, REQUEST=None, RESPONSE=None):
+    def getIMAPMessagesHeaders(self, sortmail="", sort="date", order='desc', start=1, end=0, listing_size=0, REQUEST=None, RESPONSE=None):
         """ return the liste of headers
             between start and end
             or between start and start + listingsize
