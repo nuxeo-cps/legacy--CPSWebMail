@@ -170,7 +170,7 @@
                       <td>
                         <a href=""
                           target="_blank"
-                          tal:attributes=" href string:portal_webMail/${item/getCleanFilename}?IMAPName=INBOX&IMAPId=${the_id}&AttachId=${item/getId}"
+                          tal:attributes=" href string:portal_webMail/${item/getCleanFilename}?IMAPName=${IMAPName}&IMAPId=${the_id}&AttachId=${item/getId}"
                           tal:content="item/getFilename">
                           the filename
                         </a>
