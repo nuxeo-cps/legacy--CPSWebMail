@@ -18,6 +18,10 @@
 ######################################################################
 # $ Id: $
 
+# XXX AT: the Attachment class could be based on the email and MIME
+# handling package (python 2.3) which also deals with email messages
+# (see file IMAPMessage.py)
+
 import string
 from mimetools import choose_boundary
 import mimetools

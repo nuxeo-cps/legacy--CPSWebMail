@@ -37,6 +37,9 @@
 ######################################################################
 # $ Id: $
 
+# XXX AT: the IMAPMessage class could be based on the email and MIME
+# handling package (python 2.3).
+
 __author__ = '$Author$'
 __version__ = '$Revision$'
 
