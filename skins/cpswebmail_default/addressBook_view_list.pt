@@ -46,8 +46,26 @@
             if (dml.elements[i].name == 'pbcc:list') {
               dml.elements[i].checked=val;
             }
-    }
-        }
+          }
+   }
+
+  function popup_create_entry(method, addressbook_name) {
+       var args
+       args='?addressbook_name='+addressbook_name.value;
+       popup = window.open(method+args, '_blank')
+       if(!popup.opener)
+         popup.opener = window;
+       return false;
+  }
+
+  function popup_edit_entry(method, addressbook_name, id) {
+       var args
+       args='?addressbook_name='+addressbook_name.value+'&id='+id;
+       popup = window.open(method+args, '_blank')
+       if(!popup.opener)
+         popup.opener = window;
+       return false;
+  }
 
       //-->
     </script>
@@ -121,8 +139,9 @@
                       </tal:block>
                     </tal:block>
                   </select>
-                  <input type="submit" name="addressbook_changelist:method"
-                    tal:attributes="value python:mcat('_Go_');" />
+                  <input type="submit"
+                         name="addressbook_changelist:method"
+                         value="Ok" />
                 </td>
               </tr>
             </table>
@@ -133,16 +152,15 @@
       <table width="100%" cellpadding=2 cellspacing=0 border=0>
         <tr bgcolor="#dcdcdc">
           <td nowrap>
-            <input type="submit"
-               name="addressbook_create_list:method"
-               tal:attributes="value python:mcat('_New_list_')" />
-            <input type="submit"
+            <input type="button"
+              name="addressbook_create_list:method"
+              tal:attributes="value python:mcat('_New_list_');
+                              onclick string:javascript:popup_create_entry('addressbook_create_list', '${addressbook_name}');;"/>
+            <input type="button"
                name="addressbook_edit_list:method"
                tal:condition="python:request.get('addressbook_name', '') != '_mailing'"
-               tal:attributes="value python:mcat('_Edit_')" />
-            <input type="hidden"
-               name="id"
-               tal:attributes="value request/addressbook_name">
+               tal:attributes="value python:mcat('_Edit_');
+                               onclick string:javascript:popup_edit_entry('addressbook_edit_list', '${addressbook_name}', '${request/addressbook_name}');;"/>
           </td>
           <td align="right" nowrap>
             <input type="submit"
@@ -231,13 +249,15 @@
        <table cellpadding=3 cellspacing=0 border=0 width="100%">
          <tr bgcolor="#dcdcdc">
            <td colspan=2>
-             <input type="submit"
-                    name="addressbook_create_list:method"
-                    tal:attributes="value python:mcat('_New_list_')" />
-             <input type="submit"
-                    name="addressbook_edit_list:method"
-                    tal:condition="python:request.get('addressbook_name', '') != '_mailing'"
-                    tal:attributes="value python:mcat('_Edit_')" />
+             <input type="button"
+               name="addressbook_create_list:method"
+               tal:attributes="value python:mcat('_New_list_');
+                               onclick string:javascript:popup_create_entry('addressbook_create_list', '${addressbook_name}');;"/>
+             <input type="button"
+                name="addressbook_edit_list:method"
+                tal:condition="python:request.get('addressbook_name', '') != '_mailing'"
+                tal:attributes="value python:mcat('_Edit_');
+                                onclick string:javascript:popup_edit_entry('addressbook_edit_list', '${addressbook_name}', '${request/addressbook_name}');;"/>
            </td>
            <td align="right" nowrap>
              <input type="submit"

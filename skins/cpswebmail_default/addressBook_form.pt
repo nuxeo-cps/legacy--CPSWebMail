@@ -69,6 +69,15 @@ function SetChecked_Add(val) {
         }
 }
 
+function popup_create_entry(method, addressbook_name) {
+       var args
+       args='?addressbook_name='+addressbook_name.value;
+       popup = window.open(method+args, '_blank')
+       if(!popup.opener)
+         popup.opener = window;
+       return false;
+}
+
 //-->
 </script>
 </metal:block>
@@ -147,8 +156,9 @@ function SetChecked_Add(val) {
                   </tal:block>
                 </tal:block>
               </select>
-              <input type="submit" name="addressbook_changelist:method"
-                tal:attributes="value python:mcat('_Go_');" />
+              <input type="submit"
+                     name="addressbook_changelist:method"
+                     value="Ok" />
             </td>
           </tr>
         </table>
@@ -186,14 +196,14 @@ function SetChecked_Add(val) {
   <table width="100%" cellpadding="2" cellspacing="0" border="0">
     <tr bgcolor="#dcdcdc">
       <td nowrap>
-        <input type="submit"
+        <input type="button"
           tal:condition="python:addressbook.isCreateEntryAllowed()"
-          tal:attributes="value python:mcat('_New_contact_')"
-          name="addressbook_addcontact:method"/>
+          tal:attributes="value python:mcat('_New_contact_');
+                          onclick string:javascript:popup_create_entry('addressbook_addcontact', '${addressbook_name}');;"/>
         <input type="submit"
-               name="addressbook_add_contacts_to_privbook:method"
-                tal:condition="python:addressbook_name == '_global'"
-                tal:attributes="value python:mcat('_Add_to_private_addressbook_')"/>
+          name="addressbook_add_contacts_to_privbook:method"
+          tal:condition="python:addressbook_name == '_global'"
+          tal:attributes="value python:mcat('_Add_to_private_addressbook_')"/>
         <input type="submit"
           tal:condition="python:addressbook.isDeleteEntryAllowed()"
           tal:attributes="value python:mcat('_Delete_')"
@@ -428,10 +438,10 @@ function SetChecked_Add(val) {
           <table cellpadding="3" cellspacing="0" border="0" width="100%">
             <tr bgcolor="#dcdcdc">
               <td colspan="2" nowrap>
-                <input type="submit"
-                  name="addressbook_addcontact:method"
+                <input type="button"
                   tal:condition="python:addressbook.isCreateEntryAllowed()"
-                  tal:attributes="value python:mcat('_New_contact_')">
+                  tal:attributes="value python:mcat('_New_contact_');
+                                  onclick string:javascript:popup_create_entry('addressbook_addcontact', '${addressbook_name}');;"/>
                 <input type="submit"
                   name="addressbook_add_contacts_to_privbook:method"
                   tal:condition="python:addressbook_name == '_global'"
