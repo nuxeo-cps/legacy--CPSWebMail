@@ -24,6 +24,16 @@
 
       <metal:block use-macro="here/mail_widgets/macros/form_property">
         <metal:block fill-slot="title">
+          <button type="button" class="tooltipControl"
+                  onclick="toggleElementVisibility('cpswebmail_folder_search_rules')"> ? </button>
+          <div style="background: #ffffe1; border: 1px solid #000000;
+            padding:0.8em;font-size: 80%; position: absolute;
+            visibility: hidden; zIndex: 1000; text-align:left;"
+               id="cpswebmail_folder_search_rules"
+               onclick="showElement(false, 'cpswebmail_folder_search_rules')">
+            <span style="white-space:pre;"
+                  tal:content="python:mcat('cpswebmail_folder_search_rules')" />
+          </div>
           <strong tal:content="python:mcat('_Searching_in_')">Searching in:</strong>
         </metal:block>
         <metal:block fill-slot="content">
