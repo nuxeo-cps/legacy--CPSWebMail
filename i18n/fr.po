@@ -23,7 +23,7 @@ msgid "_mail(s)_in_"
 msgstr "messages(s) dans le dossier "
 
 msgid "_unread_mail(s)_"
-msgstr "messages(s) non lus"
+msgstr "messages(s) non lu(s)"
 
 msgid "_Change_folder_to_"
 msgstr "Changer de dossier pour"
