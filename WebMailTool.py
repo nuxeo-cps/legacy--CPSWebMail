@@ -1064,6 +1064,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     #      VIEW MESSAGE SECTION
     #=================================
 
+    # This is not used anymore: script view_attachment is doing
+    # the job now
     def __bobo_traverse__(self, REQUEST, name):
         """Redefined method for getting attachment name when downloading"""
         try:
