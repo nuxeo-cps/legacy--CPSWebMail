@@ -687,13 +687,16 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         #
         _copy = 1
 
-        quota = self.getQuota()
+        try:
+            quota = self.getQuota()
+        except error:
+            quota = None
 
         #
         # copy = 0 if delete message from trash or quota exceed for
         # moving to trash
         #
-        if IMAPName == self.getTrashFolder().getImapName() or quota > 999:
+        if IMAPName == self.getTrashFolder().getImapName() or quota is None or quota > 999:
             _copy = 0
 
         f = self.getFolder(IMAPName)

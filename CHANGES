@@ -6,7 +6,8 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
--
+- GETQUOTAROOT command, used when deleting a message, produced an error when
+  imap server does not support this command.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
