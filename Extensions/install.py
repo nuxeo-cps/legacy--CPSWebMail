@@ -149,7 +149,7 @@ class CPSWebMailInstaller(CPSInstaller):
                 'id_field': 'id',
                 'title_field': 'id',
                 'search_substring_fields': ['fullname', 'email'],
-                'directory_id': '',
+                'directories_ids': '',
                 'directory_type': 'CPS ZODB Directory',
                 },
             }
@@ -170,7 +170,7 @@ class CPSWebMailInstaller(CPSInstaller):
                 'id_field': 'id',
                 'title_field': 'id',
                 'search_substring_fields': ['id'],
-                'directory_id': 'addressbook members',
+                'directories_ids': ['addressbook', 'members'],
                 'directory_type': 'CPS Indirect Directory',
                 },
             }
@@ -199,7 +199,7 @@ class CPSWebMailInstaller(CPSInstaller):
                 'data': {
                     'default_expr': 'string:',
                     'read_ignore_storage': 1,
-                    'read_process_expr': """python:(givenName + " " + sn).strip() or id""",
+                    'read_process_expr': """python:(str(givenName) + " " + str(sn)).strip() or id""",
                     'read_process_dependent_fields': ('givenName', 'sn', 'id'),
                     'write_ignore_storage': 1,
                     },
@@ -422,7 +422,7 @@ class CPSWebMailInstaller(CPSInstaller):
                         'label_edit': 'label_user_name',
                         'is_i18n': 1,
                         'readonly_layout_modes': ('edit',),
-                        'vocabulary': 'addressbook',
+                        'vocabulary': 'addressbook_links',
                     },
                 },
                 'givenName': {
@@ -503,14 +503,14 @@ class CPSWebMailInstaller(CPSInstaller):
         self.log("Schemas and layouts related to address book directories added")
 
         self.log("Setting up vocabulary needed in the id widget, in the addressbook_links layout")
-        addressbook_vocabulary = {
-            'type': 'CPS Directory Vocabulary',
+        addressbook_links_vocabulary = {
+            'type': 'CPS Indirect Directory Vocabulary',
             'data': {
-                'directory': 'addressbook',
+                'directory': '.addressbook_links',
                 },
             }
         vocabulary = {
-            'addressbook': addressbook_vocabulary,
+            'addressbook_links': addressbook_links_vocabulary,
             }
         self.verifyVocabularies(vocabulary)
         self.log("Vocabulary addressbook added")
@@ -533,7 +533,7 @@ class CPSWebMailInstaller(CPSInstaller):
                 'id_field': 'id',
                 'title_field': 'id',
                 'search_substring_fields': ['id', 'emails'],
-                'directory_id': 'mailinglists',
+                'directories_ids': 'mailinglists',
                 },
             }
 
