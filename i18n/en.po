@@ -454,3 +454,8 @@ msgstr "Attachment(s) saved"
 msgid "cpswebmail_error_export_attachments"
 msgstr "Error while exporting attachment(s)"
 
+msgid "cpswebmail_err_attachment"
+msgstr "Error while loading the attachment"
+
+msgid "cpswebmail_error_attachment_empty"
+msgstr "Error: attachment file is empty"

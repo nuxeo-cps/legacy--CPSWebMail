@@ -460,3 +460,8 @@ msgstr "Fichier(s) attaché(s) exporté(s)"
 msgid "cpswebmail_error_export_attachments"
 msgstr "Erreur lors de l'export de fichier(s) attaché(s)"
 
+msgid "cpswebmail_err_attachment"
+msgstr "Erreur lors du chargement du fichier attaché"
+
+msgid "cpswebmail_error_attachment_empty"
+msgstr "Erreur : le fichier attaché est vide"
