@@ -44,14 +44,20 @@
 
       <table border="0" cellPadding="2" cellSpacing="0" width="100%">
         <tr>
-          <td>
+          <td valign="bottom">
             <input size="20" name="search_param" value="">
             <input tal:attributes="
               type  string:submit;
               value python:mcat('_Search_');
               name  string:addressBook_view_list:method" />
+          </td>
+          <td align="right" valign="middle">
+            <metal:block use-macro="here/webmail_lib/macros/select_addressbook"/>
+          </td>
+        </tr>
+        <tr>
+          <td align="left" valign="middle">
             <tal:block condition="lists_found_by_search">
-              <br/>
               <select size="1" name="list_name_after_search">
                 <tal:block define="
                     lists current_addressbook;
@@ -70,11 +76,6 @@
             </tal:block>
           </td>
           <td align="right" valign="middle">
-            <metal:block use-macro="here/webmail_lib/macros/select_addressbook"/>
-          </td>
-        </tr>
-        <tr>
-          <td align="right" valign="middle" colspan="2">
             <table border="0" cellpadding="0" cellspacing="0">
               <tr>
                 <td align="center" valign="middle">
