@@ -3,7 +3,9 @@ Requires:
 -
 New features:
 ~~~~~~~~~~~~~
--
+- better error handling when imap or smtp seetings are not correct
+- new properties added to be able to specify the members directory used in
+  addressbooks (for members mailing and groups mailing)
 Bug fixes:
 ~~~~~~~~~~
 -
