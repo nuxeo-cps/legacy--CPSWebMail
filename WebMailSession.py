@@ -92,7 +92,7 @@ class WebMailSession:
             subject = 'Re:' + subject
         mail_structure['subject'] = subject
         mail_structure['body'] = ('\n> ' + string.join(
-            string.split(message.render_body(message.getBody(), 'html'),'\n'),
+            string.split(message.get_body_for_reply(),'\n'),
             '\n> ') + '\n\n')
 
         if all:
@@ -128,8 +128,7 @@ class WebMailSession:
             ' (' + message.getSenderMail() + ') '
         body += "\n>> Date: " \
             + render_date(message.getDate()) + "\n\n"
-        new_body = string.split(
-            message.render_body(message.getBody(), 'html'), '\n')
+        new_body = string.split(message.get_body_for_reply(), '\n')
         new_body = '>> ' + string.join(new_body, '\n>> ')  + ' \n\n'
         new_body = body + new_body
 
@@ -141,6 +140,14 @@ class WebMailSession:
             mail_structure['flag'] = flag
         if the_id:
             mail_structure['IMAPId'] = the_id
+
+        if message.existAttachment():
+            attachements = message.getAttachments()
+            mail_structure['att_list'] = attachements
+            mail_structure['nb_att'] = len(attachements)
+        else:
+            mail_structure['att_list'] = []
+            mail_structure['nb_att'] = 0
 
         # Commit of session object
         REQUEST.SESSION['mail_session'] = mail_structure
@@ -201,6 +208,9 @@ class WebMailSession:
             attachements = message.getAttachments()
             mail_session['att_list'] = attachements
             mail_session['nb_att'] = len(attachements)
+        else:
+            mail_session['att_list'] = []
+            mail_session['nb_att'] = 0
 
         REQUEST.SESSION['mail_session'] = mail_session
 
