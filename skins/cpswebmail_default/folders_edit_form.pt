@@ -32,7 +32,7 @@
                tal:attributes="value item/getImapName;
                                id item/getImapName">
         <a href=""
-           tal:content="item/getReadableName"
+           tal:content="python:mcat(item.getReadableName())"
            tal:attributes="href string:${here/absolute_url}/webmail_fetch?IMAPName=${item/getImapName}"/>
         <br/>
       </tal:block>
@@ -62,7 +62,7 @@
       <tal:block define="item python:folder[0];
                          condition_Folders python:item.getImapName() not in [wmtool.getDraftIMAPName(), wmtool.getTrashIMAPName(), wmtool.getSentMailIMAPName()]">
         <option tal:attributes="value item/getImapName"
-                tal:content="item/getReadableName">
+                tal:content="python:mcat(item.getReadableName())">
           Folder Readable Name
         </option>
       </tal:block>
