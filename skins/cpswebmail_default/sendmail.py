@@ -21,5 +21,12 @@ if x == 0:
 
 else:
     # To define ?
+    # this only happens when the email do not have any recipients
+    # so I gusess we should redirect to the edit message form, with
+    # a message...
+    msg = "cpswebmail_enter_recipient"
+    portal_url = context.portal_url()
+    REQUEST.RESPONSE.redirect(portal_url + '/edit_message?portal_status_message=' + msg)
+
     return 1
 
