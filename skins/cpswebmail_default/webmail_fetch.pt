@@ -443,14 +443,14 @@
           <tal:block content="python:mcat('_IMAP_Access_Error_Caution_')">
           Vérifiez les paramètres de compte IMAP sur votre page d'</tal:block>
           <a
-            tal:attributes="href string:${base_url}cpsdirectory_entry_view?dirname=${dtool/id}&id=${member};"
+            tal:attributes="href string:${base_url}cpsdirectory_entry_view?dirname=members&id=${member};"
             tal:content="python:mcat('_directories_')">
             Directories</a>
         </p>
         <form action="" method="post">
           <input type="button"
-            tal:attributes="value python:mcat('_button_back_')"
-            onclick="history.back()" />
+            tal:attributes="value python:mcat('button_back')"
+            onclick="javascript:history.back()" />
         </form>
       </tal:block>
 
