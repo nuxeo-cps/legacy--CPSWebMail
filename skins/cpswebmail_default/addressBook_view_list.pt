@@ -13,6 +13,8 @@
                    current_addressbook python:wmtool.getCurrentAddressBook(current_addressbook_name, REQUEST=request);
                    current_list_name request/list_name|nothing;
                    dummy python:current_list_name and here.portal_webMail.setListSearch(list=current_addressbook, id_list=current_list_name, REQUEST=request);
+                   search_param python:request.get('search_param', '');
+                   lists_found_by_search python:request.has_key('addressBook_view_list') and current_addressbook.searchEntries(return_fields=['*'], **{current_addressbook.id_field: search_param, current_addressbook.title_field: search_param}) or nothing;
                   ">
 <html metal:use-macro="here/main_template/macros/master">
 <head>
@@ -42,13 +44,30 @@
 
       <table border="0" cellPadding="2" cellSpacing="0" width="100%">
         <tr>
-          <tal:block condition="nothing| string:XXX the search does not work anymore"/>
-          <td tal:condition="nothing">
+          <td>
             <input size="20" name="search_param" value="">
             <input tal:attributes="
               type  string:submit;
               value python:mcat('_Search_');
-              name  string:from_addressbook_search:method" />
+              name  string:addressBook_view_list:method" />
+            <tal:block condition="lists_found_by_search">
+              <br/>
+              <select size="1" name="list_name_after_search">
+                <tal:block define="
+                    lists current_addressbook;
+                    id_field lists/id_field;
+                    title_field lists/title_field">
+                  <tal:block repeat="item lists_found_by_search">
+                    <option tal:attributes="value python:item[0];"
+                      tal:content="python:item[1][id_field]">
+                    </option>
+                  </tal:block>
+                </tal:block>
+              </select>
+              <input type="submit"
+                name="mailing_list_changelist_after_search:method"
+                value="Ok" />
+            </tal:block>
           </td>
           <td align="right" valign="middle">
             <metal:block use-macro="here/webmail_lib/macros/select_addressbook"/>
