@@ -7,7 +7,6 @@
                    privbook_name wmtool/getPrivAddressBookName;
                    privbooklinks_name wmtool/getPrivAddressBookLinksName;
                    addressbook_name request/addressbook_name|string:_private;
-                   addressbook_id python:wmtool.getCurrentAddressBookName(REQUEST=request);
                    addressbook python:wmtool.getCurrentAddressBook(REQUEST=request);
             ">
 <html metal:use-macro="here/main_template/macros/master">
@@ -368,7 +367,7 @@
                       tal:condition="can_edit">
                       <p>
                         <a tal:attributes="
-                             href string:javascript:popup_edit_entry('addressbook_editcontact', '${addressbook_id}', '${entry/?id_field}')"
+                             href string:javascript:popup_edit_entry('addressbook_editcontact', '${addressbook_name}', '${entry/?id_field}')"
                            tal:content="python:mcat('_Edit_')">
                           Change Link
                         </a>
