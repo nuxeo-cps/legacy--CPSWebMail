@@ -26,16 +26,15 @@
       <tal:block define="item python:folder[0];
                          depth python:folder[1];
                          condition_Folders python:item.getImapName() not in [wmtool.getDraftIMAPName(), wmtool.getTrashIMAPName(), wmtool.getSentMailIMAPName(), wmtool.getInboxIMAPName(request)]">
-        <tal:block condition="condition_Folders">
-          <span tal:replace="structure python:'&nbsp;'*4*depth"/>
-          <input type="checkbox" name="IMAPNames:list"
-                 tal:attributes="value item/getImapName;
-                                 id item/getImapName"/>
-          <a href=""
-             tal:content="item/getReadableName"
-             tal:attributes="href string:${here/absolute_url}/webmail_fetch?IMAPName=${item/getImapName}"/>
-          <br/>
-        </tal:block>
+        <span tal:replace="structure python:'&nbsp;'*4*depth"/>
+        <input tal:condition="condition_Folders"
+               type="checkbox" name="IMAPNames:list"
+               tal:attributes="value item/getImapName;
+                               id item/getImapName">
+        <a href=""
+           tal:content="item/getReadableName"
+           tal:attributes="href string:${here/absolute_url}/webmail_fetch?IMAPName=${item/getImapName}"/>
+        <br/>
       </tal:block>
     </tal:block>
   </p>
@@ -62,8 +61,7 @@
     <tal:block repeat="folder wmtool/getIMAPFoldersTree">
       <tal:block define="item python:folder[0];
                          condition_Folders python:item.getImapName() not in [wmtool.getDraftIMAPName(), wmtool.getTrashIMAPName(), wmtool.getSentMailIMAPName()]">
-        <option tal:condition="condition_Folders"
-                tal:attributes="value item/getImapName"
+        <option tal:attributes="value item/getImapName"
                 tal:content="item/getReadableName">
           Folder Readable Name
         </option>
