@@ -642,10 +642,10 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         _bcc = [mail_structure['bcc']]
         _headers = {'subject': mail_structure['subject']}
         att_list = mail_structure['att_list']
-        if mail_structure.has_key('a_read'):
-            a_read = mail_structure['a_read']
+        if mail_structure.has_key('ack_read'):
+            ack_read = mail_structure['ack_read']
         else:
-            a_read = 0
+            ack_read = 0
 
         message = IMAPMessage.IMAPMessage(
             sender=(self.getIdentity(), self.getMailFrom()),
@@ -657,7 +657,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             headers=_headers)
 
         message.headers['date'] = self.ZopeTime().rfc822()
-        raw_message = message.raw_message(a_read, is_draft=1).replace("\n", "\r\n")
+        raw_message = message.raw_message(ack_read, is_draft=1).replace("\n", "\r\n")
 
         draft_folder = self.getDraftFolder().getImapName()
 
@@ -758,7 +758,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         return 0
 
     security.declareProtected(UseWebMailPermission, "sendMail")
-    def sendMail(self, REQUEST, a_read=0):
+    def sendMail(self, REQUEST, ack_read=0):
         """Send a mail from the compose interface"""
 
         mail_structure = REQUEST.SESSION.get('mail_session', {})
@@ -821,7 +821,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             attachments=mail_structure['att_list'],
             headers=_headers)
 
-        raw_message = message.raw_message(a_read)
+        raw_message = message.raw_message(ack_read)
 
         if self.getAutoSaveSentMessage() == "yes":
             #
@@ -920,7 +920,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             attachments=[],
             headers=_headers)
 
-        raw_message = new_message.raw_message(a_read=0)
+        raw_message = new_message.raw_message(ack_read=0)
         _recipients = [exp_mail]
         #
         # SMTP Sending
@@ -1102,12 +1102,16 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
                 privbook.createEntry(entry)
 
     security.declareProtected(UseWebMailPermission, "addressbookAddContactsLinksToPrivBook")
-    def addressbookAddContactsLinksToPrivBook(self, addressbook, list_to_add):
-        """Link a group of contacts from the addressbook to the private links address book"""
+    def addressbookAddContactsLinksToPrivBook(self, directory, list_to_add):
+        """Link a group of contacts from the directory to the private links address book"""
         for entry_id in list_to_add:
             privbooklinks = self.getCurrentAddressBook('_private_links')
-            if addressbook.hasEntry(entry_id):
-                entry = addressbook.getEntry(entry_id, default=None)
+            if directory.hasEntry(entry_id):
+                entry = directory.getEntry(entry_id, default=None)
+                # directory name needed to create the entry in an indirect
+                # directory => modifying the id
+                entry_id = entry[directory.id_field]
+                entry[directory.id_field] = directory.id+'/'+entry_id
                 privbooklinks.createEntry(entry)
 
     security.declareProtected(UseWebMailPermission, "deleteAllEntries")
