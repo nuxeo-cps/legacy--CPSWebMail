@@ -21,6 +21,7 @@
 from IMAPMessage import *
 import IMAPGateway
 import RFC822MessagesTools
+from DateTime import DateTime
 
 class IMAPFolder:
     """ Implemetation of the IMAP MailBox
@@ -151,22 +152,41 @@ class IMAPFolder:
         if sort not in ["date", "subject", "from"]:
             sort = "date"
 
+        def makeDateTime(datetime):
+            # datetime = '%d/%m/%y %H:%M'
+            try:
+                datetime2 = datetime.split(' ')
+                dmy = datetime2[0].split('/')
+                day = int(dmy[0])
+                month = int(dmy[1])
+                year = int(dmy[2])
+                hm = datetime2[1].split(':')
+                hour = int(hm[0])
+                minutes = int(hm[1])
+                res = DateTime(year, month, day, hour, minutes)
+            except:
+                res = DateTime(datetime)
+            return res
+
         if sort == "date":
             # second criteria: subject
-            sorted_keys = [(x['date'], x['subject'], x) for x in parsed_res]
+            sorted_keys = [(makeDateTime(x['date']), x['subject'], x) for x in parsed_res]
         elif sort == "subject":
             # second_criteria: date
-            sorted_keys = [(x['subject'], x['date'], x) for x in parsed_res]
+            sorted_keys = [(x['subject'], makeDateTime(x['date']), x) for x in parsed_res]
         elif sort == "from":
             # second_criteria: date
             # compatibility with what is displayed in webmail_fetch
             if sortmail == 'FROM':
-                sorted_keys = [(x['mail_sender'], x['date'], x) for x in parsed_res]
+                sorted_keys = [(x['mail_sender'], makeDateTime(x['date']), x) for x in parsed_res]
             else:
-                sorted_keys = [(x['sender'], x['date'], x) for x in parsed_res]
+                sorted_keys = [(x['sender'], makeDateTime(x['date']), x) for x in parsed_res]
 
         sorted_keys.sort()
         sorted_parsed_res = [x[2] for x in sorted_keys]
+
+        LOG("getIMAPMessagesHeaders", DEBUG, "DateTime('28/05/04 17:54') = %s" %(str(DateTime(04,05,28 ,17,54)),))
+        LOG("getIMAPMessagesHeaders", DEBUG, "DateTime('02/06/04 14:50') = %s" %(DateTime('02/06/04 14:50'),))
 
         # order
         if order == 'desc':
