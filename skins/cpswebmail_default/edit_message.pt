@@ -49,14 +49,15 @@
             <metal:block fill-slot="content">
               <nobr>
                 <tal:block define="conditionTo1 python:mail_struct.has_key('to')">
-                  <input type="text" name ="to" size="55"
+                  <input type="text" name ="to" size="60"
                          tal:attributes="value python:mail_struct['to']"
                          tal:condition="conditionTo1" />
                   <input type="text" name="to" size="60"
                          tal:condition="python:not conditionTo1" />
                 </tal:block>
-                <input type="submit" name="to_addressbook:method"
-                       tal:attributes="value python:mcat('_add_contact_')" />
+                <input type="submit"
+                       name="to_addressbook:method"
+                       tal:attributes="value python:mcat('_Choose_recipients_')" />
               </nobr>
             </metal:block>
           </metal:block>
@@ -73,7 +74,6 @@
                 <input type="text" name="cc" size="60"
                        tal:condition="python:not conditionCC1" />
               </tal:block>
-              <input type="submit" name="to_addressbook:method" value="+"/>
             </metal:block>
           </metal:block>
 
@@ -89,7 +89,6 @@
                 <input type="text" name="bcc" size="60"
                        tal:condition="python:not conditionCB1" />
               </tal:block>
-              <input type="submit" name="to_addressbook:method" value="+"/>
             </metal:block>
           </metal:block>
 

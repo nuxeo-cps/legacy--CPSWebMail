@@ -89,20 +89,21 @@
               <tr>
                 <td align="left" valign="middle">
                   <select size="1" name="addressbook_name">
-                    <option value="_global"
-                      tal:content="python:mcat('_Address_book_')">
-                      Addresses
-                    </option>
                     <tal:block condition="python:privbook_name">
                       <tal:block define="
                         privbook python:wmtool.getCurrentAddressBook('_private');
                         privbook_prop_name wmtool/getPrivAddressBookEmailProperty;">
                         <option value="_private"
-                          tal:attributes="selected python:addressbook_name == '_private';"
+                          tal:attributes="selected python:request.get('addressbook_name','') == '_private'"
                           tal:content="python:mcat(privbook.title_or_id())">
                         </option>
                       </tal:block>
                     </tal:block>
+                    <option value="_global"
+                      tal:content="python:mcat('_Address_book_')"
+                      tal:attributes="selected python:request.get('addressbook_name','') == '_global';">
+                      Addresses
+                    </option>
                     <tal:block condition="python:lists_name">
                       <tal:block define="
                         lists_prop_name wmtool/getMailingListsEmailProperty;
@@ -113,7 +114,7 @@
                           <option
                             tal:attributes="
                               value python:item[0];
-                              selected python:addressbook_name == item[0];"
+                              selected python:request.get('addressbook_name','') == item[0];"
                             tal:content="python:item[1][id_field]">
                           </option>
                         </tal:block>
@@ -131,30 +132,30 @@
 
       <table width="100%" cellpadding=2 cellspacing=0 border=0>
         <tr bgcolor="#dcdcdc">
-      <td nowrap>
-        <input type="submit"
+          <td nowrap>
+            <input type="submit"
                name="addressbook_create_list:method"
                tal:attributes="value python:mcat('_New_list_')" />
-        <input type="submit"
+            <input type="submit"
                name="addressbook_edit_list:method"
                tal:condition="python:request.get('addressbook_name', '') != '_mailing'"
                tal:attributes="value python:mcat('_Edit_')" />
-        <input type="hidden"
+            <input type="hidden"
                name="id"
                tal:attributes="value request/addressbook_name">
-      </td>
-      <td align="right" nowrap>
-        <input type="submit"
+          </td>
+          <td align="right" nowrap>
+            <input type="submit"
                name="mail_selected_one:method"
                tal:attributes="value python:mcat('_Send/Continue_a_mail_');"/>
-      </td>
-  </tr>
+          </td>
+        </tr>
       </table>
 
       <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
-      <td bgcolor="#dcdcdc">
-          <table cellpadding="2" cellspacing="1" border="0" width="100%">
+          <td bgcolor="#dcdcdc">
+            <table cellpadding="2" cellspacing="1" border="0" width="100%">
               <tal:block define="
                 email_prop_name wmtool/getMailingListsEmailProperty;
                 addressbook_name wmtool/getAddressBookName;
@@ -163,71 +164,69 @@
                 id_field addressbook/id_field;">
 
                  <tr bgcolor="#eeeeee">
-             <td align="center" valign=middle width="1%"><b tal:content="python:mcat('_TO:_')">À</b></td>
-             <td align="center" valign=middle width="1%"><b tal:content="python:mcat('_CC:_')">Cc </b></td>
-             <td align="center" valign=middle width="1%"><b tal:content="python:mcat('_BCC:_')">Cci</b></td>
-             <td width="1%"> </td>
+                   <th align="center" valign=middle width="1%">
+                     <b tal:content="python:mcat('_TO:_')">À</b>
+                     <br>
+                     <a href="javascript:SetChecked_To(1)"
+                       tal:content="python:mcat('_All_')">
+                     Select
+                     </a>/<a href="javascript:SetChecked_To(0)"
+                     tal:content="python:mcat('_None_')">
+                     Unselect
+                     </a>
+                   </th>
+                   <th align="center" valign=middle width="1%">
+                     <b tal:content="python:mcat('_CC:_')">Cc </b>
+                     <br>
+                     <a href="javascript:SetChecked_Cc(1)"
+                       tal:content="python:mcat('_All_')">
+                     Select
+                     </a>/<a href="javascript:SetChecked_Cc(0)"
+                     tal:content="python:mcat('_None_')">
+                     Unselect
+                     </a>
+                   </th>
+                   <th align="center" valign=middle width="1%">
+                     <b tal:content="python:mcat('_BCC:_')">Cci</b>
+                     <br>
+                     <a href="javascript:SetChecked_Bcc(1)"
+                       tal:content="python:mcat('_All_')">
+                     Select
+                     </a>/<a href="javascript:SetChecked_Bcc(0)"
+                     tal:content="python:mcat('_None_')">
+                     Unselect
+                     </a>
+                   </th>
+                   <th width="1%"> </th>
+                   <th align="center" width="16%">
+                     <b><i tal:content="email_prop_name">Email Property name</i></b>
+                   </th>
+                 </tr>
 
-       <th align="center" width="16%">
-                 <b><i tal:content="email_prop_name">Email Property name</i></b>
-             </th>
-         </tr>
+                 <tal:block repeat="entry python:request.SESSION.get('search_results', [])">
+                 <tr bgcolor="#ffffff">
+                   <td width="1%" align="center" nowrap>
+                     <input type="checkbox" name="pto:list" value="2" tal:attributes=" value entry" />
+                   </td>
+                   <td width="1%" align="center" nowrap>
+                     <input type="checkbox" name="pcc:list" value="2" tal:attributes=" value entry" />
+                   </td>
+                   <td width="1%" align="center" nowrap>
+                     <input type="checkbox" name="pbcc:list" value="2" tal:attributes=" value entry" />
+                   </td>
 
-     <tal:block repeat="entry python:request.SESSION.get('search_results', [])">
-           <tr bgcolor="#ffffff">
-               <td width="1%" align="center" nowrap>
-                   <input type="checkbox" name="pto:list" value="2" tal:attributes=" value entry" />
-               </td>
-               <td width="1%" align="center" nowrap>
-                   <input type="checkbox" name="pcc:list" value="2" tal:attributes=" value entry" />
-               </td>
-               <td width="1%" align="center" nowrap>
-                   <input type="checkbox" name="pbcc:list" value="2" tal:attributes=" value entry" />
-               </td>
-
-               <td width="1%" align="center"> </td>
-
-               <td valign="middle" align="center">
-                 <a href="" tal:attributes="href string:write_addbook?to=${entry}">
-                         <i tal:content="python:entry">
-                           Détail
-                         </i>
-                 </a>
-               </td>
-         </tr>
-       </tal:block>
-         </tal:block>
-       </table>
-
-       <table cellpadding=2 cellspacing=1 border=0 width="100%">
-         <tr>
-             <td>
-           <p>
-             <a href="javascript:SetChecked_To(1)" tal:content="python:mcat('_Select_')">Select all</a> -
-             <a href="javascript:SetChecked_To(0)" tal:content="python:mcat('_Unselect_')">Unselect all</a> :
-             <b tal:content="python:mcat('_All_in_field_')">Champs</b> '<b tal:content="python:mcat('_TO:_')"><i>To</i></b>'
-           </p>
-       </td>
-         </tr>
-         <tr>
-             <td>
-           <p>
-             <a href="javascript:SetChecked_Cc(1)" tal:content="python:mcat('_Select_')">Select all</a> -
-             <a href="javascript:SetChecked_Cc(0)" tal:content="python:mcat('_Unselect_')">Unselect all</a> :
-             <b tal:content="python:mcat('_All_in_field_')">Champs</b> '<b tal:content="python:mcat('_CC:_')"><i>To</i></b>'
-           </p>
-       </td>
-         </tr>
-         <tr>
-           <td>
-       <p>
-             <a href="javascript:SetChecked_Bcc(1)" tal:content="python:mcat('_Select_')">Select all</a> -
-             <a href="javascript:SetChecked_Bcc(0)" tal:content="python:mcat('_Unselect_')">Unselect all</a> :
-             <b tal:content="python:mcat('_All_in_field_')">Champs</b> '<b tal:content="python:mcat('_BCC:_')"><i>To</i></b>'
-           </p>
-       </td>
-         </tr>
-       </table>
+                   <td width="1%" align="center"> </td>
+                   <td valign="middle" align="center">
+                     <a href="" tal:attributes="href string:write_addbook?to=${entry}">
+                     <i tal:content="python:entry">
+                     Détail
+                     </i>
+                     </a>
+                   </td>
+                 </tr>
+                 </tal:block>
+              </tal:block>
+          </table>
 
        <table cellpadding=3 cellspacing=0 border=0 width="100%">
          <tr bgcolor="#dcdcdc">
