@@ -1,0 +1,21 @@
+<tal:block define="mcat nocall:here/Localizer/default;">
+<html metal:use-macro="here/main_template/macros/master">
+  <body>
+    <metal:block fill-slot="javascript_head_slot">
+      <script type="text/javascript"
+        tal:attributes="src string:${base_url}cpswebmail_functions.js"></script>
+    </metal:block>
+
+    <metal:block fill-slot="header">
+      <h1 tal:content="python:mcat('cpswebmail_error')" />
+    </metal:block>
+
+    <metal:block fill-slot="header_plus" />
+    <metal:block fill-slot="main">
+      <span tal:define="error_message request/error_message|nothing"
+            tal:content="python:mcat(error_message)" />
+    </metal:block>
+
+  </body>
+</html>
+</tal:block>
