@@ -415,7 +415,7 @@ class CPSWebMailInstaller(CPSInstaller):
         addressbook_links_layout = {
             'widgets': {
                 'id': {
-                    'type': 'Select Widget',
+                    'type': 'Directory Entry Widget',
                     'data': {
                         'fields': ('id',),
                         'is_required': 1,
@@ -424,8 +424,12 @@ class CPSWebMailInstaller(CPSInstaller):
                         'is_i18n': 1,
                         'readonly_layout_modes': ('edit',),
                         'vocabulary': 'addressbook_links',
+                        'directory': '.addressbook_links',
+                        'entry_type': 'id',
+                        'skin_name': 'cpsdirectory_entry_view',
+                        'popup_mode': 'search',
+                        },
                     },
-                },
                 'givenName': {
                     'type': 'String Widget',
                     'data': {
