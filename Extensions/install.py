@@ -148,13 +148,36 @@ class CPSWebMailInstaller(CPSInstaller):
                 'id_field': 'id',
                 'title_field': 'id',
                 'search_substring_fields': ['fullname', 'email'],
-                'directory_id': '.addressbook',
+                'directory_id': '',
+                'directory_type': 'CPS ZODB Directory',
+                },
+            }
+
+        privaddressbooklinks_directory = {
+            'type': 'CPS Local Directory',
+            'data': {
+                'title': 'label_personal_addressbooklinks',
+                'schema': 'addressbook_links',
+                'schema_search': 'addressbook_search',
+                'layout': 'addressbook_links',
+                'layout_search': 'addressbook_search',
+                'acl_directory_view_roles': 'Manager; Member',
+                'acl_entry_create_roles': 'Manager; Member',
+                'acl_entry_delete_roles': 'Manager; Member',
+                'acl_entry_view_roles': 'Manager; Member',
+                'acl_entry_edit_roles': 'Manager; Member',
+                'id_field': 'id',
+                'title_field': 'id',
+                'search_substring_fields': ['id'],
+                'directory_id': 'addressbook',
+                'directory_type': 'CPS Indirect Directory',
                 },
             }
 
         directories = {
             'addressbook': addressbook_directory,
             '.addressbook': privaddressbook_directory,
+            '.addressbook_links': privaddressbooklinks_directory,
             }
 
         self.verifyDirectories(directories)
@@ -227,9 +250,47 @@ class CPSWebMailInstaller(CPSInstaller):
                 },
             }
 
+        addressbook_links_schema = {
+            'givenName': {
+                'type': 'CPS String Field',
+                'data': {
+                    'default_expr': 'string:',
+                    },
+                },
+            'sn': {
+                'type': 'CPS String Field',
+                'data': {
+                    'default_expr': 'string:',
+                    },
+                },
+            'id': {
+                'type': 'CPS String Field',
+                'data': {
+                    'default_expr': 'string:',
+                    },
+                },
+            'email': {
+                'type': 'CPS String Field',
+                'data': {
+                    'default_expr': 'string:',
+                    },
+                },
+            'fullname': {
+                'type': 'CPS String Field',
+                'data': {
+                    'default_expr': 'string:',
+                    'read_ignore_storage': 1,
+                    'read_process_expr': """python:(givenName + " " + sn).strip() or id""",
+                    'read_process_dependent_fields': ('givenName', 'sn', 'id'),
+                    'write_ignore_storage': 1,
+                    },
+                },
+            }
+
         schemas = {
             'addressbook': addressbook_schema,
             'addressbook_search': addressbook_search_schema,
+            'addressbook_links': addressbook_links_schema,
             }
         self.verifySchemas(schemas)
 
@@ -386,13 +447,110 @@ class CPSWebMailInstaller(CPSInstaller):
                 },
             }
 
+
+        addressbook_links_layout = {
+            'widgets': {
+                'id': {
+                    'type': 'Select Widget',
+                    'data': {
+                        'fields': ('id',),
+                        'is_required': 1,
+                        'label': 'label_user_name',
+                        'label_edit': 'label_user_name',
+                        'is_i18n': 1,
+                        'readonly_layout_modes': ('edit',),
+                        'vocabulary': 'addressbook',
+                    },
+                },
+                'givenName': {
+                    'type': 'String Widget',
+                    'data': {
+                        'fields': ('givenName',),
+                        'label': 'label_first_name',
+                        'label_edit': 'label_first_name',
+                        'is_i18n': 1,
+                        'hidden_layout_modes': ('create', 'edit'),
+                        'display_width': 20,
+                        'size_max': 0,
+                    },
+                },
+                'sn': {
+                    'type': 'String Widget',
+                    'data': {
+                        'fields': ('sn',),
+                        'label': 'label_last_name',
+                        'label_edit': 'label_last_name',
+                        'is_i18n': 1,
+                        'hidden_layout_modes': ('create', 'edit'),
+                        'display_width': 20,
+                        'size_max': 0,
+                    },
+                },
+                'fullname': {
+                    'type': 'String Widget',
+                    'data': {
+                        'fields': ('fullname',),
+                        'label': 'label_full_name',
+                        'label_edit': 'label_full_name',
+                        'is_i18n': 1,
+                        'hidden_layout_modes': ('create', 'edit', 'search'),
+                        'display_width': 30,
+                        'size_max': 0,
+                    },
+                },
+                'email': {
+                    'type': 'String Widget',
+                    'data': {
+                        'fields': ('email',),
+                        'label': 'label_email',
+                        'label_edit': 'label_email',
+                        'is_i18n': 1,
+                        'hidden_layout_modes': ('create', 'edit'),
+                        'display_width': 30,
+                        'size_max': 0,
+                    },
+                },
+            },
+            'layout': {
+                'style_prefix': 'layout_dir_',
+                'flexible_widgets': (),
+                'ncols': 2,
+                'rows': [
+                    [{'ncols': 2, 'widget_id': 'id'},
+                    ],
+                    [{'ncols': 2, 'widget_id': 'fullname'},
+                    ],
+                    [{'ncols': 2, 'widget_id': 'email'},
+                    ],
+                    [{'ncols': 2, 'widget_id': 'givenName'},
+                    ],
+                    [{'ncols': 2, 'widget_id': 'sn'},
+                    ],
+                ],
+            },
+        }
+
         layouts = {
             'addressbook': addressbook_layout,
             'addressbook_search': addressbook_search_layout,
+            'addressbook_links': addressbook_links_layout,
             }
         self.verifyLayouts(layouts)
 
         self.log("Schemas and layouts related to address book directories added")
+
+        self.log("Setting up vocabulary needed in the id widget, in the addressbook_links layout")
+        addressbook_vocabulary = {
+            'type': 'CPS Directory Vocabulary',
+            'data': {
+                'directory': 'addressbook',
+                },
+            }
+        vocabulary = {
+            'addressbook': addressbook_vocabulary,
+            }
+        self.verifyVocabularies(vocabulary)
+        self.log("Vocabulary addressbook added")
 
     def setupDefaultMailingListsDirectory(self):
         self.log("Setting up default mailing lists directory")
