@@ -16,8 +16,9 @@
                    search_param python:request.get('search_param', '');
                    id_field current_addressbook/id_field;
                    title_field current_addressbook/title_field;
-                   groups_found_by_search python:request.has_key('addressBook_view_groups') and current_addressbook.searchEntries(return_fields=[id_field], **{id_field: search_param, title_field: search_param }) or nothing;
-                   members_directory python:dirtool['members'];
+                   email_prop_name python:wmtool.getCurrentAddressBookEmailProperty('_members');
+                   groups_found_by_search python:request.has_key('addressBook_view_groups') and current_addressbook.searchEntries(return_fields=[id_field, title_field], **{id_field: search_param, title_field: search_param }) or nothing;
+                   members_directory python:wmtool.getCurrentAddressBook('_members');
                    allow_copy_or_link python:1;
                    ">
 <html metal:use-macro="here/main_template/macros/master">
@@ -33,7 +34,7 @@
     <b>
       <tal:block i18n:translate="label_groups" /> :
       <tal:block condition="current_group_name"
-                 replace="current_group_name"/>
+                 replace="python:current_addressbook.getEntry(current_group_name)[title_field]"/>
       <tal:block condition="not:current_group_name"
                  replace="python:mcat('_Chose_a_group_')"/>
     </b>
@@ -69,7 +70,8 @@
                     title_field groups/title_field">
                   <tal:block repeat="item groups_found_by_search">
                     <option tal:attributes="value python:item[0];"
-                      tal:content="python:item[1][id_field]">
+                            tal:define="item_title python:item[1].get(title_field) or item[0];"
+                            tal:content="item_title">
                     </option>
                   </tal:block>
                 </tal:block>
@@ -89,12 +91,13 @@
                         groups current_addressbook;
                         id_field groups/id_field;
                         title_field groups/title_field">
-                        <tal:block repeat="item python:groups.searchEntries(return_fields=[id_field])">
+                        <tal:block repeat="item python:groups.searchEntries(return_fields=[id_field, title_field])">
                           <option
                             tal:attributes="
                               value python:item[0];
                               selected python:current_group_name == item[0];"
-                            tal:content="python:item[1][id_field]">
+                            tal:define="item_title python:item[1].get(title_field) or item[0];"
+                            tal:content="item_title">
                           </option>
                         </tal:block>
                       </tal:block>
@@ -184,14 +187,13 @@
                      </i>
                      </b>
                    </th>
-                   <th width="1%"> </th>
                    <th align="center" width="16%">
                      <b>
-                     <i tal:define="email_prop_name string:email;
-                                    ltool here/portal_layouts;
+                     <i tal:define="ltool here/portal_layouts;
                                     layoutid members_directory/layout;
-                                    layout ltool/?layoutid;
-                                    disp_title layout/?email_prop_name/label"
+                                    layoutob ltool/?layoutid;
+                                    widget python:layoutob.has_key(email_prop_name) and layoutob[email_prop_name] or None;
+                                    disp_title widget/label|string:label_email"
                        tal:content="python:mcat(disp_title)">
                       Email Property name
                      </i>
@@ -239,7 +241,7 @@
             <tal:block repeat="entryid python:request.SESSION.get('search_results', [])">
               <tr bgcolor="#ffffff"
                   tal:define="entry python:members_directory.getEntry(entryid);
-                              mail_prop entry/email|nothing">
+                              mail_prop entry/?email_prop_name|nothing">
                   <tal:block condition="mail_prop">
                     <td width="1%" nowrap>
                       <input type="checkbox" name="pto:list" value="2"
@@ -264,7 +266,6 @@
                       Fullname
                     </i>
                   </td>
-                  <td width="1%" align="center"> </td>
                   <td valign="middle" align="left" nowrap>
                     <a
                       tal:define="
