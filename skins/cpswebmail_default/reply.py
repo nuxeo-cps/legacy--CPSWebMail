@@ -11,4 +11,4 @@ context.portal_webMail.createReplySession(REQUEST, all=0)
 # Redirection to the edit message form
 #
 portal_url = context.portal_url()
-REQUEST.RESPONSE.redirect(portal_url + '/edit_message')                           
+REQUEST.RESPONSE.redirect(portal_url + '/edit_message')
