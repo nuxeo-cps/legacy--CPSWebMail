@@ -528,13 +528,14 @@ class IMAPMessage:
 
         chars_not_in_url = '\s\n\r\)<>'
         chars_after_url = '\s\)\(<>\.,'
-        compiled_a_tags = re.compile(r'(<a .*?</a>)', re.IGNORECASE|re.DOTALL)
+        compiled_a_tags = re.compile(r'(<a .*?</a>|<img .*?>)', re.IGNORECASE|re.DOTALL)
         compiled_mailto = re.compile(r'mailto', re.IGNORECASE)
         compiled_mail = re.compile(r'([a-zA-Z0-9\-]+@[a-zA-Z0-9|-]+\.[a-zA-Z\.\-]+)',
                                    re.IGNORECASE)
         compiled_link = re.compile(r'([^=\"])((http|ftp):\/\/[^'+chars_not_in_url+']+)(?=['+chars_after_url+'])', re.IGNORECASE)
 
         body_list = compiled_a_tags.split(body)
+        #LOG("match_url", DEBUG, "body_list=%s" % (body_list,))
 
         new_body_list = []
         for item in body_list:
