@@ -1,9 +1,10 @@
 Requires:
 ~~~~~~~~~
--
+- use of the WebMail product is no longer necessary
 
 New features:
 ~~~~~~~~~~~~~
+- use of the WebMail product is no longer necessary
 - provides new imap folder management interface and facilities
 - provides a search on multiple fields
 - various custom changes
@@ -12,6 +13,8 @@ Bug fixes:
 ~~~~~~~~~~
 - Incorrect username and pasword gave non-sensical error messages,
   because the actual login errors were lost on the way.(Mantis #453)
+- sorting on mails and search results (but only on messages displayed on the
+  page, not on all mails or results)
 
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
