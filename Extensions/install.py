@@ -118,6 +118,7 @@ class CPSWebMailInstaller(CPSInstaller):
             'data': {
                 'title': 'label_address_book',
                 'schema': 'addressbook',
+                'schema_search': 'addressbook_search',
                 'layout': 'addressbook',
                 'layout_search': 'addressbook_search',
                 'acl_directory_view_roles': 'Manager; Member',
@@ -136,6 +137,7 @@ class CPSWebMailInstaller(CPSInstaller):
             'data': {
                 'title': 'label_personal_addressbook',
                 'schema': 'addressbook',
+                'schema_search': 'addressbook_search',
                 'layout': 'addressbook',
                 'layout_search': 'addressbook_search',
                 'acl_directory_view_roles': 'Manager; Member',
@@ -198,8 +200,36 @@ class CPSWebMailInstaller(CPSInstaller):
                 },
             }
 
+        addressbook_search_schema = {
+            'email': {
+                'type': 'CPS String Field',
+                'data': {
+                    'default_expr': 'string:',
+                    },
+                },
+            'id': {
+                'type': 'CPS String Field',
+                'data': {
+                    'default_expr': 'string:',
+                    },
+                },
+            'givenName': {
+                'type': 'CPS String Field',
+                'data': {
+                    'default_expr': 'string:',
+                    },
+                },
+            'sn': {
+                'type': 'CPS String Field',
+                'data': {
+                    'default_expr': 'string:',
+                    },
+                },
+            }
+
         schemas = {
             'addressbook': addressbook_schema,
+            'addressbook_search': addressbook_search_schema,
             }
         self.verifySchemas(schemas)
 
@@ -213,6 +243,7 @@ class CPSWebMailInstaller(CPSInstaller):
                         'label': 'label_full_name',
                         'label_edit': 'label_full_name',
                         'is_i18n': 1,
+                        'hidden_layout_modes': ('create', 'edit', 'search'),
                         'display_width': 30,
                         'size_max': 0,
                         },
@@ -288,18 +319,6 @@ class CPSWebMailInstaller(CPSInstaller):
 
         addressbook_search_layout = {
             'widgets': {
-                'fullname': {
-                    'type': 'String Widget',
-                    'data': {
-                        'fields': ('fullname',),
-                        'is_required': 0,
-                        'label': 'label_full_name',
-                        'label_edit': 'label_full_name',
-                        'is_i18n': 1,
-                        'display_width': 30,
-                        'size_max': 0,
-                        },
-                    },
                 'id': {
                     'type': 'User Identifier Widget',
                     'data': {
@@ -356,8 +375,6 @@ class CPSWebMailInstaller(CPSInstaller):
                 'ncols': 2,
                 'rows': [
                     [{'ncols': 2, 'widget_id': 'id'},
-                     ],
-                    [{'ncols': 2, 'widget_id': 'fullname'},
                      ],
                     [{'ncols': 2, 'widget_id': 'email'},
                      ],
