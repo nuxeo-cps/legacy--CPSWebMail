@@ -24,13 +24,15 @@
 
       <metal:block fill-slot='main'>
         <tal:block condition="python:the_view and reception_flag">
-          <script language="javascript">
+          <script language="javascript"
+                  tal:define="confirm_message python:mcat('_ack_confirmation_');"
+                  tal:content='structure string:
             <!--
-              var reponse=confirm("<tal:block content="python:mcat('_ack_confirmation_')"/>");
+              var reponse=confirm("${confirm_message}");
               if (reponse)
                       location.href="send_reception_acc";
-            //-->
-          </script>
+            //-->'
+          />
         </tal:block>
 
         <table border="0" cellspacing="0" cellpadding="2" width="100%" cols="2">
