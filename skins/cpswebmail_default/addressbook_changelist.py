@@ -7,6 +7,8 @@ except:
     pass
 
 list = REQUEST.form.get('addressbook_name', '')
+list_name = REQUEST.form.get('list_name', '')
+group_name = REQUEST.form.get('group_name', '')
 portal_url = context.portal_url()
 
 if list == "":
@@ -15,21 +17,17 @@ if list == "":
 elif list == "_all":
     # Global + Private
     REQUEST.RESPONSE.redirect(portal_url + '/addressBook_form')
-elif list in["_global", "_private", "_private_links"]:
+elif list in["_global", "_private", "_private_links", "_members"]:
     REQUEST.RESPONSE.redirect(portal_url + '/addressBook_form?addressbook_name='+list)
+elif list == "_groups":
+    if group_name:
+        REQUEST.RESPONSE.redirect(portal_url + '/addressBook_view_groups?addressbook_name='+list+'&group_name='+group_name)
+    else:
+        REQUEST.RESPONSE.redirect(portal_url + '/addressBook_view_groups?addressbook_name='+list)
 elif list == "_mailing":
-    # return the mailing list in order to be able to add a personal mailing list
-    # support
-    REQUEST.RESPONSE.redirect(portal_url + '/addressBook_view_list?addressbook_name='+list)
+    if list_name:
+        REQUEST.RESPONSE.redirect(portal_url + '/addressBook_view_list?addressbook_name='+list+'&list_name='+list_name)
+    else:
+        REQUEST.RESPONSE.redirect(portal_url + '/addressBook_view_list?addressbook_name='+list)
 else:
-    # XXX Add mailinglist support
-    list_name = context.portal_webMail.getMailingListName()
-    mailinglist = context.portal_directories[list_name]
-    #
-    # Session search objet initialize
-    #
-    context.portal_webMail.setListSearch(list=mailinglist,
-                                         id_list=list,
-                                         REQUEST=REQUEST)
-    REQUEST.RESPONSE.redirect(
-        portal_url + '/addressBook_view_list?addressbook_name=' + list)
+    REQUEST.RESPONSE.redirect(portal_url + '/addressBook_form')
