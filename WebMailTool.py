@@ -182,9 +182,18 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     def getConnection(self):
         con = IMAPGateway()
         con.connect(self, server=self.getIMAPServer(), port=self.getIMAPPort())
-        res = con.login(self.getIMAPLogin(), self.getIMAPPassword())
+        login = self.getIMAPLogin()
+        password = self.getIMAPPassword()
+        if login == '':
+            login = None
+        if password == '':
+            password = None
+        if not login or not password:
+            res = 'LOG_FAILED'
+        else:
+            res = con.login(login, password)
         if res == 'LOG_FAILED':
-            raise 'login ou mot de passe de courrier IMAP incorrect'
+            raise 'Incorrect login or password'
         return con
 
     # XXX Hack du jeudi, ennuis !
@@ -238,10 +247,22 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     def createIMAPFolder(self, REQUEST):
         """Create a new Folder on IMAP Server"""
         con = self.getConnection()
-        res_create = con.createFolder(REQUEST.title)
+
+        res_create = []
+        title = REQUEST.get('title', '')
+        if title != '':
+            if REQUEST.form.has_key('IMAPNames'):
+                IMAPNames = REQUEST.form['IMAPNames']
+                for folder in IMAPNames:
+                    if folder.startswith('INBOX.'):
+                        folder = folder[6:]
+                    res_create.append(con.createFolder(folder+'.'+title))
+            else:
+                res_create.append(con.createFolder(title))
+
         con.logout()
 
-        if res_create != "NO":
+        if "NO" not in res_create:
             # Creation sucessfull
             return 0
         else:
@@ -255,9 +276,12 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
 
         if REQUEST.form.has_key('IMAPNames'):
             IMAPNames = REQUEST.form['IMAPNames']
-            for folder in IMAPNames:
-                con.deleteFolder(wmail=self, name=folder)
-
+            for folder_name in IMAPNames:
+                folder = self.getFolder(folder_name)
+                messages_headers = folder.getIMAPMessagesHeaders(start=0, sortmail="date", listing_size = 999)
+                imap_ids = [x['imap_id'] for x in messages_headers]
+                folder.moveIMAPMessages(folderdest="deleting", imapids=imap_ids, copy=1)
+                con.deleteFolder(wmail=self, name=folder_name)
         con.logout()
         return 0
 
@@ -283,26 +307,70 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         # Not yet necessary
         flagged = "no"
 
-        search_date = "%s-%s-%s" % (
-            REQUEST.search_day, REQUEST.search_month, REQUEST.search_year)
-        search_line = REQUEST.search_line.replace("&", " ")
-        search_line = search_line.replace('"', " ")
-        search_line = search_line.replace(";", " ")
+        search_since_boolean = REQUEST.get('search_since_boolean', 0)
+        if search_since_boolean:
+            search_since_date = "%s-%s-%s" % (REQUEST.search_since_day,
+                                              REQUEST.search_since_month,
+                                              REQUEST.search_since_year)
+        search_before_boolean = REQUEST.get('search_before_boolean', 0)
+        if search_before_boolean:
+            search_before_date = "%s-%s-%s" % (REQUEST.search_before_day,
+                                               REQUEST.search_before_month,
+                                               REQUEST.search_before_year)
+        search_body = self.searchMailDummy(REQUEST.search_body)
+        search_subject= self.searchMailDummy(REQUEST.search_subject)
+        search_from = self.searchMailDummy(REQUEST.search_from)
+        search_to = self.searchMailDummy(REQUEST.search_to)
 
-        if len(search_line) < 1:
-            search_line = " "
+        sortmail_list = ["search",]
+        if search_subject != "zz20":
+            sortmail_list.extend(["BODY", search_body,])
+        if search_subject != "zz20":
+            sortmail_list.extend(["SUBJECT", search_subject,])
+        if search_from != "zz20":
+            sortmail_list.extend(["FROM", search_from,])
+        if search_to != "zz20":
+            sortmail_list.extend(["TO", search_to,])
+        if len(sortmail_list) == 1:
+            sortmail_list.extend(["BODY", search_body,])
+        if search_since_boolean and search_before_boolean:
+            if search_since_date == search_before_date:
+                sortmail_list.extend(["ON", search_since_date,])
+            else:
+                # XXX AT: this doesn't work : the BEFORE will be ignored
+                # as it is not possible to get the mails between 2 dates
+                # in IMAP queries (not sure at all but looks like it)
+                sortmail_list.extend(["SINCE", search_since_date,])
+                sortmail_list.extend(["BEFORE", search_before_date,])
+        else:
+            if search_since_boolean:
+                sortmail_list.extend(["SINCE", search_since_date,])
+            elif search_before_boolean:
+                sortmail_list.extend(["BEFORE", search_before_date,])
+            else:
+                sortmail_list.extend(["SINCE", "1-Jan-1980",])
 
-        search_line = string.replace(search_line, " ", "zz20")
-        sortmail = "search" + "x2jq" + REQUEST.search_where + "x2jq" + \
-            search_line + "x2jq" + REQUEST.search_when + "x2jq" + \
-            search_date + "x2jq" + flagged + "x2jqsortx2jq" + "DATE"
+        sortmail_list.append(flagged)
+        sortmail_list.extend(["sort", "DATE",])
 
-        if int(REQUEST.search_year) > 1970 and int(REQUEST.search_day) >= 1 and int(REQUEST.search_day) <= 31:
+        sortmail = 'x2jq'.join(sortmail_list)
+
+        if (int(REQUEST.search_since_year) > 1970 and int(REQUEST.search_since_day) >= 1 and int(REQUEST.search_since_day) <= 31) or (int(REQUEST.search_before_year) > 1970 and int(REQUEST.search_before_day) >= 1 and int(REQUEST.search_before_day) <= 31):
             # Search line OK
             return sortmail
         else:
             # Error in date (must be > 1970)
             return 1
+
+    security.declareProtected(UseWebMailPermission, "searchMailDummy")
+    def searchMailDummy(self, arg):
+        arg = arg.replace("&", " ")
+        arg = arg.replace('"', " ")
+        arg = arg.replace(";", " ")
+        if len(arg) < 1:
+            arg = " "
+        arg = string.replace(arg, " ", "zz20")
+        return arg
 
     security.declareProtected(UseWebMailPermission, "getFolder")
     def getFolder(self, IMAPName):
@@ -383,7 +451,6 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
 
         imap_mailboxes = con.listFolders()
         imap_mailboxes.sort()
-        prev_name = ""
         res = []
 
         default_folders = self.getDefaultFoldersNames()
@@ -416,14 +483,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             else:
                 readable_name = readable_name.replace("INBOX.", "")
 
-            name = readable_name.split('.')[0]
-
-            if name == prev_name and not (name == '' or prev_name == ''):
-                readable_name = "  " + readable_name.replace(name, "")
-            prev_name = name
-
-            if not (name == '' or prev_name == ''):
-                res.append(IMAPFolder(item, readable_name, self))
+            readable_name = readable_name.split('.')[-1]
+            res.append(IMAPFolder(item, readable_name, self))
 
         #
         # Create default IMAP Folders if necessary
@@ -448,6 +509,18 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
 
         con.logout()
         return res
+
+    security.declareProtected(UseWebMailPermission, "getIMAPFoldersTree")
+    def getIMAPFoldersTree(self):
+        """Return IMAP Folders List with depth"""
+        imap_folders = self.getIMAPFolders()
+        res = []
+        prev_folder = ""
+        for imap_folder in imap_folders:
+            imap_folder_list = imap_folder.getImapName().split('.')
+            res.append((imap_folder, len(imap_folder_list)-1))
+        return res
+
 
     security.declareProtected(UseWebMailPermission, "getQuota")
     def getQuota(self):
