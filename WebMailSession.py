@@ -298,7 +298,7 @@ class WebMailSession:
         REQUEST.SESSION['search_results'] = ()
 
         entry_prop = addressbook['entry_prop']
-        display_prop = addressbook['display_prop']
+        title_field = addressbook['title_field']
 
         # Built of the dictionnary results of search on all Name Visible param
         lrange = {'A' : ['A', 'B', 'C', 'D', 'E'],
@@ -310,7 +310,7 @@ class WebMailSession:
         t = addressbook.searchEntry()
         res = ()
         for x in t:
-            if string.capitalize(x[display_prop])[0] in lrange[begin] \
+            if string.capitalize(x[title_field])[0] in lrange[begin] \
                or string.capitalize(x[entry_prop])[0] in lrange[begin]:
                 res += (x,)
 

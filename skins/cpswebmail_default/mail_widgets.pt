@@ -459,7 +459,7 @@
                   <a href="."
                      tal:define="creator obj/Creator;
                                  props python:dtool.getEntry(creator);
-                                 fullname python:props and props.get(dtool.display_prop,creator) or creator;
+                                 fullname python:props and props.get(dtool.title_field,creator) or creator;
                                  dir_url string:${portal_url}/${dtool/entry_template}?dirname=${dtool/id}&entry_id=${creator};"
                      tal:content="fullname"
                      tal:attributes="href dir_url"

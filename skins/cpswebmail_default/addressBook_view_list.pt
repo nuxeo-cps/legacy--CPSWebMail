@@ -98,10 +98,10 @@
                       lists_prop_name wmtool/getMailingListsEmailProperty;
                       lists python:dirtool[lists_name];
                       entry_prop lists/entry_prop;
-                      display_prop lists/display_prop">
+                      title_field lists/title_field">
 
                       <tal:block repeat="item python:lists.searchEntry()">
-                        <option tal:attributes=" value python:item.get(entry_prop)" tal:content="python:item.get(display_prop)"></option>
+                        <option tal:attributes=" value python:item.get(entry_prop)" tal:content="python:item.get(title_field)"></option>
                 </tal:block>
                     </tal:block>
                 </select>
@@ -139,7 +139,7 @@
                 email_prop_name wmtool/getMailingListsEmailProperty;
                 addressbook_name wmtool/getAddressBookName;
                 addressbook python:dirtool[addressbook_name];
-                display_prop addressbook/display_prop;
+                title_field addressbook/title_field;
                 entry_prop addressbook/entry_prop;
                 visible addressbook/getVisibleSchemaKeys;
         ">

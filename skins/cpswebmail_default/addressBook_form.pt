@@ -123,13 +123,13 @@ function SetChecked_Sup(val) {
                     lists_prop_name wmtool/getMailingListsEmailProperty;
                     lists python:dirtool[lists_name];
                     entry_prop lists/entry_prop;
-                    display_prop lists/display_prop">
+                    title_field lists/title_field">
                     <tal:block repeat="item python:lists.searchEntry()">
                       <option
                         tal:attributes="
                           value python:item.get(entry_prop);
                           selected python:addressbook_name == item.get(entry_prop);"
-                        tal:content="python:mcat(item.get(display_prop))">
+                        tal:content="python:mcat(item.get(title_field))">
                       </option>
                     </tal:block>
                   </tal:block>
@@ -196,7 +196,7 @@ function SetChecked_Sup(val) {
         <table cellpadding="2" cellspacing="1" border="0" width="100%">
           <tal:block define="
             email_prop_name wmtool/getAddressBookEmailProperty;
-            display_prop addressbook/title_field;
+            title_field addressbook/title_field;
             entry_prop addressbook/id_field;
           ">
             <tr bgcolor="#eeeeee">
@@ -228,7 +228,7 @@ function SetChecked_Sup(val) {
                       <i tal:define="ltool here/portal_layouts;
                                      layoutid addressbook/layout;
                                      layoutob ltool/?layoutid;
-                                     widget python:(layoutob[display_prop]);
+                                     widget python:(layoutob[title_field]);
                                      disp_title widget/label;"
                          tal:content="python:mcat(disp_title)">
                         Display Prop Name
@@ -294,7 +294,7 @@ function SetChecked_Sup(val) {
                   </tal:block>
                   <td width="1%" align="center">&nbsp;</td>
                   <td valign="middle" align="left" nowrap>
-                    <i tal:content="python:entry.get(display_prop, '')">
+                    <i tal:content="python:entry.get(title_field, '')">
                       Fullname
                     </i>
                   </td>
