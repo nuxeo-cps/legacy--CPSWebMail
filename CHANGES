@@ -6,7 +6,9 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
--
+- renaming mailing lists directory into .mailinglists so that the local
+  directory in the users's home folder is not visible when listing folder
+  contents.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
