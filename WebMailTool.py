@@ -1337,7 +1337,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     security.declareProtected(UseWebMailPermission, "getAddressBookEntry")
     def getAddressBookEntry(self, entryid, addressbook='', REQUEST=None):
         book = self.getCurrentAddressBook(addressbook, REQUEST)
-        return book.getEntry(entryid)
+        return book.getEntry(entryid, default=None)
 
     security.declareProtected(UseWebMailPermission, "hasAddressBookSupport")
     def hasAddressBookSupport(self):
