@@ -19,6 +19,7 @@ New features:
   members directory...)
 - Possible to empty trash folder without having to select messages to delete,
   and ask for confirmation when deleting messages.
+- Possible to search groups and mailing lists names
 Bug fixes:
 ~~~~~~~~~~
 - bcc field and acknowledgment of read where not kept when saving the message
@@ -26,6 +27,7 @@ Bug fixes:
 - search on addressbooks crashed when looking for '' or '*' using an LDAP
   directory, these search parameters are now caught to return the entire list
   of entries.
+- Error message on webmail page was not correct when connection is not valid.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - javascript functions are now stored in the skins/cpswebmail_javascript/
