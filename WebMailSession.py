@@ -52,10 +52,10 @@ class WebMailSession:
             mail_structure['subject'] = REQUEST['subject']
         if REQUEST.has_key('body'):
             mail_structure['body'] = REQUEST['body']
-        if REQUEST.has_key('a_read'):
-            mail_structure['a_read'] = int(REQUEST['a_read'])
+        if REQUEST.has_key('ack_read'):
+            mail_structure['ack_read'] = int(REQUEST['ack_read'])
         else:
-            mail_structure['a_read'] = 0
+            mail_structure['ack_read'] = 0
 
         if REQUEST.SESSION.has_key('mail_session'):
             mail = REQUEST.SESSION.get('mail_session',{})
@@ -165,10 +165,10 @@ class WebMailSession:
             mail_structure['IMAPId'] = REQUEST['IMAPId']
         if REQUEST.has_key('flag'):
             mail_structure['flag'] = REQUEST['flag']
-        if REQUEST.has_key('a_read'):
-            mail_structure['a_read'] = int(REQUEST['a_read'])
+        if REQUEST.has_key('ack_read'):
+            mail_structure['ack_read'] = int(REQUEST['ack_read'])
         else:
-            mail_structure['a_read'] = 0
+            mail_structure['ack_read'] = 0
 
         if not (mail_structure.has_key('nb_att')
                 and mail_structure.has_key('att_list')):
@@ -193,9 +193,9 @@ class WebMailSession:
         folder = self.portal_webMail.getInboxFolder(REQUEST)
         raw_msg = folder.getRawIMAPMessage(IMAPId)
         if message.is_reception_flag(raw_msg):
-            mail_session['a_read'] = 1
+            mail_session['ack_read'] = 1
         else:
-            mail_session['a_read'] = 0
+            mail_session['ack_read'] = 0
 
         if message.existAttachment():
             attachements = message.getAttachments()
