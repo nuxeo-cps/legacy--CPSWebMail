@@ -276,13 +276,16 @@
                       name string:view" />
                     <tal:block define="read item/read;
                                        deleted item/deleted;
-                                       answered item/answered;">
+                                       answered item/answered;
+                                       forwarded item/forwarded;">
                       <img src="messageDeleted.gif" border="0"
                            tal:condition="deleted" />
                       <img src="messageRep.gif" border="0"
                            tal:condition="python:answered and not deleted" />
+                      <img src="messageTransf.png" border="0"
+                           tal:condition="python:forwarded and not deleted" />
                       <img src="messageLu.gif" border="0"
-                           tal:condition="python:read and not deleted and not answered" />
+                           tal:condition="python:read and not deleted and not answered and not forwarded" />
                       <img src="messageNonLu.gif" border="0"
                            tal:condition="python:not read and not deleted" />
                     </tal:block>
