@@ -63,6 +63,7 @@ class CPSWebMailInstaller(CPSInstaller):
 
         self.setupMembersSchemasAndLayouts()
         self.setupDefaultAddressBooks()
+        self.setupDefaultMailingListsDirectory()
 
         self.log("End of specific CPSWebmail updates")
 
@@ -113,7 +114,7 @@ class CPSWebMailInstaller(CPSInstaller):
     def setupDefaultAddressBooks(self):
         self.log(" Setting up default address book directories")
         addressbook_directory = {
-            'type': ' CPS ZODB Directory',
+            'type': 'CPS ZODB Directory',
             'data': {
                 'title': 'label_address_book',
                 'schema': 'addressbook',
@@ -131,7 +132,7 @@ class CPSWebMailInstaller(CPSInstaller):
             }
 
         privaddressbook_directory = {
-            'type': ' CPS Local Directory',
+            'type': 'CPS Local Directory',
             'data': {
                 'title': 'label_personal_addressbook',
                 'schema': 'addressbook',
@@ -375,6 +376,147 @@ class CPSWebMailInstaller(CPSInstaller):
         self.verifyLayouts(layouts)
 
         self.log("Schemas and layouts related to address book directories added")
+
+    def setupDefaultMailingListsDirectory(self):
+        self.log("Setting up default mailing lists directory")
+        mailinglists_directory = {
+            'type': 'CPS Local Directory',
+            'data': {
+                'title': 'label_mailinglists_directory',
+                'schema': 'mailinglists',
+                'schema_search': 'mailinglists',
+                'layout': 'mailinglists',
+                'layout_search': 'mailinglists_search',
+                'acl_directory_view_roles': 'Manager; Member',
+                'acl_entry_create_roles': 'Manager; Member',
+                'acl_entry_delete_roles': 'Manager; Member',
+                'acl_entry_view_roles': 'Manager; Member',
+                'acl_entry_edit_roles': 'Manager; Member',
+                'id_field': 'id',
+                'title_field': 'id',
+                'search_substring_fields': ['id', 'emails'],
+                'directory_id': 'mailinglists',
+                },
+            }
+
+        directories = {
+            'mailinglists': mailinglists_directory,
+            }
+
+        self.verifyDirectories(directories)
+
+        self.log("Mailing lists directory added")
+
+        portal = self.portal
+
+        mailinglists_schema = {
+            'id': {
+                'type': 'CPS String Field',
+                'data': {
+                    'default_expr': 'string:',
+                    },
+                },
+            'emails': {
+                'type': 'CPS String List Field',
+                'data': {
+                    'default_expr': 'python:[]',
+                    },
+                },
+            }
+
+        schemas = {
+            'mailinglists': mailinglists_schema,
+            }
+        self.verifySchemas(schemas)
+
+        mailinglists_layout = {
+            'widgets': {
+                'emails': {
+                    'type': 'Unordered List Widget',
+                    'data': {
+                        'fields': ('emails',),
+                        'is_required': 0,
+                        'label': 'label_emails',
+                        'label_edit': 'label_emails',
+                        'help': 'label_emails_help',
+                        'is_i18n': 1,
+                        'width': 40,
+                        'height': 5,
+                        },
+                    },
+                'id': {
+                    'type': 'String Widget',
+                    'data': {
+                        'fields': ('id',),
+                        'is_required': 1,
+                        'label': 'label_mailinglist_name',
+                        'label_edit': 'label_mailinglist_name',
+                        'is_i18n': 1,
+                        'display_width': 20,
+                        'size_max': 0,
+                        },
+                    },
+                },
+            'layout': {
+                'style_prefix': 'layout_dir_',
+                'flexible_widgets': [],
+                'ncols': 2,
+                'rows': [
+                    [{'ncols': 2, 'widget_id': 'id'},
+                     ],
+                    [{'ncols': 2, 'widget_id': 'emails'},
+                     ],
+                    ],
+                },
+            }
+
+        mailinglists_search_layout = {
+            'widgets': {
+                'emails': {
+                    'type': 'Unordered List Widget',
+                    'data': {
+                        'fields': ('emails',),
+                        'is_required': 0,
+                        'label': 'label_emails',
+                        'label_edit': 'label_emails',
+                        'is_i18n': 1,
+                        'width': 40,
+                        'height': 5,
+                        },
+                    },
+                'id': {
+                    'type': 'String Widget',
+                    'data': {
+                        'fields': ('id',),
+                        'is_required': 0,
+                        'label': 'label_mailinglist_name',
+                        'label_edit': 'label_mailinglist_name',
+                        'is_i18n': 1,
+                        'display_width': 20,
+                        'size_max': 0,
+                        },
+                    },
+                },
+            'layout': {
+                'style_prefix': 'layout_dir_',
+                'flexible_widgets': [],
+                'ncols': 2,
+                'rows': [
+                    [{'ncols': 2, 'widget_id': 'id'},
+                     ],
+                    [{'ncols': 2, 'widget_id': 'emails'},
+                     ],
+                    ],
+                },
+            }
+
+        layouts = {
+            'mailinglists': mailinglists_layout,
+            'mailinglists_search': mailinglists_search_layout,
+            }
+        self.verifyLayouts(layouts)
+
+        self.log("Schemas and layouts related to mailing lists directory added")
 
 
 def install(self):
