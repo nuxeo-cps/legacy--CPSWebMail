@@ -1,4 +1,27 @@
 *******************************************
+** CPSWebMail V0.10.0 [R1 build 2004/11/16-16:21 by anahide]
+
+Requires:
+~~~~~~~~~
+- CPSdirectory >= v. 1.19.1 and CPSNavigation >= v. 0.11.1
+  to be able to use a "CPS Directory Entry Widget" to create new
+  entries in the personal address book with links.
+New features:
+~~~~~~~~~~~~~
+- Now possible to use a "CPS Directory Entry Widget" to create new
+  entries in the personal address book with links (instead of a
+  select widget displaying all the possible entries)
+- Possible to view attachment without having to pass portal_webMail
+  in URL.
+Bug fixes:
+~~~~~~~~~~
+- Call to attachment when viewing a message was made using default IMAP folder
+  INBOX instead of current IMAP folder
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
 ** CPSWebMail V0.9.5 [R1 build 2004/11/08-18:54 by anahide]
 
 Requires:
