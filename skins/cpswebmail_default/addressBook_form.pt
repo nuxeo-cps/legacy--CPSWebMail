@@ -333,7 +333,7 @@
                   tal:attributes="value python:mcat('_Add_link_to_private_addressbook_')"/>
                 <input type="submit"
                   tal:condition="python:current_addressbook.isDeleteEntryAllowed()"
-                  name="addressbook_groupdelete:method;"
+                  name="addressbook_groupdelete:method"
                   tal:attributes="value python:mcat('_Delete_');
                                   onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), );"/>
               </td>
