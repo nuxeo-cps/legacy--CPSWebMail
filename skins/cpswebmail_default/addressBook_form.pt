@@ -226,6 +226,7 @@
             <tal:block repeat="entryid python:request.SESSION.get('search_results', wmtool.addressBookSearch(REQUEST=request))">
                 <tr bgcolor="#ffffff"
                   tal:define="entry python:wmtool.getAddressBookEntry(entryid, REQUEST=request)">
+                  <tal:block condition="entry">
                   <tal:block define="mail_prop  entry/?email_prop_name|nothing">
                     <tal:block condition="mail_prop">
                       <td width="1%" nowrap>
@@ -310,6 +311,7 @@
                       tal:condition="not:can_delete">
                       &nbsp;
                     </td>
+                  </tal:block>
                   </tal:block>
                 </tr>
               </tal:block>
