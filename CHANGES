@@ -3,11 +3,10 @@ Requires:
 -
 New features:
 ~~~~~~~~~~~~~
-- Italian translations are now available, thanks to Paolo Dina
-  (paolo [at] php3.it)
+-
 Bug fixes:
 ~~~~~~~~~~
-- Mail attachments were not correctly saved to users's home folder.
+-
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
