@@ -336,4 +336,12 @@ class WebMailSession:
         # Upgrade of the results session
         REQUEST.SESSION['search_results'] = res
 
+    security.declareProtected(UseWebMailPermission, "setListingSizeSession")
+    def setListingSizeSession(self, listing_size, REQUEST):
+        """Set a listing size for this session"""
+
+        # set limit, this is limited in the interface too
+        if listing_size < 1000:
+            REQUEST.SESSION['listing_size'] = int(listing_size)
+
 #InitializeClass(WebMailSession)
