@@ -1,41 +1,12 @@
 Requires:
 ~~~~~~~~~
-- use of the WebMail product is no longer necessary
-
+-
 New features:
 ~~~~~~~~~~~~~
-- provides new imap folder management interface and facilities
-- provides a search on multiple fields
-- various custom changes
-- the installer now adds an address book directory and a private address book
-  directory
-- answered and forwarded messages are correctly flagged
-- an updater sets the LDAP schema, and the members schema and layout for a
-  redirection facility.
-- the installer now adds a mailing lists directory
-- custom changes on addressbooks, the private addressbook is now the default
-  addressbook.
-- it is now possible to add entries from the global addressbook to the personal
-  addressbook, but they have to follow similar schemas (not tested if not).
-- an email in the draft folder is now deleted when sent.
-- all links towards edit/create pages on directories are now opening in a
-  new browser window so that it is not necessary to come back to the webmail
-  pages after.
-
+-
 Bug fixes:
 ~~~~~~~~~~
-- Incorrect username and pasword gave non-sensical error messages,
-  because the actual login errors were lost on the way.(Mantis #453)
-- Sorting on mails and search results fixed (but only on messages displayed on
-  the page, not on all mails or results)
-- Mailing lists facilities have been fixed : some scripts were still relying
-  on NuxMetaDirectories instead of CPSDirectory.
-- Aknowledgment of read now works on the webmail interface.
-- "Reply to all" now takes email addresses that were on the "cc" field.
-- It is now possible to add a new entry to the mailing lists directory when the
-  directory is empty.
-- Search on addressbooks fixed
-
+-
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
-- use of the WebMail product is no longer necessary
+-
