@@ -3,9 +3,9 @@
   wmtool here/portal_webMail;
   valid_conn wmtool/verifyConnection;
   imap_folders python:valid_conn and wmtool.getIMAPFolders();
-  trashName wmtool/getTrashIMAPName;
-  draftName wmtool/getDraftIMAPName;
-  sentMailName wmtool/getSentMailIMAPName;
+  trashName python:valid_conn and wmtool.getTrashIMAPName();
+  draftName python:valid_conn and wmtool.getDraftIMAPName();
+  sentMailName python: valid_conn and wmtool.getSentMailIMAPName();
   folder_name python:valid_conn and wmtool.getImapName(request);
   folder python:valid_conn and wmtool.getFolder(folder_name);
   nb_messages python:valid_conn and folder.getNumberOfIMAPMessage(request);

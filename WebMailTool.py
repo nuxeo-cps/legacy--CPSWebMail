@@ -25,6 +25,7 @@ from IMAPGateway import IMAPGateway
 from IMAPFolder  import IMAPFolder
 from IMAPMessage import IMAPMessage
 from Attachment  import Attachment
+from imapLibLocal import IMAP4
 
 #===========================
 #  BECAUSE ZOPE SECURITY
@@ -303,11 +304,12 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         if password == '':
             password = None
         if not login or not password:
-            res = 'LOG_FAILED'
-        else:
-            res = con.login(login, password)
-        if res == 'LOG_FAILED':
             raise ValueError('Incorrect login or password')
+        else:
+            try:
+                res = con.login(login, password)
+            except IMAP4.error:
+                raise ValueError('Could not authenticate')
         return con
 
     # XXX Hack du jeudi, ennuis !
