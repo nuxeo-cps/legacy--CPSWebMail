@@ -1,11 +1,34 @@
-CPSWebMail
+--------------------------------------------------
+CPSWebMail README
+--------------------------------------------------
+
+$Id$
+
+Authors:
+- Anahide Tchertchian (at@nuxeo.com)
+
+--------------------------------------------------
+Summary
+--------------------------------------------------
+
+- Introduction
+- Features
+- Installation
+- How to setup address books
+
+--------------------------------------------------
+Introduction
+--------------------------------------------------
 
     This is a tool to support the reading of emails via IMAP and the sending of
 	mails via SMTP together with Nuxeo CPS system.
 
     It also provides address books support using the CPSDirectory product.
 
-    Features:
+
+--------------------------------------------------
+Features
+--------------------------------------------------
 
     - Each user has a link in its personal box to open the webmail,
       provided that all users have accounts on the same mail server.
@@ -67,133 +90,16 @@ CPSWebMail
       'Directories' link on the site.
 
 
-Requirements
-
-  - Zope-2.5.1 or later.
-
-  - CPS3.1
-
-  - CPSDirectory > 1.13.0 to be able to use personal address books.
-
+--------------------------------------------------
 Installation
+--------------------------------------------------
 
-    Unpack the relase in the Products directory, and rename it from
-    CPSWebMail-<version> to CPSWebMail. Restart Zope.
-
-    In the cps root, create an External Method object called cpswebmail_update
-    or something similar. The settings should be:
-       Module Name:   CPSWebMail.install
-       Function Name: install
-
-    After creating, open the External Method object and click the "Test" tab to
-    run it. The output should look similar to this:
+Please refer to the INSTALL.txt file
 
 
-        Starting CPSWebMail update
-
-         Checking available languages
-          Checking installable languages
-            Available languages: ('en', 'fr')
-            Importing en.po into 'en' locale
-            Importing fr.po into 'fr' locale
-        Verifying skins
-         FS Directory View 'cpswebmail_images'
-          Creating skin
-         FS Directory View 'cpswebmail_default'
-          Creating skin
-         Fixup of skin Basic
-        Resetting skin cache
-        Verifying tool portal_webMail
-         Adding
-         Verifying action webmail...added.
-         Setting up schemas and layouts
-         Setting up default address book directories
-         Directory .addressbook
-         Directory addressbook
-         Directory .addressbook_links
-        Address book directories added
-        Verifiying schemas
-         Adding schema addressbook_search
-          Field sn.
-          Field givenName.
-          Field email.
-          Field id.
-         Adding schema addressbook
-          Field fullname.
-          Field givenName.
-          Field email.
-          Field sn.
-          Field id.
-         Adding layout addressbook_search
-          Widget email
-          Widget givenName
-          Widget id
-          Widget sn
-         Adding layout addressbook_links
-          Widget email
-          Widget fullname
-          Widget givenName
-          Widget id
-          Widget sn
-         Adding layout addressbook
-          Widget email
-          Widget fullname
-          Widget givenName
-          Widget id
-          Widget sn
-        Schemas and layouts related to address book directories added
-        Setting up vocabulary needed in the id widget, in the addressbook_links layout
-         Adding vocabulary addressbook
-          Installing.
-        Vocabulary addressbook added
-        Setting up default mailing lists directory
-         Directory mailinglists
-        Mailing lists directory added
-        Verifiying schemas
-         Adding schema mailinglists
-          Field id.
-          Field emails.
-         Adding layout mailinglists
-          Widget emails
-          Widget id
-         Adding layout mailinglists_search
-          Widget emails
-          Widget id
-        Schemas and layouts related to mailing lists directory added
-        End of specific CPSWebmail updates
-
-
-	CPSWebMail is now installed.
-
-    Go to the cps root, and click on the portal_webMail tool in the
-    ZMI. Change the default parameters set on the properties tab.
-
-    - title
-    - IMAPServer: localhost
-    - IMAPPort: 25
-    - SMTPServer: localhost
-    - SMTPPort: 143
-    - Addressbook_name: addressbook
-    - AddressbookEmailProp: email
-    - PrivAddressbook_name: .addressbook
-    - PrivAddressbookEmailProp: email
-    - PrivAddressbookLinks_name: .addressbook_links
-    - PrivAddressbookLinksEmailProp: email
-    - Mailing_list_name: mailinglists
-    - MailingEmailsProp: emails
-
-    You can leave the PrivAddressbook_name, PrivAddressbookEmailProp,
-    PrivAddressbookLinks_name, PrivAddressbookLinksEmailProp,
-    Mailing_list_name, and MailingEmailsProp fields blank if you do not want
-    to use these features. All the other fields, except the title field, are
-    required.
-
-    Each user will have to set its "imap_login" and "imap_password" in its
-    preferences storred in the members directory to have access to its
-    mails.
-
-
+--------------------------------------------------
 How to setup address books
+--------------------------------------------------
 
     The installer should have installed the four default address books.
 
