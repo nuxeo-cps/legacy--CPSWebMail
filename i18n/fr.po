@@ -361,3 +361,17 @@ msgstr "Adresses de mél"
 msgid "label_emails_help"
 msgstr "Entrez une adresse par ligne"
 
+msgid "label_imap_login"
+msgstr "Login IMAP"
+
+msgid "label_imap_password"
+msgstr "Mot de passe IMAP"
+
+msgid "label_mailForwardingAddress"
+msgstr "Addresse mél de redirection"
+
+msgid "label_deliveryMode"
+msgstr "Mode de distribution"
+
+msgid "deliveryMode_help"
+msgstr "Le mode de distribution spécifie la façon dont les méls seront délivrés à l'utilisateur.\n- No forward : les méls ne sont pas redirigés vers l'éventuelle adresse mél de redirection.\n- Forward only : les méls sont uniquement redirigés vers l'adresse mél de redirection.\n- Local : les méls sont transférés vers l'éventuelle adresse mél de redirection, et une copie est conservée dans la boîte mail locale."

@@ -357,3 +357,18 @@ msgstr "Email addresses"
 
 msgid "label_emails_help"
 msgstr "Enter one email address per line"
+
+msgid "label_imap_login"
+msgstr "IMAP login"
+
+msgid "label_imap_password"
+msgstr "IMAP password"
+
+msgid "label_mailForwardingAddress"
+msgstr "Mail forwarding address"
+
+msgid "label_deliveryMode"
+msgstr "Delivery mode"
+
+msgid "deliveryMode_help"
+msgstr "The delivery mode specifies the way emails are delivered to the member:\n- No forward : emails are not forwarded to the eventual mail forwarding address\n- Forward only : emails are only delivered to the mail forwarding address\n- Local : emails are forwarded to the eventual mail forwarding address, and a copy is kept in the local mailbox."
