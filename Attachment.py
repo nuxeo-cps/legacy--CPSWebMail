@@ -88,6 +88,28 @@ class Attachment:
         """ set the data of the attachment """
         self.data = data
 
+    def getCleanFilename(self):
+        """ return a clean filename """
+        filename = self.getFilename()
+
+        clean_filename = filename.replace('Æ', 'AE')
+        clean_filename = clean_filename.replace('æ', 'ae')
+        clean_filename = clean_filename.replace('¼', 'OE')
+        clean_filename = clean_filename.replace('½', 'oe')
+        clean_filename = clean_filename.replace('ß', 'ss')
+        translation_table = string.maketrans(
+            r"'\;/ &:ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØÙÚÛÜİàáâãäåçèéêëìíîïñòóôõöøùúûüıÿ",
+            r"_______AAAAAACEEEEIIIINOOOOOOUUUUYaaaaaaceeeeiiiinoooooouuuuyy")
+        clean_filename = clean_filename.translate(translation_table)
+        acceptedChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_.'
+        clean_filename = ''.join([c for c in clean_filename if c in acceptedChars])
+        while clean_filename.startswith('_') or clean_filename.startswith('.'):
+            clean_filename = clean_filename[1:]
+
+        while clean_filename.endswith('_'):
+            clean_filename = clean_filename[:-1]
+
+        return clean_filename
 
     def encode(self):
             """Returns encoded data."""
