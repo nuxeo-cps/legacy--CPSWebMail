@@ -40,7 +40,9 @@ class IMAPProperties(SimpleItem):
     def getIMAPLogin(self):
         """Return IMAP login"""
         entry = self._getCurrentUserEntry()
-        imap_login = entry.get('imap_login', None)
+        webmail_tool = getToolByName(self, 'portal_webMail', None)
+        login_field = webmail_tool.getIMAPLoginField()
+        imap_login = entry.get(login_field, None)
         if imap_login == '':
             imap_login = None
         return imap_login
@@ -48,7 +50,9 @@ class IMAPProperties(SimpleItem):
     def getIMAPPassword(self):
         """Return IMAPPassword"""
         entry = self._getCurrentUserEntry()
-        imap_password = entry.get('imap_password', None)
+        webmail_tool = getToolByName(self, 'portal_webMail', None)
+        password_field = webmail_tool.getIMAPPasswordField()
+        imap_password = entry.get(password_field, None)
         if imap_password == '':
             imap_password = None
         return imap_password
