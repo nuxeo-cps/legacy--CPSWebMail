@@ -16,8 +16,8 @@
   <html metal:use-macro="here/main_template/macros/master">
     <body tal:define="Title string:Hoooola">
       <metal:block fill-slot="header">
-        <h1><tal:block content="python:message.getSubject()">Message :
-          Subject</tal:block></h1>
+        <h1 tal:content="python:message.getSubject()" />
+        <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
       </metal:block>
 
       <metal:block fill-slot="header_plus"/>
@@ -36,34 +36,7 @@
         <table border="0" cellspacing="0" cellpadding="2" width="100%" cols="2">
           <form method="post" name="menu"
                 tal:attributes="action here/absolute_url">
-            <tr bgcolor="#dcdcdc">
-              <td align="left">
-                <nobr>
-                  <input tal:attributes="
-                    type string:submit;
-                    value python:mcat('_Reply_');
-                    name string:reply:method">
-                    
-                  <input tal:attributes="
-                    type string:submit;
-                    value python:mcat('_Reply_all_');
-                    name string:reply_to_all:method">
-                    
-                  <input tal:attributes="
-                    type string:submit;
-                    value python:mcat('_Forward_');
-                    name string:forward:method">
-                    
-                  <input tal:attributes="
-                    type string:submit;
-                    value python:mcat('_Compose_');
-                    name string:edit_session_message:method">
-                    
-                  <input type="submit" name="webmail_show:method"
-                     tal:attributes="value python:mcat('_Read_messages_')">
-                </nobr>
-              </td>
-            </tr>
+            <metal:block use-macro="here/webmail_lib/macros/view_message_actions"/>
             <tr>
               <td align="right" valign="top">
                 <nobr>
@@ -237,12 +210,7 @@
 
         <hr>
          
-        <p>
-          <a tal:attributes="href string:${here/absolute_url}/webmail_show"
-            tal:content="python:mcat('_Back_to_message_list_')">
-            Link to return to webmal_show view
-          </a>
-        </p>
+        <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
       </metal:block>
     </body>
   </html>

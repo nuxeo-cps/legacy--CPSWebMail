@@ -6,10 +6,11 @@
                    folder python:wmtool.getInboxFolder(request);
                    mcat nocall:here/Localizer/default;
                    ">
-  <html metal:use-macro="here/main_template/macros/master">
+  <metal:html use-macro="here/main_template/macros/master">
     <body>
       <metal:block fill-slot="header">
-        <tal:block content="python:mcat('_New_IMAP_Folder_creation_')"/>
+        <h1 tal:content="python:mcat('_New_IMAP_Folder_creation_')"/>
+        <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
       </metal:block>
 
       <metal:block fill-slot="header_plus"/>
@@ -18,78 +19,74 @@
         <form tal:attributes="action string:${here/absolute_url};
                               method string:post;
                               name   string:form">
-    <h4 tal:content="python:mcat('_Existing_IMAP_folders:_')"/>
-    <p>
-      <tal:block repeat="folder wmtool/getIMAPFoldersTree">
-        <tal:block define="item python:folder[0];
-                           depth python:folder[1];
-                           condition_Folders python:item.getImapName() not in [wmtool.getDraftIMAPName(), wmtool.getTrashIMAPName(), wmtool.getSentMailIMAPName(), wmtool.getInboxIMAPName(request)]">
-            <tal:block condition="condition_Folders">
-              <span tal:replace="structure python:'&nbsp;'*4*depth"/>
-              <input type="checkbox" name="IMAPNames:list"
-                     tal:attributes="value item/getImapName;
-                                     id item/getImapName"/>
-              <a href=""
-                 tal:attributes="href string:${here/absolute_url}/webmail_fetch?IMAPName=${item/getImapName}"
-                 tal:content="item/getReadableName"/>
-              <br/>
-            </tal:block>
+
+<h4 tal:content="python:mcat('_Existing_IMAP_folders:_')"/>
+  <p>
+    <tal:block repeat="folder wmtool/getIMAPFoldersTree">
+      <tal:block define="item python:folder[0];
+                         depth python:folder[1];
+                         condition_Folders python:item.getImapName() not in [wmtool.getDraftIMAPName(), wmtool.getTrashIMAPName(), wmtool.getSentMailIMAPName(), wmtool.getInboxIMAPName(request)]">
+        <tal:block condition="condition_Folders">
+          <span tal:replace="structure python:'&nbsp;'*4*depth"/>
+          <input type="checkbox" name="IMAPNames:list"
+                 tal:attributes="value item/getImapName;
+                                 id item/getImapName"/>
+          <a href=""
+             tal:content="item/getReadableName"
+             tal:attributes="href string:${here/absolute_url}/webmail_fetch?IMAPName=${item/getImapName}"/>
+          <br/>
         </tal:block>
       </tal:block>
-    </p>
-    <p>
-      <input tal:attributes="type  string:submit;
-                             value python:mcat('_Delete_');
-                             name  string:delete_folders:method"/>
-      <input tal:attributes="type  string:submit;
-                             value python:mcat('_Cancel_');
-                             name  string:webmail_show:method"/>
-    </p>
+    </tal:block>
+  </p>
+  <p>
+    <input tal:attributes="type  string:submit;
+                           value python:mcat('_Delete_');
+                           name  string:delete_folders:method"/>
+    <input tal:attributes="type  string:submit;
+                           value python:mcat('_Cancel_');
+                           name  string:webmail_show:method"/>
+  </p>
 
         </form>
 
-    <hr>
+        <hr>
 
         <form tal:attributes="action string:${here/absolute_url};
                               method string:post;
                               name   string:form">
-    <p>
-      <b tal:content="python:mcat('_Add_Subfolder_To:_')" />
-      <select name="IMAPName">
-        <tal:block repeat="folder wmtool/getIMAPFoldersTree">
-          <tal:block define="item python:folder[0];
-                             condition_Folders python:item.getImapName() not in [wmtool.getDraftIMAPName(), wmtool.getTrashIMAPName(), wmtool.getSentMailIMAPName()]">
-            <option tal:condition="condition_Folders"
-                    tal:attributes="value item/getImapName"
-                    tal:content="item/getReadableName">
-              Folder Readable Name
-            </option>
-          </tal:block>
-        </tal:block>
-      </select>
-      <input type="text" name="title:string" size="20"/>
-      <input tal:attributes="type  string:submit;
-                             value python:mcat('_Add_');
-                             name  string:create_folders:method"/>
-      <input tal:attributes="type  string:submit;
-                             value python:mcat('_Cancel_');
-                             name  string:webmail_show:method"/>
-    </p>
+
+<p>
+  <b tal:content="python:mcat('_Add_Subfolder_To:_')" />
+  <select name="IMAPName">
+    <tal:block repeat="folder wmtool/getIMAPFoldersTree">
+      <tal:block define="item python:folder[0];
+                         condition_Folders python:item.getImapName() not in [wmtool.getDraftIMAPName(), wmtool.getTrashIMAPName(), wmtool.getSentMailIMAPName()]">
+        <option tal:condition="condition_Folders"
+                tal:attributes="value item/getImapName"
+                tal:content="item/getReadableName">
+          Folder Readable Name
+        </option>
+      </tal:block>
+    </tal:block>
+  </select>
+  <input type="text" name="title:string" size="20"/>
+  <input tal:attributes="type  string:submit;
+                         value python:mcat('_Add_');
+                         name  string:create_folders:method"/>
+  <input tal:attributes="type  string:submit;
+                         value python:mcat('_Cancel_');
+                         name  string:webmail_show:method"/>
+</p>
 
         </form>
 
-    <p>
-      <strong>
-        <a href="" tal:attributes="href string:${here/absolute_url}/webmail_show"
-           tal:content="python:mcat('_Back_to_message_list_')">
-          Back to the message list
-        </a>
-      </strong>
-    </p>
+        <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
 
-    </metal:block>
+
+      </metal:block>
 
     </body>
-  </html>
-</tal:block>
+  </metal:html>
 
+</tal:block>

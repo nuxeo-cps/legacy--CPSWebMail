@@ -128,44 +128,7 @@
 
           <p> </p>
 
-          <table border="0" cellpadding="1" cellspacing="0" width="100%" bgcolor="#c3cad9">
-            <tr>
-              <!-- BEGINNING OF TOOLS MENU -->
-              <td nowrap valign="middle" colspan="1">   </td>
-              <td valign="middle" align="center">
-                <input tal:attributes="
-                  type string:submit;
-                  value python:mcat('_Read_messages_');
-                  size string:10;
-                  name string:webmail_show:method" />
-              </td>
-              <td valign="middle" align="center">
-                <input tal:attributes="
-                  type string:submit;
-                  value python:mcat('_Compose_');
-                  name  string:edit_session_message:method" />
-              </td>
-              <td valign="middle" align="center">
-                <input tal:attributes="
-                  type string:submit;
-                  value python:mcat('_Search_');
-                  name  string:webmail_search:method" />
-              </td>
-              <td valign="middle" align="center">
-                <input tal:attributes="
-                  type string:submit;
-                  value python:mcat('_Address_book_');
-                  name  string:address_book:method" />
-              </td>
-              <td valign="middle" align="center">
-                <input tal:attributes="
-                  type string:submit;
-                  value python:mcat('_Folders_');
-                  name  string:folders:method">
-              </td>
-              <td nowrap valign="middle" colspan="1">   </td>
-            </tr>
-          </table>
+          <metal:block use-macro="here/webmail_lib/macros/tools_menu_table"/>
 
           <p align="right">
             <b tal:content="python:mcat('_Messages_from_') +
@@ -423,33 +386,8 @@
             </b>
           </p>
 
-          <table border="0" cellpadding="1" cellspacing="0" width="100%" bgcolor="#c3cad9">
-            <tr>
-              <!-- BEGINNING OF TOOLS MENU -->
-              <td nowrap valign="middle" colspan="1">   </td>
-              <td valign="middle" align="center">
-                <input type="submit" name="webmail_show:method" size="10"
-                  tal:attributes="value python:mcat('_Read_messages_')" />
-              </td>
-              <td valign="middle" align="center">
-                <input type="submit" name="edit_session_message:method"
-                   tal:attributes="value python:mcat('_Compose_')" />
-              </td>
-              <td valign="middle" align="center">
-                <input type="submit" name="webmail_search:method"
-                  tal:attributes="value python:mcat('_Search_')" />
-              </td>
-              <td valign="middle" align="center">
-                <input type="submit" name="address_book:method"
-                  tal:attributes="value python:mcat('_Address_book_')" />
-              </td>
-              <td valign="middle" align="center">
-                <input type="submit" name="folders:method"
-                  tal:attributes="value python:mcat('_Folders_')" />
-              </td>
-              <td nowrap valign="middle" colspan="1"> </td>
-            </tr>
-          </table>
+          <metal:block use-macro="here/webmail_lib/macros/tools_menu_table"/>
+
         </form>
 
       </tal:block>

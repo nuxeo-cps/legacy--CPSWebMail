@@ -2,7 +2,7 @@
 ## Script (Python) "search_engine.py"
 
 #
-# Searching.... 
+# Searching....
 #
 sortmail = context.portal_webMail.searchMail(REQUEST)
 IMAPName = REQUEST.form.get('IMAPName', "INBOX")

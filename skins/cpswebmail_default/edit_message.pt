@@ -1,140 +1,119 @@
 <tal:block define="global hideactions python:1" />
-<tal:block define="wmtool here/portal_webMail; folder
-      python:wmtool.getInboxFolder(request); IMAPName
-      python:request.get('IMAPName', 'INBOX'); atts
-      python:request.SESSION['mail_session'].get('att_list',[]);
-      mail_struct
-      python:request.SESSION.get('mail_session',{});
-      mcat nocall:here/Localizer/default;
-      dtool here/portal_directories/members;
-      ">
+<tal:block define="wmtool here/portal_webMail;
+                   folder python:wmtool.getInboxFolder(request);
+                   IMAPName python:request.get('IMAPName', 'INBOX');
+                   atts python:request.SESSION['mail_session'].get('att_list',[]);
+                   mail_struct python:request.SESSION.get('mail_session',{});
+                   mcat nocall:here/Localizer/default;
+                   dtool here/portal_directories/members;">
 
-<html metal:use-macro="here/main_template/macros/master">
+<metal:html use-macro="here/main_template/macros/master">
   <body>
+    <metal:block fill-slot="header">
+      <h1 tal:content="python:mcat('_Compose_your_mail_')">Composer votre message</h1>
+      <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
+    </metal:block>
+
     <metal:block fill-slot="main">
-          <h1 tal:content="python:mcat('_Compose_your_mail_')">Composer votre message</h1>
-          <p>
-            <a href=""
-              tal:attributes=" href
-              string:${here/absolute_url}/webmail_show?IMAPName=${IMAPName}">
-
-        <strong  tal:content="python:mcat('_Back_to_message_list_')">
-    Back to message list
-        </strong>
-      </a>
-    </p>
-    <p>&nbsp;</p>
-          <form name="form" method="POST" enctype="multipart/form-data"
-      tal:attributes="
-            action  string:${here/absolute_url}/">
-
-            <table border="0" cellpadding="2" cellspacing="1">
+      <form name="form" method="POST" enctype="multipart/form-data"
+            tal:attributes="action string:${here/absolute_url}/">
+      <table border="0" cellpadding="2" cellspacing="1">
         <tr>
           <td width="25%" align="center" valign="middle">
-          <input type="checkbox" name="a_read" value="1" />
-    </td>
+            <input type="checkbox" name="a_read" value="1" />
+          </td>
           <td width="75%" align="left" valign="middle">
-          <b tal:content="python:mcat('_Acknowledgement_of_read_')">Acknowledgment of read</b>
-    </td>
+            <b tal:content="python:mcat('_Acknowledgement_of_read_')">
+              Acknowledgment of read
+            </b>
+          </td>
         </tr>
       </table>
 
       <input type="hidden" name="IMAPName" tal:attributes="value IMAPName"/>
 
       <metal:block use-macro="here/mail_widgets/macros/form">
-          <metal:block fill-slot="content">
-            <metal:block use-macro="here/mail_widgets/macros/form_property">
-          <metal:block fill-slot="title" tal:content="python:mcat('_TO:_')">Destinataire(s):</metal:block>
-            <metal:block fill-slot="content"><nobr>
-        <tal:block define="conditionTo1 python:mail_struct.has_key('to')">
-          <input type="text" name ="to" size="55"
-      tal:attributes="value python:mail_struct['to']"
-            tal:condition="conditionTo1" />
 
-          <input tal:condition="python:not conditionTo1" type="text" name="to" size="60" />
+        <metal:block fill-slot="content">
+          <metal:block use-macro="here/mail_widgets/macros/form_property">
+            <metal:block fill-slot="title" tal:content="python:mcat('_TO:_')">
+              Destinataire(s):
+            </metal:block>
+            <metal:block fill-slot="content">
+              <nobr>
+                <tal:block define="conditionTo1 python:mail_struct.has_key('to')">
+                  <input type="text" name ="to" size="55"
+                         tal:attributes="value python:mail_struct['to']"
+                         tal:condition="conditionTo1" />
+                  <input type="text" name="to" size="60"
+                         tal:condition="python:not conditionTo1" />
+                </tal:block>
+                <input type="submit" name="to_addressbook:method"
+                       tal:attributes="value python:mcat('_add_contact_')" />
+              </nobr>
+            </metal:block>
+          </metal:block>
 
-        </tal:block>
-          &nbsp;
-          <input type="submit" name="to_addressbook:method" tal:attributes="value python:mcat('_add_contact_')" />
-
-      </nobr></metal:block>
-    </metal:block>
-
-        <metal:block use-macro="here/mail_widgets/macros/form_property">
-          <metal:block fill-slot="title" tal:content="python:mcat('_CC:_')">Cc :</metal:block>
-          <metal:block fill-slot="content">
-
+          <metal:block use-macro="here/mail_widgets/macros/form_property">
+            <metal:block fill-slot="title" tal:content="python:mcat('_CC:_')">
+              Cc :
+            </metal:block>
+            <metal:block fill-slot="content">
               <tal:block define="conditionCC1 python:mail_struct.has_key('cc')">
-                <input type="text" name="cc" tal:attributes="value python:mail_struct['cc']" tal:condition="conditionCC1"/>
-
-
-                <input tal:attributes="
-                  type string:text;
-            name string:cc;
-            size string:60;
-            "
-            tal:condition="python:not conditionCC1" />
-
+                <input type="text" name="cc"
+                       tal:attributes="value python:mail_struct['cc']"
+                       tal:condition="conditionCC1"/>
+                <input tal:attributes="type string:text;
+                                       name string:cc;
+                                       size string:60;"
+                       tal:condition="python:not conditionCC1" />
               </tal:block>
-              &nbsp;
+              <input tal:attributes="type string:submit;
+                                     name string:to_addressbook:method;
+                                     value string:+" />
+            </metal:block>
+          </metal:block>
 
-              <input tal:attributes="
-          type string:submit;
-          name string:to_addressbook:method;
-          value string:+" />
-
-        </metal:block>
-    </metal:block>
-
-    <metal:block use-macro="here/mail_widgets/macros/form_property">
-      <metal:block fill-slot="title" tal:content="python:mcat('_BCC:_')">BCc :</metal:block>
-          <metal:block fill-slot="content">
+          <metal:block use-macro="here/mail_widgets/macros/form_property">
+            <metal:block fill-slot="title" tal:content="python:mcat('_BCC:_')">
+              BCc :
+            </metal:block>
+            <metal:block fill-slot="content">
               <tal:block define="conditionCB1 python:mail_struct.has_key('bcc')">
-                <input tal:attributes="
-                  type string:text;
-            name string:bcc;
-            value python:mail_struct['bcc'];
-            size string:60;
-            "
-            tal:condition="conditionCB1" />
-
-                <input tal:attributes="
-                  type string:text;
-            name string:bcc;
-            size string:60;
-            "
-            tal:condition="python:not conditionCB1" />
+                <input tal:attributes="type string:text;
+                                       name string:bcc;
+                                       value python:mail_struct['bcc'];
+                                       size string:60;"
+                       tal:condition="conditionCB1" />
+                <input tal:attributes="type string:text;
+                                       name string:bcc;
+                                       size string:60;"
+                       tal:condition="python:not conditionCB1" />
               </tal:block>
-            &nbsp;
-            <input tal:attributes="
-                  type string:submit;
-                  name string:to_addressbook:method;
-                  value string:+" />
-
+            &nbsp; <input tal:attributes="type string:submit;
+                                     name string:to_addressbook:method;
+                                     value string:+" />
+            </metal:block>
           </metal:block>
-    </metal:block>
 
-    <metal:block use-macro="here/mail_widgets/macros/form_property">
-      <metal:block fill-slot="title" tal:content="python:mcat('_Subject:_')">Subject :</metal:block>
-          <metal:block fill-slot="content">
-            <tal:block define="conditionS1 python:mail_struct.has_key('subject')">
-              <input tal:attributes="
-                  type string:text;
-            name string:subject;
-            value python:mail_struct['subject'];
-            size string:60;
-            "
-            tal:condition="conditionS1" />
-
-              <input tal:attributes="
-                  type string:text;
-            name string:subject;
-            size string:60;
-            "
-            tal:condition="python:not conditionS1" />
-            </tal:block>
+          <metal:block use-macro="here/mail_widgets/macros/form_property">
+            <metal:block fill-slot="title" tal:content="python:mcat('_Subject:_')">
+              Subject :
+            </metal:block>
+            <metal:block fill-slot="content">
+              <tal:block define="conditionS1 python:mail_struct.has_key('subject')">
+                <input tal:attributes="type string:text;
+                                       name string:subject;
+                                       value python:mail_struct['subject'];
+                                       size string:60;"
+                       tal:condition="conditionS1" />
+                <input tal:attributes="type string:text;
+                                       name string:subject;
+                                       size string:60;"
+                       tal:condition="python:not conditionS1" />
+              </tal:block>
+            </metal:block>
           </metal:block>
-    </metal:block>
 
         </metal:block>
       </metal:block>
@@ -155,106 +134,83 @@
 
       <table border="0">
         <tr>
-            <td bgcolor="#eeeeee">
-            <input tal:attributes="
-            type string:submit;
-            value python:mcat('_Send_');
-            name  string:sendmail:method" />
-
-            &nbsp; &nbsp; &nbsp;
-            <input tal:attributes="
-            type string:submit;
-            value python:mcat('_Cancel_');
-            name string:erase_mail_session:method" />
-
-            &nbsp; &nbsp; &nbsp;
-            <input tal:attributes="
-              type string:submit;
-        value python:mcat('_Save_as_draft_');
-        name string:save_to_draft:method" />
-      </td>
+          <td bgcolor="#eeeeee">
+            <input tal:attributes="type string:submit;
+                                   value python:mcat('_Send_');
+                                   name  string:sendmail:method" />
+            <input tal:attributes="type string:submit;
+                                   value python:mcat('_Cancel_');
+                                   name string:erase_mail_session:method" />
+            <input tal:attributes="type string:submit;
+                                   value python:mcat('_Save_as_draft_');
+                                   name string:save_to_draft:method" />
+          </td>
         </tr>
       </table>
-
-      <p>&nbsp;</p>
 
       <table width="100%">
         <tr>
-            <td align="left" bgcolor="#dcdcdc" colspan="2">
-            <p><strong tal:content="python:mcat('_Attachments_list_')">Attached files list</strong></p>
-      </td>
+          <td align="left" bgcolor="#dcdcdc" colspan="2">
+            <p>
+              <strong tal:content="python:mcat('_Attachments_list_')">
+                Attached files list
+              </strong>
+            </p>
+          </td>
         </tr>
-
         <tr>
           <td align="left" colspan="2">
             <p>
-              <input
-                  tal:attributes="
-            type string:file;
-            value python:mcat('_Add_');
-            name string:attachment" />
-              &nbsp;
-        <input tal:attributes="
-          type string:submit;
-          value python:mcat('_Add_');
-          name  string:add_piece_session:method" />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      </p>
-    </td>
+              <input tal:attributes="type string:file;
+                                     value python:mcat('_Add_');
+                                     name string:attachment" />
+              <input tal:attributes="type string:submit;
+                                     value python:mcat('_Add_');
+                                     name string:add_piece_session:method"/>
+            </p>
+          </td>
         </tr>
-
-        <tr>
-            <td colspan="2">
-          <table border="0" cellspacing="0" cellpaddin="0" width="100%">
+        <tr tal:condition="atts">
+          <td colspan="2">
+            <table border="0" cellspacing="0" cellpaddin="0" width="100%">
               <tr bgcolor="#dcdcdc">
-                  <td> &nbsp; </td>
-                  <td><strong tal:content="python:mcat('_Id_')">Id</strong></td>
-                  <td><strong tal:content="python:mcat('_Name_')">Name</strong></td>
-                  <td><strong tal:content="python:mcat('_Size_')">Size</strong></td>
-                  <td><strong tal:content="python:mcat('_Type_')">Type</strong></td>
-                </tr>
+                <td>&nbsp;</td>
+                <td><strong tal:content="python:mcat('_Id_')">Id</strong></td>
+                <td><strong tal:content="python:mcat('_Name_')">Name</strong></td>
+                <td><strong tal:content="python:mcat('_Size_')">Size</strong></td>
+                <td><strong tal:content="python:mcat('_Type_')">Type</strong></td>
+              </tr>
               <tal:block repeat="item atts">
                 <tr>
                   <td>
-        <input tal:attributes="
-                  type python:'checkbox';
-                      name string:IDPieces:list;
-                      value item/getId" />
-            </td>
-            <td tal:content="python:item.getId()"> The id </td>
-            <td tal:content="python:item.getFilename()"> The attach Name </td>
-            <td tal:content="python:item.getSize()"> The Size </td>
-            <td tal:content="python:item.getContentType()"> The Type </td>
+                    <input tal:attributes="type python:'checkbox';
+                                           name string:IDPieces:list;
+                                           value item/getId" />
+                  </td>
+                  <td tal:content="python:item.getId()"> The id </td>
+                  <td tal:content="python:item.getFilename()"> The attach Name </td>
+                  <td tal:content="python:item.getSize()"> The Size </td>
+                  <td tal:content="python:item.getContentType()"> The Type </td>
                 </tr>
               </tal:block>
-      </table>
-    </td>
+            </table>
+          </td>
         </tr>
-
-        <tr>
-            <td colspan="2">
-      <input tal:attributes="
-        type string:submit;
-        value python:mcat('_Remove_');
-        name  string:remove_select_pieces:method" />
-      </td>
+        <tr tal:condition="atts">
+          <td colspan="2">
+            <input tal:attributes="type string:submit;
+                                   value python:mcat('_Remove_');
+                                   name string:remove_select_pieces:method" />
+          </td>
         </tr>
       </table>
     </form>
     &nbsp;
-    <p>
-      <strong>
-        <a href="" tal:attributes="
-                href string:${here/absolute_url}/webmail_show?IMAPName=${IMAPName}"
-          tal:content="python:mcat('_Back_to_message_list_')">
-          Retour sur la liste de vos messages
-            </a>
-      <strong>
-    </p>
-    </metal:block>
-  </body>
-</html>
+    <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
+
+  </metal:block>
+
+</body>
+</metal:html>
 
 </tal:block>
-
-
