@@ -93,6 +93,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         {'id': 'AddressbookEmailProp', 'type': 'string', 'mode':'w', 'label':'AddressbookEmailProp'},
         {'id': 'PrivAddressbook_name', 'type': 'string', 'mode':'w', 'label':'PrivAddressbook_name'},
         {'id': 'PrivAddressbookEmailProp', 'type': 'string', 'mode':'w', 'label':'PrivAddressbookEmailProp'},
+        {'id': 'PrivAddressbookLinks_name', 'type': 'string', 'mode':'w', 'label':'PrivAddressbookLinks_name'},
+        {'id': 'PrivAddressbookLinksEmailProp', 'type': 'string', 'mode':'w', 'label':'PrivAddressbookLinksEmailProp'},
         {'id': 'Mailing_list_name', 'type': 'string', 'mode':'w', 'label':'Mailing_list_name'},
         {'id': 'MailingEmailsProp', 'type': 'string', 'mode':'w', 'label':'MailingEmailsProp'},
     )
@@ -102,22 +104,26 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     # For smooth upgrading:
     PrivAddressbook_name = ".addressbook"
     PrivAddressbookEmailProp = "email"
+    PrivAddressbookLinks_name = ".addressbook_links"
+    PrivAddressbookLinksEmailProp = "email"
 
     def __init__(self):
         """WebMail Tool Constructor"""
         #
         # Default Properties Values
         #
-        self.IMAPServer               = "localhost"
-        self.IMAPPort                 = "143"
-        self.SMTPServer               = "localhost"
-        self.SMTPPort                 = "25"
-        self.Addressbook_name         = "addressbook"
-        self.AddressbookEmailProp     = "email"
-        self.PrivAddressbook_name     = ".addressbook"
-        self.PrivAddressbookEmailProp = "email"
-        self.Mailing_list_name        = "mailinglists"
-        self.MailingEmailsProp        = "emails"
+        self.IMAPServer                    = "localhost"
+        self.IMAPPort                      = "143"
+        self.SMTPServer                    = "localhost"
+        self.SMTPPort                      = "25"
+        self.Addressbook_name              = "addressbook"
+        self.AddressbookEmailProp          = "email"
+        self.PrivAddressbook_name          = ".addressbook"
+        self.PrivAddressbookEmailProp      = "email"
+        self.PrivAddressbookLinks_name     = ".addressbook_links"
+        self.PrivAddressbookLinksEmailProp = "email"
+        self.Mailing_list_name             = "mailinglists"
+        self.MailingEmailsProp             = "emails"
 
     security.declareProtected(UseWebMailPermission, "getVersion")
     def getVersion(self):
@@ -146,7 +152,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
 
     security.declareProtected(UseWebMailPermission, "getAddressBookName")
     def getAddressBookName(self):
-        """Return the private addressbook name"""
+        """Return the global addressbook name"""
         return self.Addressbook_name
 
     security.declareProtected(UseWebMailPermission, "getAddressBookEmailProperty")
@@ -163,6 +169,16 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     def getPrivAddressBookEmailProperty(self):
         """Return the property for use in private addressbook"""
         return self.PrivAddressbookEmailProp
+
+    security.declareProtected(UseWebMailPermission, "getPrivAddressBookLinksName")
+    def getPrivAddressBookLinksName(self):
+        """Return the private links addressbook name"""
+        return self.PrivAddressbookLinks_name
+
+    security.declareProtected(UseWebMailPermission, "getPrivAddressBookLinksEmailProperty")
+    def getPrivAddressBookLinksEmailProperty(self):
+        """Return the property for use in private links addressbook"""
+        return self.PrivAddressbookLinksEmailProp
 
     security.declareProtected(UseWebMailPermission, "getMailingListName")
     def getMailingListName(self):
@@ -1060,12 +1076,21 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
 
     security.declareProtected(UseWebMailPermission, "addressbookAddContactsToPrivBook")
     def addressbookAddContactsToPrivBook(self, addressbook, list_to_add):
-        """Delete a group of contacts from the addressbook"""
+        """Copy a group of contacts from the addressbook to the private address book"""
         for entry_id in list_to_add:
             privbook = self.getCurrentAddressBook('_private')
             if addressbook.hasEntry(entry_id):
                 entry = addressbook.getEntry(entry_id, default=None)
                 privbook.createEntry(entry)
+
+    security.declareProtected(UseWebMailPermission, "addressbookAddContactsLinksToPrivBook")
+    def addressbookAddContactsLinksToPrivBook(self, addressbook, list_to_add):
+        """Link a group of contacts from the addressbook to the private links address book"""
+        for entry_id in list_to_add:
+            privbooklinks = self.getCurrentAddressBook('_private_links')
+            if addressbook.hasEntry(entry_id):
+                entry = addressbook.getEntry(entry_id, default=None)
+                privbooklinks.createEntry(entry)
 
     security.declareProtected(UseWebMailPermission, "deleteAllEntries")
     def deleteAllEntries(self, addressbook):
@@ -1118,6 +1143,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             addressbook_name = REQUEST.get('addressbook_name', None)
         if addressbook_name  == '_private':
             bookname = self.getPrivAddressBookName()
+        elif addressbook_name  == '_private_links':
+            bookname = self.getPrivAddressBookLinksName()
         elif addressbook_name  == '_mailing':
             bookname = self.getMailingListName()
         elif addressbook_name  == '_global':
