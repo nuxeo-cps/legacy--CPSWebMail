@@ -89,7 +89,7 @@ msgid "_Back_to_message_list_"
 msgstr "Retour à la liste des messages"
 
 msgid "_Acknowledgement_of_read_"
-msgstr "Accusé de lecture"
+msgstr "Accusé de réception"
 
 msgid "_TO:_"
 msgstr "À :"
@@ -227,7 +227,7 @@ msgid "_Subject_message_title_"
 msgstr "Sujet du message :"
 
 msgid "_ack_confirmation_"
-msgstr "L'émetteur demande un accusé de lecture de ce message.\\nSouhaitez-vous l'envoyer ?"
+msgstr "L'émetteur demande un accusé de réception de ce message.\\nSouhaitez-vous l'envoyer ?"
 
 msgid "_Reply_"
 msgstr "Répondre"
