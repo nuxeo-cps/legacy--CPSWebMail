@@ -51,6 +51,7 @@ class IMAPMessage:
         """ constructor
         """
 
+        LOG("__init__", DEBUG, "date = %s" % (date,))
         self.headers = headers
         self.IMAPId = IMAPId
         self.flags = flags
@@ -244,67 +245,66 @@ class IMAPMessage:
             else:
                 writer.addheader(header_key, self.headers[header_key])
 
-            for address_field in ['to', 'cc']:
-                if self.recipients[address_field]:
-                    for address in self.recipients[address_field]:
-                        writer.addheader(string.capitalize(address_field),
-                                         mimify.mime_encode_header(address))
+        for address_field in ['to', 'cc']:
+            if self.recipients[address_field]:
+                for address in self.recipients[address_field]:
+                    writer.addheader(string.capitalize(address_field),
+                                     mimify.mime_encode_header(address))
 
-            if flag != "":
-                     writer.addheader('Disposition-Notification-To', sender)
+        if flag != "":
+            writer.addheader('Disposition-Notification-To', sender)
 
-            if self.getAttachments():
-                    writer.addheader('Mime-Version', '1.0')
+        if self.getAttachments():
+            writer.addheader('Mime-Version', '1.0')
 
-            writer.addheader('X-Mailer',
-                             'CPSWebMail Nuxeo (http://www.nuxeo.com)')
+        writer.addheader('X-Mailer',
+                         'CPSWebMail Nuxeo (http://www.nuxeo.com)')
 
-            writer.flushheaders()
+        writer.flushheaders()
 
-            if self.getAttachments():
-                    writer.startmultipartbody('mixed')
-                    mime_part = writer.nextpart()
-                    mime_part_writer = mime_part.startbody('text/plain',
-                        [('charset', 'ISO-8859-1')])
-                    mimetools.copyliteral(cStringIO.StringIO(self.body),
-                                          mime_part_writer)
+        if self.getAttachments():
+            writer.startmultipartbody('mixed')
+            mime_part = writer.nextpart()
+            mime_part_writer = mime_part.startbody('text/plain',
+                                                   [('charset', 'ISO-8859-1')])
+            mimetools.copyliteral(cStringIO.StringIO(self.body),
+                                  mime_part_writer)
 
-                    for attachment in self.getAttachments():
-                            mime_part = writer.nextpart()
-                            mime_part.addheader('Content-Transfer-Encoding',
+            for attachment in self.getAttachments():
+                mime_part = writer.nextpart()
+                mime_part.addheader('Content-Transfer-Encoding',
                                                 'base64')
 
-                            # ?FIXME?
-                            # Let the attachment encoding decide?
-                            #tmp_headers = {'content-transfer-encoding':
+                # ?FIXME?
+                # Let the attachment encoding decide?
+                # tmp_headers = {'content-transfer-encoding':
                                             ##'base64'}
-                            ##tmp_headers.update(attachment.headers)
-                            mime_part_writer = mime_part.startbody(
-                                            attachment.content_type,
-                                            [('filename',
-                                              attachment.filename),
-                                             ('name', attachment.filename)],
-                                            1)
-                            mime_part_writer.write(attachment.encode())
-                    else:
-                            writer.lastpart()
+                # tmp_headers.update(attachment.headers)
+                mime_part_writer = mime_part.startbody(
+                    attachment.content_type,
+                    [('filename',
+                      attachment.filename),
+                     ('name', attachment.filename)],
+                    1)
+                mime_part_writer.write(attachment.encode())
             else:
-                    writer._fp.write('Content-Transfer-Encoding: \
-                    quoted-printable\n')
+                writer.lastpart()
+        else:
+            writer._fp.write('Content-Transfer-Encoding: \
+            quoted-printable\n')
 
-                    body_writer = writer.startbody('text/plain', \
-                        [('charset', 'ISO-8859-1')],
-                         {'Content-Transfer-\
-                         Encoding':\
-                          'quoted-printable'})
+            body_writer = writer.startbody('text/plain', \
+                                           [('charset', 'ISO-8859-1')],
+                                           {'Content-Transfer-\
+                                           Encoding':\
+                                            'quoted-printable'})
+            self.body='\n'+self.body
+            body = cStringIO.StringIO(self.body)
+            body.seek(0)
 
-                    self.body='\n'+self.body
-                    body = cStringIO.StringIO(self.body)
-                    body.seek(0)
+            mimetools.copyliteral(body, body_writer)
 
-                    mimetools.copyliteral(body, body_writer)
-
-            return rendered_message.getvalue()
+        return rendered_message.getvalue()
 
     def setRead(self, value):
         """ set read (Seen) flag
