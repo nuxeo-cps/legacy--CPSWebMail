@@ -10,7 +10,8 @@ New features:
   select widget displaying all the possible entries)
 Bug fixes:
 ~~~~~~~~~~
--
+- Call to attachment when viewing a message was made using default IMAP folder
+  INBOX instead of current IMAP folder
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
