@@ -10,8 +10,8 @@ list_id = REQUEST.form.get('id', '')
 # return to the create list form
 # of the mailing list object
 #
-REQUEST.RESPONSE.redirect(portal_url 
-    + '/cpsdirectory_getentry?dirname=' + mailing_list_name 
+REQUEST.RESPONSE.redirect(portal_url
+    + '/cpsdirectory_entry_edit_form?dirname=' + mailing_list_name
     + '&id=' + list_id)
 
 
