@@ -3,7 +3,7 @@
 
 try:
     del REQUEST.SESSION['search_results']
-except:
+except KeyError:
     pass
 
 group_name = REQUEST.form.get('group_name', '')

@@ -4,7 +4,7 @@
 # Deleting session if exists
 try:
     del REQUEST.SESSION['search_results']
-except:
+except KeyError:
     pass
 
 # Redirection to the addressbok main view
