@@ -9,6 +9,6 @@ mailing_list_name = context.portal_webMail.getMailingListName()
 # of the mailing list object
 #
 REQUEST.RESPONSE.redirect(portal_url +
-    '/directory_editentry_form?dirname=' + mailing_list_name + '&create=1')
+    '/cpsdirectory_editentry_form?dirname=' + mailing_list_name + '&create=1')
 
 

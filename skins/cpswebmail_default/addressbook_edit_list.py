@@ -11,7 +11,7 @@ list_id = REQUEST.form.get('id', '')
 # of the mailing list object
 #
 REQUEST.RESPONSE.redirect(portal_url 
-    + '/directory_getentry?dirname=' + mailing_list_name 
-    + '&entry_id=' + list_id)
+    + '/cpsdirectory_getentry?dirname=' + mailing_list_name 
+    + '&id=' + list_id)
 
 
