@@ -149,7 +149,7 @@ class CPSWebMailInstaller(CPSInstaller):
                 'id_field': 'id',
                 'title_field': 'id',
                 'search_substring_fields': ['fullname', 'email'],
-                'directories_ids': '',
+                'directory_ids': [],
                 'directory_type': 'CPS ZODB Directory',
                 },
             }
@@ -170,7 +170,7 @@ class CPSWebMailInstaller(CPSInstaller):
                 'id_field': 'id',
                 'title_field': 'id',
                 'search_substring_fields': ['id'],
-                'directories_ids': ['addressbook', 'members'],
+                'directory_ids': ['addressbook', 'members'],
                 'directory_type': 'CPS Indirect Directory',
                 },
             }
@@ -534,7 +534,8 @@ class CPSWebMailInstaller(CPSInstaller):
                 'id_field': 'id',
                 'title_field': 'id',
                 'search_substring_fields': ['id', 'emails'],
-                'directories_ids': 'mailinglists',
+                'directory_ids': [],
+                'directory_type': 'CPS ZODB Directory',
                 },
             }
 
