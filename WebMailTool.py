@@ -12,6 +12,7 @@
 __version__ = "0.1"
 
 import os, time
+from re import compile
 from zLOG import LOG, DEBUG
 from MSOutlookImport import MSOutlookImporter
 
@@ -262,7 +263,10 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         con = self.getConnection()
 
         res_create = ''
-        if title != '':
+
+        title = title.strip()
+        title_not_pattern = compile(r".*[^a-zA-Z0-9_ -]+")
+        if title and title_not_pattern.match(title) is None:
             folder = str(folder)
             if folder == 'INBOX':
                 res_create = con.createFolder(title)
@@ -996,13 +1000,31 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
                                 if a3.getId() == int(li[3]):
                                     return a3.download(REQUEST, REQUEST.RESPONSE)
 
+    security.declareProtected(UseWebMailPermission, "batchMessage")
+    def batchMessage(self, start=0, nb_messages=0, REQUEST=None):
+        """Return a batch message for the messages viewed"""
+        localizer = getToolByName(self, "Localizer", None)
+        cpsmcat = localizer.default
+        nb_total = int(nb_messages)
+        if nb_total == 0:
+            message = cpsmcat('_No_Mails_In_Folder_')
+        else:
+            nb_start = int(start)+1
+            nb_to = int(start)+self.getListingSize(REQUEST)
+            if nb_to > nb_total:
+                nb_to = nb_total
+            message = cpsmcat('_Messages_from_') + ' %d' % (nb_start) +' '+\
+                      cpsmcat('_to_') +' %d ' % (nb_to) +\
+                      cpsmcat('_of_') + ' %s' % (nb_total)
+        return message
+
     security.declareProtected(UseWebMailPermission, "rangeView")
-    def rangeView(self, start="0", folder_id=None, num_messages=1):
+    def rangeView(self, start="0", folder_id=None, num_messages=1, REQUEST=None):
         """Return a href link for choosing a range of message"""
         menu = ""
         start = int(start)
         folder_id = quote(folder_id)
-        listingSize = int(self.getListingSize())
+        listingSize = int(self.getListingSize(REQUEST))
         num_messages = int(num_messages)
 
         k = 1
@@ -1137,6 +1159,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         if entry:
             REQUEST.SESSION['search_results'] = entry[email_prop]
 
+    security.declareProtected(UseWebMailPermission, "getCurrentAddressBookName")
     def getCurrentAddressBookName(self, addressbook_name='', REQUEST=None):
         """Get the ID of the addressbook in request"""
         if not addressbook_name:
@@ -1153,6 +1176,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             bookname = self.getPrivAddressBookName()
         return bookname
 
+    security.declareProtected(UseWebMailPermission, "getCurrentAddressBook")
     def getCurrentAddressBook(self, addressbook_name='', REQUEST=None):
         # This method is only called from the CPS3 scripts, so I will
         # completely ignore any CPS2 support here. Beware!
@@ -1167,6 +1191,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         res = book.listEntryIds()
         return res
 
+    security.declareProtected(UseWebMailPermission, "getAddressBookEntry")
     def getAddressBookEntry(self, entryid, addressbook='', REQUEST=None):
         book = self.getCurrentAddressBook(addressbook, REQUEST)
         return book.getEntry(entryid)
