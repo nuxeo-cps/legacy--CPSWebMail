@@ -77,7 +77,8 @@ function SetChecked_Sup(val) {
 
    <table border="0" cellPadding="2" cellscpacing="0" width="100%">
      <tr>
-      <td align="left" valign="middle">
+      <tal:block condition="nothing| string:XXX the search does not work anymore"/>
+      <td align="left" valign="middle" tal:condition="nothing">
         <input size="20" name="search_param" value="" />
         <input name="from_addressbook_search:method"
           tal:attributes="
@@ -103,7 +104,6 @@ function SetChecked_Sup(val) {
                 </option>
                 <tal:block condition="python:privbook_name">
                   <tal:block define="
-                    homefolder here/portal_membership/getHomeFolder;
                     privbook python:wmtool.getCurrentAddressBook('_private');
                     privbook_prop_name wmtool/getPrivAddressBookEmailProperty;">
                     <option value="_private"
@@ -116,14 +116,14 @@ function SetChecked_Sup(val) {
                   <tal:block define="
                     lists_prop_name wmtool/getMailingListsEmailProperty;
                     lists python:dirtool[lists_name];
-                    entry_prop lists/entry_prop;
+                    id_field lists/id_field;
                     title_field lists/title_field">
-                    <tal:block repeat="item python:lists.searchEntry()">
+                    <tal:block repeat="item python:lists.searchEntries(return_fields=[id_field,title_field])">
                       <option
                         tal:attributes="
-                          value python:item.get(entry_prop);
-                          selected python:addressbook_name == item.get(entry_prop);"
-                        tal:content="python:mcat(item.get(title_field))">
+                          value python:item[0];
+                          selected python:addressbook_name == item[0];"
+                        tal:content="python:item[1][id_field]">
                       </option>
                     </tal:block>
                   </tal:block>
@@ -191,7 +191,7 @@ function SetChecked_Sup(val) {
           <tal:block define="
             email_prop_name wmtool/getAddressBookEmailProperty;
             title_field addressbook/title_field;
-            entry_prop addressbook/id_field;
+            id_field addressbook/id_field;
           ">
             <tr bgcolor="#eeeeee">
               <td align="left" valign="middle" width="1%">
@@ -316,7 +316,7 @@ function SetChecked_Sup(val) {
                       <p>
                         <a target="_blank"
                           tal:attributes="
-                            href string:${portal_url}cpsdirectory_entry_edit_form?dirname=${addressbook_id}&id=${entry/?entry_prop}"
+                            href string:${portal_url}cpsdirectory_entry_edit_form?dirname=${addressbook_id}&id=${entry/?id_field}"
                           tal:content="python:mcat('_Edit_')">
                           Change Link
                         </a>
@@ -331,8 +331,8 @@ function SetChecked_Sup(val) {
                     define="can_delete python:addressbook.isDeleteEntryAllowed()">
                     <td width="1%" align="center" nowrap
                       tal:condition="can_delete">
-&sup2;                      <input type="checkbox" name="to_delete:list"
-                        tal:attributes="value string:${entry/?entry_prop}">
+                      <input type="checkbox" name="to_delete:list"
+                        tal:attributes="value string:${entry/?id_field}">
                     </td>
                     <td width="1%" align="center" nowrap
                       tal:condition="not:can_delete">

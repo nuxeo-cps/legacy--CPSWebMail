@@ -5,7 +5,9 @@
 <tal:block define="wmtool here/portal_webMail;
                    mcat nocall:here/Localizer/default;
                    dirtool here/portal_directories;
-              ">
+                   lists_name wmtool/getMailingListName;
+                   addressbook_name wmtool/getAddressBookName;
+                   privbook_name wmtool/getPrivAddressBookName;">
 <html metal:use-macro="here/main_template/macros/master">
 <head>
   <title>Liste de diffusion</title>
@@ -52,9 +54,8 @@
   </metal:block>
   <metal:block fill-slot="header">
     <b>
-      <h1 tal:replace="string:NuxWebMail : Liste de diffusion">
-        Title
-      </h1>
+      <tal:block replace="python:mcat('_Mailing_Lists_')"/> :
+      <tal:block replace="request/addressbook_name"/>
     </b>
     <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
   </metal:block>
@@ -67,59 +68,83 @@
 
       <table border="0" cellPadding="2" cellSpacing="0" width="100%">
         <tr>
-          <td>
-      <input size="20" name="search_param" value="">
+          <tal:block condition="nothing| string:XXX the search does not work anymore"/>
+          <td tal:condition="nothing">
+            <input size="20" name="search_param" value="">
             <input tal:attributes="
               type  string:submit;
               value python:mcat('_Search_');
               name  string:from_addressbook_search:method" />
           </td>
-      <td align="right" valign="middle">
-            <table border="0" cellspacing="0" cellpadding="0">
+          <td align="right" valign="middle">
+            <table border="0" cellpadding="0" cellspacing="0">
               <tr>
                 <td align="center" valign="middle">
-            <b>Changer de Liste :</b>
+                  <b tal:content="python:mcat('_Change_list_to_')">
+                    Change list to:
+                  </b>
                 </td>
               </tr>
               <tr>
-                <td align="left" valign="middlle">
-                  <select name="cat" size="1">
-                    <option value="Adresses" tal:content="python:mcat('_Addresses_')" selected>
-                Addresses
-              </option>
-                    <tal:block define="lists_name wmtool/getMailingListName;
-                      lists_prop_name wmtool/getMailingListsEmailProperty;
-                      lists python:dirtool[lists_name];
-                      entry_prop lists/entry_prop;
-                      title_field lists/title_field">
-
-                      <tal:block repeat="item python:lists.searchEntry()">
-                        <option tal:attributes=" value python:item.get(entry_prop)" tal:content="python:item.get(title_field)"></option>
-                </tal:block>
+                <td align="left" valign="middle">
+                  <select size="1" name="addressbook_name">
+                    <option value="_global"
+                      tal:content="python:mcat('_Address_book_')">
+                      Addresses
+                    </option>
+                    <tal:block condition="python:privbook_name">
+                      <tal:block define="
+                        privbook python:wmtool.getCurrentAddressBook('_private');
+                        privbook_prop_name wmtool/getPrivAddressBookEmailProperty;">
+                        <option value="_private"
+                          tal:attributes="selected python:addressbook_name == '_private';"
+                          tal:content="python:mcat(privbook.title_or_id())">
+                        </option>
+                      </tal:block>
                     </tal:block>
-                </select>
-          <input tal:attributes="
-                    type string:submit;
-                    value python:mcat('_Go_');
-                    name  string:addressbook_changelist:method" />
+                    <tal:block condition="python:lists_name">
+                      <tal:block define="
+                        lists_prop_name wmtool/getMailingListsEmailProperty;
+                        lists python:dirtool[lists_name];
+                        id_field lists/id_field;
+                        title_field lists/title_field">
+                        <tal:block repeat="item python:lists.searchEntries(return_fields=[id_field,title_field])">
+                          <option
+                            tal:attributes="
+                              value python:item[0];
+                              selected python:addressbook_name == item[0];"
+                            tal:content="python:item[1][id_field]">
+                          </option>
+                        </tal:block>
+                      </tal:block>
+                    </tal:block>
+                  </select>
+                  <input type="submit" name="addressbook_changelist:method"
+                    tal:attributes="value python:mcat('_Go_');" />
                 </td>
               </tr>
             </table>
-        </td>
-    </tr>
+          </td>
+        </tr>
       </table>
 
       <table width="100%" cellpadding=2 cellspacing=0 border=0>
         <tr bgcolor="#dcdcdc">
       <td nowrap>
-        <input type="submit" value="" tal:attributes="name string:addressbook_create_list:method;
-                                  value python:mcat('_New_list_')" />
-        <input type="submit" value="Modifier" name="addressbook_edit_list:method" tal:attributes="value python:mcat('_Edit_')" />
-             
-        <input type="hidden" name="id" tal:attributes="value request/id">
+        <input type="submit"
+               name="addressbook_create_list:method"
+               tal:attributes="value python:mcat('_New_list_')" />
+        <input type="submit"
+               name="addressbook_edit_list:method"
+               tal:attributes="value python:mcat('_Edit_')" />
+        <input type="hidden"
+               name="id"
+               tal:attributes="value request/addressbook_name">
       </td>
       <td align="right" nowrap>
-      <input tal:attributes="type  string:submit; value python:mcat('_Send/Continue_a_mail_'); name  string:mail_selected_one:method" />
+        <input type="submit"
+               name="mail_selected_one:method"
+               tal:attributes="value python:mcat('_Send/Continue_a_mail_');"/>
       </td>
   </tr>
       </table>
@@ -133,9 +158,7 @@
                 addressbook_name wmtool/getAddressBookName;
                 addressbook python:dirtool[addressbook_name];
                 title_field addressbook/title_field;
-                entry_prop addressbook/entry_prop;
-                visible addressbook/getVisibleSchemaKeys;
-        ">
+                id_field addressbook/id_field;">
 
                  <tr bgcolor="#eeeeee">
              <td align="center" valign=middle width="1%"><b tal:content="python:mcat('_TO:_')">À</b></td>
@@ -206,21 +229,19 @@
 
        <table cellpadding=3 cellspacing=0 border=0 width="100%">
          <tr bgcolor="#dcdcdc">
-             <td colspan=2>
-       <input type="submit"
-                     value="New list"
-               name="addressbook_create_list:method"
-         tal:attributes="value python:mcat('_New_list_')"/>
-       <input type="submit"
-                     value="Edit"
-                     name="addressbook_edit_list:method"
-         tal:attributes="value python:mcat('_Edit_')"/>
-       </td>
-       <td align="right" nowrap>
-             <input tal:attributes="type  string:submit;
-                     value python:mcat('_Send/Continue_a_mail');
-                     name  string:mail_selected_one:method" />
-       </td>
+           <td colspan=2>
+             <input type="submit"
+                    name="addressbook_create_list:method"
+                    tal:attributes="value python:mcat('_New_list_')" />
+             <input type="submit"
+                    name="addressbook_edit_list:method"
+                    tal:attributes="value python:mcat('_Edit_')" />
+           </td>
+           <td align="right" nowrap>
+             <input type="submit"
+                    name="mail_selected_one:method"
+                    tal:attributes="value python:mcat('_Send/Continue_a_mail_')" />
+            </td>
          </tr>
         </table>
 
