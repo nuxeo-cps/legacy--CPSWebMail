@@ -15,7 +15,7 @@ if list == "":
 elif list == "_all":
     # Global + Private
     REQUEST.RESPONSE.redirect(portal_url + '/addressBook_form')
-elif list == "_global" or list == "_private":
+elif list in["_global", "_private", "_private_links"]:
     REQUEST.RESPONSE.redirect(portal_url + '/addressBook_form?addressbook_name='+list)
 elif list == "_mailing":
     # return the mailing list in order to be able to add a personal mailing list

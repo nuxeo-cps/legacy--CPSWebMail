@@ -5,6 +5,7 @@
                    dirtool here/portal_directories;
                    lists_name wmtool/getMailingListName;
                    privbook_name wmtool/getPrivAddressBookName;
+                   privbooklinks_name wmtool/getPrivAddressBookLinksName;
                    addressbook_name request/addressbook_name|string:_private;
                    addressbook_id python:wmtool.getCurrentAddressBookName(REQUEST=request);
                    addressbook python:wmtool.getCurrentAddressBook(REQUEST=request);
@@ -69,9 +70,20 @@ function SetChecked_Add(val) {
         }
 }
 
+function SetChecked_Links(val) {
+        dml=document.addressbook_form;
+        len = dml.elements.length;
+        var i=0;
+        for( i=0 ; i<len ; i++) {
+        if (dml.elements[i].name == 'to_add_to_privbooklinks:list') {
+                dml.elements[i].checked=val;
+                }
+        }
+}
+
 function popup_create_entry(method, addressbook_name) {
        var args
-       args='?addressbook_name='+addressbook_name.value;
+       args='?addressbook_name='+addressbook_name;
        popup = window.open(method+args, '_blank')
        if(!popup.opener)
          popup.opener = window;
@@ -83,7 +95,8 @@ function popup_create_entry(method, addressbook_name) {
 </metal:block>
 
 <metal:block fill-slot="header">
-  <h1 tal:content="python:mcat('_Address_book_')">Address book</h1>
+  <h1 tal:define="addressbook_title python:wmtool.getCurrentAddressBook(addressbook_name).title_or_id();"
+      tal:content="python:mcat(addressbook_title)">Address book title</h1>
   <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
 </metal:block>
 
@@ -123,6 +136,16 @@ function popup_create_entry(method, addressbook_name) {
                     <option value="_private"
                       tal:attributes="selected python:addressbook_name == '_private';"
                       tal:content="python:mcat(privbook.title_or_id())">
+                    </option>
+                  </tal:block>
+                </tal:block>
+                <tal:block condition="python:privbooklinks_name">
+                  <tal:block define="
+                    privbooklinks python:wmtool.getCurrentAddressBook('_private_links');
+                    privbooklinks_prop_name wmtool/getPrivAddressBookLinksEmailProperty;">
+                    <option value="_private_links"
+                      tal:attributes="selected python:addressbook_name == '_private_links';"
+                      tal:content="python:mcat(privbooklinks.title_or_id())">
                     </option>
                   </tal:block>
                 </tal:block>
@@ -202,8 +225,12 @@ function popup_create_entry(method, addressbook_name) {
                           onclick string:javascript:popup_create_entry('addressbook_addcontact', '${addressbook_name}');;"/>
         <input type="submit"
           name="addressbook_add_contacts_to_privbook:method"
-          tal:condition="python:addressbook_name == '_global'"
+          tal:condition="python:addressbook_name == '_global' and privbook_name"
           tal:attributes="value python:mcat('_Add_to_private_addressbook_')"/>
+        <input type="submit"
+          name="addressbook_add_contacts_links_to_privbook:method"
+          tal:condition="python:addressbook_name == '_global' and privbooklinks_name"
+          tal:attributes="value python:mcat('_Add_link_to_private_addressbook_')"/>
         <input type="submit"
           tal:condition="python:addressbook.isDeleteEntryAllowed()"
           tal:attributes="value python:mcat('_Delete_')"
@@ -310,7 +337,7 @@ function popup_create_entry(method, addressbook_name) {
                  </p>
               </th>
               <th valign="middle" align="center" width="1%"
-                  tal:condition="python:addressbook_name == '_global'">
+                  tal:condition="python:addressbook_name == '_global' and privbook_name">
                 <p align="center">
                   <i>
                     <strong tal:content="python:mcat('_Add_to_private_addressbook_')">
@@ -322,6 +349,24 @@ function popup_create_entry(method, addressbook_name) {
                     tal:content="python:mcat('_All_')">
                     Select
                   </a>/<a href="javascript:SetChecked_Add(0)"
+                    tal:content="python:mcat('_None_')">
+                    Unselect
+                  </a>
+                </p>
+              </th>
+              <th valign="middle" align="center" width="1%"
+                  tal:condition="python:addressbook_name == '_global' and privbooklinks_name">
+                <p align="center">
+                  <i>
+                    <strong tal:content="python:mcat('_Add_link_to_private_addressbook_')">
+                      Add link to private addressbook
+                    </strong>
+                  </i>
+                  <br>
+                  <a href="javascript:SetChecked_Link(1)"
+                    tal:content="python:mcat('_All_')">
+                    Select
+                  </a>/<a href="javascript:SetChecked_Link(0)"
                     tal:content="python:mcat('_None_')">
                     Unselect
                   </a>
@@ -412,9 +457,15 @@ function popup_create_entry(method, addressbook_name) {
                       &nbsp;
                     </td>
                   </tal:block>
-                  <tal:block condition="python:addressbook_name == '_global'">
+                  <tal:block condition="python:addressbook_name == '_global' and privbook_name">
                     <td width="1%" align="center" nowrap>
                       <input type="checkbox" name="to_add_to_privbook:list"
+                        tal:attributes="value string:${entry/?id_field}">
+                    </td>
+                  </tal:block>
+                  <tal:block condition="python:addressbook_name == '_global' and privbooklinks_name">
+                    <td width="1%" align="center" nowrap>
+                      <input type="checkbox" name="to_add_to_privbooklinks:list"
                         tal:attributes="value string:${entry/?id_field}">
                     </td>
                   </tal:block>
@@ -444,8 +495,12 @@ function popup_create_entry(method, addressbook_name) {
                                   onclick string:javascript:popup_create_entry('addressbook_addcontact', '${addressbook_name}');;"/>
                 <input type="submit"
                   name="addressbook_add_contacts_to_privbook:method"
-                  tal:condition="python:addressbook_name == '_global'"
+                  tal:condition="python:addressbook_name == '_global' and privbook_name"
                   tal:attributes="value python:mcat('_Add_to_private_addressbook_')"/>
+                <input type="submit"
+                  name="addressbook_add_contacts_links_to_privbook:method"
+                  tal:condition="python:addressbook_name == '_global' and privbooklinks_name"
+                  tal:attributes="value python:mcat('_Add_link_to_private_addressbook_')"/>
                 <input type="submit"
                   tal:condition="python:addressbook.isDeleteEntryAllowed()"
                   name="addressbook_groupdelete:method"

@@ -7,7 +7,8 @@
                    dirtool here/portal_directories;
                    lists_name wmtool/getMailingListName;
                    addressbook_name wmtool/getAddressBookName;
-                   privbook_name wmtool/getPrivAddressBookName;">
+                   privbook_name wmtool/getPrivAddressBookName;
+                   privbooklinks_name wmtool/getPrivAddressBookLinksName;">
 <html metal:use-macro="here/main_template/macros/master">
 <head>
   <title>Liste de diffusion</title>
@@ -114,6 +115,16 @@
                         <option value="_private"
                           tal:attributes="selected python:request.get('addressbook_name','') == '_private'"
                           tal:content="python:mcat(privbook.title_or_id())">
+                        </option>
+                      </tal:block>
+                    </tal:block>
+                    <tal:block condition="python:privbooklinks_name">
+                      <tal:block define="
+                        privbooklinks python:wmtool.getCurrentAddressBook('_private_links');
+                        privbooklinks_prop_name wmtool/getPrivAddressBookLinksEmailProperty;">
+                        <option value="_private_links"
+                          tal:attributes="selected python:addressbook_name == '_private_links';"
+                          tal:content="python:mcat(privbooklinks.title_or_id())">
                         </option>
                       </tal:block>
                     </tal:block>
