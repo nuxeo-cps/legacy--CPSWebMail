@@ -41,6 +41,8 @@ import string
 from DocumentTemplate.DT_Util import html_quote
 from DocumentTemplate.DT_Var import newline_to_br
 
+from stripogram import html2safehtml, html2text
+
 from zLOG import LOG, DEBUG
 
 class IMAPMessage:
@@ -360,28 +362,127 @@ class IMAPMessage:
 
     def get_parsed_body(self):
         """Return the parsed body"""
-        try:
-            if string.find(string.lower(self.headers['content-type']),
-                           "text/html" != (-1)):
-                new_body = self.render_body(self.getBody(), 'html')
-                return self.match_url(new_body)
-
-            elif string.find(self.headers['content-type'], 'text/enriched') != (-1):
-                new_body = newline_to_br(string.replace(\
-                    self.render_body(self.getBody(), 'enriched'), '  ', '&nbsp; '))
-                return self.match_url(new_body)
-
-            else:
-                new_body = newline_to_br(string.replace(self.render_body(\
-                    self.getBody(), 'text'), '  ', '&nbsp; '))
-                return self.match_url(new_body)
-        except:
-            new_body = newline_to_br(
-                string.replace(
-                    self.render_body(self.getBody(), 'text'),
-                    '  ', '&nbsp; '))
+        content_type = string.lower(self.headers['content-type'])
+        if string.find(content_type, 'text/html') != (-1):
+            new_body = self.render_body(self.getBody(), 'html')
             return self.match_url(new_body)
 
+        elif string.find(content_type, 'text/enriched') != (-1):
+            render_body = self.render_body(self.getBody(), 'enriched')
+            new_body = newline_to_br(string.replace(render_body, '  ', '&nbsp; '))
+            return self.match_url(new_body)
+        else:
+            render_body = self.render_body(self.getBody(), 'text')
+            new_body = newline_to_br(string.replace(render_body, '  ', '&nbsp; '))
+            return self.match_url(new_body)
+
+    def display_body(self):
+        """Return the body for HTML display on internet pages"""
+        valid_tags = [
+            'A',
+            'ABBR',
+            'ACRONYM',
+            'ADDRESS',
+            'B',
+            'BASE',
+            'BASEFONT',
+            'BDO',
+            'BIG',
+            'BLOCKQUOTE',
+            'BODY',
+            'BR',
+            'BUTTON',
+            'CAPTION',
+            'CENTER',
+            'CITE',
+            'COL',
+            'COLGROUP',
+            'DD',
+            'DEL',
+            'DFN',
+            'DIR',
+            'DIV',
+            'DL',
+            'DT',
+            'EM',
+            'FIELDSET',
+            'FONT',
+            'FORM',
+            'FRAME',
+            'FRAMESET',
+            'H1',
+            'H2',
+            'H3',
+            'H4',
+            'H5',
+            'H6',
+            'HEAD',
+            'HR',
+            'HTML',
+            'I',
+            'IFRAME',
+            'IMG',
+            'INPUT',
+            'INS',
+            'ISINDEX',
+            'LABEL',
+            'LEGEND',
+            'LI',
+            'LINK',
+            'MENU',
+            'OBJECT',
+            'OL',
+            'OPTGROUP',
+            'OPTION',
+            'P',
+            'PARAM',
+            'PRE',
+            'Q',
+            'S',
+            'SELECT',
+            'SMALL',
+            'SPAN',
+            'STRIKE',
+            'STRONG',
+            'STYLE',
+            'TABLE',
+            'TBODY',
+            'TD',
+            'TEXTAREA',
+            'TFOOT',
+            'TH',
+            'THEAD',
+            'TR',
+            'TT',
+            'U',
+            'UL',
+            ]
+        # not sure stripogram handles lower letters...
+        lower_valid_tags = []
+        for tag in valid_tags:
+            lower_valid_tags.append(string.lower(tag))
+        valid_tags.extend(lower_valid_tags)
+
+        body = self.getBody()
+        body = mimify.mime_decode(body)
+        # turn mailto: tags into http link
+        body = self.match_url(body)
+        safe_body = html2safehtml(body, valid_tags=valid_tags)
+        if safe_body:
+            # no HTMLParseError
+            body = safe_body
+        return body
+
+    def get_body_for_reply(self):
+        body = self.getBody()
+        body = mimify.mime_decode(body)
+        safe_body = html2safehtml(body,valid_tags=())
+        if safe_body:
+            # no HTMLParseError
+            body = safe_body
+        body = string.replace(body, '&nbsp;', ' ',)
+        body = string.strip(body)
+        return body
 
     def getHeaders(self):
         """ """
