@@ -27,25 +27,39 @@
 <metal:block fill-slot="header_plus" />
 
 <metal:block fill-slot="main" tal:define="portal_url base_url;">
-  <form name="addressbook_form"
-        tal:attributes="action string:${here/absolute_url};
-                        method string:post;">
-
    <table border="0" cellPadding="2" cellscpacing="0" width="100%">
      <tr>
       <td align="left" valign="middle">
+        <form tal:attributes="
+          action here/absolute_url;
+          method string:post;
+          name   string:form">
+        <input type="hidden" name="addressbook_name"
+               tal:attributes="value current_addressbook_name" />
         <input size="20" name="search_param" value="" />
         <input name="from_addressbook_search:method"
           tal:attributes="
             type  string:submit;
             value python:mcat('_Search_');
           " />
+        </form>
       </td>
       <td align="right" valign="middle">
+        <form tal:attributes="
+          action here/absolute_url;
+          method string:post;
+          name   string:form">
         <metal:block use-macro="here/webmail_lib/macros/select_addressbook"/>
+        </form>
       </td>
     </tr>
   </table>
+
+  <form name="addressbook_form"
+        tal:attributes="action here/absolute_url;
+                       method string:post;">
+  <input type="hidden" name="addressbook_name"
+         tal:attributes="value current_addressbook_name" />
   <table width="100%" cellpadding="2" cellspacing="0" border="0">
     <tr bgcolor="#dcdcdc">
       <td nowrap>
@@ -352,7 +366,8 @@
         </td>
       </tr>
     </table>
-  </form>
+    </form>
+
 </metal:block>
 
 </html>
