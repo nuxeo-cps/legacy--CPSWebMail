@@ -241,14 +241,14 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         pass
 
     security.declareProtected(UseWebMailPermission, "getMessage")
-    def getMessage(self, IMAPName="INBOX", IMAPId=""):
+    def getMessage(self, IMAPName="INBOX", IMAPId="", is_draft=0):
         """Return the Message instance"""
         try:
             folder = self.getFolder(IMAPName)
             if not folder:
                 folder = self.getFolder('INBOX')
                 IMAPName = "INBOX"
-            message = folder.getIMAPMessage(IMAPId)
+            message = folder.getIMAPMessage(IMAPId, is_draft)
         except:
             return 1
 
@@ -642,6 +642,10 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         _bcc = [mail_structure['bcc']]
         _headers = {'subject': mail_structure['subject']}
         att_list = mail_structure['att_list']
+        if mail_structure.has_key('a_read'):
+            a_read = mail_structure['a_read']
+        else:
+            a_read = 0
 
         message = IMAPMessage.IMAPMessage(
             sender=(self.getIdentity(), self.getMailFrom()),
@@ -653,7 +657,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             headers=_headers)
 
         message.headers['date'] = self.ZopeTime().rfc822()
-        raw_message = message.raw_message(0).replace("\n", "\r\n")
+        raw_message = message.raw_message(a_read, is_draft=1).replace("\n", "\r\n")
 
         draft_folder = self.getDraftFolder().getImapName()
 
@@ -754,7 +758,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         return 0
 
     security.declareProtected(UseWebMailPermission, "sendMail")
-    def sendMail(self, REQUEST, flag):
+    def sendMail(self, REQUEST, a_read=0):
         """Send a mail from the compose interface"""
 
         mail_structure = REQUEST.SESSION.get('mail_session', {})
@@ -807,12 +811,6 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
 
         flags = {}
 
-        if REQUEST.form.get('a_reception', "") != "":
-            flags['a_reception'] = 1
-
-        if REQUEST.form.get('a_read', "") != "" :
-            flags['a_read'] = 1
-
         message = IMAPMessage.IMAPMessage(
             flags=flags,
             sender=(self.getIdentity(), self.getMailFrom()),
@@ -823,7 +821,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             attachments=mail_structure['att_list'],
             headers=_headers)
 
-        raw_message = message.raw_message(flag)
+        raw_message = message.raw_message(a_read)
 
         if self.getAutoSaveSentMessage() == "yes":
             #
@@ -908,8 +906,6 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
 
         msg_read = cpsmcat('_Read:_').encode('ISO-8859-15', 'ignore')
 
-        LOG("sendReceptionAcc", DEBUG, "new_body = %s, msg_read = %s" %(new_body, msg_read))
-
         _headers = {'subject': msg_read + sub_mail,
                     'date': self.ZopeTime().rfc822()}
         #
@@ -924,7 +920,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             attachments=[],
             headers=_headers)
 
-        raw_message = new_message.raw_message(flag="")
+        raw_message = new_message.raw_message(a_read=0)
         _recipients = [exp_mail]
         #
         # SMTP Sending

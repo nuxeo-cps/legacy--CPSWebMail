@@ -52,6 +52,10 @@ class WebMailSession:
             mail_structure['subject'] = REQUEST['subject']
         if REQUEST.has_key('body'):
             mail_structure['body'] = REQUEST['body']
+        if REQUEST.has_key('a_read'):
+            mail_structure['a_read'] = int(REQUEST['a_read'])
+        else:
+            mail_structure['a_read'] = 0
 
         if REQUEST.SESSION.has_key('mail_session'):
             mail = REQUEST.SESSION.get('mail_session',{})
@@ -61,6 +65,7 @@ class WebMailSession:
         else:
             mail_structure['nb_att'] = 0
             mail_structure['att_list'] = []
+
         REQUEST.SESSION['mail_session'] = mail_structure
 
     security.declareProtected(UseWebMailPermission, "createReplySession")
@@ -101,7 +106,6 @@ class WebMailSession:
             mail_structure['flag'] = flag
         if the_id:
             mail_structure['IMAPId'] = the_id
-
 
         # Commit of session object
         REQUEST.SESSION['mail_session'] = mail_structure
@@ -161,6 +165,10 @@ class WebMailSession:
             mail_structure['IMAPId'] = REQUEST['IMAPId']
         if REQUEST.has_key('flag'):
             mail_structure['flag'] = REQUEST['flag']
+        if REQUEST.has_key('a_read'):
+            mail_structure['a_read'] = int(REQUEST['a_read'])
+        else:
+            mail_structure['a_read'] = 0
 
         if not (mail_structure.has_key('nb_att')
                 and mail_structure.has_key('att_list')):
@@ -170,9 +178,9 @@ class WebMailSession:
         REQUEST.SESSION['mail_session'] = mail_structure
 
     security.declareProtected(UseWebMailPermission, "createDraftSession")
-    def  createDraftSession(self, IMAPId, IMAPName, REQUEST):
+    def createDraftSession(self, IMAPId, IMAPName, REQUEST):
         """Create a draft session"""
-        message = self.getMessage(IMAPName, IMAPId)
+        message = self.getMessage(IMAPName, IMAPId, is_draft=1)
         mail_session = {}
         mail_session['to'] = message.getTo()
         mail_session['cc'] = message.getCC()
@@ -181,6 +189,13 @@ class WebMailSession:
         mail_session['body'] = message.getBody()
         mail_session['IMAPName'] = IMAPName
         mail_session['IMAPId'] = IMAPId
+
+        folder = self.portal_webMail.getInboxFolder(REQUEST)
+        raw_msg = folder.getRawIMAPMessage(IMAPId)
+        if message.is_reception_flag(raw_msg):
+            mail_session['a_read'] = 1
+        else:
+            mail_session['a_read'] = 0
 
         if message.existAttachment():
             attachements = message.getAttachments()
