@@ -51,7 +51,7 @@ class IMAPGateway:
                     self.connection = imapLibLocal.IMAP4(server)
 
             except:
-                raise 'Connection failed'
+                raise ValueError('Connection failed')
 
     def login(self, login, password):
         """ login to IMAP server """
