@@ -87,7 +87,7 @@
                   <option selected tal:attributes="
                       value trashName"
                       tal:condition="condtrash"
-                tal:content="python:mcat(wmtool.getTrashTdName())">
+                tal:content="python:mcat(wmtool.getTrashRdName())">
                   </option>
 
             <option tal:attributes="
@@ -112,51 +112,57 @@
 
   <metal:block use-macro="here/mail_widgets/macros/form">
     <metal:block fill-slot="content">
+
       <metal:block use-macro="here/mail_widgets/macros/form_property">
-
-  <metal:block fill-slot="title">
-    <strong tal:content="python:mcat('_Search_')">Rechercher</strong>
-  </metal:block>
-
-  <metal:block fill-slot="content">
-          <input type="text" name="search_line" size="40" maxlength="40">
+        <metal:block fill-slot="title">
+          <strong tal:content="python:mcat('_Search_Body_')">Search body</strong>
         </metal:block>
-
+        <metal:block fill-slot="content">
+          <input type="text" name="search_body" size="40" maxlength="40">
+        </metal:block>
       </metal:block>
 
       <metal:block use-macro="here/mail_widgets/macros/form_property">
-
-  <metal:block fill-slot="title">
-    <strong tal:content="python:mcat('_In_')">Dans</strong>
-  </metal:block>
-
-        <metal:block fill-slot="content">
-          <select name="search_where">
-            <option value="BODY" tal:content="python:mcat('_In_message_body_')">In message body</option>
-            <option value="SUBJECT" tal:content="python:mcat('_In_subject_')">In subject</option>
-            <option value="FROM" tal:content="python:mcat('_In_from_field_')">In 'from' field</option>
-            <option value="TO" tal:content="python:mcat('_In_to_field_')">In 'to' field</option>
-          </select>
+        <metal:block fill-slot="title">
+          <strong tal:content="python:mcat('_Search_Subject_')">Search subject</strong>
         </metal:block>
+        <metal:block fill-slot="content">
+          <input type="text" name="search_subject" size="40" maxlength="40">
+        </metal:block>
+      </metal:block>
 
+      <metal:block use-macro="here/mail_widgets/macros/form_property">
+        <metal:block fill-slot="title">
+  <strong tal:content="python:mcat('_Search_From_')">Search from</strong>
+        </metal:block>
+        <metal:block fill-slot="content">
+          <input type="text" name="search_from" size="40" maxlength="40">
+        </metal:block>
+      </metal:block>
+
+      <metal:block use-macro="here/mail_widgets/macros/form_property">
+        <metal:block fill-slot="title">
+          <strong tal:content="python:mcat('_Search_To_')">Search to</strong>
+        </metal:block>
+        <metal:block fill-slot="content">
+          <input type="text" name="search_to" size="40" maxlength="40">
+        </metal:block>
       </metal:block>
 
       <metal:block use-macro="here/mail_widgets/macros/form_property">
 
         <metal:block fill-slot="title">
-          <strong tal:content="python:mcat('_Date_')">Date</strong>
+          <input type="checkbox" name="search_since_boolean" value="0"
+                 id="received_since">
+          <label for="received_since">
+            <strong tal:content="python:mcat('_Received_Since_')">Received since</strong>
+          </label>
         </metal:block>
 
         <metal:block fill-slot="content">
-          <select name="search_when">
-            <option value="SINCE" tal:content="python:mcat('_Since_')">Since</option>
-            <option value="ON" tal:content="python:mcat('_Day_')">Day</option>
-            <option value="BEFORE" tal:content="python:mcat('_Before_')">Before</option>
-          </select>
+          <input type="text" name="search_since_day" value="1" size="2" maxlength="2">
 
-          <input type="text" name="search_day" value="1" size="2" maxlength="2">
-
-          <select name="search_month">
+          <select name="search_since_month">
             <option value="Jan" tal:content="python:mcat('_January_')">January</option>
             <option value="Feb" tal:content="python:mcat('_February_')">February</option>
             <option value="Mar" tal:content="python:mcat('_March_')">March</option>
@@ -171,9 +177,42 @@
             <option value="Dec" tal:content="python:mcat('_December_')">Décember</option>
           </select>
 
-    <input type="text" name="search_year" value="1980" size="5" maxlength="4">
+          <input type="text" name="search_since_year" value="1980" size="5" maxlength="4">
         </metal:block>
       </metal:block>
+
+      <metal:block use-macro="here/mail_widgets/macros/form_property">
+
+        <metal:block fill-slot="title">
+          <input type="checkbox" name="search_before_boolean" value="0"
+                 id="received_before">
+          <label for="received_before">
+            <strong tal:content="python:mcat('_Received_Before_')">Received before</strong>
+          </label>
+        </metal:block>
+
+        <metal:block fill-slot="content">
+          <input type="text" name="search_before_day" value="1" size="2" maxlength="2">
+
+          <select name="search_before_month">
+            <option value="Jan" tal:content="python:mcat('_January_')">January</option>
+            <option value="Feb" tal:content="python:mcat('_February_')">February</option>
+            <option value="Mar" tal:content="python:mcat('_March_')">March</option>
+            <option value="Apr" tal:content="python:mcat('_April_')">April</option>
+            <option value="May" tal:content="python:mcat('_May_')">May</option>
+            <option value="Jun" tal:content="python:mcat('_Jun_')">Jun</option>
+            <option value="Jul" tal:content="python:mcat('_Jully_')">Jully</option>
+            <option value="Aug" tal:content="python:mcat('_August_')">August</option>
+            <option value="Sep" tal:content="python:mcat('_September_')">September</option>
+            <option value="Oct" tal:content="python:mcat('_October_')">October</option>
+            <option value="Nov" tal:content="python:mcat('_November_')">November</option>
+            <option value="Dec" tal:content="python:mcat('_December_')">Décember</option>
+          </select>
+
+          <input type="text" name="search_before_year" value="1980" size="5" maxlength="4">
+        </metal:block>
+      </metal:block>
+
     </metal:block>
   </metal:block>
 
