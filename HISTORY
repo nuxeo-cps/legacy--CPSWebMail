@@ -1,4 +1,21 @@
 *******************************************
+** CPSWebMail V0.9.4 [R1 build 2004/10/05-15:29 by anahide]
+
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- Empty subjects were not always replaced by a default value for display.
+- Forms submissions problems solved in webmail table and address book pages.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
 ** CPSWebMail V0.9.3 [R1 build 2004/09/29-10:56 by anahide]
 
 Requires:
