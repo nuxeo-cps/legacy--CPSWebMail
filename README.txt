@@ -3,6 +3,7 @@ CPSWebMail
 
     This is a tool to support the reading of emails via IMAP and the sending of
 	mails via SMTP together with Nuxeo CPS system.
+    It also provides address books support using the CPSDirectory product.
 
 Requirements
 
