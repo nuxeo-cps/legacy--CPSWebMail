@@ -14,7 +14,9 @@
                    current_group_name request/group_name|nothing;
                    dummy python:current_group_name and here.portal_webMail.setGroupSearch(current_addressbook, current_group_name, REQUEST=request);
                    search_param python:request.get('search_param', '');
-                   groups_found_by_search python:request.has_key('addressBook_view_groups') and current_addressbook.searchEntries(group=search_param, return_fields=['group']) or nothing;
+                   id_field current_addressbook/id_field;
+                   title_field current_addressbook/title_field;
+                   groups_found_by_search python:request.has_key('addressBook_view_groups') and current_addressbook.searchEntries(return_fields=[id_field], **{id_field: search_param, title_field: search_param }) or nothing;
                    members_directory python:dirtool['members'];
                    allow_copy_or_link python:1;
                    ">
@@ -87,7 +89,7 @@
                         groups current_addressbook;
                         id_field groups/id_field;
                         title_field groups/title_field">
-                        <tal:block repeat="item python:groups.searchEntries(return_fields=['group'])">
+                        <tal:block repeat="item python:groups.searchEntries(return_fields=[id_field])">
                           <option
                             tal:attributes="
                               value python:item[0];
@@ -133,8 +135,8 @@
           <td bgcolor="#dcdcdc">
             <table cellpadding="2" cellspacing="1" border="0" width="100%">
               <tal:block define="
-                title_field members_directory/title_field;
-                id_field members_directory/id_field;">
+                members_title_field members_directory/title_field;
+                members_id_field members_directory/id_field;">
 
                  <tr bgcolor="#eeeeee">
                    <th align="center" valign=middle width="1%">
@@ -170,14 +172,13 @@
                      Unselect
                      </a>
                    </th>
-                   <th width="1%"> </th>
                    <th align="center" width="16%">
                      <b>
                      <i tal:define="ltool here/portal_layouts;
                                     layoutid members_directory/layout;
                                     layoutob ltool/?layoutid;
-                                    widget python:(layoutob[members_directory.title_field]);
-                                    disp_title widget/label;"
+                                    widget python:layoutob.has_key(members_title_field) and layoutob[members_title_field] or None;
+                                    disp_title widget/label|string:label_name;"
                         tal:content="python:mcat(disp_title)">
                       Display Prop Name
                      </i>
@@ -258,9 +259,8 @@
                     <td width="1%" nowrap> </td>
                     <td width="1%" nowrap> </td>
                   </tal:block>
-                  <td width="1%" align="center"> </td>
                   <td valign="middle" align="left" nowrap>
-                    <i tal:content="python:entry.get(title_field, '')">
+                    <i tal:content="python:entry.get(members_title_field)">
                       Fullname
                     </i>
                   </td>
@@ -285,13 +285,13 @@
                   <tal:block condition="python:allow_copy_or_link and privbook_name">
                     <td width="1%" align="center" nowrap>
                       <input type="checkbox" name="to_add_to_privbook:list"
-                        tal:attributes="value string:${entry/?id_field}">
+                        tal:attributes="value string:${entry/?members_id_field}">
                     </td>
                   </tal:block>
                   <tal:block condition="python:allow_copy_or_link and privbooklinks_name">
                     <td width="1%" align="center" nowrap>
                       <input type="checkbox" name="to_add_to_privbooklinks:list"
-                        tal:attributes="value string:${entry/?id_field}">
+                        tal:attributes="value string:${entry/?members_id_field}">
                     </td>
                   </tal:block>
                 </tr>
