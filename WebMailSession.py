@@ -13,7 +13,7 @@ import string
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 from interfaces.IWebMailSession import WebMailSessionInterface
-from RFC822MessagesTools import *
+from RFC822MessagesTools import render_date
 from DateTime import *
 
 UseWebMailPermission = "Use WebMail"
@@ -96,6 +96,13 @@ class WebMailSession:
         else:
             mail_structure['to'] = message.getSenderMail()
 
+        flag = REQUEST.get('flag', 'reply')
+        if flag is not None:
+            mail_structure['flag'] = flag
+        if the_id:
+            mail_structure['IMAPId'] = the_id
+
+
         # Commit of session object
         REQUEST.SESSION['mail_session'] = mail_structure
 
@@ -116,7 +123,7 @@ class WebMailSession:
         body += message.getSenderName() +\
             ' (' + message.getSenderMail() + ') '
         body += "\n>> Date: " \
-            + RFC822MessagesTools.render_date(message.getDate()) + "\n\n"
+            + render_date(message.getDate()) + "\n\n"
         new_body = string.split(
             message.render_body(message.getBody(), 'html'), '\n')
         new_body = '>> ' + string.join(new_body, '\n>> ')  + ' \n\n'
@@ -124,6 +131,12 @@ class WebMailSession:
 
         mail_structure['body'] = new_body
         mail_structure['subject'] = 'Fwd: ' + message.getSubject()
+
+        flag = REQUEST.get('flag', 'forward')
+        if flag is not None:
+            mail_structure['flag'] = flag
+        if the_id:
+            mail_structure['IMAPId'] = the_id
 
         # Commit of session object
         REQUEST.SESSION['mail_session'] = mail_structure
@@ -144,6 +157,10 @@ class WebMailSession:
             mail_structure['subject'] = REQUEST['subject']
         if REQUEST.has_key('body'):
             mail_structure['body'] = REQUEST['body']
+        if REQUEST.has_key('IMAPId'):
+            mail_structure['IMAPId'] = REQUEST['IMAPId']
+        if REQUEST.has_key('flag'):
+            mail_structure['flag'] = REQUEST['flag']
 
         if not (mail_structure.has_key('nb_att')
                 and mail_structure.has_key('att_list')):
@@ -162,6 +179,10 @@ class WebMailSession:
         mail_session['bcc'] = message.getBCC()
         mail_session['subject'] = message.getSubject()
         mail_session['body'] = message.getBody()
+        mail_session['IMAPName'] = IMAPName
+        mail_session['IMAPId'] = IMAPId
+        if REQUEST.has_key('flag'):
+            mail_session['flag'] = REQUEST['flag']
 
         if message.existAttachment():
             attachements = message.getAttachments()
