@@ -118,13 +118,21 @@ function SetChecked_Sup(val) {
                     lists python:dirtool[lists_name];
                     id_field lists/id_field;
                     title_field lists/title_field">
-                    <tal:block repeat="item python:lists.searchEntries(return_fields=[id_field,title_field])">
-                      <option
-                        tal:attributes="
-                          value python:item[0];
-                          selected python:addressbook_name == item[0];"
-                        tal:content="python:item[1][id_field]">
-                      </option>
+                    <tal:block define="items
+                      python:lists.searchEntries(return_fields=[id_field,title_field])">
+                      <tal:block repeat="item items">
+                        <option
+                          tal:attributes="value python:item[0];
+                                          selected python:addressbook_name == item[0];"
+                          tal:content="python:item[1][id_field]">
+                        </option>
+                      </tal:block>
+                      <tal:block condition="not:items">
+                        <option value="_mailing"
+                          tal:attributes="selected python:addressbook_name == '_mailing';"
+                          tal:content="python:mcat('_Mailing_Lists_')">
+                        </option>
+                      </tal:block>
                     </tal:block>
                   </tal:block>
                 </tal:block>
