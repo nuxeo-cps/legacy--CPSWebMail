@@ -272,6 +272,9 @@ class IMAPGateway:
             self.connection.uid('STORE',str(IMAPId),'-FLAGS','(\Flagged)')
         if flag=="draft":
             self.connection.uid('STORE',str(IMAPId),'+FLAGS','(\Draft)')
+        # AT: looks like Forwarded is a special flag, so using '$' instead of '\'
+        if flag=="forwarded":
+            self.connection.uid('STORE',str(IMAPId),'+FLAGS','($Forwarded)')
 
 
     def getMessage(self, folderName="INBOX", IMAPId=""):

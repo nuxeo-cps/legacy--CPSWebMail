@@ -30,6 +30,8 @@ import mime_message
 import IMAPMessage
 import Attachment
 
+from zLOG import LOG, DEBUG
+
 is_quoted_printable = re.compile('=\\?iso-8859-[12]\\?q\\?([^? \t\n]+)\\?=', re.I)
 is_base64 = re.compile('=\\?iso-8859-[12]\\?b\\?([^? \t\n]+)\\?=', re.I)
 
@@ -143,6 +145,10 @@ def parse_RFCHeaders(header, nbCharSubject=25):
         head["answered"] = 1
     if string.find(flags, 'flagged') != (-1):
         head["flagged"] = 1
+    if string.find(flags, 'forwarded') != (-1):
+        head["forwarded"] = 1
+    else:
+        head["forwarded"] = 0
 
     return head
 
@@ -315,9 +321,9 @@ def parse_RFCMessage(mess, direct_body, flags, imapid):
 
     _from = (_fromNom, _fromMail)
 
-    dico_flags = {'read': 0, 'answered': 0, 'deleted': 0, 'flagged': 0}
+    dico_flags = {'read': 0, 'answered': 0, 'deleted': 0, 'flagged': 0, 'forwarded': 0}
     flags = string.lower(flags)
-    for item in ['read', 'answered', 'deleted', 'flagged']:
+    for item in ['read', 'answered', 'deleted', 'flagged', 'forwarded']:
         if string.find(flags, item) != (-1):
             dico_flags[item] = 1
 
