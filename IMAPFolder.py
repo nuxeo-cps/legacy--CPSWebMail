@@ -114,7 +114,7 @@ class IMAPFolder:
 
         return res
 
-    def getNumberOfNotReadIMAPMessage(self, REQUEST=None):
+    def getNumberOfUnreadIMAPMessage(self, REQUEST=None):
         """ return the number of not read mails in this mailbox
         """
         con = IMAPGateway.IMAPGateway()
@@ -123,7 +123,7 @@ class IMAPFolder:
                     port = self.getWebMail().getIMAPPort())
         con.login(self.getWebMail().getIMAPLogin(),
                   self.getWebMail().getIMAPPassword())
-        res = con.getNumberOfNotReadMessage(self.getImapName())
+        res = con.getNumberOfUnreadMessage(self.getImapName())
         con.logout()
 
         return res

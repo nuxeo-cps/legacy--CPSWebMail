@@ -397,7 +397,7 @@ class IMAPGateway:
             res=len(string.split(result[-1][0]))
         return res
 
-    def getNumberOfNotReadMessage(self, folderName):
+    def getNumberOfUnreadMessage(self, folderName):
         """ return the number of message in a folder """
 
         res = self.getNumberOfMessage(folderName) - self.getNumberOfReadMessage(folderName)
