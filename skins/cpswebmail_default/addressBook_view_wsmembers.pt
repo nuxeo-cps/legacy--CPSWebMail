@@ -9,7 +9,7 @@
                    current_addressbook python:wmtool.getCurrentAddressBook(current_addressbook_name, REQUEST=request);
                    search_role request/search_role|nothing;
                    search_workspace request/search_workspace|nothing;
-                   members_directory python:dirtool['members'];
+                   members_directory python:wmtool.getCurrentAddressBook('_members');
                    allow_copy_or_link python:1;
                    ">
 <html metal:use-macro="here/main_template/macros/master">
@@ -132,7 +132,7 @@
                    </th>
                    <th align="center" width="16%">
                      <b>
-                     <i tal:define="email_prop_name string:email;
+                     <i tal:define="email_prop_name python:wmtool.getCurrentAddressBookEmailProperty('_wsmembers');
                                     ltool here/portal_layouts;
                                     layoutid members_directory/layout;
                                     layout ltool/?layoutid;

@@ -1,5 +1,6 @@
 <tal:block define="
-  global dirname request/dirname|string:members;
+  wmtool here/portal_webMail;
+  global dirname request/dirname|wmtool/getMembersDirectoryName;
   global dir here/portal_directories/?dirname;
   global dirtitle dir/title_or_id;
   dummy dir/checkCreateEntryAllowed;
