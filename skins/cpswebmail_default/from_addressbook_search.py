@@ -2,7 +2,7 @@
 ## Script (Python) "from_addressbook_search.py"
 
 addressbook = context.portal_webMail.getCurrentAddressBook(REQUEST=REQUEST)
-context.portal_webMail.setSearchSessionCPS3(addressbook, REQUEST)
+context.portal_webMail.setSearchSession(addressbook, REQUEST)
 
 #
 # Redirection to the compose form
