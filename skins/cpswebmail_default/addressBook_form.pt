@@ -3,12 +3,14 @@
 <tal:block define="wmtool here/portal_webMail;
                    mcat nocall:here/Localizer/default;
                    dirtool here/portal_directories;
-                   lists_name wmtool/getMailingListName;
+                   addressbook_name wmtool/getAddressBookName;
                    privbook_name wmtool/getPrivAddressBookName;
                    privbooklinks_name wmtool/getPrivAddressBookLinksName;
-                   addressbook_name request/addressbook_name|string:_private;
-                   addressbook python:wmtool.getCurrentAddressBook(REQUEST=request);
-            ">
+                   lists_name wmtool/getMailingListName;
+                   current_addressbook_name request/addressbook_name|string:_private;
+                   current_addressbook python:wmtool.getCurrentAddressBook(current_addressbook_name, REQUEST=request);
+                   allow_copy_or_link python:current_addressbook_name in ['_global', '_members', '_groups'];
+                   ">
 <html metal:use-macro="here/main_template/macros/master">
 
 <metal:block fill-slot="javascript_head_slot">
@@ -17,7 +19,7 @@
 </metal:block>
 
 <metal:block fill-slot="header">
-  <h1 tal:define="addressbook_title python:wmtool.getCurrentAddressBook(addressbook_name).title_or_id();"
+  <h1 tal:define="addressbook_title python:current_addressbook.title_or_id();"
       tal:content="python:mcat(addressbook_title)">Address book title</h1>
   <metal:block use-macro="here/webmail_lib/macros/back_to_message_list"/>
 </metal:block>
@@ -40,101 +42,7 @@
           " />
       </td>
       <td align="right" valign="middle">
-        <table border="0" cellpadding="0" cellspacing="0">
-          <tr>
-            <td align="center" valign="middle">
-              <b tal:content="python:mcat('_Change_list_to_')">
-                Change list to:
-              </b>
-            </td>
-          </tr>
-          <tr>
-            <td align="left" valign="middle">
-              <select size="1" name="addressbook_name">
-                <tal:block condition="python:privbook_name">
-                  <tal:block define="
-                    privbook python:wmtool.getCurrentAddressBook('_private');
-                    privbook_prop_name wmtool/getPrivAddressBookEmailProperty;">
-                    <option value="_private"
-                      tal:attributes="selected python:addressbook_name == '_private';"
-                      tal:content="python:mcat(privbook.title_or_id())">
-                    </option>
-                  </tal:block>
-                </tal:block>
-                <tal:block condition="python:privbooklinks_name">
-                  <tal:block define="
-                    privbooklinks python:wmtool.getCurrentAddressBook('_private_links');
-                    privbooklinks_prop_name wmtool/getPrivAddressBookLinksEmailProperty;">
-                    <option value="_private_links"
-                      tal:attributes="selected python:addressbook_name == '_private_links';"
-                      tal:content="python:mcat(privbooklinks.title_or_id())">
-                    </option>
-                  </tal:block>
-                </tal:block>
-                <option value="_global"
-                  tal:content="python:mcat('_Address_book_')"
-                  tal:attributes="selected python:addressbook_name == '_global';">
-                  Addresses
-                </option>
-                <tal:block condition="python:lists_name">
-                  <tal:block define="
-                    lists_prop_name wmtool/getMailingListsEmailProperty;
-                    lists python:dirtool[lists_name];
-                    id_field lists/id_field;
-                    title_field lists/title_field">
-                    <tal:block define="items
-                      python:lists.searchEntries(return_fields=[id_field,title_field])">
-                      <tal:block repeat="item items">
-                        <option
-                          tal:attributes="value python:item[0];
-                                          selected python:addressbook_name == item[0];"
-                          tal:content="python:item[1][id_field]">
-                        </option>
-                      </tal:block>
-                      <tal:block condition="not:items">
-                        <option value="_mailing"
-                          tal:attributes="selected python:addressbook_name == '_mailing';"
-                          tal:content="python:mcat('_Mailing_Lists_')">
-                        </option>
-                      </tal:block>
-                    </tal:block>
-                  </tal:block>
-                </tal:block>
-              </select>
-              <input type="submit"
-                     name="addressbook_changelist:method"
-                     value="Ok" />
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr tal:condition="nothing|string:This part is commented out">
-      <td colspan="2" align="left">
-        <ul type="square">
-          <li>
-            <a target="_blank"
-               tal:define="abookid python:wmtool.getCurrentAddressBookName(REQUEST=request);"
-               tal:attributes="
-                 href string:${portal_url}cpsdirectory_entry_search_form?dirname=${abookid};"
-               tal:content="python:mcat('_searchbox_Advanced_search')">
-            </a>
-          </li>
-        </ul>
-      </td>
-    </tr>
-    <tr tal:condition="nothing|string:This part is commented out">
-      <td colspan="2" align="left">
-        <ul type="square">
-          <li>
-            <a
-              tal:attributes="
-                href string:${here/absolute_url}/addressbook_import_form"
-              tal:content="python:mcat('_Import_from_MSOutlook_address_book_')">
-              Import from MSOutlook address book
-            </a>
-          </li>
-        </ul>
+        <metal:block use-macro="here/webmail_lib/macros/select_addressbook"/>
       </td>
     </tr>
   </table>
@@ -142,20 +50,21 @@
     <tr bgcolor="#dcdcdc">
       <td nowrap>
         <input type="button"
-          tal:condition="python:addressbook.isCreateEntryAllowed()"
+          tal:condition="python:current_addressbook.isCreateEntryAllowed()"
           tal:attributes="value python:mcat('_New_contact_');
-                          onclick string:javascript:popup_create_entry('addressbook_addcontact', '${addressbook_name}');;"/>
+                          onclick string:javascript:popup_create_entry('addressbook_addcontact', '${current_addressbook_name}');;"/>
         <input type="submit"
           name="addressbook_add_contacts_to_privbook:method"
-          tal:condition="python:addressbook_name == '_global' and privbook_name"
+          tal:condition="python:allow_copy_or_link and privbook_name"
           tal:attributes="value python:mcat('_Add_to_private_addressbook_')"/>
         <input type="submit"
           name="addressbook_add_contacts_links_to_privbook:method"
-          tal:condition="python:addressbook_name == '_global' and privbooklinks_name"
+          tal:condition="python:allow_copy_or_link and privbooklinks_name"
           tal:attributes="value python:mcat('_Add_link_to_private_addressbook_')"/>
         <input type="submit"
-          tal:condition="python:addressbook.isDeleteEntryAllowed()"
-          tal:attributes="value python:mcat('_Delete_')"
+          tal:condition="python:current_addressbook.isDeleteEntryAllowed()"
+          tal:attributes="value python:mcat('_Delete_');
+                          onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), );"
           name="addressbook_groupdelete:method" />
       </td>
       <td align="right" nowrap>
@@ -171,9 +80,9 @@
       <td bgcolor="#dcdcdc">
         <table cellpadding="2" cellspacing="1" border="0" width="100%">
           <tal:block define="
-            email_prop_name wmtool/getAddressBookEmailProperty;
-            title_field addressbook/title_field;
-            id_field addressbook/id_field;
+            email_prop_name python:wmtool.getCurrentAddressBookEmailProperty(current_addressbook, request);
+            title_field current_addressbook/title_field;
+            id_field current_addressbook/id_field;
           ">
             <tr bgcolor="#eeeeee">
               <th align="center" valign="middle" width="1%">
@@ -226,7 +135,7 @@
                 <p>
                   <b>
                     <i tal:define="ltool here/portal_layouts;
-                                   layoutid addressbook/layout;
+                                   layoutid current_addressbook/layout;
                                    layoutob ltool/?layoutid;
                                    widget python:(layoutob[title_field]);
                                    disp_title widget/label;"
@@ -240,7 +149,7 @@
                 <p>
                   <b>
                     <i tal:define="ltool here/portal_layouts;
-                                   layoutid addressbook/layout;
+                                   layoutid current_addressbook/layout;
                                    layout ltool/?layoutid;
                                    disp_title layout/?email_prop_name/label"
                        tal:content="python:mcat(disp_title)">
@@ -259,7 +168,7 @@
                  </p>
               </th>
               <th valign="middle" align="center" width="1%"
-                  tal:condition="python:addressbook_name == '_global' and privbook_name">
+                  tal:condition="python:allow_copy_or_link and privbook_name">
                 <p align="center">
                   <i>
                     <strong tal:content="python:mcat('_Add_to_private_addressbook_')">
@@ -277,7 +186,7 @@
                 </p>
               </th>
               <th valign="middle" align="center" width="1%"
-                  tal:condition="python:addressbook_name == '_global' and privbooklinks_name">
+                  tal:condition="python:allow_copy_or_link and privbooklinks_name">
                 <p align="center">
                   <i>
                     <strong tal:content="python:mcat('_Add_link_to_private_addressbook_')">
@@ -295,7 +204,7 @@
                 </p>
               </th>
               <th valign="middle" align="center" width="1%"
-                tal:condition="python:addressbook.isDeleteEntryAllowed()">
+                tal:condition="python:current_addressbook.isDeleteEntryAllowed()">
                 <p>
                   <i>
                     <strong tal:content="python:mcat('_Delete_')">
@@ -313,7 +222,7 @@
                 </p>
               </th>
             </tr>
-           <!-- begin repeat on search results -->
+            <!-- begin repeat on search results -->
             <tal:block repeat="entryid python:request.SESSION.get('search_results', wmtool.addressBookSearch(REQUEST=request))">
                 <tr bgcolor="#ffffff"
                   tal:define="entry python:wmtool.getAddressBookEntry(entryid, REQUEST=request)">
@@ -362,12 +271,12 @@
                     </a>
                   </td>
                   <tal:block
-                    define="can_edit python:addressbook.isEditEntryAllowed(entry=entry)">
+                    define="can_edit python:current_addressbook.isEditEntryAllowed(entry=entry)">
                     <td width="1%" align="center" nowrap
                       tal:condition="can_edit">
                       <p>
                         <a tal:attributes="
-                             href string:javascript:popup_edit_entry('addressbook_editcontact', '${addressbook_name}', '${entry/?id_field}')"
+                             href string:javascript:popup_edit_entry('addressbook_editcontact', '${current_addressbook_name}', '${entry/?id_field}')"
                            tal:content="python:mcat('_Edit_')">
                           Change Link
                         </a>
@@ -378,20 +287,20 @@
                       &nbsp;
                     </td>
                   </tal:block>
-                  <tal:block condition="python:addressbook_name == '_global' and privbook_name">
+                  <tal:block condition="python:allow_copy_or_link and privbook_name">
                     <td width="1%" align="center" nowrap>
                       <input type="checkbox" name="to_add_to_privbook:list"
                         tal:attributes="value string:${entry/?id_field}">
                     </td>
                   </tal:block>
-                  <tal:block condition="python:addressbook_name == '_global' and privbooklinks_name">
+                  <tal:block condition="python:allow_copy_or_link and privbooklinks_name">
                     <td width="1%" align="center" nowrap>
                       <input type="checkbox" name="to_add_to_privbooklinks:list"
                         tal:attributes="value string:${entry/?id_field}">
                     </td>
                   </tal:block>
                   <tal:block
-                    define="can_delete python:addressbook.isDeleteEntryAllowed()">
+                    define="can_delete python:current_addressbook.isDeleteEntryAllowed()">
                     <td width="1%" align="center" nowrap
                       tal:condition="can_delete">
                       <input type="checkbox" name="to_delete:list"
@@ -411,21 +320,22 @@
             <tr bgcolor="#dcdcdc">
               <td colspan="2" nowrap>
                 <input type="button"
-                  tal:condition="python:addressbook.isCreateEntryAllowed()"
+                  tal:condition="python:current_addressbook.isCreateEntryAllowed()"
                   tal:attributes="value python:mcat('_New_contact_');
-                                  onclick string:javascript:popup_create_entry('addressbook_addcontact', '${addressbook_name}');;"/>
+                                  onclick string:javascript:popup_create_entry('addressbook_addcontact', '${current_addressbook_name}');;"/>
                 <input type="submit"
                   name="addressbook_add_contacts_to_privbook:method"
-                  tal:condition="python:addressbook_name == '_global' and privbook_name"
+                  tal:condition="python:allow_copy_or_link and privbook_name"
                   tal:attributes="value python:mcat('_Add_to_private_addressbook_')"/>
                 <input type="submit"
                   name="addressbook_add_contacts_links_to_privbook:method"
-                  tal:condition="python:addressbook_name == '_global' and privbooklinks_name"
+                  tal:condition="python:allow_copy_or_link and privbooklinks_name"
                   tal:attributes="value python:mcat('_Add_link_to_private_addressbook_')"/>
                 <input type="submit"
-                  tal:condition="python:addressbook.isDeleteEntryAllowed()"
-                  name="addressbook_groupdelete:method"
-                  tal:attributes="value python:mcat('_Delete_')"/>
+                  tal:condition="python:current_addressbook.isDeleteEntryAllowed()"
+                  name="addressbook_groupdelete:method;"
+                  tal:attributes="value python:mcat('_Delete_');
+                                  onclick python:'return window.confirm(\'%s\')' % (cpsmcat('description_confirm_delete'), );"/>
               </td>
               <td align="right" nowrap>
                 <input type="submit" name="mail_selected_one:method"
