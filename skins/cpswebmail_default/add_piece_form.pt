@@ -1,0 +1,90 @@
+<tal:block define="global hideactions python:1" />
+<tal:block define="wmtool here/portal_webMail;
+      folder python:wmtool.getInboxFolder(request);
+      mail_struct python:request.SESSION.get('mail_session',{});
+      mcat nocall:here/Localizer/default;
+      dtool here/portal_directories/members;
+    ">
+
+<html metal:use-macro="here/main_template/macros/master">
+<body>
+<metal:block fill-slot="genericmain">
+    <metal:block use-macro="here/mail_widgets/macros/boxstd">
+      <metal:block fill-slot="box_title">
+                        Ajout de pièce jointe
+              </metal:block>
+
+<metal:block fill-slot='box_body'>
+
+<form tal:attributes="
+      action  string:${here/absolute_url}/;
+      method  string:post;
+      ENCTYPE string:multipart/form-data;
+      name    string:form2">
+
+
+<input tal:attributes="
+       type string:hidden;
+       value request/IMAPName;
+       name string:IMAPName">
+
+ <p>
+   <input type="file" name="attachment" value="ajouter">
+    
+   <input tal:attributes="
+              type string:submit;
+              value string:Ajouter;
+              name  string:add_piece_session:method">
+        
+   <input tal:attributes="
+              type string:submit;
+              value string:Effacer toutes les pièces;
+              name  string:remove_all_pieces:method">
+</p>
+
+<!-- Liste of existing pieces -->
+
+<h2>Liste des pièces jointes</h2>
+<hr>
+<p> </p>
+<table border="0" cellspacing="0" cellpaddin="0" width="100%">
+<tr>
+    <td> Numéro </td>
+    <td> Nom    </td>
+    <td> Taille </td>
+    <td> Type </td>
+</tr>
+<tal:block repeat="item python:request.SESSION['mail_session']['att_list']">
+  <tr>
+  <td tal:content="python:item.getId()"> The id </td>
+  <td tal:content="python:item.getFilename()"> The attach Name </td>
+  <td tal:content="python:item.getSize()"> The Size </td>
+  <td tal:content="python:item.getContentType()"> The Type </td>
+  <td><a href="" tal:attributes="
+           href string:remove_one_piece?idpiece=${item/getId}&IMAPName=${request/IMAPName}"
+                       tal:content="string:retirer">
+            Link
+      </a>
+
+        </td>
+  </tr>
+</tal:block>
+</table>
+
+
+<p> </p>
+<hr>
+ 
+<h2><a href="" tal:attributes="
+           href string:${here/absolute_url}/edit_message?IMAPName=${request/IMAPName}"
+           tal:content="string:retour sur la composition du message">
+     Link to return to the compose form
+</a></h2>
+
+</form>
+</metal:block>
+</metal:block>
+</metal:block>
+</body>
+</html>
+</tal:block>

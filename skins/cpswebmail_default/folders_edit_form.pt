@@ -1,0 +1,90 @@
+<tal:block define="global hideactions python:1" />
+
+<!-- Folders edit Form -->
+
+<tal:block define="wmtool here/portal_webMail;
+                   folder python:wmtool.getInboxFolder(request);
+                   mcat nocall:here/Localizer/default;
+                   ">
+  <html metal:use-macro="here/main_template/macros/master">
+    <body>
+      <metal:block fill-slot="header">
+        <tal:block content="python:mcat('_New_IMAP_Folder_creation_')"/>
+      </metal:block>
+
+      <metal:block fill-slot="header_plus"/>
+
+      <metal:block fill-slot='main'>
+        <form tal:attributes="
+          action string:${here/absolute_url};
+          method string:post;
+    name   string:form">
+          <h4 align="right">
+      <tal:block content="python:mcat('_Existing_IMAP_folders:_')"/>
+            <select name="IMAPNames:list" size="5" multiple>
+        <tal:block repeat="item wmtool/getIMAPFolders">
+          <tal:block define="condition_Folders python:item.getImapName() not in [wmtool.getDraftIMAPName(), wmtool.getTrashIMAPName(), wmtool.getSentMailIMAPName(), wmtool.getInboxIMAPName(request)]">
+            <option tal:condition="condition_Folders"
+                    tal:attributes="
+                    value item/getImapName"
+                    tal:content="item/getReadableName">
+              Folder Readble Name
+                  </option>
+          </tal:block>
+              </tal:block>
+      </select>
+          </h4>
+    <h5 align="center">
+      <input tal:attributes="
+              type  string:submit;
+              value python:mcat('_Delete_');
+              name  string:delete_folders:method">
+    </h5>
+    <p>&nbsp;</p>
+    <hr>
+          <p>&nbsp;</p>
+
+    <table border="0" cols="2" cellpadding="0" cellspacing="0">
+      <tr>
+            <td align="center" valign="middle">
+                <h5 tal:content="python:mcat('_Folder_name:_')">Folder name</h5>
+            </td>
+            <td align="left" valign="middle">
+                <input type="text" name="title:string" size="50">
+            </td>
+      </tr>
+      <tr>
+          <td colspan="2">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" tal:content="python:mcat('_Folder_creation_caution_')">
+          <p align="left">Attention: dot . is for creating subfolders.</p>
+          <p align="left">ie.: to have subfolders like "yellow" and "red" of folder"colors",</p>
+          <p align="left">you just have to name it "colors.yellow" et "colors.red" only if folder "colors" is existing.</p>
+          <p align="left"> Be carefull to the case</p>
+        </td>
+      </tr>
+      <tr>
+          <td colspan="2">&nbsp;</td>
+      <tr>
+            <td align="right">
+          <input tal:attributes="
+                  type string:submit;
+            value python:mcat('_Add_');
+                  name string:create_folders:method">
+            </td>
+            <td align="left">
+          <input tal:attributes="
+            type string:submit;
+            value python:mcat('_Cancel_');
+                  name string:webmail_show:method">
+            </td>
+      </tr>
+    </table>
+        </form>
+      </metal:block>
+
+    </body>
+  </html>
+</tal:block>
+

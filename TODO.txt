@@ -1,0 +1,21 @@
+- WebMail Does not send a Receipt on read.
+
+- Attachments sent from a macintosh is not readable (at least on Windows).
+
+- The fact that it's session based has some interesting effects.
+  Composing a message always takes the subject and body from the last read mail.
+  This is confusing, but sometimes useful when creating new mails. However, you
+  can't open mails in separate windows, becuase when you then reply, you don't
+  know which mail are you actually reply too.
+
+  So, this SHOULD be refactored so that it doesn't save all variables in sessions,
+  but, if possible still retains some of the nice functionality like not having to
+  save a draft before going somewhere else.
+
+
+06/09/2002 /* Anguenot.J */
+** Multi-user mode (with preferencies)
+** Multi-language
+
+Debug Session !!
+Some Refactoring and cleaning

@@ -1,0 +1,5 @@
+Prénom;Nom| ;Deuxième prénom;Nom;Surnom;Adresse de messagerie;Rue (domicile);Ville (domicile);Code postal (domicile);Département
+(domicile);Pays/région (domicile);Téléphone personnel;Télécopie personnelle;Téléphone mobile;Page Web (domicile);Rue(bureau);Ville
+ (bureau);Code postal (bureau);Département (bureau);Pays/région (bureau);Page Web (bureau);Téléphone professionnel;Télécopie
+ professionnelle;Radiomessagerie;Société;Fonction ;Service;Emplacement du bureau;Remarques
+ 

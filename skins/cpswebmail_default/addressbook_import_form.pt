@@ -1,0 +1,87 @@
+<tal:block define="global hideactions python:1" />
+
+<!-- addressbook_import_form -->
+
+<tal:block define="wmtool here/portal_webMail;
+                   mcat nocall:here/Localizer/default;
+                   dtool here/portal_directories/members;
+">
+<html metal:use-macro="here/main_template/macros/master">
+<head>
+  <title>Importation Carnet d'adresses</title>
+</head>
+<body>
+ <metal:block fill-slot="genericmain">
+ <metal:block use-macro="here/mail_widgets/macros/boxstd">
+ <metal:block fill-slot="box_title">
+   <p tal:replace="string:Importation d'un carnet d'adresses">
+           The title
+           </p>
+
+ </metal:block>
+
+   <metal:block fill-slot='box_body'>
+
+        <!-- Body here -->
+             <form tal:attributes="
+                   action string:${here/absolute_url};
+       ENCTYPE string:multipart/form-data;
+                   method string:post;
+                   name   string:form">
+             <table border="0" align="center">
+       <input tal:attributes="
+                    type string:hidden;
+                    name string:dirname;
+                    value string:${wmtool/getAddressBookName}">
+            <tr>
+               <td align="right">
+                 <p>Charger un fichier :</p>
+               </td>
+               <td align="left">
+                  <input type="file" name="file" value="Charger">
+               </td>
+            </tr>
+      <tr>
+               <td colspan="2">
+                  <input tal:attributes="
+                         type  string:submit;
+                         value string:Charger;
+                         name  string:addressbook_import:method" />
+               </td>
+            </tr>
+          </table>
+         <ul type="square">
+           <li>L'importation fonctionne uniquement avec des fichiers exportés au
+           format csv depuis Outlook Express.</li>
+           <li>De plus les contacts ne possédant pas de mails ne seront pas
+         enregistrés.</li>
+         <li>Si vous ne choisissez pas l'option
+          <i>Importer et effacer le contenudu carnet d'adresse</i>
+          les contacts seront ajoutés aux existants.
+          </li>
+          <li>Attention : Les contacts déjà présent dans le système
+          d'information ne seront pas ajoutés !
+          </li>
+       </ul>
+         <p> </p>
+         <p>
+         <input type="checkbox" name="erase" />
+          
+         Importer et effacer les anciens contacts
+         </p>
+       </form>
+      <p> </p>
+      <hr>
+      <p><a tal:attributes="
+            href string:${here/absolute_url}/addressBook_form">
+            Retour sur le carnet d'adrresse
+          </a>
+     </p>
+
+  </metal:block>
+  </metal:block>
+ </metal:block>
+
+</body>
+</html>
+</tal:block>

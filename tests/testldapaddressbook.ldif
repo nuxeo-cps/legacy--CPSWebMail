@@ -1,0 +1,11 @@
+dn: ou=gzaddressbook,dc=nuxeo,dc=com
+ou: gzaddessbook
+description: Carnet d'adresses test
+objectClass: top
+objectClass: organizationalUnit
+
+dn: ou=gzmailinglists,dc=nuxeo,dc=com
+ou: gzmailinglists
+description: Mailing-lists
+objectClass: top
+objectClass: organizationalUnit

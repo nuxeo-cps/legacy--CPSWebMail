@@ -1,0 +1,305 @@
+# Gettext Message File for NuxWebMail.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-11-19 16:42default\n"
+"PO-Revision-Date: 2003-11-19 16:46+0100\n"
+"Last-Translator: Julien Anguenot <ja@nuxeo.com>\n"
+"Language-Team: Nuxeo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.0.1\n"
+
+
+msgid "_Your_mail_"
+msgstr "Votre courrier :"
+
+msgid "_mail(s)_in_"
+msgstr "messages(s) dans le dossier "
+
+msgid "_Change_folder_to_"
+msgstr "Changer de dossier pour"
+
+msgid "_Read_messages_"
+msgstr "Lire les messages"
+
+msgid "_Compose_"
+msgstr "Composer"
+
+msgid "_Search_"
+msgstr "Rechercher"
+
+msgid "_Address_book_"
+msgstr "Carnet d'adresses"
+
+msgid "_Folders_"
+msgstr "Dossiers"
+
+msgid "_Messages_from_"
+msgstr "Messages de"
+
+msgid "_to_"
+msgstr "à"
+
+msgid "_of_"
+msgstr "sur"
+
+msgid "_Selected_messages_"
+msgstr "Les messages sélectionnés"
+
+msgid "_All_"
+msgstr "Tous"
+
+msgid "_None_"
+msgstr "Aucun"
+
+msgid "_Delete_"
+msgstr "Effacer"
+
+msgid "_Move_To_"
+msgstr "Déplacer Vers"
+
+msgid "_All/None_"
+msgstr "Tous/Aucun"
+
+msgid "_Subject_"
+msgstr "Sujet"
+
+msgid "_From_"
+msgstr "De"
+
+msgid "_Date_"
+msgstr "Date"
+
+msgid "_Size_"
+msgstr "Taille"
+
+msgid "_Compose_your_mail_"
+msgstr "Composez votre message"
+
+msgid "_Back_to_message_list_"
+msgstr "Retour à la liste des messages"
+
+msgid "_Acknowledgement_of_read_"
+msgstr "Accusé de lecture"
+
+msgid "_TO:_"
+msgstr "À :"
+
+msgid "_CC:_"
+msgstr "Cc :"
+
+msgid "_BCC:_"
+msgstr "Bcc :"
+
+msgid "_Subject:_"
+msgstr "Sujet :"
+
+msgid "_Send_"
+msgstr "Envoyer"
+
+msgid "_Cancel_"
+msgstr "Annuler"
+
+msgid "_Save_as_draft_"
+msgstr "Sauver en tant que brouillon"
+
+msgid "_Attachments_list_"
+msgstr "Liste des fichiers attachés :"
+
+msgid "_Add_"
+msgstr "Ajouter"
+
+msgid "_Id_"
+msgstr "Id"
+
+msgid "_Name_"
+msgstr "Nom"
+
+msgid "_Type_"
+msgstr "Type"
+
+msgid "_Remove_"
+msgstr "Supprimer"
+
+msgid "_Searching_tool_"
+msgstr "Interface de recherche"
+
+msgid "_Searching_in_"
+msgstr "Rechercher dans :"
+
+msgid "_In_"
+msgstr "Dans"
+
+msgid "_In_message_body_"
+msgstr "Dans le corps du message"
+
+msgid "_In_subject_"
+msgstr "Dans le sujet"
+
+msgid "_In_from_field_"
+msgstr "Dans le champ 'De'"
+
+msgid "_In_to_field_"
+msgstr "Dans le champ 'À'"
+
+msgid "_Since_"
+msgstr "Depuis le"
+
+msgid "_Day_"
+msgstr "Le"
+
+msgid "_Before_"
+msgstr "Avant le"
+
+msgid "_January_"
+msgstr "Janvier"
+
+msgid "_February_"
+msgstr "Février"
+
+msgid "_March_"
+msgstr "Mars"
+
+msgid "_April_"
+msgstr "Avril"
+
+msgid "_May_"
+msgstr "Mai"
+
+msgid "_Jun_"
+msgstr "Juin"
+
+msgid "_Jully_"
+msgstr "Julliet"
+
+msgid "_August_"
+msgstr "Aoùt"
+
+msgid "_September_"
+msgstr "Septembre"
+
+msgid "_October_"
+msgstr "Octobre"
+
+msgid "_November_"
+msgstr "Novembre"
+
+msgid "_December_"
+msgstr "Décembre"
+
+msgid "_Change_list_to_"
+msgstr "Changer la liste pour :"
+
+msgid "_Go_"
+msgstr "Valider"
+
+msgid "_Import_from_MSOutlook_address_book_"
+msgstr "Importer à partir d'un carnet d'adresses MSOutlook"
+
+msgid "_New_contact_"
+msgstr "Nouveau contact"
+
+msgid "_Send/Continue_a_mail_"
+msgstr "Envoyer/Continuer un message"
+
+msgid "_Edit_"
+msgstr "Modifier"
+
+msgid "_Select_"
+msgstr "Selectionner"
+
+msgid "_Unselect_"
+msgstr "Déselectionner"
+
+msgid "_All_in_field_"
+msgstr "Tous les éléments du champs"
+
+msgid "_Subject_message_title_"
+msgstr "Sujet du message :"
+
+msgid "_ack_confirmation" 
+msgstr "L'émetteur demande un accusé de lecture de ce message. Voulez vous lui transmettre un accusé de réception ?"
+
+msgid "_Reply_"
+msgstr "Répondre"
+
+msgid "_Reply_all_"
+msgstr "Répondre à tous"
+
+msgid "_Forward_"
+msgstr "Faire suivre"
+
+msgid "_From:_"
+msgstr "De :"
+
+msgid "_Date:_"
+msgstr "Date :"
+
+msgid "_New_IMAP_Folder_creation_"
+msgstr "Création d'un nouveau dossier IMAP"
+
+msgid "_Existing_IMAP_folders:_"
+msgstr "Dossiers IMAP déjà existant :"
+
+msgid "_Folder_name:_"
+msgstr "Nom du dossier :"
+
+msgid "_Folder_creation_caution_"
+msgstr "Attention: le point . sert à la création de sous-dossiers. exemple: pour avoir les sous dossiers 'jaune' et 'rouge' du dossier 'couleurs', vous n'avez qu'à l'appeler 'couleurs.jaune' et 'colors.rouge' à condition que le dossier 'couleurs' existe. Attentions a la case"
+
+msgid "_Inbox_Folder_"
+msgstr "Boîte de réception"
+
+msgid "_Sent_element_folder_"
+msgstr "Eléments envoyés"
+
+msgid "_Draft_folder_"
+msgstr "Brouillons"
+
+msgid "_Trash_folder_"
+msgstr "Corbeille"
+
+msgid "_IMAP_Access_Error_Message_Title"
+msgstr "Impossible de se connecter à votre boîte-aux-lettres"
+
+msgid "_IMAP_Access_Error_Caution_"
+msgstr "Vérifiez les paramètres de compte IMAP sur votre page d'"
+
+msgid "_directories_"
+msgstr "annuaires"
+
+msgid "_IMAP_Access_Error_note_"
+msgstr "bCes paramètres ne sont visibles et modifiables que par vous-même."
+
+msgid "_header_date_mailview_on_%m/%d/%Y at %H:%M"
+msgstr "%d/%m/%Y %H:%M"
+
+msgid "_header_date_maillist_on_%m/%d/%Y at %H:%M"
+msgstr "%d/%m/%Y %H:%M"
+
+msgid "_Addresses_"
+msgstr "Adresses"
+
+msgid "_New_list_"
+msgstr "Nouvelle liste"
+
+msgid "_export_to_private_"
+msgstr "Exporter vers mon espace"
+
+msgid "_attachment_export_notice_"
+msgstr "Les documents exportés seront placés dans l'espace privé de l'utilisateur en cours."
+
+msgid "_add_contact_"
+msgstr "Ajouter un contact"
+
+msgid "_list_mail_"
+msgstr "Mon courrier"
+
+msgid "label_personal_addressbook"
+msgstr "Carnet privé"

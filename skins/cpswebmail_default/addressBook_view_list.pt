@@ -1,0 +1,253 @@
+<tal:block define="global hideactions python:1" />
+
+<!-- AdressBook Form -->
+
+<tal:block define="wmtool here/portal_webMail;
+                   mcat nocall:here/Localizer/default;
+                   dirtool here/portal_directories;
+              ">
+<html metal:use-macro="here/main_template/macros/master">
+<head>
+  <title>Liste de diffusion</title>
+</head>
+<body>
+  <metal:block fill-slot="script_plus">
+    <script type="text/javascript">
+      <!--
+        function SetChecked_To(val) {
+          dml=document.form;
+          len = dml.elements.length;
+          var i=0;
+          for( i=0 ; i<len ; i++) {
+            if (dml.elements[i].name == 'pto:list') {
+              dml.elements[i].checked=val;
+            }
+          }
+        }
+
+  function SetChecked_Cc(val) {
+          dml = document.form;
+          len = dml.elements.length;
+          var i=0;
+          for( i=0 ; i<len ; i++) {
+            if (dml.elements[i].name == 'pcc:list') {
+              dml.elements[i].checked=val;
+            }
+          }
+  }
+
+  function SetChecked_Bcc(val) {
+          dml=document.form;
+          len = dml.elements.length;
+          var i=0;
+          for( i=0 ; i<len ; i++) {
+            if (dml.elements[i].name == 'pbcc:list') {
+              dml.elements[i].checked=val;
+            }
+    }
+        }
+
+      //-->
+    </script>
+  </metal:block>
+  <metal:block fill-slot="header">
+    <b>
+      <h1 tal:replace="string:NuxWebMail : Liste de diffusion">
+        Title
+      </h1>
+    </b>
+  </metal:block>
+
+  <metal:block fill-slot='main'>
+    <form tal:attributes="
+      action string:${here/absolute_url};
+      method string:post;
+      name   string:form">
+
+      <h4>
+        <a href="" tal:attributes="
+          href string:${here/absolute_url}/webmail_show"
+          tal:content="python:mcat('_Back_to_message_list_')">
+    Link to return to webmal_show view
+        </a>
+      </h4>
+
+      <table border="0" cellPadding="2" cellSpacing="0" width="100%">
+        <tr>
+          <td>
+      <input size="20" name="search_param" value="">
+            <input tal:attributes="
+              type  string:submit;
+              value python:mcat('_Search_');
+              name  string:from_addressbook_search:method" />
+          </td>
+      <td align="right" valign="middle">
+            <table border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td align="center" valign="middle">
+            <b>Changer de Liste :</b>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" valign="middlle">
+                  <select name="cat" size="1">
+                    <option value="Adresses" tal:content="python:mcat('_Addresses_')" selected>
+                Addresses
+              </option>
+                    <tal:block define="lists_name wmtool/getMailingListName;
+                      lists_prop_name wmtool/getMailingListsEmailProperty;
+                      lists python:dirtool[lists_name];
+                      entry_prop lists/entry_prop;
+                      display_prop lists/display_prop">
+
+                      <tal:block repeat="item python:lists.searchEntry()">
+                        <option tal:attributes=" value python:item.get(entry_prop)" tal:content="python:item.get(display_prop)"></option>
+                </tal:block>
+                    </tal:block>
+                </select>
+          <input tal:attributes="
+                    type string:submit;
+                    value python:mcat('_Go_');
+                    name  string:addressbook_changelist:method" />
+                </td>
+              </tr>
+            </table>
+        </td>
+    </tr>
+      </table>
+
+      <table width="100%" cellpadding=2 cellspacing=0 border=0>
+        <tr bgcolor="#dcdcdc">
+      <td nowrap>
+        <input type="submit" value="" tal:attributes="name string:addressbook_create_list:method;
+                                  value python:mcat('_New_list_')" />
+        <input type="submit" value="Modifier" name="addressbook_edit_list:method" tal:attributes="value python:mcat('_Edit_')" />
+             
+        <input type="hidden" name="id" tal:attributes="value request/id">
+      </td>
+      <td align="right" nowrap>
+      <input tal:attributes="type  string:submit; value python:mcat('_Send/Continue_a_mail_'); name  string:mail_selected_one:method" />
+      </td>
+  </tr>
+      </table>
+
+      <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+      <td bgcolor="#dcdcdc">
+          <table cellpadding="2" cellspacing="1" border="0" width="100%">
+              <tal:block define="
+                email_prop_name wmtool/getMailingListsEmailProperty;
+                addressbook_name wmtool/getAddressBookName;
+                addressbook python:dirtool[addressbook_name];
+                display_prop addressbook/display_prop;
+                entry_prop addressbook/entry_prop;
+                visible addressbook/getVisibleSchemaKeys;
+        ">
+
+                 <tr bgcolor="#eeeeee">
+             <td align="center" valign=middle width="1%"><b tal:content="python:mcat('_TO:_')">À</b></td>
+             <td align="center" valign=middle width="1%"><b tal:content="python:mcat('_CC:_')">Cc </b></td>
+             <td align="center" valign=middle width="1%"><b tal:content="python:mcat('_BCC:_')">Cci</b></td>
+             <td width="1%"> </td>
+
+       <th align="center" width="16%">
+                 <b><i tal:content="email_prop_name">Email Property name</i></b>
+             </th>
+         </tr>
+
+     <tal:block repeat="entry python:request.SESSION.get('search_results', [])">
+           <tr bgcolor="#ffffff">
+               <td width="1%" align="center" nowrap>
+                   <input type="checkbox" name="pto:list" value="2" tal:attributes=" value entry" />
+               </td>
+               <td width="1%" align="center" nowrap>
+                   <input type="checkbox" name="pcc:list" value="2" tal:attributes=" value entry" />
+               </td>
+               <td width="1%" align="center" nowrap>
+                   <input type="checkbox" name="pbcc:list" value="2" tal:attributes=" value entry" />
+               </td>
+
+               <td width="1%" align="center"> </td>
+
+               <td valign="middle" align="center">
+                 <a href="" tal:attributes="href string:write_addbook?to=${entry}">
+                         <i tal:content="python:entry">
+                           Détail
+                         </i>
+                 </a>
+               </td>
+         </tr>
+       </tal:block>
+         </tal:block>
+       </table>
+
+       <table cellpadding=2 cellspacing=1 border=0 width="100%">
+         <tr>
+             <td>
+           <p>
+             <a href="javascript:SetChecked_To(1)" tal:content="python:mcat('_Select_')">Select all</a> -
+             <a href="javascript:SetChecked_To(0)" tal:content="python:mcat('_Unselect_')">Unselect all</a> :
+             <b tal:content="python:mcat('_All_in_field_')">Champs</b> '<b tal:content="python:mcat('_TO:_')"><i>To</i></b>'
+           </p>
+       </td>
+         </tr>
+         <tr>
+             <td>
+           <p>
+             <a href="javascript:SetChecked_Cc(1)" tal:content="python:mcat('_Select_')">Select all</a> -
+             <a href="javascript:SetChecked_Cc(0)" tal:content="python:mcat('_Unselect_')">Unselect all</a> :
+             <b tal:content="python:mcat('_All_in_field_')">Champs</b> '<b tal:content="python:mcat('_CC:_')"><i>To</i></b>'
+           </p>
+       </td>
+         </tr>
+         <tr>
+           <td>
+       <p>
+             <a href="javascript:SetChecked_Bcc(1)" tal:content="python:mcat('_Select_')">Select all</a> -
+             <a href="javascript:SetChecked_Bcc(0)" tal:content="python:mcat('_Unselect_')">Unselect all</a> :
+             <b tal:content="python:mcat('_All_in_field_')">Champs</b> '<b tal:content="python:mcat('_BCC:_')"><i>To</i></b>'
+           </p>
+       </td>
+         </tr>
+       </table>
+
+       <table cellpadding=3 cellspacing=0 border=0 width="100%">
+         <tr bgcolor="#dcdcdc">
+             <td colspan=2>
+       <input type="submit"
+                     value="New list"
+               name="addressbook_create_list:method"
+         tal:attributes="value python:mcat('_New_list_')"/>
+       <input type="submit"
+                     value="Edit"
+                     name="addressbook_edit_list:method"
+         tal:attributes="value python:mcat('_Edit_')"/>
+       </td>
+       <td align="right" nowrap>
+             <input tal:attributes="type  string:submit;
+                     value python:mcat('_Send/Continue_a_mail');
+                     name  string:mail_selected_one:method" />
+       </td>
+         </tr>
+        </table>
+
+        <p> </p>
+        <hr>
+        <h4>
+          <a href="" tal:attributes="
+            href string:${here/absolute_url}/webmail_show"
+                  tal:content="python:mcat('_Back_to_message_list_')">
+            Link to return to webmal_show view
+              </a>
+        </h4>
+            </form>
+          </metal:block>
+
+        </body>
+     </html>
+</tal:block>
+
+
+
+
+

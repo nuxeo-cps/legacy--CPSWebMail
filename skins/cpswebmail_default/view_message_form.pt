@@ -1,0 +1,249 @@
+<!-- view_message_form.pt -->
+
+<tal:block define="global hideactions python:1" />
+<tal:block define="wmtool here/portal_webMail;
+                   vm_session python:request.SESSION.get('vm_session');
+                   folder python:wmtool.getInboxFolder(request);
+                   the_id python:vm_session['IMAPId'];
+                   message python:folder.getIMAPMessage(the_id);
+                   raw_msg python:folder.getRawIMAPMessage(the_id);
+                   the_view python:not int(vm_session['view']);
+                   reception_flag python:message.is_reception_flag(raw_msg);
+                   mcat nocall:here/Localizer/default;
+                   dtool here/portal_directories/members;
+                   ">
+
+  <html metal:use-macro="here/main_template/macros/master">
+    <body tal:define="Title string:Hoooola">
+      <metal:block fill-slot="header">
+        <h1><tal:block content="python:message.getSubject()">Message :
+          Subject</tal:block></h1>
+      </metal:block>
+
+      <metal:block fill-slot="header_plus"/>
+
+      <metal:block fill-slot='main'>
+        <tal:block condition="python:the_view and reception_flag">
+          <script language="javascript">
+            <!--
+              var reponse=confirm("<tal:block content="python:mcat('_ack_confirmation_')"/>");
+              if (reponse)
+                      location.href="send_reception_acc";
+            //-->
+          </script>
+        </tal:block>
+
+        <table border="0" cellspacing="0" cellpadding="2" width="100%" cols="2">
+          <form method="post" name="menu"
+                tal:attributes="action here/absolute_url">
+            <tr bgcolor="#dcdcdc">
+              <td align="left">
+                <nobr>
+                  <input tal:attributes="
+                    type string:submit;
+                    value python:mcat('_Reply_');
+                    name string:reply:method">
+                    
+                  <input tal:attributes="
+                    type string:submit;
+                    value python:mcat('_Reply_all_');
+                    name string:reply_to_all:method">
+                    
+                  <input tal:attributes="
+                    type string:submit;
+                    value python:mcat('_Forward_');
+                    name string:forward:method">
+                    
+                  <input tal:attributes="
+                    type string:submit;
+                    value python:mcat('_Compose_');
+                    name string:edit_session_message:method">
+                    
+                  <input type="submit" name="webmail_show:method"
+                     tal:attributes="value python:mcat('_Read_messages_')">
+                </nobr>
+              </td>
+            </tr>
+            <tr>
+              <td align="right" valign="top">
+                <nobr>
+                  <p align="right"><tal:block content="python:mcat('_Move_To_')"/>
+                  <select name="move_to_folder">
+                    <tal:block repeat="item wmtool/getIMAPFolders">
+                      <tal:block define="condition0 python:wmtool.getImapName()
+                        not in [wmtool.getDraftIMAPName(),
+                                wmtool.getTrashIMAPName(),
+                                wmtool.getSentMailIMAPName()]">
+
+                      <option tal:attributes="value item/getImapName"
+                          tal:content="python:mcat(item.getReadableName())">
+                          Folder readble Name
+                        </option>
+                      </tal:block>
+                    </tal:block>
+                  </select>
+                  <input tal:attributes="
+                    type string:submit;
+                    value python:mcat('_Go_');
+                    name string:move_message_to:method">
+                </p>
+              </nobr>
+            </td>
+          </tr>
+        </form>
+      </table>
+
+      <p> </p>
+
+      <metal:block use-macro="here/mail_widgets/macros/form">
+        <metal:block fill-slot="content">
+          <metal:block use-macro="here/mail_widgets/macros/form_property">
+            <metal:block fill-slot="title"><tal:block content="python:mcat('_From:_')"/></metal:block>
+            <metal:block fill-slot="content">
+              <strong>
+                <tal:block content="python:message.getSenderMail() or None"> Exp </tal:block>
+              </strong>
+            </metal:block>
+          </metal:block>
+
+          <metal:block use-macro="here/mail_widgets/macros/form_property">
+            <metal:block fill-slot="title">
+              <tal:block content="python:mcat('_Subject:_')"/>
+            </metal:block>
+            <metal:block fill-slot="content">
+            <strong>
+              <tal:block content="python:message.getSubject() or None"> Subject </tal:block>
+            </strong>
+          </metal:block>
+        </metal:block>
+
+        <metal:block use-macro="here/mail_widgets/macros/form_property">
+          <metal:block fill-slot="title"><tal:block content="python:mcat('_Date:_')"/></metal:block>
+            <metal:block fill-slot="content">
+              <strong>
+                <tal:block content="python:DateTime(message.getDate()).strftime(mcat('_header_date_mailview_on_%m/%d/%Y at %H:%M'))"> Date </tal:block>
+              </strong>
+            </metal:block>
+          </metal:block>
+
+          <metal:block use-macro="here/mail_widgets/macros/form_property">
+            <metal:block fill-slot="title"> <tal:block content="python:mcat('_TO:_')"/> </metal:block>
+              <metal:block fill-slot="content">
+                <strong>
+                  <tal:block content="python:message.getTo() or None"> To </tal:block>
+                </strong>
+              </metal:block>
+            </metal:block>
+
+            <metal:block use-macro="here/mail_widgets/macros/form_property">
+            <tal:block condition="python:message.getCC() and 1 or nothing">
+              <metal:block fill-slot="title">
+                <tal:block content="python:mcat('_CC:_')"/>
+              </metal:block>
+              <metal:block fill-slot="content">
+                <strong>
+                  <tal:block content="python:message.getCC() or None"> CC </tal:block>
+                </strong>
+              </metal:block>
+            </tal:block>
+
+          </metal:block>
+
+        </metal:block>
+      </metal:block>
+
+      <p> </p>
+      <table border="0" cellspacing="0" cellpadding="0" align="center" width="100%">
+        <tr>
+          <td width="100%" align="left" bgcolor="#eeeeee">
+            <strong>
+              <p tal:content="structure message/get_parsed_body">
+                Message
+              </p>
+            </strong>
+          </td>
+        </tr>
+      </table>
+
+      <tal:block define="conditionPJ python:message.existAttachment()">
+        <form tal:attributes="action here/absolute_url; method string:post; name string:attachments_actions">
+        <input type="hidden" name="IMAPName" tal:attributes="value python:'INBOX'">
+        <input type="hidden" name="IMAPId" tal:attributes="value python:the_id">
+        <table width="100%">
+          <tr tal:condition="conditionPJ">
+            <td colspan="2" >
+              <p>
+                <strong>
+                  Pièces jointes
+                </strong>
+              </p>
+              <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr bgcolor="#dcdcdc">
+                  <td></td>
+                  <td><strong tal:content="python:mcat('_Id_')">Id</strong></td>
+                  <td><strong tal:content="python:mcat('_Name_')">Name</strong></td>
+                  <td><strong tal:content="python:mcat('_Size_')">Size</strong></td>
+                  <td><strong tal:content="python:mcat('_Type_')">Type</strong></td>
+                </tr>
+                  <tal:block repeat="item python:message.getAttachments()">
+                    <tr>
+                      <td>
+                        <input type="checkbox" tal:attributes="value python:item.getId()" name="AttachIdlist:list">
+                      </td>
+                      <td tal:content="python:item.getId()">
+                        The id
+                      </td>
+                         
+                      <td>
+                        <a href=""
+                          target="_blank"
+                          tal:attributes=" href string:portal_webMail/${item/getFilename}?IMAPName=INBOX&IMAPId=${the_id}&AttachId=${item/getId}"
+                          tal:content="item/getFilename">
+                          the filename
+                        </a>
+                      </td>
+                      <td tal:content="python:item.getSize()">
+                        The Size
+                      </td>
+                      <td tal:content="python:item.getContentType()">
+                        The Type
+                      </td>
+                    </tr>
+                  </tal:block>
+                </table>
+              </td>
+            </tr>
+            <tr tal:condition="not:conditionPJ">
+              <td colspan="2">
+                <p>Pas de pièces jointes</p>
+              </td>
+            </tr>
+          </table>
+          <table tal:condition="conditionPJ">
+            <tr>
+              <td>
+                <input type="submit" tal:attributes="value python:mcat('_export_to_private_')" name="export_attachment:method">
+              </td>
+            </tr>
+          </table>
+          <tal:block tal:condition="conditionPJ" content="python:mcat('_attachment_export_notice_')">
+            Exported documents are copied into private space of curent user.
+          </tal:block>
+
+          </form>
+        </tal:block>
+
+        <p> </p>
+
+        <hr>
+         
+        <p>
+          <a tal:attributes="href string:${here/absolute_url}/webmail_show"
+            tal:content="python:mcat('_Back_to_message_list_')">
+            Link to return to webmal_show view
+          </a>
+        </p>
+      </metal:block>
+    </body>
+  </html>
+</tal:block>

@@ -1,0 +1,217 @@
+<tal:block define="global hideactions python:1" />
+
+<tal:block define="wmtool here/portal_webMail;
+      folder python:wmtool.getInboxFolder(request);
+      mcat nocall:here/Localizer/default;
+      dtool here/portal_directories/members;
+      ">
+<html metal:use-macro="here/main_template/macros/master">
+<body>
+
+  <metal:block fill-slot="header">
+    <strong tal:content="python:mcat('_Searching_tool_')">Searching tool</strong>
+  </metal:block>
+
+  <metal:block fill-slot='main'>
+  <form tal:attributes="
+    action string:${here/absolute_url};
+    method string:post;
+    name   string:form">
+
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+      <td>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td width="50%"> </td>
+
+      <td nowrap > 
+        <strong tal:content="python:mcat('_Searching_in_')">Searching in:</strong>
+      </td>
+
+            <td align="left" nowrap>
+              <select name="IMAPName">
+                <tal:block define="currentFolderName request/IMAPName;
+            trashName wmtool/getTrashIMAPName;
+            draftName wmtool/getDraftIMAPName;
+            sentMailName wmtool/getSentMailIMAPName">
+
+                <tal:block repeat="item wmtool/getIMAPFolders">
+
+              <tal:block define="conditionFolder0 python:item.getImapName() not in
+                [trashName, draftName, sentMailName];
+                conditionFolder1 python:item.getImapName() ==
+                currentFolderName">
+
+                <option selected tal:attributes="value item/getImapName"
+                        tal:condition="python:conditionFolder0 and conditionFolder1"
+                    tal:content="python:mcat(item.getReadableName())">
+                </option>
+
+                <option tal:attributes="value item/getImapName"
+                        tal:condition="python:conditionFolder0 and not conditionFolder1"
+                    tal:content="python:mcat(item.getReadableName())">
+                </option>
+
+              </tal:block>
+
+      </tal:block>
+
+              <tal:block define="condsent python:sentMailName == currentFolderName">
+            <option selected tal:attributes="
+                value string:${sentMailName}"
+                tal:condition="condsent"
+                tal:content="python:mcat(wmtool.getSentMailRdName())">
+            </option>
+            <option tal:attributes="
+                value sentMailName"
+                tal:condition="python:not condsent"
+                tal:content="python:mcat(wmtool.getSentMailRdName())">
+            </option>
+        </tal:block>
+
+        <tal:block define="conddraft python:draftName == currentFolderName">
+            <option selected tal:attributes="
+                value draftName"
+                tal:condition="conddraft"
+                tal:content="python:mcat(wmtool.getDraftRdName())">
+            </option>
+            <option tal:attributes="
+                      value draftName"
+                      tal:condition="python:not conddraft"
+                      tal:content="python:mcat(wmtool.getDraftRdName())">
+            </option>
+        </tal:block>
+
+        <tal:block define="condtrash python:trashName == currentFolderName">
+                  <option selected tal:attributes="
+                      value trashName"
+                      tal:condition="condtrash"
+                tal:content="python:mcat(wmtool.getTrashTdName())">
+                  </option>
+
+            <option tal:attributes="
+                value trashName"
+                tal:condition="python:not condtrash"
+                      tal:content="python:mcat(wmtool.getTrashRdName())">
+                  </option>
+              </tal:block>
+
+    </tal:block>
+              </select>
+          </td>
+      </tr>
+  </table>
+      </td>
+    </tr>
+  </table>
+
+  <p> </p>
+  <hr>
+  <p> </p>
+
+  <metal:block use-macro="here/mail_widgets/macros/form">
+    <metal:block fill-slot="content">
+      <metal:block use-macro="here/mail_widgets/macros/form_property">
+
+  <metal:block fill-slot="title">
+    <strong tal:content="python:mcat('_Search_')">Rechercher</strong>
+  </metal:block>
+
+  <metal:block fill-slot="content">
+          <input type="text" name="search_line" size="40" maxlength="40">
+        </metal:block>
+
+      </metal:block>
+
+      <metal:block use-macro="here/mail_widgets/macros/form_property">
+
+  <metal:block fill-slot="title">
+    <strong tal:content="python:mcat('_In_')">Dans</strong>
+  </metal:block>
+
+        <metal:block fill-slot="content">
+          <select name="search_where">
+            <option value="BODY" tal:content="python:mcat('_In_message_body_')">In message body</option>
+            <option value="SUBJECT" tal:content="python:mcat('_In_subject_')">In subject</option>
+            <option value="FROM" tal:content="python:mcat('_In_from_field_')">In 'from' field</option>
+            <option value="TO" tal:content="python:mcat('_In_to_field_')">In 'to' field</option>
+          </select>
+        </metal:block>
+
+      </metal:block>
+
+      <metal:block use-macro="here/mail_widgets/macros/form_property">
+
+        <metal:block fill-slot="title">
+          <strong tal:content="python:mcat('_Date_')">Date</strong>
+        </metal:block>
+
+        <metal:block fill-slot="content">
+          <select name="search_when">
+            <option value="SINCE" tal:content="python:mcat('_Since_')">Since</option>
+            <option value="ON" tal:content="python:mcat('_Day_')">Day</option>
+            <option value="BEFORE" tal:content="python:mcat('_Before_')">Before</option>
+          </select>
+
+          <input type="text" name="search_day" value="1" size="2" maxlength="2">
+
+          <select name="search_month">
+            <option value="Jan" tal:content="python:mcat('_January_')">January</option>
+            <option value="Feb" tal:content="python:mcat('_February_')">February</option>
+            <option value="Mar" tal:content="python:mcat('_March_')">March</option>
+            <option value="Apr" tal:content="python:mcat('_April_')">April</option>
+            <option value="May" tal:content="python:mcat('_May_')">May</option>
+            <option value="Jun" tal:content="python:mcat('_Jun_')">Jun</option>
+            <option value="Jul" tal:content="python:mcat('_Jully_')">Jully</option>
+            <option value="Aug" tal:content="python:mcat('_August_')">August</option>
+            <option value="Sep" tal:content="python:mcat('_September_')">September</option>
+            <option value="Oct" tal:content="python:mcat('_October_')">October</option>
+            <option value="Nov" tal:content="python:mcat('_November_')">November</option>
+            <option value="Dec" tal:content="python:mcat('_December_')">Décember</option>
+          </select>
+
+    <input type="text" name="search_year" value="1980" size="5" maxlength="4">
+        </metal:block>
+      </metal:block>
+    </metal:block>
+  </metal:block>
+
+  <p> </p>
+
+  <table border="0" cellpadding="6" cellspacing="0">
+    <tr>
+      <td colspan="2" >   </td>
+      <td>
+        <table>
+          <tr>
+            <td>
+              <input type="submit"
+                name="search_engine:method"
+                tal:attributes="value python:mcat('_Search_')" />
+            </td>
+            <td>
+              <input type="submit"
+                name="webmail_show:method"
+    tal:attributes="value python:mcat('_Cancel_')" />
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <p>
+    <strong>
+      <a href="" tal:attributes="href string:${here/absolute_url}/webmail_show"
+        tal:content="python:mcat('_Back_to_message_list_')">
+  Back to the message list
+      </a>
+    </strong>
+  </p>
+
+  </form>
+  </metal:block>
+</body>
+</html>
+</tal:block>

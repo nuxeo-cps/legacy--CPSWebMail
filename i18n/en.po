@@ -1,0 +1,287 @@
+msgid "_Your_mail_"
+msgstr "Your mail :"
+
+msgid "_mail(s)_in_"
+msgstr "mail(s) in folder"
+
+msgid "_Change_folder_to_"
+msgstr "Change folder to"
+
+msgid "_Read_messages_"
+msgstr "Read messages"
+
+msgid "_Compose_"
+msgstr "Compose"
+
+msgid "_Search_"
+msgstr "Search"
+
+msgid "_Address_book_"
+msgstr "Address book"
+
+msgid "_Folders_"
+msgstr "Folders"
+
+msgid "_Messages_from_"
+msgstr "Messages from"
+
+msgid "_to_"
+msgstr "to"
+
+msgid "_of_"
+msgstr "of"
+
+msgid "_Selected_messages_"
+msgstr "Selected messages"
+
+msgid "_All_"
+msgstr "All"
+
+msgid "_None_"
+msgstr "None"
+
+msgid "_Delete_"
+msgstr "Delete"
+
+msgid "_Move_To_"
+msgstr "Move To"
+
+msgid "_All/None_"
+msgstr "All/None"
+
+msgid "_Subject_"
+msgstr "Subject"
+
+msgid "_From_"
+msgstr "From"
+
+msgid "_Date_"
+msgstr "Date"
+
+msgid "_Size_"
+msgstr "Size"
+
+msgid "_Compose_your_mail_"
+msgstr "Compose your mail"
+
+msgid "_Back_to_message_list_"
+msgstr "Back to the message list"
+
+msgid "_Acknowledgement_of_read_"
+msgstr "Acknowledgement of read"
+
+msgid "_TO:_"
+msgstr "To:"
+
+msgid "_CC:_"
+msgstr "Cc:"
+
+msgid "_BCC:_"
+msgstr "Bcc:"
+
+msgid "_Subject:_"
+msgstr "Subject:"
+
+msgid "_Send_"
+msgstr "Send" 
+
+msgid "_Cancel_"
+msgstr "Cancel"
+
+msgid "_Save_as_draft_"
+msgstr "Save as draft"
+
+msgid "_Attachments_list_"
+msgstr "Attachments list:"
+
+msgid "_Add_"
+msgstr "Add"
+
+msgid "_Id_"
+msgstr "Id"
+
+msgid "_Name_"
+msgstr "Name" 
+
+msgid "_Type_"
+msgstr "Type"
+
+msgid "_Remove_"
+msgstr "Remove"
+
+msgid "_Searching_tool_"
+msgstr "Searching tool"
+
+msgid "_Searching_in_"
+msgstr "Searching in:"
+
+msgid "_In_"
+msgstr "In"
+
+msgid "_In_message_body_"
+msgstr "In message body"
+
+msgid "_In_subject_"
+msgstr "In subject"
+
+msgid "_In_from_field_"
+msgstr "In 'from' field"
+
+msgid "_In_to_field_"
+msgstr "In 'to' field"
+
+msgid "_Since_"
+msgstr "Since"
+
+msgid "_Day_"
+msgstr "Day"
+
+msgid "_Before_"
+msgstr "Before"
+
+msgid "_January_"
+msgstr "January"
+
+msgid "_February_"
+msgstr "February"
+
+msgid "_March_"
+msgstr "March"
+
+msgid "_April_"
+msgstr "April"
+
+msgid "_May_"
+msgstr "May"
+
+msgid "_Jun_"
+msgstr "Jun"
+
+msgid "_Jully_"
+msgstr "Jully"
+
+msgid "_August_"
+msgstr "August"
+
+msgid "_September_"
+msgstr "September"
+
+msgid "_October_"
+msgstr "October"
+
+msgid "_November_"
+msgstr "November"
+
+msgid "_December_"
+msgstr "December"
+
+msgid "_Change_list_to_"
+msgstr "Change list to:"
+
+msgid "_Go_"
+msgstr "Go"
+
+msgid "_Import_from_MSOutlook_address_book_"
+msgstr "Import from MSOutlook address book"
+
+msgid "_New_contact_"
+msgstr "New contact"
+
+msgid "_Send/Continue_a_mail_"
+msgstr "Send/Continue a mail"
+
+msgid "_Edit_"
+msgstr "Edit"
+
+msgid "_Select_"
+msgstr "Select"
+
+msgid "_Unselect_"
+msgstr "Unselect"
+
+msgid "_All_in_field_"
+msgstr "All elements in field"
+
+msgid "_Subject_message_title_"
+msgstr "Message subject:"
+
+msgid "_ack_confirmation"
+msgstr "The message sender ask an ackwonledgment of read. Do you want to send it ?"
+
+msgid "_Reply_"
+msgstr "Reply"
+
+msgid "_Reply_all_"
+msgstr "Reply to all"
+
+msgid "_Forward_"
+msgstr "Forward"
+
+msgid "_From:_"
+msgstr "From:"
+
+msgid "_Date:_"
+msgstr "Date:"
+
+msgid "_New_IMAP_Folder_creation_"
+msgstr "New IMAP folder creation"
+
+msgid "_Existing_IMAP_folders:_"
+msgstr "Existing IMAP folders:"
+
+msgid "_Folder_name:_"
+msgstr "Folder name:"
+
+msgid "_Folder_creation_caution_"
+msgstr "Attention: dot . is for creating subfolders. ie.: to have subfolders like 'yellow' and 'red' of folder 'colors', you just have to name it 'colors.yellow' and 'colors.red' only if folder 'colors' is existing. Be carefull to the case"
+
+msgid "_Inbox_Folder_"
+msgstr "Inbox folder"
+
+msgid "_Sent_element_folder_"
+msgstr "Sent folder"
+
+msgid "_Draft_folder_"
+msgstr "Drafts"
+
+msgid "_Trash_folder_"
+msgstr "Trash"
+
+msgid "_IMAP_Access_Error_Message_Title"
+msgstr "There is an error while accessing to IMAP account"
+
+msgid "_IMAP_Access_Error_Caution_"
+msgstr "Please look your IMAP connexion configuration in "
+
+msgid "_directories_"
+msgstr "directories"
+
+msgid "_IMAP_Access_Error_note_"
+msgstr "This is your own parameters and they can be change by you only."
+
+msgid "_header_date_mailview_on_%m/%d/%Y at %H:%M"
+msgstr "%Y/%m/%d at %H:%M"
+
+msgid "_header_date_maillist_on_%m/%d/%Y at %H:%M"
+msgstr "%Y/%m/%d %H:%M"
+ 
+msgid "_Addresses_"
+msgstr "Adresses"
+
+msgid "_New_list_"
+msgstr "New liste"
+
+msgid "_export_to_private_"
+msgstr "Export to my area"
+
+msgid "_attachment_export_notice_"
+msgstr "Exported documents are copied into private area of curent user."
+
+msgid "_add_contact_"
+msgstr "Add contact"
+
+msgid "_list_mail_"
+msgstr "Open INBOX"
+
+msgid "label_personal_addressbook"
+msgstr "Personal Addressbook"
