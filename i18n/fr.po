@@ -303,3 +303,27 @@ msgstr "Mon courrier"
 
 msgid "label_personal_addressbook"
 msgstr "Carnet privé"
+
+msgid "_Add_Subfolder_"
+msgstr "Ajouter un sous-dossier"
+
+msgid "_Add_Subfolder_To:_"
+msgstr "Ajouter un sous-dossier à :"
+
+msgid "_Search_Body_"
+msgstr "Corps du message :"
+
+msgid "_Search_Subject_"
+msgstr "Objet :"
+
+msgid "_Search_From_"
+msgstr "Expéditeur :"
+
+msgid "_Search_To_"
+msgstr "Destinataire(s) :"
+
+msgid "_Received_Since_"
+msgstr "Reçu depuis le :"
+
+msgid "_Received_Before_"
+msgstr "Reçu avant le :"

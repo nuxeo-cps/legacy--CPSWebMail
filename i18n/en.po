@@ -1,3 +1,18 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
 msgid "_Your_mail_"
 msgstr "Your mail :"
 
@@ -285,3 +300,27 @@ msgstr "Open INBOX"
 
 msgid "label_personal_addressbook"
 msgstr "Personal Addressbook"
+
+msgid "_Add_Subfolder_"
+msgstr "Add a subfolder"
+
+msgid "_Add_Subfolder_To:_"
+msgstr "Add a subfolder to:"
+
+msgid "_Search_Body_"
+msgstr "Message body:"
+
+msgid "_Search_Subject_"
+msgstr "Subject:"
+
+msgid "_Search_From_"
+msgstr "Sender:"
+
+msgid "_Search_To_"
+msgstr "Recipient(s):"
+
+msgid "_Received_Since_"
+msgstr "Received since:"
+
+msgid "_Received_Before_"
+msgstr "Received before:"
