@@ -32,11 +32,6 @@ Howto use the CPSWebMail installer :
  - then click on the test tab of this external method
 """
 
-# this should be used instead of cpsupdate
-# note that cpsupdate is still required
-
-import os
-from App.Extensions import getPath
 from Products.CPSInstaller.CPSInstaller import CPSInstaller
 
 class CPSWebMailInstaller(CPSInstaller):
@@ -67,6 +62,7 @@ class CPSWebMailInstaller(CPSInstaller):
         self.verifyAction('portal_actions', **action)
 
         self.setupMembersSchemasAndLayouts()
+        self.setupDefaultAddressBooks()
 
         self.log("End of specific CPSWebmail updates")
 
@@ -114,174 +110,271 @@ class CPSWebMailInstaller(CPSInstaller):
 
         memberlayout.setLayoutDefinition(layout_def)
 
-        # Adding the emailaddress schema + layout
-        schemas = {
-            'emailaddress': {
-                'email': {
-                    'type': 'CPS String Field',
-                    'data': {
-                        'default_expr': 'string:',
-                        'is_searchabletext': 0,
-                        'acl_read_permissions': '',
-                        'acl_read_roles': '',
-                        'acl_read_expr': '',
-                        'acl_write_permissions': '',
-                        'acl_write_roles': '',
-                        'acl_write_expr': '',
-                        'read_ignore_storage': 0,
-                        'read_process_expr': '',
-                        'read_process_dependent_fields': [],
-                        'write_ignore_storage': 0,
-                        'write_process_expr': '',
-                        },
+    def setupDefaultAddressBooks(self):
+        self.log(" Setting up default address book directories")
+        addressbook_directory = {
+            'type': ' CPS ZODB Directory',
+            'data': {
+                'title': 'label_address_book',
+                'schema': 'addressbook',
+                'layout': 'addressbook',
+                'layout_search': 'addressbook_search',
+                'acl_directory_view_roles': 'Manager; Member',
+                'acl_entry_create_roles': 'Manager',
+                'acl_entry_delete_roles': 'Manager',
+                'acl_entry_view_roles': 'Manager; Member',
+                'acl_entry_edit_roles': 'Manager',
+                'id_field': 'id',
+                'title_field': 'id',
+                'search_substring_fields': ['fullname', 'email'],
+                },
+            }
+
+        privaddressbook_directory = {
+            'type': ' CPS Local Directory',
+            'data': {
+                'title': 'label_private_address_book',
+                'schema': 'addressbook',
+                'layout': 'addressbook',
+                'layout_search': 'addressbook_search',
+                'acl_directory_view_roles': 'Manager; Member',
+                'acl_entry_create_roles': 'Manager; Member',
+                'acl_entry_delete_roles': 'Manager; Member',
+                'acl_entry_view_roles': 'Manager; Member',
+                'acl_entry_edit_roles': 'Manager; Member',
+                'id_field': 'id',
+                'title_field': 'id',
+                'search_substring_fields': ['fullname', 'email'],
+                'directory_id': '.addressbook',
+                },
+            }
+
+        directories = {
+            'addressbook': addressbook_directory,
+            '.addressbook': privaddressbook_directory,
+            }
+
+        self.verifyDirectories(directories)
+
+        self.log("Address book directories added")
+
+        portal = self.portal
+
+        addressbook_schema = {
+            'email': {
+                'type': 'CPS String Field',
+                'data': {
+                    'default_expr': 'string:',
                     },
-                'name': {
-                    'type': 'CPS String Field',
-                    'data': {
-                        'default_expr': 'string:',
-                        'is_searchabletext': 0,
-                        'acl_read_permissions': '',
-                        'acl_read_roles': '',
-                        'acl_read_expr': '',
-                        'acl_write_permissions': '',
-                        'acl_write_roles': '',
-                        'acl_write_expr': '',
-                        'read_ignore_storage': 0,
-                        'read_process_expr': '',
-                        'read_process_dependent_fields': [],
-                        'write_ignore_storage': 0,
-                        'write_process_expr': '',
-                        },
+                },
+            'fullname': {
+                'type': 'CPS String Field',
+                'data': {
+                    'default_expr': 'string:',
+                    'read_ignore_storage': 1,
+                    'read_process_expr': """python:(givenName + " " + sn).strip() or id""",
+                    'read_process_dependent_fields': ('givenName', 'sn', 'id'),
+                    'write_ignore_storage': 1,
                     },
-                'index': {
-                    'type': 'CPS String Field',
-                    'data': {
-                        'default_expr': 'python:portal.getUniqueID()',
-                        'is_searchabletext': 0,
-                        'acl_read_permissions': '',
-                        'acl_read_roles': '',
-                        'acl_read_expr': '',
-                        'acl_write_permissions': '',
-                        'acl_write_roles': '',
-                        'acl_write_expr': '',
-                        'read_ignore_storage': 0,
-                        'read_process_expr': '',
-                        'read_process_dependent_fields': [],
-                        'write_ignore_storage': 1,
-                        'write_process_expr': '',
-                        },
+                },
+            'id': {
+                'type': 'CPS String Field',
+                'data': {
+                    'default_expr': 'string:',
+                    },
+                },
+            'givenName': {
+                'type': 'CPS String Field',
+                'data': {
+                    'default_expr': 'string:',
+                    },
+                },
+            'sn': {
+                'type': 'CPS String Field',
+                'data': {
+                    'default_expr': 'string:',
                     },
                 },
             }
 
-        for id, info in schemas.items():
-            self.log(" Schema %s" % id)
-            if id in stool.objectIds():
-                self.log(" Already correctly installed")
-            else:
-                self.log("  Installing.")
-                schema = stool.manage_addCPSSchema(id)
-                for field_id, fieldinfo in info.items():
-                    self.log("   Field %s." % field_id)
-                    schema.manage_addField(field_id, fieldinfo['type'],
-                                           **fieldinfo['data'])
+        schemas = {
+            'addressbook': addressbook_schema,
+            }
+        self.verifySchemas(schemas)
+
+        addressbook_layout = {
+            'widgets': {
+                'fullname': {
+                    'type': 'String Widget',
+                    'data': {
+                        'fields': ('fullname',),
+                        'is_required': 0,
+                        'label': 'label_full_name',
+                        'label_edit': 'label_full_name',
+                        'is_i18n': 1,
+                        'display_width': 30,
+                        'size_max': 0,
+                        },
+                    },
+                'id': {
+                    'type': 'User Identifier Widget',
+                    'data': {
+                        'fields': ('id',),
+                        'is_required': 1,
+                        'label': 'label_user_name',
+                        'label_edit': 'label_user_name',
+                        'is_i18n': 1,
+                        'readonly_layout_modes': ('edit',),
+                        'display_width': 30,
+                        'size_max': 256,
+                        },
+                    },
+                'givenName': {
+                    'type': 'String Widget',
+                    'data': {
+                        'fields': ('givenName',),
+                        'is_required': 0,
+                        'label': 'label_first_name',
+                        'label_edit': 'label_first_name',
+                        'is_i18n': 1,
+                        'display_width': 20,
+                        'size_max': 0,
+                        },
+                    },
+                'sn': {
+                    'type': 'String Widget',
+                    'data': {
+                        'fields': ('sn',),
+                        'is_required': 1,
+                        'label': 'label_last_name',
+                        'label_edit': 'label_last_name',
+                        'is_i18n': 1,
+                        'display_width': 20,
+                        'size_max': 0,
+                        },
+                    },
+                'email': {
+                    'type': 'String Widget',
+                    'data': {
+                        'fields': ('email',),
+                        'is_required': 0,
+                        'label': 'label_email',
+                        'label_edit': 'label_email',
+                        'is_i18n': 1,
+                        'display_width': 30,
+                        'size_max': 0,
+                        },
+                    },
+                },
+            'layout': {
+                'style_prefix': 'layout_dir_',
+                'flexible_widgets': [],
+                'ncols': 2,
+                'rows': [
+                    [{'ncols': 2, 'widget_id': 'id'},
+                     ],
+                    [{'ncols': 2, 'widget_id': 'fullname'},
+                     ],
+                    [{'ncols': 2, 'widget_id': 'email'},
+                     ],
+                    [{'ncols': 2, 'widget_id': 'givenName'},
+                     ],
+                    [{'ncols': 2, 'widget_id': 'sn'},
+                     ],
+                    ],
+                },
+            }
+
+        addressbook_search_layout = {
+            'widgets': {
+                'fullname': {
+                    'type': 'String Widget',
+                    'data': {
+                        'fields': ('fullname',),
+                        'is_required': 0,
+                        'label': 'label_full_name',
+                        'label_edit': 'label_full_name',
+                        'is_i18n': 1,
+                        'display_width': 30,
+                        'size_max': 0,
+                        },
+                    },
+                'id': {
+                    'type': 'User Identifier Widget',
+                    'data': {
+                        'fields': ('id',),
+                        'is_required': 0,
+                        'label': 'label_user_name',
+                        'label_edit': 'label_user_name',
+                        'is_i18n': 1,
+                        'readonly_layout_modes': ('edit',),
+                        'display_width': 30,
+                        'size_max': 256,
+                        },
+                    },
+                'givenName': {
+                    'type': 'String Widget',
+                    'data': {
+                        'fields': ('givenName',),
+                        'is_required': 0,
+                        'label': 'label_first_name',
+                        'label_edit': 'label_first_name',
+                        'is_i18n': 1,
+                        'display_width': 20,
+                        'size_max': 0,
+                        },
+                    },
+                'sn': {
+                    'type': 'String Widget',
+                    'data': {
+                        'fields': ('sn',),
+                        'is_required': 0,
+                        'label': 'label_last_name',
+                        'label_edit': 'label_last_name',
+                        'is_i18n': 1,
+                        'display_width': 20,
+                        'size_max': 0,
+                        },
+                    },
+                'email': {
+                    'type': 'String Widget',
+                    'data': {
+                        'fields': ('email',),
+                        'is_required': 0,
+                        'label': 'label_email',
+                        'label_edit': 'label_email',
+                        'is_i18n': 1,
+                        'display_width': 30,
+                        'size_max': 0,
+                        },
+                    },
+                },
+            'layout': {
+                'style_prefix': 'layout_dir_',
+                'flexible_widgets': [],
+                'ncols': 2,
+                'rows': [
+                    [{'ncols': 2, 'widget_id': 'id'},
+                     ],
+                    [{'ncols': 2, 'widget_id': 'fullname'},
+                     ],
+                    [{'ncols': 2, 'widget_id': 'email'},
+                     ],
+                    [{'ncols': 2, 'widget_id': 'givenName'},
+                     ],
+                    [{'ncols': 2, 'widget_id': 'sn'},
+                     ],
+                    ],
+                },
+            }
 
         layouts = {
-            'emailaddress': {
-                'widgets': {
-                    'email': {
-                        'type': 'Email Widget',
-                        'data': {
-                            'title': 'Email',
-                            'fields': ['email'],
-                            'is_required': 0,
-                            'label': 'label_email',
-                            'label_edit': 'label_email',
-                            'description': '',
-                            'help': '',
-                            'is_i18n': 1,
-                            'readonly_layout_modes': [],
-                            'hidden_layout_modes': [],
-                            'hidden_readonly_layout_modes': [],
-                            'hidden_empty': 0,
-                            'hidden_if_expr': '',
-                            'css_class': '',
-                            'display_width': 20,
-                            'size_max': 0,
-                            },
-                        },
-                    'name': {
-                        'type': 'String Widget',
-                        'data': {
-                            'title': 'Name',
-                            'fields': ['name'],
-                            'is_required': 0,
-                            'label': 'label_name',
-                            'label_edit': 'label_name',
-                            'description': '',
-                            'help': '',
-                            'is_i18n': 1,
-                            'readonly_layout_modes': [],
-                            'hidden_layout_modes': [],
-                            'hidden_readonly_layout_modes': [],
-                            'hidden_empty': 0,
-                            'hidden_if_expr': '',
-                            'css_class': '',
-                            'display_width': 20,
-                            'size_max': 0,
-                            },
-                        },
-                    'index': {
-                        'type': 'String Widget',
-                        'data': {
-                            'title': '',
-                            'fields': ['index'],
-                            'is_required': 0,
-                            'label': 'index',
-                            'label_edit': 'index',
-                            'description': '',
-                            'help': '',
-                            'is_i18n': 0,
-                            'readonly_layout_modes': ['search'],
-                            'hidden_layout_modes': [],
-                            'hidden_readonly_layout_modes': [],
-                            'hidden_empty': 0,
-                            'hidden_if_expr': '',
-                            'css_class': '',
-                            'display_width': 20,
-                            'size_max': 0,
-                            },
-                        },
-                    },
-                'layout': {
-                     'style_prefix': 'layout_dir_',
-                     'flexible_widgets': [],
-                     'ncols': 1,
-                     'rows': [
-                          [{'ncols': 1, 'widget_id': 'email'},
-                           ],
-                          [{'ncols': 1, 'widget_id': 'name'},
-                           ],
-                          [{'ncols': 1, 'widget_id': 'index'},
-                           ],
-                          ],
-                     },
-                },
+            'addressbook': addressbook_layout,
+            'addressbook_search': addressbook_search_layout,
             }
+        self.verifyLayouts(layouts)
 
-        for id, info in layouts.items():
-            self.log(" Layout %s" % id)
-            if id in ltool.objectIds():
-                self.log(" Already correctly installed")
-            else:
-                self.log("  Installing.")
-                layout = ltool.manage_addCPSLayout(id)
-                for widget_id, widgetinfo in info['widgets'].items():
-                    self.log("   Widget %s" % widget_id)
-                    widget = layout.manage_addCPSWidget(widget_id, widgetinfo['type'],
-                                                        **widgetinfo['data'])
-                layout.setLayoutDefinition(info['layout'])
-                layout.manage_changeProperties(**info['layout'])
+        self.log("Schemas and layouts related to address book directories added")
 
 
 def install(self):
