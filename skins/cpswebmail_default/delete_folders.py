@@ -1,7 +1,7 @@
 ##parameters=REQUEST
 ## Script (Python) "delete_folders.py"
 
-context.portal_webMail.deleteIMAPFolders(REQUEST)
+context.portal_webMail.deleteIMAPFolders(REQUEST.IMAPNames)
 
 #
 # redirection to the compose folders_edit_form
