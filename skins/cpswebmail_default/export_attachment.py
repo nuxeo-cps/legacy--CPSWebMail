@@ -1,4 +1,4 @@
-##parameters=AttachIdlist, IMAPName, IMAPId, REQUEST, RESPONSE
+##parameters=IMAPName, IMAPId, REQUEST, RESPONSE
 
 # $Id$
 
@@ -17,6 +17,7 @@ message = folder.getIMAPMessage(the_id)
 mtool = getToolByName(context, 'portal_membership')
 home_folder = mtool.getHomeFolder()
 
+AttachIdlist = REQUEST.get("AttachIdlist", [])
 for attach_id in AttachIdlist:
     attachment = message.getAttachments()[int(attach_id) - 1]
     file_name = attachment.getFilename()
@@ -28,7 +29,7 @@ for attach_id in AttachIdlist:
     if not getattr(home_folder, id, None):
 	data = attachment.getData()
 	content_type = attachment.getContentType()
-	
+
 	# Create it
 	home_folder.invokeFactory(TYPE_NAME, id, mime_type=content_type)
 	ob = getattr(home_folder, id)
@@ -40,4 +41,3 @@ for attach_id in AttachIdlist:
     # ELSE ?
 
 return RESPONSE.redirect(mtool.getHomeUrl())
-
