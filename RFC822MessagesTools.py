@@ -26,6 +26,7 @@ import multifile
 import random
 import StringIO
 from DocumentTemplate.DT_Util import html_quote
+from DocumentTemplate.DT_Var import newline_to_br
 
 import mime_message
 import IMAPMessage
@@ -61,6 +62,7 @@ def parse_RFCHeaders(header, nbCharSubject=25):
     if val.getheader("Content-Type") is not None:
         ctyp = val.getheader("Content-Type")
         if string.find(ctyp, 'boundary') != -1 or string.find(string.upper(ctyp), 'BOUNDARY') != -1:
+            # XXX: this is not the right test to know if there is an attachment...
             attachment = 1
 
     Exp = [None, None]
@@ -165,123 +167,37 @@ def parse_RFCMessage(mess, direct_body, flags, imapid, is_draft=0):
     parts = []
     body = ''
     attachments = []
-    boundary = 0
     body_base64 = 0
-
-    boundary = message.getparam('boundary') or '' or message.getparam('BOUNDARY') or ''
 
     #building header keys dictionnary for the message
     for key in message.keys():
+        subject = render_subject(message[key])
+        headers[string.lower(key)] = subject
 
-        if is_quoted_printable.search(message[key]) or is_base64.search(message[key]):
-            headers[string.lower(key)] = mimify.mime_decode_header(message[key])
-
-            if is_base64.search(message[key]):
-                try:
-                    subject = string.replace(message[key], '=?iso-8859-1?B?', '')
-                    subject = string.replace(subject, '=?iso-8859-1?b?', '')
-                    subject = string.replace(subject, '=?iso-8859-2?b?', '')
-                    subject = string.replace(subject, '=?iso-8859-2?B?', '')
-                    subject = string.replace(subject, '?=', '')
-                    encoded = StringIO.StringIO(subject)
-                    decoded = StringIO.StringIO()
-                    base64.decode(encoded, decoded)
-                    headers[string.lower(key)] = decoded.getvalue()
-                except:
-                    pass
-        else:
-            headers[string.lower(key)] = mimify.mime_decode(message[key])
-
-    msg.seek(message.startofbody)
-
-    #get and parse attachments if exist
-    if boundary:
-        try:
-            multi_message = multifile.MultiFile(msg)
-            multi_message.push(boundary)
-            liste_media = []
-
-            while multi_message.next():
-                parsed_attachment = mime_message.mime_part_parse(multi_message)
-                parts.append(parsed_attachment)
-                liste_media.append(parsed_attachment.media_type)
-
-            multi_message.pop()
-
-            if parts[0].media_type == 'text':
-
-                body = parts[0].data
-
-                if string.find(parts[0].encoding, 'base64') != (-1):
-                    body_base64 = 1
-                    try:
-                        body = mime_decode(body, 1)
-                    except:
-                        pass
-                parts = parts[1:]
-
-            elif len(body) == 0 and (parts[1].media_type == 'text' or parts[0].media_type == 'multipart'):
-
-                val = parts[0].data
-
-                comp = re.compile('Content-Transfer-Encoding: base64', re.I)
-                if comp.search(val):
-                    body_base64 = 1
-
-                body = re.sub(r'(------=_NextPart)([\S\s]*?)(Content-Transfer-Encoding.*)([\S\s]*?)(------=_NextPart?)([\S\s]*)', r'\4', val)
-
-                if body_base64:
-                    import base64
-                    import StringIO
-                    encoded = StringIO.StringIO(body)
-                    decoded = StringIO.StringIO()
-                    base64.decode(encoded, decoded)
-                    body = decoded.getvalue()
-
-                parts = parts[1:]
-
-            # In any case, the rest of the parts are attachments.
-
-            map(attachments.append, parts)
-        except :
-            pass
-    else:
-            _body = mime_message.mime_part_parse(message.fp)
-            body = _body.data
-
-    try:
-        direct_body = re.sub(r'(------=_NextPart)([\S\s]*?)(Content-Transfer-Encoding.*)([\S\s]*?)(------=_NextPart?)([\S\s]*)', r'\4',direct_body)
-    except:
-        pass
-
-    if body_base64:
-        try:
-            direct_body = mime_decode(direct_body, 1)
-        except:
-            pass
-
-    if len(body) < len(direct_body):
-        body = direct_body
+    # get body and parse attachments if exist
+    content_type = string.lower(headers['content-type'])
+    body, parts = make_body_and_parts(msg, message, content_type)
 
     attachments = []
     i = 1
 
     for part in parts:
-        id = i
         len_at = len(part.data)
-        if len_at > 1024 * 1024:
-            _size = "%.2f MB" % (len_at / 1024.0 / 1024)
-        else:
-            _size = "%.2f KB" % (len_at / 1024.0)
-        if is_quoted_printable.search(part.filename):
-            part.filename = mimify.mime_decode_header(part.filename)
-        attachments.append(Attachment.Attachment(id = id,
-                                                filename = part.filename,
-                                                content_type = "%s/%s" % (part.media_type, part.sub_type),
-                                                size = _size,
-                                                data = part.data)
+        if len_at > 0:
+            id = i
+            if len_at > 1024 * 1024:
+                _size = "%.2f MB" % (len_at / 1024.0 / 1024)
+            else:
+                _size = "%.2f KB" % (len_at / 1024.0)
+            if is_quoted_printable.search(part.filename):
+                part.filename = mimify.mime_decode_header(part.filename)
+            attachments.append(Attachment.Attachment(id = id,
+                                                     filename = part.filename,
+                                                     content_type = "%s/%s" % (part.media_type, part.sub_type),
+                                                     size = _size,
+                                                     data = part.data)
                           )
-        i = i + 1
+            i = i + 1
 
     _date = "pas de date spécifiée"
     if headers.has_key('date'):
@@ -307,7 +223,6 @@ def parse_RFCMessage(mess, direct_body, flags, imapid, is_draft=0):
     _subject = "pas de sujet"
     if headers.has_key('subject'):
         _subject = headers['subject']
-        _subject = render_subject(_subject)
 
     _recipients={'to': _to, 'cc': _cc, 'bcc': _bcc}
 
@@ -429,3 +344,93 @@ def render_subject(subject):
         subject = mimify.mime_decode(subject)
 
     return subject
+
+
+def make_body_and_parts(msg, message, content_type):
+    body = ""
+    parts = []
+
+    boundary = message.getparam('boundary') or message.getparam('BOUNDARY')
+    alternative = 0
+    if string.find(content_type, 'multipart/alternative') != (-1):
+        alternative = 1
+    if boundary:
+        parts = get_multipart_message_parts(msg,
+                                            message.startofbody,
+                                            boundary,
+                                            alternative=alternative)
+        new_parts = []
+        for part in parts:
+            parameters = part.getparamnames()
+            param_dict = {}
+            for param in parameters:
+                param_dict[param] = part.getparam(param)
+            if part.media_type == 'text':
+                body_part = part.data
+                if string.find(part.encoding, 'base64') != (-1):
+                    body_base64 = 1
+                    try:
+                        body_part = mime_decode(body_part, 1)
+                    except:
+                        pass
+                if part.sub_type != 'html':
+                    body_part = newline_to_br(body_part)
+                body += body_part
+                if 'filename' in param_dict.keys() or 'name' in param_dict.keys():
+                    # part was an attachment : display also as attachment
+                    new_parts.append(part)
+            else:
+                new_parts.append(part)
+
+        # In any case, the rest of the parts are attachments.
+        parts = new_parts
+    else:
+        _body = mime_message.mime_part_parse(message.fp)
+        body = _body.data
+        if _body.sub_type != 'html':
+            body = newline_to_br(body)
+
+    # return body and attachments
+    return body, parts
+
+
+def get_multipart_message_parts(msg, start, boundary, alternative=0):
+    msg.seek(start)
+
+    parts = []
+
+    multi_message = multifile.MultiFile(msg)
+    multi_message.push(boundary)
+
+    while multi_message.next():
+        parsed_attachment = mime_message.mime_part_parse(multi_message)
+        new_boundary = parsed_attachment.getparam('boundary') or parsed_attachment.getparam('BOUNDARY')
+        if new_boundary is not None:
+            new_parts = get_multipart_message_parts(msg, start, new_boundary)
+            if parsed_attachment.media_type == 'multipart' and \
+               parsed_attachment.sub_type == 'alternative':
+                # content-type = mixed/alternative case
+                # if all text: get the last one (with more info)
+                # else: set all as attachments...
+                parts_media_types = []
+                for sub_part in new_parts:
+                    if sub_part.media_type != 'text':
+                        parts_media_types.append(sub_part.media_type)
+                if len(parts_media_types) == 0 and len(new_parts) > 0:
+                    new_parts = [new_parts[-1]]
+            parts.extend(new_parts)
+        else:
+            parts.append(parsed_attachment)
+
+    multi_message.pop()
+
+
+    if alternative:
+        parts_media_types = []
+        for sub_part in parts:
+            if sub_part.media_type != 'text':
+                parts_media_types.append(sub_part.media_type)
+        if len(parts_media_types) == 0 and len(parts) > 0:
+            parts = [parts[-1]]
+
+    return parts
