@@ -80,3 +80,75 @@
   </tr>
 </table>
 </metal:block>
+
+
+<!-- ============================================================ -->
+<metal:block define-macro="select_addressbook">
+  <table border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center" valign="middle">
+        <b tal:content="python:mcat('_Change_list_to_')">
+        Change list to:
+        </b>
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle">
+        <select size="1" name="addressbook_name">
+          <tal:block condition="python:privbook_name">
+            <tal:block define="
+              privbook python:wmtool.getCurrentAddressBook('_private');
+              privbook_prop_name wmtool/getPrivAddressBookEmailProperty;">
+              <option value="_private"
+                tal:attributes="selected python:current_addressbook_name == '_private';"
+                tal:content="python:mcat(privbook.title_or_id())">
+              </option>
+            </tal:block>
+          </tal:block>
+          <tal:block condition="python:privbooklinks_name">
+            <tal:block define="
+              privbooklinks python:wmtool.getCurrentAddressBook('_private_links');
+              privbooklinks_prop_name wmtool/getPrivAddressBookLinksEmailProperty;">
+              <option value="_private_links"
+                tal:attributes="selected python:current_addressbook_name == '_private_links';"
+                tal:content="python:mcat(privbooklinks.title_or_id())">
+              </option>
+            </tal:block>
+          </tal:block>
+          <option value="_global"
+            tal:content="python:mcat('_Address_book_')"
+            tal:attributes="selected python:current_addressbook_name == '_global';">
+            Addresses
+          </option>
+          <tal:block condition="python:wmtool.getEnableMembersMailing() == 1">
+            <tal:block define="
+              members python:wmtool.getCurrentAddressBook('_members');">
+              <option value="_members"
+                tal:attributes="selected python:current_addressbook_name == '_members';"
+                tal:content="python:mcat(members.title_or_id())">
+              </option>
+            </tal:block>
+          </tal:block>
+          <tal:block condition="python:wmtool.getEnableGroupsMailing() == 1">
+            <tal:block define="
+              groups python:wmtool.getCurrentAddressBook('_groups');">
+              <option value="_groups"
+                tal:attributes="selected python:current_addressbook_name == '_groups';"
+                tal:content="python:mcat(groups.title_or_id())">
+              </option>
+            </tal:block>
+          </tal:block>
+          <tal:block condition="python:lists_name">
+            <option value="_mailing"
+              tal:attributes="selected python:current_addressbook_name == '_mailing';"
+              tal:content="python:mcat('_Mailing_Lists_')">
+            </option>
+          </tal:block>
+        </select>
+        <input type="submit"
+        name="addressbook_changelist:method"
+        value="Ok" />
+      </td>
+    </tr>
+  </table>
+</metal:block>
