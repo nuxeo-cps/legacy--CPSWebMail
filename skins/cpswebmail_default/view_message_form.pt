@@ -11,6 +11,7 @@
                    reception_flag python:message.is_reception_flag(raw_msg);
                    mcat nocall:here/Localizer/default;
                    dtool here/portal_directories/members;
+                   IMAPName vm_session/IMAPName|string:INBOX;
                    ">
 
   <html metal:use-macro="here/main_template/macros/master">
@@ -38,7 +39,7 @@
         <table border="0" cellspacing="0" cellpadding="2" width="100%" cols="2">
           <form method="post" name="menu"
                 tal:attributes="action here/absolute_url">
-            <input type="hidden" name="IMAPName" tal:attributes="value python:'INBOX'">
+            <input type="hidden" name="IMAPName" tal:attributes="value IMAPName">
             <input type="hidden" name="IMAPId" tal:attributes="value python:the_id">
             <metal:block use-macro="here/webmail_lib/macros/view_message_actions"/>
             <tr>
@@ -138,7 +139,7 @@
 
       <tal:block define="conditionPJ python:message.existAttachment()">
         <form tal:attributes="action here/absolute_url; method string:post; name string:attachments_actions">
-        <input type="hidden" name="IMAPName" tal:attributes="value python:'INBOX'">
+        <input type="hidden" name="IMAPName" tal:attributes="value IMAPName">
         <input type="hidden" name="IMAPId" tal:attributes="value python:the_id">
         <table width="100%">
           <tr tal:condition="conditionPJ">
