@@ -130,7 +130,7 @@
         <tr>
           <td width="100%" align="left" bgcolor="#eeeeee">
             <strong>
-              <p tal:content="structure message/get_parsed_body">
+              <p tal:content="structure message/display_body">
                 Message
               </p>
             </strong>
