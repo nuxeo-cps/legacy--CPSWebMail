@@ -180,8 +180,6 @@ class WebMailSession:
         mail_session['body'] = message.getBody()
         mail_session['IMAPName'] = IMAPName
         mail_session['IMAPId'] = IMAPId
-        if REQUEST.has_key('flag'):
-            mail_session['flag'] = REQUEST['flag']
 
         if message.existAttachment():
             attachements = message.getAttachments()
