@@ -19,4 +19,4 @@ context.portal_webMail.addressbookAddContactsLinksToPrivBook(addressbook, list_t
 # Redirection to the addressbook form
 #
 portal_url = context.portal_url()
-REQUEST.RESPONSE.redirect(portal_url + '/addressBook_form?addressbook_name='+addressbook_name)
+context.addressbook_changelist(REQUEST)
