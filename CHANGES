@@ -3,7 +3,11 @@ Requires:
 -
 New features:
 ~~~~~~~~~~~~~
--
+- Added new properties 'IMAPLoginField' and 'IMAPLoginPassword'
+  to be able to chose another field than imap_login and imap_password
+  to get IMAP login and password.
+  WARNING: passwords may be protected in some directories, and CPSWebMail
+  may not be able to access them.
 Bug fixes:
 ~~~~~~~~~~
 - SMTP port set in portal_webMail was not taken into account.

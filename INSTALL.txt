@@ -126,6 +126,8 @@ Installation notes
     - IMAPPort*: 143 (your IMAP server port)
     - SMTPServer*: localhost (your SMTP server address)
     - SMTPPort*: 25 (your SMTP server port)
+    - IMAPLoginField*: imap_login
+    - IMAPPasswordField*: imap_password
     - Addressbook_name*: addressbook
     - AddressbookEmailProp*: email
     - PrivAddressbook_name: .addressbook
@@ -140,9 +142,14 @@ Installation notes
 
     * this property is required
 
+    Each user will have to set its "imap_login" and "imap_password" in its
+    preferences stored in the members directory to have access to its
+    mails, unless IMAPLoginField and IMAPPasswordField are set to use other
+    fields to get the IMAP login and pasword.
+    WARNING: passwords may be protected in some directories, and CPSWebMail
+    may not be able to access them.
+
     Please read the README file to know what features these properties give,
     and to know how to setup address books.
 
-    Each user will have to set its "imap_login" and "imap_password" in its
-    preferences stored in the members directory to have access to its
-    mails.
+
