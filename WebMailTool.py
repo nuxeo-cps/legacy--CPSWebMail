@@ -1214,8 +1214,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     security.declareProtected(UseWebMailPermission, "addressbookAddContactsToPrivBook")
     def addressbookAddContactsToPrivBook(self, addressbook, list_to_add):
         """Copy a group of contacts from the addressbook to the private address book"""
+        privbook = self.getCurrentAddressBook('_private')
         for entry_id in list_to_add:
-            privbook = self.getCurrentAddressBook('_private')
             if addressbook.hasEntry(entry_id):
                 entry = addressbook.getEntry(entry_id, default=None)
                 if not privbook.hasEntry(entry_id):
@@ -1224,8 +1224,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     security.declareProtected(UseWebMailPermission, "addressbookAddContactsLinksToPrivBook")
     def addressbookAddContactsLinksToPrivBook(self, directory, list_to_add):
         """Link a group of contacts from the directory to the private links address book"""
+        privbooklinks = self.getCurrentAddressBook('_private_links')
         for entry_id in list_to_add:
-            privbooklinks = self.getCurrentAddressBook('_private_links')
             if directory.hasEntry(entry_id):
                 entry = directory.getEntry(entry_id, default=None)
                 # directory name needed to create the entry in an indirect
