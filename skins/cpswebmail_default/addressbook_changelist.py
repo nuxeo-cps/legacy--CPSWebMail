@@ -17,6 +17,10 @@ elif list == "_all":
     REQUEST.RESPONSE.redirect(portal_url + '/addressBook_form')
 elif list == "_global" or list == "_private":
     REQUEST.RESPONSE.redirect(portal_url + '/addressBook_form?addressbook_name='+list)
+elif list == "_mailing":
+    # return the mailing list in order to be able to add a personal mailing list
+    # support
+    REQUEST.RESPONSE.redirect(portal_url + '/addressBook_view_list?addressbook_name='+list)
 else:
     # XXX Add mailinglist support
     list_name = context.portal_webMail.getMailingListName()
@@ -25,7 +29,7 @@ else:
     # Session search objet initialize
     #
     context.portal_webMail.setListSearch(list=mailinglist,
-                                           id_list=list,
-                                           REQUEST=REQUEST)
+                                         id_list=list,
+                                         REQUEST=REQUEST)
     REQUEST.RESPONSE.redirect(
         portal_url + '/addressBook_view_list?addressbook_name=' + list)
