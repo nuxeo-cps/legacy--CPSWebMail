@@ -870,19 +870,27 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
 
         current_time = time.strftime("%c", time.localtime())
 
-        new_body = """\
-        Voici le reçu de courrier que vous avez envoyé à %s le %s.
-        Ce message vérifie que le message s'est affiché sur l'ordinateur du destinataire à %s.
-        """ % (self.getMailFrom(), message.getDate(), current_time)
+        localizer = getToolByName(self, "Localizer", None)
+        cpsmcat = localizer.default
 
-        _headers = {'subject': "Lu : " + sub_mail, 
+        msg1 = cpsmcat("_This_is_the_acknowledgment_sent_to_").encode('ISO-8859-15', 'ignore')
+        msg2 = cpsmcat("_the_").encode('ISO-8859-15', 'ignore')
+        msg3 = cpsmcat("_This_message_tells_email_displayed_on_recipients_computer_on_").encode('ISO-8859-15', 'ignore')
+        new_body  = msg1 + self.getMailFrom() + msg2 + message.getDate()+ '.\n'
+        new_body += msg3 + current_time
+
+        msg_read = cpsmcat('_Read:_').encode('ISO-8859-15', 'ignore')
+
+        LOG("sendReceptionAcc", DEBUG, "new_body = %s, msg_read = %s" %(new_body, msg_read))
+
+        _headers = {'subject': msg_read + sub_mail,
                     'date': self.ZopeTime().rfc822()}
         #
         # Instance of the new message
         #
         new_message = IMAPMessage.IMAPMessage(
             sender=(self.getIdentity(),self.getMailFrom()),
-            subject="Lu :",
+            subject=msg_read,
             date=DateTime().strftime('%d/%m/%Y %H:%M'),
             body=new_body,
             recipients={'to': [exp_mail], 'cc': [], 'bcc': []},
@@ -1049,9 +1057,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
 
         Used when a user choose to import an MSF**k**g Outlook addressbook and
         delete the old entries."""
-        res = addressbook.searchEntry()
-        for entry in res:
-            entry_id = entry[addressbook.entry_prop]
+        res = addressbook.searchEntries()
+        for entry_id in res:
             addressbook.deleteEntry(entry_id)
 
     security.declareProtected(UseWebMailPermission, "importMSOaddressbook")
@@ -1067,7 +1074,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
                 p = addressbook.getEntry(contact['email'])
                 if p is None and contact['email'] != "":
                     addressbook.createEntry(
-                        {addressbook.entry_prop: contact['email'],
+                        {addressbook.id_field: contact['email'],
                          'name': contact['name'],
                          'givenName': contact['vorname'],
                          'email': contact['email']})
