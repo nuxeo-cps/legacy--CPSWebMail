@@ -142,13 +142,10 @@
             </tal:block>
           </tal:block>
           <tal:block condition="python:wmtool.getEnableWorkspaceMembersMailing() == 1">
-            <tal:block define="
-              groups python:wmtool.getCurrentAddressBook('_wsmembers');">
-              <option value="_wsmembers"
-                tal:attributes="selected python:current_addressbook_name == '_wsmembers';"
-                tal:content="python:mcat('label_workspace_members')">
-              </option>
-            </tal:block>
+            <option value="_wsmembers"
+              tal:attributes="selected python:current_addressbook_name == '_wsmembers';"
+              tal:content="python:mcat('label_workspace_members')">
+            </option>
           </tal:block>
           <tal:block condition="python:lists_name">
             <option value="_mailing"
