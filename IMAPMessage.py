@@ -228,8 +228,8 @@ class IMAPMessage:
         for header_key in self.headers.keys():
             if header_key == 'copy-to-folder':
                 continue
-            if header_key == 'subject' and self.headers['subject']:
-                suj = self.headers['subject']
+            if header_key == 'subject' and self.headers.get('subject', ''):
+                suj = self.headers.get('subject', '')
                 import quopri
                 from cStringIO import StringIO
                 infp = StringIO(suj)
@@ -245,7 +245,7 @@ class IMAPMessage:
                     subject = "=?iso-8859-1?Q?"+subject+"?="
                 writer.addheader(header_key, subject)
             else:
-                writer.addheader(header_key, self.headers[header_key])
+                writer.addheader(header_key, self.headers.get(header_key, ''))
 
         if is_draft:
             accepted_recipients = ['to', 'cc', 'bcc']
@@ -362,7 +362,7 @@ class IMAPMessage:
 
     def get_parsed_body(self):
         """Return the parsed body"""
-        content_type = string.lower(self.headers['content-type'])
+        content_type = string.lower(self.headers.get('content-type', ''))
         if string.find(content_type, 'text/html') != (-1):
             new_body = self.render_body(self.getBody(), 'html')
             return self.match_url(new_body)
@@ -462,7 +462,9 @@ class IMAPMessage:
 
         body = self.getBody()
         body = mimify.mime_decode(body)
+        content_type = string.lower(self.headers.get('content-type', 'text/plain'))
         # turn mailto: tags into http link
+        # and inative http links into active links
         body = self.match_url(body)
         # XXX stripogram is not a good HTML parser
         # need to find another solution
@@ -499,30 +501,50 @@ class IMAPMessage:
 
     def match_url(self, body):
         """
-        Matching the mail address
-        replace with a href link
+        Matching mail addresses and links
+        replace with href links
         """
 
-        def repl(matchobj):
-            """ For the single address mail """
+        def repl_mail(matchobj):
             if matchobj.group(0):
                the_matched_pattern = matchobj.group(0)
                the_matched_pattern = string.strip(the_matched_pattern)
+               #LOG("match_url.repl_mail", DEBUG, "matched_pattern=%s" %
+               #    (the_matched_pattern,))
                return  """<a href="write_addbook?to=%s">%s</a>""" % \
-                                                   (the_matched_pattern,
-                                                   the_matched_pattern)
+                                                     (the_matched_pattern,
+                                                      the_matched_pattern)
 
-        #
-        # Clear the mailto notation
-        #
-        compiled = re.compile(r'mailto', re.IGNORECASE)
-        body = re.sub(compiled, '', body)
+        def repl_link(matchobj):
+            if matchobj.group(2):
+               the_matched_pattern = matchobj.group(2)
+               the_matched_pattern = string.strip(the_matched_pattern)
+               #LOG("match_url.repl_link", DEBUG, "matched_pattern=%s" %
+               #    (the_matched_pattern,))
+               return  """%s<a href="%s" target="_blank">%s</a>""" % \
+                      (matchobj.group(1),
+                       the_matched_pattern,
+                       the_matched_pattern)
 
-        #
-        # Address like somethin@something.st
-        #
-        compiled = re.compile(r'([a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+)',
-                              re.IGNORECASE)
-        body = re.sub(compiled, repl, body)
+        chars_not_in_url = '\s\n\r\)<>'
+        chars_after_url = '\s\)\(<>\.,'
+        compiled_a_tags = re.compile(r'(<a .*?</a>)', re.IGNORECASE|re.DOTALL)
+        compiled_mailto = re.compile(r'mailto', re.IGNORECASE)
+        compiled_mail = re.compile(r'([a-zA-Z0-9\-]+@[a-zA-Z0-9|-]+\.[a-zA-Z\.\-]+)',
+                                   re.IGNORECASE)
+        compiled_link = re.compile(r'([^=\"])((http|ftp):\/\/[^'+chars_not_in_url+']+)(?=['+chars_after_url+'])', re.IGNORECASE)
+
+        body_list = compiled_a_tags.split(body)
+
+        new_body_list = []
+        for item in body_list:
+            if not compiled_a_tags.match(item):
+                item = re.sub(compiled_mailto, '', item)
+                item = re.sub(compiled_mail, repl_mail, item)
+                item = re.sub(compiled_link, repl_link, item)
+            new_body_list.append(item)
+
+        body = ''.join(new_body_list)
+
         return body
 
