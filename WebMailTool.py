@@ -114,6 +114,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
          'label':'Enable members mailing'},
         {'id': 'EnableGroupsMailing', 'type': 'boolean', 'mode':'w',
          'label':'Enable groups mailing'},
+        {'id': 'GroupsDirectory_name', 'type': 'string', 'mode':'w',
+         'label':'Name of the groups directory'},
         {'id': 'EnableWorkspaceMembersMailing', 'type': 'boolean', 'mode':'w',
          'label':'Enable workspace members mailing'},
         {'id': 'EnableSaveAttachments', 'type': 'boolean', 'mode':'w',
@@ -129,6 +131,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     PrivAddressbookLinksEmailProp = "email"
     EnableMembersMailing = 0
     EnableGroupsMailing = 0
+    GroupsDirectory_name = 'groups'
     EnableWorkspaceMembersMailing = 0
     IMAPLoginField = "imap_login"
     IMAPPasswordField = "imap_password"
@@ -153,6 +156,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         self.MailingEmailsProp             = "emails"
         self.EnableMembersMailing          = 0
         self.EnableGroupsMailing           = 0
+        self.GroupsDirectory_name          = "groups"
         self.EnableWorkspaceMembersMailing = 0
         self.EnableSaveAttachments         = 1
 
@@ -238,6 +242,11 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     security.declareProtected(UseWebMailPermission, "getEnableGroupsMailing")
     def getEnableGroupsMailing(self):
         return self.EnableGroupsMailing
+
+    security.declareProtected(UseWebMailPermission, "getGroupsDirectoryName")
+    def getGroupsDirectoryName(self):
+        """Return the groups directory name"""
+        return self.GroupsDirectory_name
 
     security.declareProtected(UseWebMailPermission, "getEnableWorkspaceMembersMailing")
     def getEnableWorkspaceMembersMailing(self):
@@ -1219,7 +1228,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         elif addressbook_name  in ['_members', '_wsmembers']:
             bookname = 'members'
         elif addressbook_name  == '_groups':
-            bookname = 'groups'
+            bookname = self.getGroupsDirectoryName()
         else:
             raise 'No addressbook support'
         return bookname
