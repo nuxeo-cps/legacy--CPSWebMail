@@ -1205,7 +1205,9 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     def getCurrentAddressBookName(self, addressbook_name='', REQUEST=None):
         """Get the ID of the addressbook in request"""
         if not addressbook_name:
-            addressbook_name = REQUEST.get('addressbook_name', None)
+            addressbook_name = REQUEST.get('addressbook_name')
+        if addressbook_name is None:
+            addressbook_name = self.getFirstAddressBookName()
         if addressbook_name  == '_private':
             bookname = self.getPrivAddressBookName()
         elif addressbook_name  == '_private_links':
@@ -1219,14 +1221,16 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         elif addressbook_name  == '_groups':
             bookname = 'groups'
         else:
-            bookname = self.getPrivAddressBookName()
+            raise 'No addressbook support'
         return bookname
 
     security.declareProtected(UseWebMailPermission, "getCurrentAddressBookEmailProp")
     def getCurrentAddressBookEmailProperty(self, addressbook_name='', REQUEST=None):
         """Get the email property of the addressbook in request"""
         if not addressbook_name:
-            addressbook_name = REQUEST.get('addressbook_name', None)
+            addressbook_name = REQUEST.get('addressbook_name')
+        if addressbook_name is None:
+            addressbook_name = self.getFirstAddressBookName()
         if addressbook_name  == '_private':
             bookname = self.getPrivAddressBookEmailProperty()
         elif addressbook_name  == '_private_links':
@@ -1238,7 +1242,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         elif addressbook_name  in ['_members', '_groups', '_wsmembers']:
             bookname = 'email'
         else:
-            bookname = self.getPrivAddressBookEmailProperty()
+            raise 'No addressbook support'
         return bookname
 
     security.declareProtected(UseWebMailPermission, "getCurrentAddressBook")
@@ -1261,5 +1265,36 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         book = self.getCurrentAddressBook(addressbook, REQUEST)
         return book.getEntry(entryid)
 
+    security.declareProtected(UseWebMailPermission, "hasAddressBookSupport")
+    def hasAddressBookSupport(self):
+        addressbook_name = self.getAddressBookName()
+        privbook_name = self.getPrivAddressBookName()
+        privbooklinks_name = self.getPrivAddressBookLinksName()
+        lists_name = self.getMailingListName()
+        members_mailing = self.getEnableMembersMailing()
+        groups_mailing = self.getEnableGroupsMailing()
+        wsmembers_mailing = self.getEnableWorkspaceMembersMailing()
+        ok = addressbook_name or privbook_name or privbooklinks_name or lists_name
+        other_ok = members_mailing or groups_mailing or wsmembers_mailing
+        return ok or other_ok
+
+    security.declareProtected(UseWebMailPermission, "getFirstAddressBookName")
+    def getFirstAddressBookName(self):
+        if self.getAddressBookName():
+            return '_global'
+        elif self.getPrivAddressBookName():
+            return '_private'
+        elif self.getPrivAddressBookLinksName():
+            return '_private_links'
+        elif self.getMailingListName():
+            return '_mailing'
+        elif self.getEnableMembersMailing() == 1:
+            return '_members'
+        elif self.getEnableGroupsMailing() == 1:
+            return '_wsmembers'
+        elif self.getEnableWorkspaceMembersMailing() == 1:
+            return '_groups'
+        else:
+            raise 'No addressbook support'
 
 InitializeClass(WebMailTool)
