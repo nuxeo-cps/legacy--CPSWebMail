@@ -107,11 +107,12 @@ def parse_RFCHeaders(header, nbCharSubject=25):
             to = " "
 
     subj = val.getheader("Subject")
-
     if subj is not None:
-            subject = render_subject(subj)
+        subject = render_subject(subj)
     else:
-            subject = "[pas de sujet]"
+        subject = ''
+    if not subject:
+        subject = "[no subject]"
 
     fp.close()
 
@@ -220,9 +221,10 @@ def parse_RFCMessage(mess, direct_body, flags, imapid, is_draft=0):
     if headers.has_key('bcc') and is_draft:
         _bcc = headers['bcc']
 
-    _subject = "pas de sujet"
+    _subject = "[no subject]"
     if headers.has_key('subject'):
-        _subject = headers['subject']
+        if headers['subject']:
+            _subject = headers['subject']
 
     _recipients={'to': _to, 'cc': _cc, 'bcc': _bcc}
 
@@ -343,7 +345,7 @@ def render_subject(subject):
     else:
         subject = mimify.mime_decode(subject)
 
-    return subject
+    return subject.strip()
 
 
 def make_body_and_parts(msg, message, content_type):
