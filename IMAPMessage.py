@@ -211,7 +211,7 @@ class IMAPMessage:
     #
     # Adding reception flag on mail header
     #
-    def raw_message(self, flag):
+    def raw_message(self, a_read=0, is_draft=0):
         """Render an RFC822 compliant message"""
 
         rendered_message = cStringIO.StringIO()
@@ -245,13 +245,17 @@ class IMAPMessage:
             else:
                 writer.addheader(header_key, self.headers[header_key])
 
-        for address_field in ['to', 'cc']:
+        if is_draft:
+            accepted_recipients = ['to', 'cc', 'bcc']
+        else:
+            accepted_recipients = ['to', 'cc']
+        for address_field in accepted_recipients:
             if self.recipients[address_field]:
                 for address in self.recipients[address_field]:
                     writer.addheader(string.capitalize(address_field),
                                      mimify.mime_encode_header(address))
 
-        if flag != "":
+        if a_read == 1:
             writer.addheader('Disposition-Notification-To', sender)
 
         if self.getAttachments():
