@@ -7,7 +7,7 @@
                    privbook_name wmtool/getPrivAddressBookName;
                    privbooklinks_name wmtool/getPrivAddressBookLinksName;
                    lists_name wmtool/getMailingListName;
-                   current_addressbook_name request/addressbook_name|string:_private;
+                   current_addressbook_name python:request.get('addressbook_name') or wmtool.getFirstAddressBookName();
                    current_addressbook python:wmtool.getCurrentAddressBook(current_addressbook_name, REQUEST=request);
                    allow_copy_or_link python:current_addressbook_name in ['_global', '_members', '_groups'];
                    ">
@@ -80,7 +80,7 @@
       <td bgcolor="#dcdcdc">
         <table cellpadding="2" cellspacing="1" border="0" width="100%">
           <tal:block define="
-            email_prop_name python:wmtool.getCurrentAddressBookEmailProperty(current_addressbook, request);
+            email_prop_name python:wmtool.getCurrentAddressBookEmailProperty(current_addressbook_name, request);
             title_field current_addressbook/title_field;
             id_field current_addressbook/id_field;
           ">
@@ -138,7 +138,7 @@
                                    layoutid current_addressbook/layout;
                                    layoutob ltool/?layoutid;
                                    widget python:(layoutob[title_field]);
-                                   disp_title widget/label;"
+                                   disp_title widget/label|string:;"
                        tal:content="python:mcat(disp_title)">
                       Display Prop Name
                     </i>
@@ -151,7 +151,7 @@
                     <i tal:define="ltool here/portal_layouts;
                                    layoutid current_addressbook/layout;
                                    layout ltool/?layoutid;
-                                   disp_title layout/?email_prop_name/label"
+                                   disp_title layout/?email_prop_name/label|string:"
                        tal:content="python:mcat(disp_title)">
                       Email Property name
                     </i>

@@ -66,7 +66,8 @@
                              value python:mcat('_Search_');
                              name string:webmail_search:method" />
     </td>
-    <td valign="middle" align="center">
+    <td valign="middle" align="center"
+      tal:condition="wmtool/hasAddressBookSupport">
       <input tal:attributes="type string:submit;
                              value python:mcat('_Address_book_');
                              name string:address_book:method" />
@@ -115,11 +116,13 @@
               </option>
             </tal:block>
           </tal:block>
-          <option value="_global"
-            tal:content="python:mcat('_Address_book_')"
-            tal:attributes="selected python:current_addressbook_name == '_global';">
-            Addresses
-          </option>
+          <tal:block condition="python:addressbook_name">
+            <option value="_global"
+              tal:content="python:mcat('_Address_book_')"
+              tal:attributes="selected python:current_addressbook_name == '_global';">
+              Addresses
+            </option>
+          </tal:block>
           <tal:block condition="python:wmtool.getEnableMembersMailing() == 1">
             <tal:block define="
               members python:wmtool.getCurrentAddressBook('_members');">
