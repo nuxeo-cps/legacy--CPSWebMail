@@ -30,7 +30,7 @@ import mime_message
 import IMAPMessage
 import Attachment
 
-from zLOG import LOG, DEBUG
+from zLOG import LOG, DEBUG, INFO
 
 is_quoted_printable = re.compile('=\\?iso-8859-[12]\\?q\\?([^? \t\n]+)\\?=', re.I)
 is_base64 = re.compile('=\\?iso-8859-[12]\\?b\\?([^? \t\n]+)\\?=', re.I)
@@ -50,7 +50,7 @@ def parse_RFCHeaders(header, nbCharSubject=25):
 ##    fp=open("mess.txt", 'r')
 
     fp = StringIO.StringIO(message)
-    
+
     val = rfc822.Message(fp)
 
     attachment = 0
@@ -95,7 +95,7 @@ def parse_RFCHeaders(header, nbCharSubject=25):
         too = val.getaddr("To")
     except:
         too = ("", " ")
-        
+
     if  too[0] is not None and too[0] != "":
             to = too[0]
     elif too[0] is not None and too[0] == "":
@@ -349,41 +349,43 @@ def mime_decode(line, isBase64=0):
 def render_date(date):
     """Returns a formatted view of the message date.
     """
+    LOG("render_date", DEBUG, "date before = %s" % (date,))
 
     try:
-            rep = date
+        rep = date
+        day = DateTime.DateTime(rep).dd()
+        month = DateTime.DateTime(rep).mm()
+        year = DateTime.DateTime(rep).yy()
+        hour = DateTime.DateTime(rep).TimeMinutes()
+        date = "%s/%s/%s %s" % (day, month, year, hour)
+
+    except KeyError:
+        date = '__'
+
+    except DateTime.DateTime.DateTimeError, value:
+        date = 'Internal error'
+
+    except DateTime.DateTime.SyntaxError, value:
+        try:
+            rep = re.sub(r'(\(.*\))', r'', date)
+            # Hack around some badly formated dates
+            # like: "Wed, 24 Mar 2004 11:56:09 +01:00"
+            # (should be "... +0100")
+            rep = re.sub(r'([0-9]{2,2}):([0-9]{2,2})$', r'\1\2', rep)
             day = DateTime.DateTime(rep).dd()
             month = DateTime.DateTime(rep).mm()
             year = DateTime.DateTime(rep).yy()
             hour = DateTime.DateTime(rep).TimeMinutes()
             date = "%s/%s/%s %s" % (day, month, year, hour)
-            return date
-
-    except KeyError:
-            return '__'
-
-    except DateTime.DateTime.DateTimeError, value:
-            return 'Internal error'
-
-    except DateTime.DateTime.SyntaxError, value:
-            try:
-                rep = re.sub(r'(\(.*\))', r'', date)
-                # Hack around some badly formated dates
-                # like: "Wed, 24 Mar 2004 11:56:09 +01:00" 
-                # (should be "... +0100")
-                rep = re.sub(r'([0-9]{2,2}):([0-9]{2,2})$', r'\1\2', rep)
-                day = DateTime.DateTime(rep).dd()
-                month = DateTime.DateTime(rep).mm()
-                year = DateTime.DateTime(rep).yy()
-                hour = DateTime.DateTime(rep).TimeMinutes()
-                date = "%s/%s/%s %s" % (day, month, year, hour)
-                return date
-            except:
-                # Some dummy date in the past
-                return 'Thu, 01 Jan 1970 00:00:00 +0000'
+        except:
+            # Some dummy date in the past
+            date = '01/01/70 00:00'
 
     except Exception, value:
-            return 'Unknown exception (%s)' % value
+        date = 'Unknown exception (%s)' % value
+
+    LOG("render_date", DEBUG, "date after = %s" % (date,))
+    return date
 
 def render_subject(subject):
     """ convert coded subject to ascii
