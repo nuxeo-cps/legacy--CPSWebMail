@@ -384,3 +384,9 @@ msgstr "Add to personal address book"
 
 msgid "cpswebmail_enter_recipient"
 msgstr "Please enter a recipient"
+
+msgid "label_personal_addressbooklinks"
+msgstr "Personal address book links"
+
+msgid "_Add_link_to_private_addressbook_"
+msgstr "Add to personal address book links"
