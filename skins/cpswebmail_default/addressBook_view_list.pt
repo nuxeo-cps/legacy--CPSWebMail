@@ -15,61 +15,8 @@
 </head>
 <body>
   <metal:block fill-slot="javascript_head_slot">
-    <script type="text/javascript">
-      <!--
-        function SetChecked_To(val) {
-          dml=document.form;
-          len = dml.elements.length;
-          var i=0;
-          for( i=0 ; i<len ; i++) {
-            if (dml.elements[i].name == 'pto:list') {
-              dml.elements[i].checked=val;
-            }
-          }
-        }
-
-  function SetChecked_Cc(val) {
-          dml = document.form;
-          len = dml.elements.length;
-          var i=0;
-          for( i=0 ; i<len ; i++) {
-            if (dml.elements[i].name == 'pcc:list') {
-              dml.elements[i].checked=val;
-            }
-          }
-  }
-
-  function SetChecked_Bcc(val) {
-          dml=document.form;
-          len = dml.elements.length;
-          var i=0;
-          for( i=0 ; i<len ; i++) {
-            if (dml.elements[i].name == 'pbcc:list') {
-              dml.elements[i].checked=val;
-            }
-          }
-   }
-
-  function popup_create_entry(method, addressbook_name) {
-       var args
-       args='?addressbook_name='+addressbook_name.value;
-       popup = window.open(method+args, '_blank')
-       if(!popup.opener)
-         popup.opener = window;
-       return false;
-  }
-
-  function popup_edit_entry(method, addressbook_name, id) {
-       var args
-       args='?addressbook_name='+addressbook_name.value+'&id='+id;
-       popup = window.open(method+args, '_blank')
-       if(!popup.opener)
-         popup.opener = window;
-       return false;
-  }
-
-      //-->
-    </script>
+    <script type="text/javascript"
+      tal:attributes="src string:${base_url}cpswebmail_functions.js"></script>
   </metal:block>
   <metal:block fill-slot="header">
     <b>
