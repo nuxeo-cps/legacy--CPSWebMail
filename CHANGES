@@ -6,7 +6,8 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
--
+- Empty subjects were not always replaced by a default value for display.
+- Forms submissions problems solved in webmail table and address book pages.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
