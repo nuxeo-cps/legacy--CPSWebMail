@@ -11,7 +11,7 @@
   nb_messages python:valid_conn and folder.getNumberOfIMAPMessage(request);
   sortmail request/sortmail | python:wmtool.getSortMail(request);
   sort request/sort | string:date;
-  order request/order | string:asc;
+  order request/order | string:desc;
   chgorder python:order=='asc' and 'desc' or 'asc';
   start python:int(request.get('start', 0));
   navigation_string python:valid_conn and wmtool.rangeView(str(start), folder.getImapName(), nb_messages);
