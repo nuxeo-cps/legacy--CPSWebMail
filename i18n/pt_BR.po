@@ -451,3 +451,11 @@ msgstr "Mudar critério de busca:"
 msgid "wsmembers_search_in"
 msgstr "em"
 
+msgid "cpswebmail_no_attachment_selected"
+msgstr ""
+
+msgid "cpswebmail_attachments_saved"
+msgstr ""
+
+msgid "cpswebmail_error_export_attachments"
+msgstr ""

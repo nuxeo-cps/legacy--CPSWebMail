@@ -395,3 +395,12 @@ msgstr "No attachments"
 
 msgid "label_name"
 msgstr "Name"
+
+msgid "cpswebmail_no_attachment_selected"
+msgstr ""
+
+msgid "cpswebmail_attachments_saved"
+msgstr ""
+
+msgid "cpswebmail_error_export_attachments"
+msgstr ""
