@@ -20,7 +20,6 @@
   batch_message python:valid_conn and wmtool.batchMessage(start, nb_messages, request);
   navigation_string python:valid_conn and wmtool.rangeView(str(start), folder.getImapName(), nb_messages, request);
   mcat nocall:here/Localizer/default;
-  dtool here/portal_directories/members;
   ">
 <html metal:use-macro="here/main_template/macros/master">
   <body>
@@ -445,7 +444,10 @@
           <a
             tal:attributes="href string:${base_url}cpsdirectory_entry_view?dirname=members&id=${member};"
             tal:content="python:mcat('_directories_')">
-            Directories</a>
+            Directories</a>.
+        </p>
+        <p>
+          <tal:block content="python:mcat('_IMAP_Access_Error_Caution_Admin_')" />
         </p>
         <form action="" method="post">
           <input type="button"
