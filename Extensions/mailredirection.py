@@ -77,18 +77,13 @@ def mailredirection(self):
                                )
         layout_def['rows'] += [[{'ncols': 1, 'widget_id': 'mailForwardingAddress'}]]
 
-    deliveryMode_description="""The delivery mode specifies the way emails are delivered to the member:
-- No forward : emails are not forwarded to the eventual mail forwarding address
-- Forward only : emails are only delivered to the mail forwarding address
-- Local : emails are forwarded to the eventual mail forwarding address, and a copy is kept in the local mailbox.
-"""
     if not 'w__deliveryMode' in widgets:
         memberlayout.addWidget('deliveryMode',
                                'Generic Select Widget',
                                fields='deliveryMode',
                                label='label_deliveryMode',
                                label_edit='label_deliveryMode',
-                               description=deliveryMode_description,
+                               help='deliveryMode_help',
                                is_required=1,
                                is_i18n=1,
                                vocabulary='deliveryMode',
