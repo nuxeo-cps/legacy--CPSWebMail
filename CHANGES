@@ -8,6 +8,11 @@ New features:
 - provides new imap folder management interface and facilities
 - provides a search on multiple fields
 - various custom changes
+- the installer now adds an address book directory and a private address book
+  directory
+- answered and forwarded messages are correctly flagged
+- an updater sets the LDAP schema, and the members schema and layout for a
+  redirection facility.
 
 Bug fixes:
 ~~~~~~~~~~

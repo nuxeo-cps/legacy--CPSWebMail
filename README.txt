@@ -41,16 +41,30 @@ Installation
          Adding
          Setting up action
          Setting up schemas and layouts
-         Schema emailaddress
-          Installing.
-           Field email.
-           Field name.
-           Field index.
-         Layout emailaddress
-          Installing.
-           Widget email
-           Widget name
-           Widget index
+         Setting up default address book directories
+         Directory .addressbook
+         Directory addressbook
+        Address book directories added
+        Verifiying schemas
+         Adding schema addressbook
+          Field givenName.
+          Field sn.
+          Field id.
+          Field email.
+          Field fullname.
+         Adding layout addressbook_search
+          Widget sn
+          Widget id
+          Widget givenName
+          Widget fullname
+          Widget email
+         Adding layout addressbook
+          Widget sn
+          Widget id
+          Widget givenName
+          Widget fullname
+          Widget email
+        Schemas and layouts related to address book directories added
         End of specific CPSWebmail updates
 
 	CPSWebMail is now installed.
@@ -79,6 +93,8 @@ How to setup address books
 
     Address books are directories. We will explain how to set up default
     address books, with their schema and layout.
+    The installer should have installed a default address book and a default
+    private address book.
     Go to the cps root, and click on the portal_directories tool in the ZMI.
 
     The "global" address book is a simple CPS ZODB Directory. Add a directory
