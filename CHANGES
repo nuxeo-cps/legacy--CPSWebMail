@@ -1,9 +1,19 @@
 Requires:
 ~~~~~~~~~
--
+- CPSDirectory > 1.15.1
 New features:
 ~~~~~~~~~~~~~
--
+- Enable members mailing : possible to view members directory in addressbooks
+  and perform operations on entries (add to recipients, add to private
+  addressbook, add to private addressbook with links...)
+- Enable groups mailing : possible to view members of a group in addressbooks
+  and perform operations on them (add to recipients, add to private addressbook,
+  add to private addressbook with links...)
+- Possible to store in personal addressbooks links towards entries
+  coming from several directories taht have a similar schema (addressbook,
+  members directory...)
+- Possible to empty trash folder without having to select messages to delete,
+  and ask for confirmation when deleting messages.
 Bug fixes:
 ~~~~~~~~~~
 - bcc field and acknoledgment of read where not kept when saving the message
