@@ -3,10 +3,18 @@ Requires:
 -
 New features:
 ~~~~~~~~~~~~~
--
+- Adding new property on portal_webMail to be able to specify
+  the groups directory to use in the "enable groups mailing" feature
+  (default: groups)
 Bug fixes:
 ~~~~~~~~~~
--
+- Popup windows used in address books were too small
+- Removed unecessary extra column in address books pages presentation.
+- Address book pages were assuming that widgets in directories had the
+  same name than fields.
+- Address book page presenting groups was not generic enough.
+- "Delete IMAP folder" page crashed if no folder was selected.
+
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
