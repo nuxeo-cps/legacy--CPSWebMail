@@ -9,6 +9,10 @@
   folder_name python:valid_conn and wmtool.getImapName(request);
   folder python:valid_conn and wmtool.getFolder(folder_name);
   nb_messages python:valid_conn and folder.getNumberOfIMAPMessage(request);
+  sortmail request/sortmail | python:wmtool.getSortMail(request);
+  sort request/sort | string:date;
+  order request/order | string:asc;
+  chgorder python:order=='asc' and 'desc' or 'asc';
   start python:int(request.get('start', 0));
   navigation_string python:valid_conn and wmtool.rangeView(str(start), folder.getImapName(), nb_messages);
   mcat nocall:here/Localizer/default;
@@ -215,7 +219,7 @@
               </th>
               <th align="center" valign="middle">
                 <strong>
-                  <a tal:attributes="href string:webmail_show?IMAPName=${request/IMAPName}&sortmail=SUBJECT&start=${start}"
+                  <a tal:attributes="href string:webmail_show?IMAPName=${request/IMAPName}&sortmail=${sortmail}&sort=subject&order=${chgorder}&start=${start}"
                     tal:content="python:mcat('_Subject_')">
                     href
                   </a>
@@ -223,7 +227,7 @@
               </th>
               <th align="center" valign="middle">
                 <strong>
-                  <a tal:attributes="href string:webmail_show?IMAPName=${request/IMAPName}&sortmail=FROM&start=${start}"
+                  <a tal:attributes="href string:webmail_show?IMAPName=${request/IMAPName}&sortmail=${sortmail}&sort=from&order=${chgorder}&start=${start}"
                     tal:content="python:mcat('_From_')">
                     href
                   </a>
@@ -231,7 +235,7 @@
               </th>
               <th align="center" valign="middle">
                 <strong>
-                  <a tal:attributes="href string:webmail_show?IMAPName=${request/IMAPName}&sortmail=date&start=${start}"
+                  <a tal:attributes="href string:webmail_show?IMAPName=${request/IMAPName}&sortmail=${sortmail}&sort=date&order=${chgorder}&start=${start}"
                     tal:content="python:mcat('_Date_')">
                     href
                   </a>
@@ -249,8 +253,12 @@
               </td>
             </tr>
 
-            <tal:block define="sortmail request/sortmail | python:wmtool.getSortMail(request);
-                 the_header python:folder.getIMAPMessagesHeaders(start=start, sortmail=sortmail, listing_size=wmtool.getListingSize(), REQUEST=request, RESPONSE=request.response)">
+            <tal:block define="the_header
+            python:folder.getIMAPMessagesHeaders(start=start,
+            sortmail=sortmail, sort=sort, order=order,
+            listing_size=wmtool.getListingSize(), REQUEST=request,
+            RESPONSE=request.response)
+            ">
               <!-- We now have the headers of messages -->
               <tal:block repeat="item the_header"> <!-- Repeat on headers -->
                 <tr>
