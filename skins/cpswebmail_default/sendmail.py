@@ -1,5 +1,6 @@
 ##parameters=REQUEST
 ## Script (Python) "sendmail.py"
+# $Id$
 
 #
 # Create a new mail session object
@@ -9,9 +10,7 @@ context.portal_webMail.createMailSession(REQUEST)
 #
 # Sending message...
 #
-
 read_flag = int(REQUEST.form.get('a_read', 0))
-
 x = context.portal_webMail.sendMail(REQUEST, read_flag)
 
 if x == 0:
