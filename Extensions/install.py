@@ -311,7 +311,7 @@ class CPSWebMailInstaller(CPSInstaller):
                         },
                     },
                 'email': {
-                    'type': 'String Widget',
+                    'type': 'Email Widget',
                     'data': {
                         'fields': ('email',),
                         'is_required': 0,
