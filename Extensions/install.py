@@ -157,7 +157,7 @@ class CPSWebMailInstaller(CPSInstaller):
             'type': 'CPS Local Directory',
             'data': {
                 'title': 'label_personal_addressbooklinks',
-                'schema': 'addressbook_links',
+                'schema': 'addressbook',
                 'schema_search': 'addressbook_search',
                 'layout': 'addressbook_links',
                 'layout_search': 'addressbook_search',
@@ -250,47 +250,9 @@ class CPSWebMailInstaller(CPSInstaller):
                 },
             }
 
-        addressbook_links_schema = {
-            'givenName': {
-                'type': 'CPS String Field',
-                'data': {
-                    'default_expr': 'string:',
-                    },
-                },
-            'sn': {
-                'type': 'CPS String Field',
-                'data': {
-                    'default_expr': 'string:',
-                    },
-                },
-            'id': {
-                'type': 'CPS String Field',
-                'data': {
-                    'default_expr': 'string:',
-                    },
-                },
-            'email': {
-                'type': 'CPS String Field',
-                'data': {
-                    'default_expr': 'string:',
-                    },
-                },
-            'fullname': {
-                'type': 'CPS String Field',
-                'data': {
-                    'default_expr': 'string:',
-                    'read_ignore_storage': 1,
-                    'read_process_expr': """python:(givenName + " " + sn).strip() or id""",
-                    'read_process_dependent_fields': ('givenName', 'sn', 'id'),
-                    'write_ignore_storage': 1,
-                    },
-                },
-            }
-
         schemas = {
             'addressbook': addressbook_schema,
             'addressbook_search': addressbook_search_schema,
-            'addressbook_links': addressbook_links_schema,
             }
         self.verifySchemas(schemas)
 
