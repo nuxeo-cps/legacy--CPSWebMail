@@ -2,7 +2,7 @@
   global hideactions python:1;
   wmtool here/portal_webMail;
   valid_conn wmtool/verifyConnection;
-  imap_folders wmtool/getIMAPFolders;
+  imap_folders python:valid_conn and wmtool.getIMAPFolders();
   trashName wmtool/getTrashIMAPName;
   draftName wmtool/getDraftIMAPName;
   sentMailName wmtool/getSentMailIMAPName;
