@@ -1,0 +1,38 @@
+<tal:block define="
+  global dirname request/dirname|string:members;
+  global dir here/portal_directories/?dirname;
+  global dirtitle dir/title_or_id;
+  dummy dir/checkCreateEntryAllowed;
+  validate python: request.has_key('cpswebmail_directory_entry_create_form');
+  create_request python: validate and request or nothing;
+  res python: dir.renderCreateEntryDetailed(
+    validate=validate, request=create_request,
+    created_callback='cpswebmail_directory_entry_created');
+  global rendered_main python: res[0];
+  rendered_ok python: res[1];
+  ds python: res[2];
+  global portal_status_message python: validate and (rendered_ok and 'psm_content_changed' or 'psm_content_error') or '';
+  "/>
+<metal:html tal:define="emptybody python:1;">
+  <metal:block use-macro="here/main_template/macros/master">
+    <metal:block fill-slot="css_slot">
+      <link rel="Stylesheet" type="text/css" href=""
+        tal:attributes="href string:${base_url}document.css" />
+    </metal:block>
+
+    <metal:block fill-slot="main">
+      <metal:block use-macro="here/generic_lib/macros/portal_message" />
+      <h1><span i18n:translate="" tal:content="dirtitle" />:
+          <span i18n:translate="cpsdir_label_create_entry" /></h1>
+
+      <div tal:define="rendered_main python:rendered_main.replace('cpsdirectory_entry_edit_form:method','cpswebmail_directory_entry_edit_form:method');
+                       rendered_main python:rendered_main.replace('cpsdirectory_entry_create_form:method','cpswebmail_directory_entry_create_form:method');"
+           tal:replace="structure rendered_main">Rendered main...</div>
+
+      <input type="submit" class="standalone"
+          value="button_close" i18n:attributes="value"
+          onclick="javascript:window.opener.location.reload();window.close();" />
+    </metal:block>
+
+  </metal:block>
+</metal:html>
