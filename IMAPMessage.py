@@ -51,7 +51,6 @@ class IMAPMessage:
         """ constructor
         """
 
-        LOG("__init__", DEBUG, "date = %s" % (date,))
         self.headers = headers
         self.IMAPId = IMAPId
         self.flags = flags
