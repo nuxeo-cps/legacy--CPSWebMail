@@ -522,6 +522,15 @@ class CPSWebMailInstaller(CPSInstaller):
 
     def setupDefaultMailingListsDirectory(self):
         self.log("Setting up default mailing lists directory")
+
+        # removing 'mailinglists' directory, which is the old name for
+        # directory '.mailinglists'. Old personal instances in users' home
+        # folders will have to be deleted manually
+        dirtool = self.portal.portal_directories
+        if 'mailinglists' in dirtool.objectIds():
+            dirtool.manage_delObjects(['mailinglists'])
+            self.log("Removing old directory 'mailinglists' from portal_directory ; old instances in users'home folders will have to be deleted manually")
+
         mailinglists_directory = {
             'type': 'CPS Local Directory',
             'data': {
