@@ -742,6 +742,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     security.declareProtected(UseWebMailPermission, "sendMail")
     def sendMail(self, REQUEST, flag):
         """Send a mail from the compose interface"""
+
         mail_structure = REQUEST.SESSION.get('mail_session', {})
 
         _to = [mail_structure['to']]
@@ -771,7 +772,6 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             or REQUEST.has_key('IMAPName')
                 and REQUEST['IMAPName'] == self.getDraftFolder().getImapName()
                 and REQUEST.has_key('IMAPId')):
-
             pass
             # FIXME: neither attForward nor listAtt are used anywhere !!!
             #
@@ -840,11 +840,16 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             _recipients, raw_message)
         smtp_connection.quit()
 
-        if (REQUEST.has_key('IMAPName') and REQUEST.has_key('IMAPId') 
-                and REQUEST.has_key('reply')):
+        if (REQUEST.has_key('IMAPName') and REQUEST.has_key('IMAPId')\
+            and REQUEST.has_key('flag')):
             con = self.getConnection()
-            con.setFlag(folderName=REQUEST['IMAPName'],
-                        IMAPId=REQUEST['IMAPId'], flag="anwser")
+            flag2 = REQUEST.get('flag')
+            if flag2 == 'reply':
+                con.setFlag(folderName=REQUEST['IMAPName'],
+                            IMAPId=REQUEST['IMAPId'], flag="anwser")
+            elif flag2 == 'forward':
+                con.setFlag(folderName=REQUEST['IMAPName'],
+                            IMAPId=REQUEST['IMAPId'], flag="forwarded")
             con.logout()
 
         return 0
