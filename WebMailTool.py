@@ -18,10 +18,10 @@ from MSOutlookImport import MSOutlookImporter
 # DEPENDENCES OF THE ORIGINAL WebMail Product
 #=============================================
 
-from Products.WebMail.IMAPGateway import IMAPGateway
-from Products.WebMail.IMAPFolder  import IMAPFolder
-from Products.WebMail.IMAPMessage import IMAPMessage
-from Products.WebMail.Attachment  import Attachment
+from IMAPGateway import IMAPGateway
+from IMAPFolder  import IMAPFolder
+from IMAPMessage import IMAPMessage
+from Attachment  import Attachment
 
 #===========================
 #  BECAUSE ZOPE SECURITY
@@ -33,7 +33,7 @@ allow_class(IMAPMessage)
 allow_class(IMAPGateway)
 allow_class(Attachment)
 
-from Products.WebMail import timeoutsocket
+import timeoutsocket
 timeoutsocket.setDefaultSocketTimeout(60) # Something to move somewhere else
 
 import smtplib
@@ -41,7 +41,7 @@ import string
 from urllib import quote
 
 # XXX: make these imports explicit
-from Products.WebMail.RFC822MessagesTools import *
+from RFC822MessagesTools import *
 from DateTime import DateTime
 
 #============================
