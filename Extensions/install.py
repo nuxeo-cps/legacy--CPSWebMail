@@ -55,7 +55,7 @@ class CPSWebMailInstaller(CPSInstaller):
         action = {
             'id': 'webmail',
             'name': '_list_mail_',
-            'action': 'string: ${portal_url}/webmail_show',
+            'action': 'string:${portal_url}/webmail_show',
             'condition': 'member',
             'permission': 'View',
             'category': 'user',
