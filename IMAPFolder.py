@@ -210,6 +210,33 @@ class IMAPFolder:
         con.logout()
         return res
 
+    def getIMAPSubFolders(self):
+        """ return the IMAP subfolders
+        """
+        wmtool = self.getWebMail()
+        folders = wmtool.getIMAPFolders()
+        res = []
+        name = self.getImapName()
+        for folder in folders:
+            fname = folder.getImapName()
+            if fname.startswith(name) and fname != name:
+                res.append(folder)
+        return res
+
+    def getIMAPDirectSubFolders(self):
+        """ return the IMAP subfolders
+        """
+        wmtool = self.getWebMail()
+        folders = wmtool.getIMAPFolders()
+        res = []
+        name = self.getImapName()
+        dots = len(name.split('.'))
+        for folder in folders:
+            fname = folder.getImapName()
+            fdots = len(fname.split('.'))
+            if fname.startswith(name) and fname != name and fdots == (dots+1):
+                res.append(folder)
+        return res
 
     def getType(self):
         """ return the type of this folder
