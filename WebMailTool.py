@@ -116,6 +116,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
          'label':'Enable groups mailing'},
         {'id': 'EnableWorkspaceMembersMailing', 'type': 'boolean', 'mode':'w',
          'label':'Enable workspace members mailing'},
+        {'id': 'EnableSaveAttachments', 'type': 'boolean', 'mode':'w',
+         'label':'Enable to save attachments to personal workspace'},
     )
 
     _properties = _basic_properties
@@ -130,6 +132,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     EnableWorkspaceMembersMailing = 0
     IMAPLoginField = "imap_login"
     IMAPPasswordField = "imap_password"
+    EnableSaveAttachments = 1
 
     def __init__(self):
         """WebMail Tool Constructor"""
@@ -151,6 +154,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         self.EnableMembersMailing          = 0
         self.EnableGroupsMailing           = 0
         self.EnableWorkspaceMembersMailing = 0
+        self.EnableSaveAttachments         = 1
 
     security.declareProtected(UseWebMailPermission, "getVersion")
     def getVersion(self):
@@ -238,6 +242,10 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     security.declareProtected(UseWebMailPermission, "getEnableWorkspaceMembersMailing")
     def getEnableWorkspaceMembersMailing(self):
         return self.EnableWorkspaceMembersMailing
+
+    security.declareProtected(UseWebMailPermission, "getEnableSaveAttachments")
+    def getEnableSaveAttachments(self):
+        return self.EnableSaveAttachments
 
     # XXX Hack du jeudi, soucis !
     security.declareProtected(UseWebMailPermission, "getConnection")
@@ -776,22 +784,21 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
 
         pieces_to_remove = REQUEST.form.get('IDPieces', [])
 
-        l = []
-        # If nothing selected
-        for item in pieces_to_remove:
-            l = []
+        # If something selected
+        if len(pieces_to_remove)>0:
+            new_att_list = []
             for piece in att_list:
-                if piece.getId() != item:
-                    l.append(piece)
-                    i = 1
-                    for piece in l:
-                        piece.setId(i)
-                        i = i + 1
+                if piece.getId() not in pieces_to_remove:
+                    new_att_list.append(piece)
+            i = 1
+            for piece in new_att_list:
+                piece.setId(i)
+                i = i + 1
 
-        # Commit modifications
-        mail_structure['att_list'] = l
-        mail_structure['nb_att'] = mail_structure['nb_att'] - 1
-        REQUEST.SESSION['mail_session'] = mail_structure
+            # Commit modifications
+            mail_structure['att_list'] = new_att_list
+            mail_structure['nb_att'] = len(new_att_list)
+            REQUEST.SESSION['mail_session'] = mail_structure
 
         return 0
 
