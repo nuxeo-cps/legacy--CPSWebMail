@@ -350,13 +350,13 @@ class WebMailSession:
             REQUEST.SESSION['search_results'] = entry[email_prop]
 
     security.declareProtected(UseWebMailPermission, "setGroupSearch")
-    def setGroupSearch(self, group, id_group, REQUEST):
+    def setGroupSearch(self, groups, id_group, REQUEST):
         """Init of a session object with the list of emails"""
 
         # Destruction of an older session if exists
         REQUEST.SESSION['search_results'] = ()
 
-        entry = group.getEntry(id_group)
+        entry = groups.getEntry(id_group)
         # Update Search Session
         if entry:
             REQUEST.SESSION['search_results'] = entry['members']
