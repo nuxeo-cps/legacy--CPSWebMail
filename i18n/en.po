@@ -1,8 +1,5 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -447,3 +444,13 @@ msgstr "No attachments"
 
 msgid "label_name"
 msgstr "Name"
+
+msgid "cpswebmail_no_attachment_selected"
+msgstr "No attachment selected"
+
+msgid "cpswebmail_attachments_saved"
+msgstr "Attachment(s) saved"
+
+msgid "cpswebmail_error_export_attachments"
+msgstr "Error while exporting attachment(s)"
+
