@@ -67,7 +67,7 @@
             </metal:block>
             <metal:block fill-slot="content">
               <tal:block define="conditionCC1 python:mail_struct.has_key('cc')">
-                <input type="text" name="cc"
+                <input type="text" name="cc" size="60"
                        tal:attributes="value python:mail_struct['cc']"
                        tal:condition="conditionCC1"/>
                 <input type="text" name="cc" size="60"
@@ -119,8 +119,7 @@
                         tal:content="python:mail_struct['body']"
                         tal:condition="conditionB1"/>
               <textarea name="body:text" cols="85%" rows="10" wrap="virtual"
-                        tal:condition="python:not conditionB1">
-              </textarea>
+                        tal:condition="python:not conditionB1"></textarea>
             </tal:block>
           </td>
         </tr>
