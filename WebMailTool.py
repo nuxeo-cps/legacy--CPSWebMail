@@ -1044,6 +1044,15 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         for entry_id in list_to_delete:
             addressbook.deleteEntry(entry_id)
 
+    security.declareProtected(UseWebMailPermission, "addressbookAddContactsToPrivBook")
+    def addressbookAddContactsToPrivBook(self, addressbook, list_to_add):
+        """Delete a group of contacts from the addressbook"""
+        for entry_id in list_to_add:
+            privbook = self.getCurrentAddressBook('_private')
+            if addressbook.hasEntry(entry_id):
+                entry = addressbook.getEntry(entry_id, default=None)
+                privbook.createEntry(entry)
+
     security.declareProtected(UseWebMailPermission, "deleteAllEntries")
     def deleteAllEntries(self, addressbook):
         """Delete all addressbook entries
@@ -1097,8 +1106,10 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             bookname = self.getPrivAddressBookName()
         elif addressbook_name  == '_mailing':
             bookname = self.getMailingListName()
-        else:
+        elif addressbook_name  == '_global':
             bookname = self.getAddressBookName()
+        else:
+            bookname = self.getPrivAddressBookName()
         return bookname
 
     def getCurrentAddressBook(self, addressbook_name='', REQUEST=None):
