@@ -123,9 +123,9 @@ Installation notes
 
     - title
     - IMAPServer*: localhost (your IMAP server address)
-    - IMAPPort*: 25 (your IMAP server port)
+    - IMAPPort*: 143 (your IMAP server port)
     - SMTPServer*: localhost (your SMTP server address)
-    - SMTPPort*: 143 (your SMTP server port)
+    - SMTPPort*: 25 (your SMTP server port)
     - Addressbook_name*: addressbook
     - AddressbookEmailProp*: email
     - PrivAddressbook_name: .addressbook
