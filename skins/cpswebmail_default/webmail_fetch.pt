@@ -83,17 +83,15 @@
 
           <table border="0" cellpadding="1" cellspacing="0" width="100%">
             <tr>
-              <td align="right" valign="middle" width="25%">
-                <!-- INBOX SELECTOR -->
+              <!-- INBOX SELECTOR -->
+              <td align="center" valign="middle" width="20%">
                 <b>
                 <tal:block replace="python:mcat('_Change_folder_to_')">Change folder
                   to  :</tal:block>
                 </b>
               </td>
-              <td align="left" valign="middle" width="25%">
-                <select name="IMAPName"
-                  tal:define="path string:this.options[this.selectedIndex].value"
-                  tal:attributes="onChange string:location.href='${wmtool/absolute_url}/change_folder?IMAPName='+${path}">
+              <td align="left" valign="middle" width="28%">
+                <select name="IMAPName">
                   <tal:block define="currentFolderName request/IMAPName;">
                     <tal:block repeat="imap_folder imap_folders">
                       <option value="imapname"
@@ -124,16 +122,23 @@
                       tal:content="python:mcat(wmtool.getTrashRdName())">
                       trash folder readble name
                     </option>
-                  </tal:block> <!-- end of definitions block -->
+                  </tal:block>
                 </select>
+                <input type="submit"
+                       name="change_folder:method"
+                       value="Ok" />
               </td>
-              <td align="right" valign="middle" width="25%">
+              <td align="right" valign="middle" width="4%">
+                <span tal:condition="nothing" content="just for some space" />
+              </td>
+              <!-- Add subfolder -->
+              <td align="center" valign="middle" width="20%">
                 <b>
                 <tal:block replace="python:mcat('_Add_Subfolder_')"/>
                 </b>
               </td>
-              <td align="left" valign="middle" with="25%">
-                  <input type="text" name="title:string" size="15"/>
+              <td align="left" valign="middle" with="28%">
+                  <input type="text" name="title:string" size="14"/>
                   <input tal:attributes="type  string:submit;
                          value python:mcat('_Add_');
                          name  string:create_folders:method"/>
@@ -191,8 +196,6 @@
                   <option value="--Dossiers--" tal:content="python:mcat('_Choose_A_Folder_')"/>
                   <tal:block repeat="imap_folder imap_folders">
                     <option tal:attributes="value imap_folder/getImapName"
-                      tal:condition="python:imap_folder.getImapName() not in [
-                        trashName, draftName, sentMailName] and 1 or nothing"
                       tal:content="python:mcat(imap_folder.getReadableName())">
                       folder readable name
                     </option>
@@ -299,15 +302,15 @@
 
                   <td align="center" valign="middle" bgcolor="#FFFFFF">
                     <p>
-                      <tal:block define="condition python:folder.IMAPName == wmtool.getDraftIMAPName()">
+                      <tal:block define="condition_draft python:folder.IMAPName == wmtool.getDraftIMAPName()">
                         <a href="" tal:attributes="
                           href string:${here/absolute_url}/continue_draft?IMAPId=${item/imap_id}&IMAPName=${folder/getImapName}&start=${start}"
                           tal:content="item/subject"
-                          tal:condition="python:condition">
+                          tal:condition="python:condition_draft">
                         </a>
                         <a href="" tal:attributes="
                           href string:${here/absolute_url}/view_message?IMAPId=${item/imap_id}&IMAPName=${folder/getImapName}&start=${start}&view=${item/read}"
-                          tal:condition="python:not condition"
+                          tal:condition="python:not condition_draft"
                           tal:content="python:item['subject'] or None">
                         </a>
                       </tal:block>
@@ -316,17 +319,18 @@
 
                   <td align="center" valign="middle" bgcolor="#FFFFFF">
                     <p>
-                      <tal:block define="condition2 python:sortmail == 'FROM'">
+                      <tal:block define="
+                        condition_draft python:folder.IMAPName == wmtool.getDraftIMAPName();
+                        condition_sortfrom python:sortmail == 'FROM';
+                        sender python:condition_sortfrom and item['mail_sender'] or item['sender'];">
+                        <a href="" tal:attributes="
+                          href string:${here/absolute_url}/continue_draft?IMAPId=${item/imap_id}&IMAPName=${folder/getImapName}&start=${start}"
+                          tal:content="sender"
+                          tal:condition="python:condition_draft" />
                         <a href="" tal:attributes="
                           href string:${here/absolute_url}/reply?to=${item/mail_sender}&IMAPName=${request/IMAPName}&IMAPId=${item/imap_id}"
-                          tal:condition="python:condition2"
-                          tal:content="item/mail_sender">
-                        </a>
-                        <a href="" tal:attributes="
-                          href string:${here/absolute_url}/reply?to=${item/mail_sender}&IMAPName=${request/IMAPName}&IMAPId=${item/imap_id}"
-                          tal:condition="python:not condition2"
-                          tal:content="item/sender">
-                        </a>
+                          tal:content="sender"
+                          tal:condition="python:not condition_draft" />
                       </tal:block>
                     </p>
                   </td>
@@ -371,8 +375,6 @@
                   <tal:block repeat="imap_folder imap_folders">
                     <option tal:attributes="
                       value imap_folder/getImapName"
-                      tal:condition="python:imap_folder.getImapName() not in [
-                        draftName, trashName, sentMailName] and 1 or nothing"
                       tal:content="python:mcat(imap_folder.getReadableName())"
                       >folder readable name</option>
                   </tal:block>
