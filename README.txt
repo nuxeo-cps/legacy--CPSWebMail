@@ -117,9 +117,9 @@ How to setup address books
     These default values can be used:
     - title: Address book
     - Schema: addressbook
-    - Schema for search:
+    - Schema for search: addressbook_search
     - Layout: addressbook
-    - Layout for search:
+    - Layout for search: addressbook_search
     - ACL: directory view roles: Manager; Member
     - ACL: entry create roles: Manager
     - ACL: entry delete roles: Manager
@@ -136,9 +136,9 @@ How to setup address books
     These default values can be used:
     - title: Private address book
     - Schema: addressbook
-    - Schema for search:
+    - Schema for search: addressbook_search
     - Layout: addressbook
-    - Layout for search:
+    - Layout for search: addressbook_search
     - ACL: directory view roles: Manager; Member
     - ACL: entry create roles: Manager; Member
     - ACL: entry delete roles: Manager; Member
@@ -170,6 +170,10 @@ How to setup address books
     - a CPS User Identifier Widget for the field id
     - CPS String Widgets for the other fields
 
+    The schema and layouts named 'addressbook_search' can have the same
+    fields than the corresponding 'addressbook' schemas and layout, except
+    the layout 'fullname', as it is computed from the fields 'givenName'
+    and 'sn'.
 
 Features
 

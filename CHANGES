@@ -13,6 +13,10 @@ New features:
 - an updater sets the LDAP schema, and the members schema and layout for a
   redirection facility.
 - the installer now adds a mailing lists directory
+- custom changes on addressbooks, the private addressbook is now the default
+  addressbook.
+- it is now possible to add entries from the global addressbook to the personal
+  addressbook, but they have to follow similar schemas (not tested if not)
 
 Bug fixes:
 ~~~~~~~~~~
@@ -26,6 +30,7 @@ Bug fixes:
 - "Reply to all" now takes email addresses that were on the "cc" field.
 - It is now possible to add a new entry to the mailing lists directory when the
   directory is empty.
+- Search on addressbooks fixed
 
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
