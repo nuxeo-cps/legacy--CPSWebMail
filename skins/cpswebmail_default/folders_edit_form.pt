@@ -15,74 +15,57 @@
       <metal:block fill-slot="header_plus"/>
 
       <metal:block fill-slot='main'>
-        <form tal:attributes="
-          action string:${here/absolute_url};
-          method string:post;
-    name   string:form">
-          <h4 align="right">
-      <tal:block content="python:mcat('_Existing_IMAP_folders:_')"/>
-            <select name="IMAPNames:list" size="5" multiple>
-        <tal:block repeat="item wmtool/getIMAPFolders">
-          <tal:block define="condition_Folders python:item.getImapName() not in [wmtool.getDraftIMAPName(), wmtool.getTrashIMAPName(), wmtool.getSentMailIMAPName(), wmtool.getInboxIMAPName(request)]">
-            <option tal:condition="condition_Folders"
-                    tal:attributes="
-                    value item/getImapName"
-                    tal:content="item/getReadableName">
-              Folder Readble Name
-                  </option>
-          </tal:block>
-              </tal:block>
-      </select>
-          </h4>
-    <h5 align="center">
-      <input tal:attributes="
-              type  string:submit;
-              value python:mcat('_Delete_');
-              name  string:delete_folders:method">
-    </h5>
-    <p>&nbsp;</p>
-    <hr>
-          <p>&nbsp;</p>
+        <form tal:attributes="action string:${here/absolute_url};
+                              method string:post;
+                              name   string:form">
+    <h4 tal:content="python:mcat('_Existing_IMAP_folders:_')"/>
+    <p>
+      <tal:block repeat="folder wmtool/getIMAPFoldersTree">
+        <tal:block define="item python:folder[0];
+                           depth python:folder[1];
+                           condition_Folders python:item.getImapName() not in [wmtool.getDraftIMAPName(), wmtool.getTrashIMAPName(), wmtool.getSentMailIMAPName(), wmtool.getInboxIMAPName(request)]">
+            <tal:block condition="condition_Folders">
+              <span tal:replace="structure python:'&nbsp;'*4*depth"/>
+              <input type="checkbox" name="IMAPNames:list"
+                     tal:attributes="value item/getImapName;
+                                     id item/getImapName"/>
+              <label tal:content="item/getReadableName"
+                     tal:attributes="for item/getImapName"/>
+              <br/>
+            </tal:block>
+        </tal:block>
+      </tal:block>
+    </p>
 
-    <table border="0" cols="2" cellpadding="0" cellspacing="0">
-      <tr>
-            <td align="center" valign="middle">
-                <h5 tal:content="python:mcat('_Folder_name:_')">Folder name</h5>
-            </td>
-            <td align="left" valign="middle">
-                <input type="text" name="title:string" size="50">
-            </td>
-      </tr>
-      <tr>
-          <td colspan="2">&nbsp;</td>
-      </tr>
-      <tr>
-        <td colspan="2" tal:content="python:mcat('_Folder_creation_caution_')">
-          <p align="left">Attention: dot . is for creating subfolders.</p>
-          <p align="left">ie.: to have subfolders like "yellow" and "red" of folder"colors",</p>
-          <p align="left">you just have to name it "colors.yellow" et "colors.red" only if folder "colors" is existing.</p>
-          <p align="left"> Be carefull to the case</p>
-        </td>
-      </tr>
-      <tr>
-          <td colspan="2">&nbsp;</td>
-      <tr>
-            <td align="right">
-          <input tal:attributes="
-                  type string:submit;
-            value python:mcat('_Add_');
-                  name string:create_folders:method">
-            </td>
-            <td align="left">
-          <input tal:attributes="
-            type string:submit;
-            value python:mcat('_Cancel_');
-                  name string:webmail_show:method">
-            </td>
-      </tr>
-    </table>
+    <hr>
+
+
+    <p>
+      <input tal:attributes="type  string:submit;
+                             value python:mcat('_Delete_');
+                             name  string:delete_folders:method"/>
+      <b tal:content="python:mcat('_Add_Subfolder:_')" />
+      <input type="text" name="title:string" size="20"/>
+      <input tal:attributes="type  string:submit;
+                             value python:mcat('_Add_');
+                             name  string:create_folders:method"/>
+      <input tal:attributes="type  string:submit;
+                             value python:mcat('_Cancel_');
+                             name  string:webmail_show:method"/>
+    </p>
+
         </form>
-      </metal:block>
+
+    <p>
+      <strong>
+        <a href="" tal:attributes="href string:${here/absolute_url}/webmail_show"
+           tal:content="python:mcat('_Back_to_message_list_')">
+          Back to the message list
+        </a>
+      </strong>
+    </p>
+
+    </metal:block>
 
     </body>
   </html>
