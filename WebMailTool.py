@@ -308,6 +308,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         else:
             try:
                 res = con.login(login, password)
+                if res == 'LOG_FAILED':
+                    raise IMAP4.error
             except IMAP4.error:
                 raise ValueError('Could not authenticate')
         return con
