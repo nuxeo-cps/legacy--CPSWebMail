@@ -1,0 +1,478 @@
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# Alin Voinea <avoinea@nuxeo.com>, 2005.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "_Your_mail_"
+msgstr "Adresa de e-mail:"
+
+msgid "_mail(s)_in_"
+msgstr "mail(uri) in director"
+
+msgid "_unread_mail(s)_"
+msgstr "mail(uri) necitit"
+
+msgid "_Change_folder_to_"
+msgstr "Schimba id director in"
+
+msgid "_Read_messages_"
+msgstr "Citeste mesaje"
+
+msgid "_Compose_"
+msgstr "Compune"
+
+msgid "_Search_"
+msgstr "Cauta"
+
+msgid "_Address_book_"
+msgstr "Address book"
+
+msgid "_Folders_"
+msgstr "Directoare"
+
+msgid "_Messages_from_"
+msgstr "Mesaje de la"
+
+msgid "_to_"
+msgstr "catre"
+
+msgid "_of_"
+msgstr "al"
+
+msgid "_Selected_messages_"
+msgstr "Mesaje selectate"
+
+msgid "_All_"
+msgstr "Toate"
+
+msgid "_None_"
+msgstr "Nici unul"
+
+msgid "_Delete_"
+msgstr "Sterge"
+
+msgid "_Move_To_"
+msgstr "Muta in"
+
+msgid "_All/None_"
+msgstr "Toate/Nici unul"
+
+msgid "_Subject_"
+msgstr "Subiect"
+
+msgid "_From_"
+msgstr "De la"
+
+msgid "_Date_"
+msgstr "Data"
+
+msgid "_Size_"
+msgstr "Marime"
+
+msgid "_Compose_your_mail_"
+msgstr "Compune mail"
+
+msgid "_Back_to_message_list_"
+msgstr "Inapoi la lista de mesaje"
+
+msgid "_Acknowledgement_of_read_"
+msgstr "Instintare citire mesaj"
+
+msgid "_TO:_"
+msgstr "Catre:"
+
+msgid "_CC:_"
+msgstr "Cc:"
+
+msgid "_BCC:_"
+msgstr "Bcc:"
+
+msgid "_Subject:_"
+msgstr "Subiect:"
+
+msgid "_Send_"
+msgstr "Trimite"
+
+msgid "_Cancel_"
+msgstr "Renunta"
+
+msgid "_Save_as_draft_"
+msgstr "Salveaza ca Draft"
+
+msgid "_Attachments_list_"
+msgstr "Lista fisierelor atasate:"
+
+msgid "_Add_"
+msgstr "Adauga"
+
+msgid "_Id_"
+msgstr "Id"
+
+msgid "_Name_"
+msgstr "Nume"
+
+msgid "_Type_"
+msgstr "Tip"
+
+msgid "_Remove_"
+msgstr "Sterge"
+
+msgid "_Searching_tool_"
+msgstr "Tool pentru cautare"
+
+msgid "_Searching_in_"
+msgstr "Cauta in:"
+
+msgid "_In_"
+msgstr "In"
+
+msgid "_In_message_body_"
+msgstr "In continutul mesajului"
+
+msgid "_In_subject_"
+msgstr "In subiect"
+
+msgid "_In_from_field_"
+msgstr "In campul 'De la'"
+
+msgid "_In_to_field_"
+msgstr "In campul 'catre'"
+
+msgid "_Since_"
+msgstr "De"
+
+msgid "_Day_"
+msgstr "Ziua"
+
+msgid "_Before_"
+msgstr "Inainte de"
+
+msgid "_January_"
+msgstr "Ianuarie"
+
+msgid "_February_"
+msgstr "Februarie"
+
+msgid "_March_"
+msgstr "Martie"
+
+msgid "_April_"
+msgstr "Aprilie"
+
+msgid "_May_"
+msgstr "Mai"
+
+msgid "_Jun_"
+msgstr "Junie"
+
+msgid "_Jully_"
+msgstr "Julie"
+
+msgid "_August_"
+msgstr "August"
+
+msgid "_September_"
+msgstr "Septembrie"
+
+msgid "_October_"
+msgstr "Octobrie"
+
+msgid "_November_"
+msgstr "Noiembrie"
+
+msgid "_December_"
+msgstr "Decembrie"
+
+msgid "_Change_list_to_"
+msgstr "Schimba lista in:"
+
+msgid "_Go_"
+msgstr "Mergi"
+
+msgid "_Import_from_MSOutlook_address_book_"
+msgstr "Importa din lista de adrese MSOutlook"
+
+msgid "_New_contact_"
+msgstr "Contact nou"
+
+msgid "_Send/Continue_a_mail_"
+msgstr "Trimite/Continua un e-mail"
+
+msgid "_Edit_"
+msgstr "Editeaza"
+
+msgid "_Select_"
+msgstr "Selecteaza"
+
+msgid "_Unselect_"
+msgstr "Deselecteaza"
+
+msgid "_All_in_field_"
+msgstr "Toate elementele din camp"
+
+msgid "_Subject_message_title_"
+msgstr "Subiect:"
+
+msgid "_ack_confirmation_"
+msgstr "Expeditorul acestui mesaj a cerut o instiintare cum ca acest mesaj a fost citit.\\"
+"Doriti sa trimiteti aceasta instiintare?"
+
+msgid "_Reply_"
+msgstr "Raspunde"
+
+msgid "_Reply_all_"
+msgstr "Raspunde la toate"
+
+msgid "_Forward_"
+msgstr "Trimite mai departe"
+
+msgid "_From:_"
+msgstr "De la:"
+
+msgid "_Date:_"
+msgstr "Data:"
+
+msgid "_New_IMAP_Folder_creation_"
+msgstr "Director IMAP nou creat"
+
+msgid "_Existing_IMAP_folders:_"
+msgstr "Directorul IMAP existent:"
+
+msgid "_Folder_name:_"
+msgstr "Nume director:"
+
+msgid "_Folder_creation_caution_"
+msgstr "Atentie punctul . este pentru crearea subdirectoarelor. "
+"Ex. pentru a avea subdirectoarele 'galben' si 'rosu' in directorul 'culori' "
+"trebuie adaugate 'culori.galben' si 'culori.rosu', asta numai daca directorul "
+"'culori' exista."
+
+msgid "_Inbox_Folder_"
+msgstr "Directorul Inbox"
+
+msgid "_Sent_element_folder_"
+msgstr "Directorul Trimise"
+
+msgid "_Draft_folder_"
+msgstr "Draft-uri"
+
+msgid "_Trash_folder_"
+msgstr "Gunoi"
+
+msgid "_IMAP_Access_Error_Message_Title"
+msgstr "Imposibil sa ma conectez la casuta ta de mail"
+
+msgid "_IMAP_Access_Error_Caution_"
+msgstr "te rog verifica configuratia conexiuni IMAP in "
+
+msgid "_directories_"
+msgstr "directoare"
+
+msgid "_IMAP_Access_Error_note_"
+msgstr "Acestia sunt paramerti tai si nu pot i modificati decat de catre tine."
+
+msgid "_header_date_mailview_on_%m/%d/%Y at %H:%M"
+msgstr "%d/%m/%Y at %H:%M"
+
+msgid "_header_date_maillist_on_%m/%d/%Y at %H:%M"
+msgstr "%d/%m/%Y %H:%M"
+
+msgid "_Addresses_"
+msgstr "Adrese"
+
+msgid "_New_list_"
+msgstr "Lista noua"
+
+msgid "_export_to_private_"
+msgstr "Exporta in spatiul mea"
+
+msgid "_attachment_export_notice_"
+msgstr "Documentele exportate sunt copiate in spatiul privat al utilizatorului curent."
+
+msgid "_add_contact_"
+msgstr "Adauga contact"
+
+msgid "_list_mail_"
+msgstr "Deschide INBOX"
+
+msgid "label_personal_addressbook"
+msgstr "Lista de contacte personale"
+
+msgid "_Add_Subfolder_"
+msgstr "Adauga un subdirector"
+
+msgid "_Add_Subfolder_To:_"
+msgstr "Adauga un subdirector in:"
+
+msgid "_Search_Body_"
+msgstr "Continut mesaj:"
+
+msgid "_Search_Subject_"
+msgstr "Subiect:"
+
+msgid "_Search_From_"
+msgstr "Expeditor:"
+
+msgid "_Search_To_"
+msgstr "Destinatar(i):"
+
+msgid "_Received_Since_"
+msgstr "Primit de:"
+
+msgid "_Received_Before_"
+msgstr "Primit inainte de:"
+
+msgid "_Address_books_"
+msgstr "Liste de contacte"
+
+msgid "_Choose_A_Folder_"
+msgstr "Alege un director"
+
+msgid "_This_is_the_acknowledgment_sent_to_"
+msgstr "Aceasta este instiintarea trimisa catre "
+
+msgid "_the_"
+msgstr " pe "
+
+msgid "_This_message_tells_email_displayed_on_recipients_computer_on_"
+msgstr "Acest mesaj spune ca mesajul a fost afisat la destinatie"
+
+msgid "_Read:_"
+msgstr "Citeste: "
+
+msgid "_Mailing_Lists_"
+msgstr "Liste de e-mail-uri"
+
+msgid "label_mailinglists_directory"
+msgstr "Liste de e-mail-uri"
+
+msgid "label_mailinglist_name"
+msgstr "Nume lista de e-mail-uri"
+
+msgid "label_emails"
+msgstr "Adrese de e-mail "
+
+msgid "label_emails_help"
+msgstr "Introdu o adresa e-mail per linie"
+
+msgid "label_imap_login"
+msgstr "Utilizator IMAP"
+
+msgid "label_imap_password"
+msgstr "Parola IMAP"
+
+msgid "label_mailForwardingAddress"
+msgstr "Adresa de e-mail pentru trimiterea mesajului mai departe"
+
+msgid "label_deliveryMode"
+msgstr "Modul trimiteri"
+
+msgid "deliveryMode_help"
+msgstr "Modul de trimitere specifica modul in care e-mail-urile sunt trimise catre membri:\n"
+"- Fara transmitere mai departe: e-mail-urile nu sunt transmise mai departe "
+"catre eventualele adrese aferente\n"
+"- Numai cu transmitere mai departe: e-mail-urile sunt transmise numai catre adresele de transmitere mai departe aferente\n"
+"- Locala: e-mail-urile sunt transmise catre adresele de transmitere mai departe si o copie a acestora este pastrata in casuta de mail locala"
+
+msgid "_Choose_recipients_"
+msgstr "Alege destinatari"
+
+msgid "label_address_book"
+msgstr "Cartea de adrese"
+
+msgid "_Add_to_private_addressbook_"
+msgstr "Adauga in cartea de adrese personale"
+
+msgid "cpswebmail_enter_recipient"
+msgstr "te rugam introdu un destinatar"
+
+msgid "label_personal_addressbooklinks"
+msgstr "Cartea de link-uri personale"
+
+msgid "_Add_link_to_private_addressbook_"
+msgstr "Adauga in cartea de link-uri personale"
+
+msgid "imap_folder_creation_successfull"
+msgstr "Director IMAP creat cu succes."
+
+msgid "imap_folder_creation_unsuccessfull"
+msgstr "Eraore la crearea unui nou director IMAP."
+
+msgid "imap_folder_creation_rules"
+msgstr "Numele poate contine numai caractere alfabetice, spatii, cifre si linii de subsol"
+
+msgid "cpswebmail_folder_search_rules"
+msgstr "Cautarea este realizata numai in directorul curent, nu si in subdirectoarele acestuia"
+
+msgid "_No_Mails_In_Folder_"
+msgstr "nici un mesaj"
+
+msgid "_button_show_"
+msgstr "Arata"
+
+msgid "_mail(s)_per_page_"
+msgstr "e-mail-uri pe pagina"
+
+msgid "_Empty_Trash_"
+msgstr "Goleste Gunoiul"
+
+msgid "_Chose_a_mailing_list_"
+msgstr "Alege o lista de e-mail-uri"
+
+msgid "_Chose_a_group_"
+msgstr "Alege un grup"
+
+msgid "label_workspace_members"
+msgstr "Membri spatiu de lucru"
+
+msgid "_Chose_workspace_role_"
+msgstr "Alege un rol:"
+
+msgid "psm_cpswebmail_chose_role_error"
+msgstr "Alege un rol."
+
+msgid "psm_cpswebmail_chose_workspace_error"
+msgstr "Alege un spatiu de lucru."
+
+msgid "wsmembers_change_search_criteria"
+msgstr "Schimba criteriile de cautare:"
+
+msgid "wsmembers_search_in"
+msgstr "in"
+
+msgid "_No_Attachments_"
+msgstr "Nici un fisier atasat"
+
+msgid "label_name"
+msgstr "Nume"
+
+msgid "cpswebmail_no_attachment_selected"
+msgstr "Nici un fisier atasat selectat"
+
+msgid "cpswebmail_attachments_saved"
+msgstr "Fisier(e) atasat(e) salvat(e)"
+
+msgid "cpswebmail_error_export_attachments"
+msgstr "Eroare la exportarea fisierelor atasate"
+
+msgid "cpswebmail_err_attachment"
+msgstr "Eroare la incarcarea fisierului pentru atasare"
+
+msgid "cpswebmail_error_attachment_empty"
+msgstr "Eroare: fisierul este gol"
+
+msgid "cpswebmail_error"
+msgstr "Eroare CPSWebmail"
+
+msgid "smtp_connection_error"
+msgstr "Eroare la conectarea cu serverul SMTP."
+
+msgid "_IMAP_Access_Error_Caution_Admin_"
+msgstr "Daca esti sigur cu aceasta configuratie este corecta, te rugam contacteaza administratorul site-ului."
