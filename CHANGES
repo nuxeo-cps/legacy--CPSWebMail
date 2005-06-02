@@ -3,8 +3,7 @@ Requires:
 -
 New features:
 ~~~~~~~~~~~~~
-- Better error handling when user's connection parameters are not ok (login or
-  password)
+-
 Bug fixes:
 ~~~~~~~~~~
 -
