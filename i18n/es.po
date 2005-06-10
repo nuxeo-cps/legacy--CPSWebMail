@@ -1,23 +1,27 @@
 # translation of es.po to Euskara
 # translation of en.po to Euskara
 # Copyright (C) 2005 Free Software Foundation, Inc.
-# Aitzol Naberan BurgaÃ±a, 2005.
-# Aitzol Naberan BurgaÃ±a, 2005.
-# Aitzol Naberan BurgaÃ±a, 2005.
+# Aitzol Naberan Burgaña, 2005.
+# Aitzol Naberan Burgaña, 2005.
+# Aitzol Naberan Burgaña, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: es\n"
-"PO-Revision-Date: 2005-02-10 13:08+0100\n"
-"Last-Translator: Aitzol Naberan BurgaÃ±a\n"
-"Language-Team: Euskara <en@li.org>\n"
+"Project-Id-Version: CPSWebMail\n"
+"PO-Revision-Date: 2005-05-18 17:40+0100\n"
+"Last-Translator: Jesús <jesusmartin@lasalle.es>\n"
+"Language-Team: español <jesusmartin@lasalle.es>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=iso-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3.1\n"
+"POT-Creation-Date: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: SPAIN\n"
 
 msgid "_Your_mail_"
-msgstr "Tu correo :"
+msgstr "Tu correo:"
 
 msgid "_mail(s)_in_"
 msgstr "mensaje(s) en la carpeta"
@@ -80,7 +84,7 @@ msgid "_Date_"
 msgstr "Fecha"
 
 msgid "_Size_"
-msgstr "TamaÃ±o"
+msgstr "Tamaño"
 
 msgid "_Compose_your_mail_"
 msgstr "Escribe tu correo"
@@ -116,7 +120,7 @@ msgid "_Attachments_list_"
 msgstr "Lista de adjuntos:"
 
 msgid "_Add_"
-msgstr "AÃ±adir"
+msgstr "Añadir"
 
 msgid "_Id_"
 msgstr "Id"
@@ -131,10 +135,10 @@ msgid "_Remove_"
 msgstr "Borrar"
 
 msgid "_Searching_tool_"
-msgstr "Busqueda"
+msgstr "Búsqueda"
 
 msgid "_Searching_in_"
-msgstr "Busacar en:"
+msgstr "Buscar en:"
 
 msgid "_In_"
 msgstr "En"
@@ -155,7 +159,7 @@ msgid "_Since_"
 msgstr "Desde"
 
 msgid "_Day_"
-msgstr "Dia"
+msgstr "Día"
 
 msgid "_Before_"
 msgstr "Antes"
@@ -227,9 +231,7 @@ msgid "_Subject_message_title_"
 msgstr "Tema del mensaje:"
 
 msgid "_ack_confirmation_"
-msgstr ""
-"El emisor del mensaje requiere acuse de recibo. "
-"Â¿Desea enviarlo?"
+msgstr "El emisor del mensaje requiere acuse de recibo. ¿Desea enviarlo?"
 
 msgid "_Reply_"
 msgstr "Responder"
@@ -253,13 +255,10 @@ msgid "_Existing_IMAP_folders:_"
 msgstr "Carpetas IMAP:"
 
 msgid "_Folder_name:_"
-msgstr "Nobre de la carpeta:"
+msgstr "Nombre de la carpeta:"
 
 msgid "_Folder_creation_caution_"
-msgstr ""
-"Atencion: el punto \".\" es para crear subcarpetas. ej: para tener carpetas del"
-" estilo 'amarillo' y 'rojo' en la carpeta 'colores', nombra estas carpetas como"
-"\"colores.amarillo\" y colores.rojo\". La carpeta \"colores\" debe existir."
+msgstr "Atencion: el punto \".\" es para crear subcarpetas. ej: para tener carpetas del estilo 'amarillo' y 'rojo' en la carpeta 'colores', nombra estas carpetas como\"colores.amarillo\" y colores.rojo\". La carpeta \"colores\" debe existir."
 
 msgid "_Inbox_Folder_"
 msgstr "Bandeja de entrada"
@@ -277,13 +276,13 @@ msgid "_IMAP_Access_Error_Message_Title"
 msgstr "Error al acceder a la cuenta IMAP"
 
 msgid "_IMAP_Access_Error_Caution_"
-msgstr "Porfavor, comprueba tu cconexion IMAP"
+msgstr "Por favor, comprueba tu conexión IMAP"
 
 msgid "_directories_"
 msgstr "carpetas"
 
 msgid "_IMAP_Access_Error_note_"
-msgstr "This is your own parameters and they can be change by you only."
+msgstr "Estos son tus parámetros, así que sólo tu puedes cambiarlos."
 
 msgid "_header_date_mailview_on_%m/%d/%Y at %H:%M"
 msgstr "%d/%m/%Y a las %H:%M"
@@ -304,19 +303,19 @@ msgid "_attachment_export_notice_"
 msgstr "Los documentos exportados se copian en el espacio privado del usuario."
 
 msgid "_add_contact_"
-msgstr "AÃ±adir contacto"
+msgstr "Añadir contacto"
 
 msgid "_list_mail_"
 msgstr "Bandeja de entrada"
 
 msgid "label_personal_addressbook"
-msgstr "Libro de direcciones personal"
+msgstr "Agenda personal de direcciones"
 
 msgid "_Add_Subfolder_"
-msgstr "AÃ±adir subcarpeta"
+msgstr "Añadir subcarpeta"
 
 msgid "_Add_Subfolder_To:_"
-msgstr "AÃ±adir subcarpeta en:"
+msgstr "Añadir subcarpeta en:"
 
 msgid "_Search_Body_"
 msgstr "Cuerpo del mensaje:"
@@ -328,28 +327,28 @@ msgid "_Search_From_"
 msgstr "De:"
 
 msgid "_Search_To_"
-msgstr "Recipient(s):"
+msgstr "Para:"
 
 msgid "_Received_Since_"
-msgstr "Recividos desde:"
+msgstr "Recibidos desde:"
 
 msgid "_Received_Before_"
-msgstr "Recividos antes de:"
+msgstr "Recibidos antes de:"
 
 msgid "_Address_books_"
-msgstr "Libros de direcciones"
+msgstr "Agenda de direcciones"
 
 msgid "_Choose_A_Folder_"
 msgstr "Selecciona una carpeta"
 
 msgid "_This_is_the_acknowledgment_sent_to_"
-msgstr "This is the acknowledgment sent to "
+msgstr "este es el acuse de recibo enviado a"
 
 msgid "_the_"
-msgstr " en "
+msgstr "en "
 
 msgid "_This_message_tells_email_displayed_on_recipients_computer_on_"
-msgstr "El receptor del mensaje a recivido el mismo."
+msgstr "El receptor del mensaje ha recibido el mismo."
 
 msgid "_Read:_"
 msgstr "Leer: "
@@ -367,45 +366,40 @@ msgid "label_emails"
 msgstr "Direcciones de email"
 
 msgid "label_emails_help"
-msgstr "Un mensaje por linea"
+msgstr "Un mensaje por línea"
 
 msgid "label_imap_login"
 msgstr "Login IMAP "
 
 msgid "label_imap_password"
-msgstr "ContraseÃ±a IMAP"
+msgstr "Contraseña IMAP"
 
 msgid "label_mailForwardingAddress"
-msgstr "Mail forwarding address"
+msgstr "Dirección de correo saliente"
 
 msgid "label_deliveryMode"
 msgstr "Modo de entrega"
 
 msgid "deliveryMode_help"
-msgstr ""
-"El modo de entrega especifica como se entregaran los mensajes a los miembros: "
-"-\"No reenviar\": los mensajes no se reenviarÃƒÂ¡n a la direcciÃƒÂ³n eventual de re"
-"envio "
-"-\"Solo reenviar\":los mesajes son redirigidos a la direcciÃƒÂ³n de reenvio "
-"-\"Local\":los mensajes son redirigidos a la direcciÃƒÂ³n de reenvio, y una copia"
+msgstr "El modo de entrega especifica cómo se entregarán los mensajes a los miembros: -\"No reenviar\": los mensajes no se reenviarán a la dirección eventual de reenvío -\"Solo reenviar\":los mesajes son redirigidos a la dirección de reenvío -\"Local\":los mensajes son redirigidos a la dirección de reenvío, y una copia"
 
 msgid "_Choose_recipients_"
-msgstr "Choose the recipients"
+msgstr "Seleccione a los destinatarios"
 
 msgid "label_address_book"
-msgstr "Libro de direcciones"
+msgstr "Agenda personal"
 
 msgid "_Add_to_private_addressbook_"
-msgstr "AÃ±adir al libro de direcciones personal"
+msgstr "Añadir a la agenda personal"
 
 msgid "cpswebmail_enter_recipient"
-msgstr "Please enter a recipient"
+msgstr "Por favor, introduzca un destinatario"
 
 msgid "label_personal_addressbooklinks"
-msgstr "Libro de enlaces de contactos personal"
+msgstr "Agenda personal"
 
 msgid "_Add_link_to_private_addressbook_"
-msgstr "AÃ±adir al libro de enlaces de contactos personal"
+msgstr "Añadir a la agenda personal"
 
 msgid "imap_folder_creation_successfull"
 msgstr "Nueva carpeta IMAP creada."
@@ -414,10 +408,12 @@ msgid "imap_folder_creation_unsuccessfull"
 msgstr "Error al crear la nueva carpeta IMAP."
 
 msgid "imap_folder_creation_rules"
-msgstr "El nombre solo puede contener caracteres alfanumericos,\nespacios, guiones y barras bajas."
+msgstr ""
+"El nombre sólo puede contener caracteres alfanuméricos,\n"
+"espacios, guiones y barras bajas."
 
 msgid "cpswebmail_folder_search_rules"
-msgstr "La busqueda solo se realiza solo en las carpetas, no en las subcarpetas"
+msgstr "La búsqueda se realiza sólo en las carpetas, no en las subcarpetas"
 
 msgid "_No_Mails_In_Folder_"
 msgstr "No hay mensajes"
@@ -426,7 +422,7 @@ msgid "_button_show_"
 msgstr "Mostrar"
 
 msgid "_mail(s)_per_page_"
-msgstr "mensajel(s) por pÃ¡gina"
+msgstr "mensaje(s) por página"
 
 msgid "_Empty_Trash_"
 msgstr "Vaciar la papelera"
@@ -444,13 +440,13 @@ msgid "_Chose_workspace_role_"
 msgstr "Elige un rol:"
 
 msgid "psm_cpswebmail_chose_role_error"
-msgstr "Por favor elige un rol."
+msgstr "Por favor, elige un rol."
 
 msgid "psm_cpswebmail_chose_workspace_error"
-msgstr "Por favor selecciona un espacio de trabajo."
+msgstr "Por favor, selecciona un espacio de trabajo."
 
 msgid "wsmembers_change_search_criteria"
-msgstr "Cambiar criterio de busqueda:"
+msgstr "Cambiar criterio de búsqueda:"
 
 msgid "wsmembers_search_in"
 msgstr "en"
