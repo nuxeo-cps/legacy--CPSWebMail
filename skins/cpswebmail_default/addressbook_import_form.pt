@@ -3,7 +3,7 @@
 <!-- addressbook_import_form -->
 
 <tal:block define="wmtool here/portal_webMail;
-                   mcat nocall:here/Localizer/default;
+                   mcat nocall:here/translation_service;
                    dtool here/portal_directories/members;
 ">
 <html metal:use-macro="here/main_template/macros/master">

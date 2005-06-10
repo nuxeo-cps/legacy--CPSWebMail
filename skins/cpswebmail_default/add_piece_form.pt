@@ -2,7 +2,7 @@
 <tal:block define="wmtool here/portal_webMail;
       folder python:wmtool.getInboxFolder(request);
       mail_struct python:request.SESSION.get('mail_session',{});
-      mcat nocall:here/Localizer/default;
+      mcat nocall:here/translation_service;
     ">
 
 <html metal:use-macro="here/main_template/macros/master">

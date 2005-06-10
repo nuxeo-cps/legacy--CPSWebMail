@@ -9,7 +9,7 @@
                    raw_msg python:folder.getRawIMAPMessage(the_id);
                    the_view python:not int(vm_session['view']);
                    reception_flag python:message.is_reception_flag(raw_msg);
-                   mcat nocall:here/Localizer/default;
+                   mcat nocall:here/translation_service;
                    IMAPName vm_session/IMAPName|string:INBOX;
                    ">
 

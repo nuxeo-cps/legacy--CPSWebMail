@@ -19,7 +19,7 @@
   start python:int(request.get('start', 0));
   batch_message python:valid_conn and wmtool.batchMessage(start, nb_messages, request);
   navigation_string python:valid_conn and wmtool.rangeView(str(start), folder.getImapName(), nb_messages, request);
-  mcat nocall:here/Localizer/default;
+  mcat nocall:here/translation_service;
   ">
 <html metal:use-macro="here/main_template/macros/master">
   <body>

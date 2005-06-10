@@ -62,7 +62,7 @@ from OFS.Image import cookId
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 from Products.CMFCore.utils import UniqueObject, getToolByName
-from Products.CMFCore.permissions import setDefaultRoles
+from Products.CMFCore.CMFCorePermissions import setDefaultRoles
 
 #=======================
 # CPS DEPENDENCIES :)
@@ -1019,8 +1019,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
 
         current_time = time.strftime("%c", time.localtime())
 
-        localizer = getToolByName(self, "Localizer", None)
-        cpsmcat = localizer.default
+        translation_service = getToolByName(self, 'translation_service', None)
+        cpsmcat = translation_service
 
         msg1 = cpsmcat("_This_is_the_acknowledgment_sent_to_").encode('ISO-8859-15', 'ignore')
         msg2 = cpsmcat("_the_").encode('ISO-8859-15', 'ignore')
@@ -1128,8 +1128,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
     security.declareProtected(UseWebMailPermission, "batchMessage")
     def batchMessage(self, start=0, nb_messages=0, REQUEST=None):
         """Return a batch message for the messages viewed"""
-        localizer = getToolByName(self, "Localizer", None)
-        cpsmcat = localizer.default
+        translation_service = getToolByName(self, 'translation_service', None)
+        cpsmcat = translation_service
         nb_total = int(nb_messages)
         if nb_total == 0:
             message = cpsmcat('_No_Mails_In_Folder_')

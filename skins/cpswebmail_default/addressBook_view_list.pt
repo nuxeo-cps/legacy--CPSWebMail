@@ -3,7 +3,7 @@
 <!-- AdressBook Form -->
 
 <tal:block define="wmtool here/portal_webMail;
-                   mcat nocall:here/Localizer/default;
+                   mcat nocall:here/translation_service;
                    dirtool here/portal_directories;
                    addressbook_name wmtool/getAddressBookName;
                    privbook_name wmtool/getPrivAddressBookName;
@@ -264,8 +264,3 @@
 </body>
 </html>
 </tal:block>
-
-
-
-
-
