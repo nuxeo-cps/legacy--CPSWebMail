@@ -355,12 +355,14 @@ class IMAPGateway:
     def getQuota(self):
         """ return % used quota on mailbox """
 
-        res=self.connection.get_quota_root()
-        try:
-            tab=string.split(res[0])
-            res = (100*int(tab[-2]))/int(string.replace(tab[-1], ")", ""))
-        except IndexError:
-            res = -1
+        res = -1
+        quota_root = self.connection.get_quota_root()
+        if quota_root is not None:
+            try:
+                tab=string.split(res[0])
+                res = (100*int(tab[-2]))/int(string.replace(tab[-1], ")", ""))
+            except IndexError:
+                pass
         return res
 
     def getNumberOfMessage(self, folderName, search=""):

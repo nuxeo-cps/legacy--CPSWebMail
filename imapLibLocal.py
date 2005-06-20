@@ -395,9 +395,8 @@ class IMAP4:
 
     def get_quota_root(self):
         """ return space-drive quota for user mailbox """
-        
         typ, dat = self._simple_command("GETQUOTAROOT", "INBOX")
-        return self.untagged_responses['QUOTA']
+        return self.untagged_responses.get('QUOTA')
 
     def list(self, directory='""', pattern='*'):
         """List mailbox names in directory matching pattern.
