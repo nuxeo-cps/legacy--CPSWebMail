@@ -359,7 +359,7 @@ class IMAPGateway:
         quota_root = self.connection.get_quota_root()
         if quota_root is not None:
             try:
-                tab=string.split(res[0])
+                tab = string.split(quota_root[0])
                 res = (100*int(tab[-2]))/int(string.replace(tab[-1], ")", ""))
             except IndexError:
                 pass
