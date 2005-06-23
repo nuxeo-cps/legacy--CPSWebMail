@@ -14,6 +14,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;X-Generator: KBabel 1.0.2\n"
 "X-Generator: KBabel 1.0.1\n"
+"Language-Code: fr\n"
+"Language-Name: French\n"
+"Domain: default\n"
 
 
 msgid "_Your_mail_"

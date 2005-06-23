@@ -9,6 +9,7 @@ Bug fixes:
 - Taking advantage of the new centralized CPSI18n.tests.translations module.
 - IMAPGateway.getQuota() method was not robust enough if IMAP server answered
   unexpectedly.
+- Fixed translation files through the CPSI18n/bin/fix_pos script.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - Don't use deprecated CMFCorePermissions.
