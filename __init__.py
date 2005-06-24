@@ -20,6 +20,6 @@ def initialize(registrar):
     utils.ToolInit("CPS WebMail Tool",
         tools=tools,
         product_name='CPSWebMail',
-        icon='tool.gif',
+        icon='tool.png',
     ).initialize(registrar)
 
