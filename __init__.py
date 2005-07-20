@@ -19,7 +19,6 @@ def initialize(registrar):
     """ Register the WebMailTool class """
     utils.ToolInit("CPS WebMail Tool",
         tools=tools,
-        product_name='CPSWebMail',
         icon='tool.png',
     ).initialize(registrar)
 
