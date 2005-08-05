@@ -1,4 +1,23 @@
 *******************************************
+** CPSWebMail V0.11.0 [R1 build 2005/08/05-15:38 by fguillaume]
+** SVN URL: https://svn.nuxeo.org/pub/CPSWebMail/trunk Revision: 25559
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- Taking advantage of the new centralized CPSI18n.tests.translations module.
+- IMAPGateway.getQuota() method was not robust enough if IMAP server answered
+  unexpectedly.
+- Fixed translation files through the CPSI18n/bin/fix_pos script.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- Don't use deprecated CMFCorePermissions.
+
+*******************************************
 ** CPSWebMail V0.10.2 [R1 build 2005/06/02-09:35 by fguillaume]
 ** SVN URL: https://svn.nuxeo.org/pub/CPSWebMail/trunk Revision: 22058
 Requires:
