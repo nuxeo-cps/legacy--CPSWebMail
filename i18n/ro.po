@@ -35,7 +35,7 @@ msgid "_Search_"
 msgstr "Cauta"
 
 msgid "_Address_book_"
-msgstr "Address book"
+msgstr "Agenda adrese"
 
 msgid "_Folders_"
 msgstr "Directoare"
@@ -128,7 +128,7 @@ msgid "_Remove_"
 msgstr "Sterge"
 
 msgid "_Searching_tool_"
-msgstr "Tool pentru cautare"
+msgstr "Instrument de cautare"
 
 msgid "_Searching_in_"
 msgstr "Cauta in:"
@@ -149,7 +149,7 @@ msgid "_In_to_field_"
 msgstr "In campul 'catre'"
 
 msgid "_Since_"
-msgstr "De"
+msgstr "De la"
 
 msgid "_Day_"
 msgstr "Ziua"
@@ -185,7 +185,7 @@ msgid "_September_"
 msgstr "Septembrie"
 
 msgid "_October_"
-msgstr "Octobrie"
+msgstr "Octombrie"
 
 msgid "_November_"
 msgstr "Noiembrie"
@@ -224,7 +224,7 @@ msgid "_Subject_message_title_"
 msgstr "Subiect:"
 
 msgid "_ack_confirmation_"
-msgstr "Expeditorul acestui mesaj a cerut o instiintare cum ca acest mesaj a fost citit.\\"
+msgstr "Expeditorul acestui mesaj a cerut o instiintare ca acest mesaj a fost citit.\\"
 "Doriti sa trimiteti aceasta instiintare?"
 
 msgid "_Reply_"
@@ -253,7 +253,7 @@ msgstr "Nume director:"
 
 msgid "_Folder_creation_caution_"
 msgstr "Atentie punctul . este pentru crearea subdirectoarelor. "
-"Ex. pentru a avea subdirectoarele 'galben' si 'rosu' in directorul 'culori' "
+"Ex.: pentru a avea subdirectoarele 'galben' si 'rosu' in directorul 'culori' "
 "trebuie adaugate 'culori.galben' si 'culori.rosu', asta numai daca directorul "
 "'culori' exista."
 
@@ -279,7 +279,7 @@ msgid "_directories_"
 msgstr "directoare"
 
 msgid "_IMAP_Access_Error_note_"
-msgstr "Acestia sunt paramerti tai si nu pot i modificati decat de catre tine."
+msgstr "Acestia sunt paramerti tai si nu pot fi modificati decat de catre tine."
 
 msgid "_header_date_mailview_on_%m/%d/%Y at %H:%M"
 msgstr "%d/%m/%Y at %H:%M"
@@ -294,7 +294,7 @@ msgid "_New_list_"
 msgstr "Lista noua"
 
 msgid "_export_to_private_"
-msgstr "Exporta in spatiul mea"
+msgstr "Exporta in spatiul meu"
 
 msgid "_attachment_export_notice_"
 msgstr "Documentele exportate sunt copiate in spatiul privat al utilizatorului curent."
@@ -388,25 +388,25 @@ msgid "_Choose_recipients_"
 msgstr "Alege destinatari"
 
 msgid "label_address_book"
-msgstr "Cartea de adrese"
+msgstr "Agenda adrese"
 
 msgid "_Add_to_private_addressbook_"
-msgstr "Adauga in cartea de adrese personale"
+msgstr "Adauga in agenda de adrese personala"
 
 msgid "cpswebmail_enter_recipient"
-msgstr "te rugam introdu un destinatar"
+msgstr "introdu un destinatar"
 
 msgid "label_personal_addressbooklinks"
-msgstr "Cartea de link-uri personale"
+msgstr "Agenda de link-uri personale"
 
 msgid "_Add_link_to_private_addressbook_"
-msgstr "Adauga in cartea de link-uri personale"
+msgstr "Adauga in agenda de link-uri personale"
 
 msgid "imap_folder_creation_successfull"
 msgstr "Director IMAP creat cu succes."
 
 msgid "imap_folder_creation_unsuccessfull"
-msgstr "Eraore la crearea unui nou director IMAP."
+msgstr "Eroare la crearea unui nou director IMAP."
 
 msgid "imap_folder_creation_rules"
 msgstr "Numele poate contine numai caractere alfabetice, spatii, cifre si linii de subsol"
