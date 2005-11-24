@@ -277,7 +277,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         return self.GroupsDirectory_name
 
     security.declareProtected(UseWebMailPermission, "getGroupsDirectoryMembersProperty")
-    def getGroupsdirectoryMembersProperty(self):
+    def getGroupsDirectoryMembersProperty(self):
         """Return the property string members in groups directory"""
         return self.GroupsDirectoryMembersProp
 
@@ -1300,7 +1300,8 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
             raise 'No addressbook support'
         return bookname
 
-    security.declareProtected(UseWebMailPermission, "getCurrentAddressBookEmailProp")
+    security.declareProtected(UseWebMailPermission,
+                              "getCurrentAddressBookEmailProperty")
     def getCurrentAddressBookEmailProperty(self, addressbook_name='', REQUEST=None):
         """Get the email property of the addressbook in request"""
         if not addressbook_name:
