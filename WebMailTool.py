@@ -62,7 +62,11 @@ from OFS.Image import cookId
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 from Products.CMFCore.utils import UniqueObject, getToolByName
-from Products.CMFCore.CMFCorePermissions import setDefaultRoles
+try:
+    from Products.CMFCore.permissions import setDefaultRoles
+except ImportError:
+    # BBB for CMF 1.4, remove this in CPS 3.4.0
+    from Products.CMFCore.CMFCorePermissions import setDefaultRoles
 
 #=======================
 # CPS DEPENDENCIES :)
