@@ -1,0 +1,190 @@
+====================================
+CPSWebMail - Technical Documentation
+====================================
+
+:Revision: $Id$
+
+.. sectnum::    :depth: 4
+.. contents::   :depth: 4
+
+
+Using the Module
+================
+
+CPSWebMail is a tool that enables users of a portal to read and
+manage their email messages.  The interface for communicating with
+the mail server uses the IMAP and SMTP protocols.
+
+
+History of the Module
+=====================
+
+The CPSWebMail product provides the unification of two products:
+
+- The WebMail product, developed by the University of Savoie,
+  France (http://www.univ-savoie.fr): this product provides the
+  webmail engine; it manages the communication with the email
+  server through an IMAP server.
+
+- The NuxWebMail product, developed by Nuxeo: this product
+  provides the presentation of the application (generation of
+  pages) and the required methods.
+
+The use of the NuxWebMail product is dependent on the WebMail
+product.
+
+CPSWebMail is a re-write of NuxWebMail, which only works with
+CPS3.  It reuses, also, elements of the WebMail product needed for
+the application.
+
+
+Requirements for Use of the Module
+==================================
+
+CPSWebMail only works with versions of CPS greater than CPS 3.1.0.
+
+It has been tested with Zope 2.6 and Zope 2.7, and with the
+following versions of CPS products:
+
+- CPS-3.1.0, which contains the following products:
+
+  - CMFCalendar (from CMF-1.4.3)
+  - CMFCore (from CMF-1.4.3)
+  - CMFDefault (from CMF-1.4.3)
+  - CMFTopic (from CMF-1.4.3)
+  - DCWorkflow (from CMF-1.4.3)
+  - CPSCore (from CVS, tag: CPS-3_1_0)
+  - CPSDefault (from CVS, tag: CPS-3_1_0)
+  - CPSSchemas (from CVS, tag: CPS-3_1_0)
+  - CPSDocument (from CVS, tag: CPS-3_1_0)
+  - CPSDirectory (from CVS, tag: CPS-3_1_0)
+  - CPSForum (from CVS, tag: CPS-3_1_0)
+  - CPSInstaller (from CVS, tag: CPS-3_1_0)
+  - TranslationService (from CVS, tag: CPS-3_1_0)
+  - NuxUserGroups (from CVS, tag: CPS-3_1_0)
+  - PortalTransforms (from CVS, tag: CPS-3_1_0)
+  - PluggableUserFolder (from CVS, tag: CPS-3_1_0)
+  - CPSCalendar (from CVS, tag: CPS-3_1_0)
+  - CPSChat (from CVS, tag: CPS-3_1_0)
+  - CPSSubscriptions (from CVS, tag: CPS-3_1_0)
+  - CPSRSS (from CVS, tag: CPS-3_1_0)
+  - CPSCollector (from CVS, tag: CPS-3_1_0)
+  - Localizer-1.0.1.tgz
+  - BTreeFolder2-1.0.tar.gz
+  - Epoz-0.7.4.tar.gz
+  - CPSSkins-cvs-2004-05-10.tgz
+
+- LDAPUserGroupsFolder-2.5.0, in order to use the email
+  forwarding capability.
+
+
+Installation
+============
+
+Uncompress the archive containing the module in the ``Products``
+of your Zope/CPS installation.  Rename the resulting directory to
+"CPSWebMail".
+
+You can also obtain CPSWebMail via SVN from http://svn.nuxeo.org/.
+
+Restart Zope.
+
+The README file in the product contains information about how to
+install CPSWebMail in a CPS instance.
+
+Capabilities of the Module
+==========================
+
+Also see the documentation on the function of CNCC.
+
+There are very few capabilities over and above those described in
+the document on CNCC.
+
+The only thing that has been added is the ability to manage
+personal distribution lists.
+
+The README file in the product gives an exhaustive description of
+the capabilities.
+
+
+Function of the Module
+======================
+
+A variety of objects are used.  The objects marked with an
+asterisk are provided by the WebMail product.
+
+The IMAP protocol adheres to the RFC822 standard.
+
+- IMAPGateway* manages the bridge/connection with the email server.
+
+- IMAPFolder* represents an IMAP folder (mailbox).
+
+- IMAPMessage* represents an IMAP message.
+
+- Attachment* represents a file attached to a message.
+
+- IMAPProperties supports retrieval of user properties for the
+  connection to the email server.
+
+- WebMailTool is the administration tool for webmail.
+
+- WebMailSession manages sessions.  The application uses sessions
+  to preserve data about an email while it is being written,
+  or the results of a searches in address books, for example.
+
+- Timeout*, TimeoutSocket*, TimeoutFile* manage timeouts with the
+  communication with the mail server.
+
+- IMAP4* represents the connection with the mail server.
+
+- RFC822MessagesTools* contains methods used to decode the IMAP
+  language.
+
+- mime_message* supports parsing of MIME files.
+
+The page templates and the scripts called in forms are in
+``skins/cpswebmail_default/``.
+
+Images are in ``skins/cpswebmail_images/``.
+
+Translations are in ``skins/i18n/``.
+
+
+Forwarding of Email
+===================
+
+It is possible to manage the forwarding of emails through the CPS
+interface by using a specific configuration:
+
+- The users of the site should be referenced in a LDAP directory.
+
+- The LDAP directory should follow a particular schema.
+
+- The email server should be Qmail, patched to support qmail-ldap.
+
+For more information, see the file ``notes_installation_qmail.txt``
+in the ``doc/`` folder of the CPSWebMail product.
+
+In practice, users would have to specify exactly one email address
+for forwarding, and a distribution mode.
+
+The distribution mode specifies the way in which the emails will
+be delivered to users:
+
+- No forward: Messages are not forwarded to the possible
+  forwarding mail address.
+
+- Forward only: Messages are only forwarded to the forwarding
+  email address.
+
+- Local: Messages are transfered to possible forwarding email
+  address, and one copy is saved in the local mailbox.
+
+
+.. Emacs
+.. Local Variables:
+.. mode: rst
+.. End:
+.. Vim
+.. vim: set filetype=rst:
+
