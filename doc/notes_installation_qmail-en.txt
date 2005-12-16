@@ -1,0 +1,205 @@
+==========================
+Installation of qmail-ldap
+==========================
+
+:Revision: $Id$
+
+.. sectnum::    :depth: 4
+.. contents::   :depth: 4
+
+
+The instructions given in:
+
+- http://www.lifewithqmail.org/lwq.html
+- http://www.lifewithqmail.org/ldap/
+
+have been followed.
+
+Installation of qmail-ldap, and configuration of qmail-pop3 and
+qmail-smtp.
+
+Makefile : (only changes are noted)::
+
+    LDAPFLAGS=-DQLDAP_CLUSTER -DEXTERNAL_TODO -DCLEARTEXTPASSWD
+    MDIRMAKE=-DAUTOMAILDIRMAKE
+    HDIRMAKE=-DAUTOHOMEDIRMAKE
+    SHADOWLIBS=-lcrypt
+
+Configuration files:
+
+- /var/qmail/control
+
+  - concurrencyincoming : 20
+  - defaultdelivery : ./Maildir/
+  - defaultdomain : comete.in.nuxeo.com (par exemple)
+  - dirmaker : /var/qmail/bin/dirmaker
+  - ldapbasedn : dc=comete,dc=in,dc=nuxeo,dc=com (par exemple)
+  - ldapgid : 2110 (cf http://www.lifewithqmail.org/ldap/, 4.4)
+  - ldaplogin : cn=Manager,dc=comete,dc=in,dc=nuxeo,dc=com (par exemple)
+  - ldapmessagestore : /var/qmail/maildirs/ (par exemple)
+  - ldapobjectclass : qmailuser
+  - ldappassword : XXX (par exemple :)
+  - ldapserver : localhost:389
+  - ldapuid : 11184 (cf http://www.lifewithqmail.org/ldap/, 4.4)
+  - locals :
+
+    - localhost
+    - comete.in.nuxeo.com (par exemple)
+
+  - me : comete.in.nuxeo.com (par exemple)
+  - plusdomain : nuxeo.com (par exemple)
+  - rcpthosts :
+    localhost
+    comete.in.nuxeo.com (par exemple)
+
+  File access rights: ``rw/r/r root/root``
+
+- /var/qmail/bin/dirmaker::
+
+      #!/bin/sh
+      /bin/mkdir -v -m 700 -p $1
+      /var/qmail/bin/maildirmake $1/Maildir
+
+  File access rights: ``rwx/r/r vmail/root``
+
+
+LDAP Directory
+==============
+
+Cf http://www.lifewithqmail.org/ldap/
+
+Only the following attributes are used:
+
+- objectclass: qmailUser
+- mailForwardingAddress: test@example.com (par exemple)
+- mailMessageStore: /var/qmail/maildirs/test (par exemple)
+- deliveryMode: noforward
+
+
+To verify that all is well, run the following::
+
+    $ cd /usr/local/qmail-1.03/
+    $ su root
+    $ ./qmail-ldaplookup -u test -p passwd
+
+To start qmail, use::
+
+    qmailctl start
+
+Also useful::
+
+    qmailctl stop
+    qmailctl stat
+
+
+Vpopmail
+========
+
+::
+
+  comete:/usr/local/src/vpopmail-5.4.3# ./configure \
+      --enable-roaming-users=y \
+      --enable-logging=y \
+      --enable-ip-alias-domains=y \
+      --enable-clear-passwd=y \
+      --enable-libdir=/usr/include/mysql/ \
+      --enable-tcpserver-path=/home/vpopmail/etc/ \
+      --enable-tcpserver-file=/etc/tcp.smtp \
+      --enable-qmail-ext \
+      --enable-tcprules-prog=/usr/local/bin/tcprules \
+      --enable-rebuild-tcpserver-file
+
+vpopmail 5.4.3 -- Current settings::
+
+    vpopmail directory = /var/lib/vpopmail
+                   uid = 64020
+                   gid = 64020
+         roaming users = ON  --enable-roaming-users
+        tcpserver file = /etc/tcp.smtp
+        open_smtp file = /var/lib/vpopmail/etc/open-smtp
+    rebuild tcpserver file = ON  --enable-rebuild-tcpserver-file (default)
+     password learning = OFF --disable-learn-passwords (default)
+         md5 passwords = ON  --enable-md5-passwords (default)
+          file locking = ON  --enable-file-locking (default)
+    vdelivermail fsync = OFF --disable-file-sync (default)
+         make seekable = ON  --enable-make-seekable (default)
+          clear passwd = ON  --enable-clear-passwd (default)
+     user dir hashing  = ON  --enable-users-big-dir (default)
+    address extensions = ON  --enable-qmail-ext
+              ip alias = ON  --enable-ip-alias-domains
+         domain quotas = OFF --disable-domainquotas (default)
+           auth module = cdb  --enable-auth-module=cdb (default)
+              auth inc = -Icdb
+              auth lib =
+      system passwords = OFF --disable-passwd (default)
+            pop syslog = show successful and failed login attempts
+                         --enable-logging=y
+          auth logging = ON  --enable-auth-logging (default)
+
+
+Courier-imap
+============
+
+As a non-root user -- uncompress the zip file, then do::
+
+    $ ./configure --prefix=/usr/local/courier-imap \
+        --disable-root-check \
+        --without-authpam \
+        --without-authldap \
+        --without-authpwd \
+        --without-authmysql \
+        --without-authpgsql \
+        --without-authshadow \
+        --without-authuserdb \
+        --without-authcustom \
+        --without-authcram \
+        --without-authdaemon \
+        --with-authvchkpw \
+        --with-ssl
+    $ make check
+    $ su root
+    $ umask 022
+    $ make install-strip
+    $ make install-configure
+
+Configuration files:
+
+- /usr/local/courier-imap/etc -- imapd::
+
+      ADDRESS=127.0.0.1
+      AUTHMODULES="authvchkpw"
+      DEBUG_LOGIN=2 (éventuellement)
+      IMAPDSTART=YES
+      MAILDIRPATH=Maildir
+
+- /usr/local/courier-imap/libexec/imapd.rc -- Replace (~ l.31)::
+
+      LIBAUTHMODULES=""
+      for f in `echo $AUTHMODULES`
+      do
+    	LIBAUTHMODULES="$LIBAUTHMODULES /usr/local/courier-imap/libexec/authlib/$f"
+      done
+
+  with::
+
+      LIBAUTHMODULES="/var/qmail/bin/auth_imap"
+
+  (the same in /usr/lib/courier-imap/libexec/imapd-ssl.rc)
+
+
+To start courier-imap::
+
+    $ /usr/lib/courier-imap/libexec/imapd.rc start
+
+To stop it::
+
+    $ /usr/lib/courier-imap/libexec/imapd.rc stop
+
+
+.. Emacs
+.. Local Variables:
+.. mode: rst
+.. End:
+.. Vim
+.. vim: set filetype=rst:
+
