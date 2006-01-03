@@ -1,38 +1,36 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: CPSWebMail-de CPS-3.2.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: (null)\n"
-"PO-Revision-Date: 2005-03-14 11:15+0100\n"
+"PO-Revision-Date: 2005-10-07 16:46+0200\n"
 "Last-Translator: Georg Hennemann <georg.hennemann@dhl.com>\n"
 "Language-Team: de <rheinland@dzug.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-15\n"
-"Language-Code: de\n"
-"Language-Name: German\n"
-"Domain: default\n"
 "Content-Transfer-Encoding: 8bit"
 
 msgid "_Your_mail_"
-msgstr "Ihre Email :"
+msgstr "Ihre Email:"
 
 msgid "_mail(s)_in_"
 msgstr "EMail(s) in Folder"
 
 msgid "_Change_folder_to_"
-msgstr "Wechseln Folder zu"
+msgstr "Folder Wechsel zu"
 
 msgid "_Read_messages_"
-msgstr "Lesen"
+msgstr "Nachrichten Lesen"
 
 msgid "_Compose_"
-msgstr "Erstellen"
+msgstr "Nachricht Erstellen"
 
 msgid "_Search_"
 msgstr "Suchen"
 
 msgid "_Address_book_"
-msgstr "Adress Buch"
+msgstr "Adressbuch"
 
 msgid "_Folders_"
 msgstr "Folder"
@@ -47,7 +45,7 @@ msgid "_of_"
 msgstr "von"
 
 msgid "_Selected_messages_"
-msgstr "Ausgewählte Nachrichten"
+msgstr "markierte Nachrichten"
 
 msgid "_All_"
 msgstr "Alle"
@@ -65,7 +63,7 @@ msgid "_All/None_"
 msgstr "Alle/Keine"
 
 msgid "_Subject_"
-msgstr "Subject"
+msgstr "Subjekt"
 
 msgid "_From_"
 msgstr "Von"
@@ -77,13 +75,13 @@ msgid "_Size_"
 msgstr "Grösse"
 
 msgid "_Compose_your_mail_"
-msgstr "Erstelle EMail"
+msgstr "EMail erstellen"
 
 msgid "_Back_to_message_list_"
-msgstr "Zurück zur EMail Liste"
+msgstr "Zurück zur EMail Übersicht"
 
 msgid "_Acknowledgement_of_read_"
-msgstr "Bestätige Gelesen "
+msgstr "Bestätige gelesene EMails "
 
 msgid "_TO:_"
 msgstr "An:"
@@ -101,16 +99,16 @@ msgid "_Send_"
 msgstr "Senden"
 
 msgid "_Cancel_"
-msgstr "Canceln"
+msgstr "Abbrechen"
 
 msgid "_Save_as_draft_"
-msgstr "Sichern als Draft"
+msgstr "Sichern als Draft-Version"
 
 msgid "_Attachments_list_"
 msgstr "Anhang Liste:"
 
 msgid "_Add_"
-msgstr "Zufügen"
+msgstr "Hinzufügen"
 
 msgid "_Id_"
 msgstr "Id"
@@ -137,7 +135,7 @@ msgid "_In_message_body_"
 msgstr "In Nachrichten Text"
 
 msgid "_In_subject_"
-msgstr "In Subject"
+msgstr "In Subjekt"
 
 msgid "_In_from_field_"
 msgstr "Im 'Von' Feld"
@@ -313,7 +311,7 @@ msgid "_Search_Body_"
 msgstr "Email Nachricht:"
 
 msgid "_Search_Subject_"
-msgstr "Subject:"
+msgstr "Subjekt:"
 
 msgid "_Search_From_"
 msgstr "Sender:"
@@ -373,13 +371,13 @@ msgid "label_deliveryMode"
 msgstr "Auslieferungs Modus"
 
 msgid "deliveryMode_help"
-msgstr "Der Auslieferungs Modus spezifiziert wie die EMails an den Empfänger ausgeliefert werden:\n- Kein weiterleiten : EMails werden nicht weitergeleitet zur eventuell angegebenen Weiterleitungs-Adresse\n- Nur Weiterleiten : EMails werden nur weitergeleitet zur Weiterleitungs Adresse\n- Lokal : EMails werden weitergeleitet zur angegebenen Weiterleitungs Adresse und eine Kope verbleibt in der lokalen Mailbox."
+msgstr "Der Auslieferungs Modus legt fest wie die EMails an den Empfänger ausgeliefert werden:\n- Nicht Weiterleiten : EMails werden nicht weitergesandt zur ggfs angegebenen Weiterleitungs-Adresse\n- Nur Weiterleiten : EMails werden nur weitergesandt zur Weiterleitungs Adresse\n- Lokal : EMails werden weitergesandt zur angegebenen Weiterleitungs Adresse und eine Kope verbleibt in der lokalen Mailbox."
 
 msgid "_Choose_recipients_"
 msgstr "Wähle die Empfänger"
 
 msgid "label_address_book"
-msgstr "Adress Buch"
+msgstr "Adressbuch"
 
 msgid "_Add_to_private_addressbook_"
 msgstr "Hinzufügen zum privaten Adressbuch"
@@ -388,19 +386,19 @@ msgid "cpswebmail_enter_recipient"
 msgstr "Bitte geben Sie einen Empfänger an"
 
 msgid "label_personal_addressbooklinks"
-msgstr "Privates Adressbuch Links"
+msgstr "Privates Adressbuch Verweis"
 
 msgid "_Add_link_to_private_addressbook_"
-msgstr "Hinzufügen zum privaten Adressbuch Links"
+msgstr "Verweis Hinzufügen zum privaten Adressbuch"
 
 msgid "_No_Attachments_"
-msgstr "No attachments"
+msgstr "Keine Anhänge"
 
 msgid "label_name"
 msgstr "Name"
 
 msgid "cpswebmail_no_attachment_selected"
-msgstr "Kein Attachment ausgewählt"
+msgstr "Kein Mailanhang ausgewählt"
 
 msgid "cpswebmail_attachments_saved"
 msgstr "Emailanhänge gespeichert"
