@@ -1,14 +1,7 @@
-# translation of es.po to Euskara
-# translation of en.po to Euskara
-# Copyright (C) 2005 Free Software Foundation, Inc.
-# Aitzol Naberan Burgaña, 2005.
-# Aitzol Naberan Burgaña, 2005.
-# Aitzol Naberan Burgaña, 2005.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: CPSWebMail\n"
-"PO-Revision-Date: 2005-05-18 17:40+0100\n"
+"PO-Revision-Date: 2005-09-01 17:17+0100\n"
 "Last-Translator: Jesús <jesusmartin@lasalle.es>\n"
 "Language-Team: español <jesusmartin@lasalle.es>\n"
 "MIME-Version: 1.0\n"
@@ -411,9 +404,7 @@ msgid "imap_folder_creation_unsuccessfull"
 msgstr "Error al crear la nueva carpeta IMAP."
 
 msgid "imap_folder_creation_rules"
-msgstr ""
-"El nombre sólo puede contener caracteres alfanuméricos,\n"
-"espacios, guiones y barras bajas."
+msgstr "El nombre sólo puede contener caracteres alfanuméricos."
 
 msgid "cpswebmail_folder_search_rules"
 msgstr "La búsqueda se realiza sólo en las carpetas, no en las subcarpetas"
@@ -460,3 +451,26 @@ msgstr "No hay adjuntos"
 msgid "label_name"
 msgstr "Nombre"
 
+msgid "cpswebmail_no_attachment_selected"
+msgstr "No he seleccionado ningún archivo adjunto"
+
+msgid "cpswebmail_attachments_saved"
+msgstr "Archivo(s) adjunto(s) exportado(s)"
+
+msgid "cpswebmail_error_export_attachments"
+msgstr "Error al exportar los archivos adjuntos"
+
+msgid "cpswebmail_err_attachment"
+msgstr "Error al descargar el archivo adjunto"
+
+msgid "cpswebmail_error_attachment_empty"
+msgstr "Error: el archivo adjunto está vacío"
+
+msgid "cpswebmail_error"
+msgstr "Error CPSWebmail"
+
+msgid "smtp_connection_error"
+msgstr "Error de conexión al servidor SMTP."
+
+msgid "_IMAP_Access_Error_Caution_Admin_"
+msgstr "Contacte con el administrador del sitio si piensa que los parámetros no son correctos."
