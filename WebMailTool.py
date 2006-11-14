@@ -1,6 +1,6 @@
 # -*- coding: iso-8859-15 -*-
 #
-# Copyright 2002 Nuxeo SARL <http://www.nuxeo.com>
+# Copyright 2002-2006 Nuxeo SAS <http://www.nuxeo.com>
 # Author: Julien Anguenot <mailto:ja@nuxeo.com>
 # See LICENSE.TXT for licensing information
 #
@@ -67,12 +67,6 @@ try:
 except ImportError:
     # BBB for CMF 1.4, remove this in CPS 3.4.0
     from Products.CMFCore.CMFCorePermissions import setDefaultRoles
-
-#=======================
-# CPS DEPENDENCIES :)
-#=======================
-
-from Products.CPSSchemas.BasicWidgets import _isinstance
 
 #==========================
 #    ZOPE PERMISSIONS
@@ -792,7 +786,7 @@ class WebMailTool(UniqueObject, Folder, IMAPProperties, WebMailSession):
         # Creation of an instance of Attachment
         #
         att = REQUEST.get(attKey)
-        if not _isinstance(att, FileUpload):
+        if not isinstance(att, FileUpload):
             err_msg = 'cpswebmail_err_attachment'
         else:
             if att.read(1) == '':

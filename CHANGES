@@ -6,7 +6,7 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
--
+- Fixed old dependency on _isinstance old deprecated method.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
