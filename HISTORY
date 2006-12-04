@@ -1,3 +1,23 @@
+===========================================================
+Package: CPSWebMail 0.14.1
+===========================================================
+First release built by: madarche at: 2006-12-04T15:52:52
+SVN Tag: https://svn.nuxeo.org/pub/CPS3/legacy/CPSWebMail/tags/0.14.1
+Build from: https://svn.nuxeo.org/pub/CPS3/legacy/CPSWebMail/trunk@50470
+
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- Fixed old dependency on _isinstance old deprecated method.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
 *******************************************
 ** CPSWebMail V0.14.0 [R1 build 2006/03/03-17:46 by ben]
 ** SVN URL: https://svn.nuxeo.org/pub/CPSWebMail/trunk Revision: 33914
